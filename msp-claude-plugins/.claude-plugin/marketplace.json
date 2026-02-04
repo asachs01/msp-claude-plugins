@@ -1,0 +1,23 @@
+{
+  "name": "msp-claude-plugins-marketplace",
+  "version": "0.1.0",
+  "description": "A community-driven marketplace of Claude plugins for MSP tools",
+  "author": "MSP Claude Plugins Community",
+  "license": "Apache-2.0",
+  "documentation_url": "https://github.com/msp-claude-plugins/msp-claude-plugins",
+  "vendors": [
+    "kaseya",
+    "connectwise",
+    "halopsa",
+    "ninjaone",
+    "superops",
+    "datto"
+  ],
+  "categories": [
+    "psa",
+    "rmm",
+    "documentation",
+    "billing",
+    "reporting"
+  ]
+}

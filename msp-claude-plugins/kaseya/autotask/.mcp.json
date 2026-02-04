@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "autotask": {
+      "command": "npx",
+      "args": ["-y", "@msp-plugins/autotask-mcp-server"],
+      "env": {
+        "AUTOTASK_USERNAME": "${AUTOTASK_USERNAME}",
+        "AUTOTASK_SECRET": "${AUTOTASK_SECRET}",
+        "AUTOTASK_INTEGRATION_CODE": "${AUTOTASK_INTEGRATION_CODE}",
+        "AUTOTASK_ZONE": "${AUTOTASK_ZONE}"
+      }
+    }
+  }
+}

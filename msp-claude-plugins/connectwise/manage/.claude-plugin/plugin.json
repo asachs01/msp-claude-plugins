@@ -1,0 +1,17 @@
+{
+  "name": "connectwise-manage",
+  "version": "0.1.0",
+  "description": "Claude plugins for ConnectWise Manage PSA - tickets, companies, agreements, projects",
+  "author": "MSP Claude Plugins Community",
+  "vendor": "connectwise",
+  "product": "manage",
+  "api_version": "2021.1",
+  "requires_api_key": true,
+  "documentation_url": "https://developer.connectwise.com/Products/Manage/REST",
+  "skills": [
+    "ticket-management",
+    "service-board-routing",
+    "agreement-management"
+  ],
+  "commands": []
+}

@@ -1,0 +1,312 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Set up repository structure",
+        "description": "Create the initial repository structure following the hierarchical organization outlined in the PRD",
+        "details": "Initialize a new GitHub repository with the name 'msp-claude-plugins' or 'claude-msp-marketplace'. Create the folder structure as specified in the PRD, including root directories for each vendor (kaseya, connectwise, halopsa, ninjaone, superops, datto, shared). Set up the _templates and _standards directories with placeholder files. Create the .claude-plugin directory with an initial marketplace.json manifest. Include LICENSE (Apache 2.0), README.md, CONTRIBUTING.md, and CODE_OF_CONDUCT.md files.\n\nCode for marketplace.json:\n```json\n{\n  \"name\": \"msp-claude-plugins-marketplace\",\n  \"version\": \"0.1.0\",\n  \"description\": \"A community-driven marketplace of Claude plugins for MSP tools\",\n  \"author\": \"MSP Claude Plugins Community\",\n  \"documentation_url\": \"https://github.com/[org-name]/msp-claude-plugins\"\n}\n```",
+        "testStrategy": "Verify that all directories and files are created with the correct structure. Validate the marketplace.json file against the Claude plugin schema. Ensure all placeholder files are properly formatted and contain appropriate initial content.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:53:40.563Z"
+      },
+      {
+        "id": "2",
+        "title": "Create contribution templates",
+        "description": "Develop templates for contributors to use when creating PRDs, skills, and commands",
+        "details": "Create the following template files in the _templates directory:\n\n1. plugin-prd-template.md - A template for creating PRDs following the structure outlined in the PRD\n2. skill-template/SKILL.md - A template for creating skills with proper frontmatter and sections\n3. command-template.md - A template for creating commands with proper arguments and descriptions\n\nAlso create the llm-prompts directory with the following files:\n1. prd-generation.md - The prompt for generating PRDs using LLMs\n2. skill-generation.md - The prompt for generating skills using LLMs\n3. command-generation.md - The prompt for generating commands using LLMs\n\nEnsure all templates follow the formats specified in the PRD and include appropriate placeholders and instructions for contributors.",
+        "testStrategy": "Review each template for completeness and adherence to the formats specified in the PRD. Test each template by creating a sample PRD, skill, and command to ensure they provide clear guidance and result in properly formatted outputs.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:53:55.888Z"
+      },
+      {
+        "id": "3",
+        "title": "Develop contribution guidelines",
+        "description": "Create comprehensive contribution guidelines explaining the process for submitting new plugins, skills, and commands",
+        "details": "Create a detailed CONTRIBUTING.md file that outlines:\n\n1. The PRD mandate and review process\n2. How to use the templates\n3. The LLM-assisted development standards\n4. The quality checklist for submissions\n5. The PR review process\n6. Code of conduct guidelines\n7. How to get help or ask questions\n\nInclude specific instructions for:\n- Forking the repository\n- Creating a new branch\n- Using the templates\n- Submitting a PR\n- Responding to review feedback\n\nEmphasize that all development must begin with a PRD that is reviewed and approved before implementation begins.",
+        "testStrategy": "Have multiple potential contributors review the guidelines for clarity and completeness. Test the guidelines by following them to create a sample contribution and ensure the process is clear and achievable.",
+        "priority": "high",
+        "dependencies": [
+          "1",
+          "2"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:55:22.661Z"
+      },
+      {
+        "id": "4",
+        "title": "Develop quality standards documentation",
+        "description": "Create documentation outlining the quality standards for PRDs, skills, and commands",
+        "details": "Create the following files in the _standards directory:\n\n1. prd-requirements.md - Detailed requirements for PRDs, including sections, level of detail, and approval criteria\n2. skill-quality-checklist.md - Checklist for ensuring skills meet quality standards, including format, content, examples, and error handling\n3. api-documentation-guide.md - Guidelines for documenting API interactions, including authentication, endpoints, request/response formats, and error handling\n\nEach document should provide clear, actionable guidance for contributors to ensure their submissions meet the quality standards of the project. Include examples of good and bad practices where appropriate.",
+        "testStrategy": "Review the standards documentation for clarity, completeness, and alignment with the PRD. Test the standards by applying them to sample contributions and ensuring they result in high-quality outputs.",
+        "priority": "medium",
+        "dependencies": [
+          "1",
+          "2"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:55:29.465Z"
+      },
+      {
+        "id": "5",
+        "title": "Implement Kaseya Autotask plugin structure",
+        "description": "Create the initial structure for the Kaseya Autotask plugin, which is the first priority vendor in the roadmap",
+        "details": "Create the directory structure for the Kaseya Autotask plugin following the plugin component structure outlined in the PRD:\n\n```\nkaseya/autotask/\n├── .claude-plugin/\n│   └── plugin.json           # Plugin manifest\n├── .mcp.json                 # MCP server configuration\n├── README.md                 # Product-specific documentation\n├── prd/                      # PRD directory\n├── commands/                 # Directory for commands\n├── skills/                   # Directory for skills\n│   ├── tickets/\n│   ├── crm/\n│   ├── projects/\n│   ├── contracts/\n│   └── api-patterns/\n└── agents/                   # Directory for subagents\n```\n\nImplement the plugin.json manifest with the following content:\n\n```json\n{\n  \"name\": \"kaseya-autotask\",\n  \"version\": \"0.1.0\",\n  \"description\": \"Claude plugins for Kaseya Autotask PSA - tickets, CRM, projects, contracts\",\n  \"author\": \"MSP Claude Plugins Community\",\n  \"vendor\": \"kaseya\",\n  \"product\": \"autotask\",\n  \"api_version\": \"1.6\",\n  \"requires_api_key\": true,\n  \"documentation_url\": \"https://ww5.autotask.net/help/DeveloperHelp/Content/APIs/REST/REST_API_Home.htm\"\n}\n```\n\nImplement the .mcp.json file with the configuration specified in the PRD.",
+        "testStrategy": "Verify that the directory structure is created correctly. Validate the plugin.json and .mcp.json files against their respective schemas. Ensure the README.md file contains appropriate initial content.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:54:33.549Z"
+      },
+      {
+        "id": "6",
+        "title": "Develop Autotask Ticket Management skill",
+        "description": "Create the first skill for the Kaseya Autotask plugin focused on ticket management",
+        "details": "Create the tickets/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about ticket management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask tickets and their role in service delivery\n3. Key concepts including ticket structure, queues, statuses, priorities\n4. API patterns for ticket CRUD operations with JSON examples\n5. Common workflows for ticket triage, escalation, and resolution\n6. Error handling and troubleshooting guidance\n\nFollow the SKILL.md structure outlined in the PRD and ensure all examples use placeholder data only (no real customer data). Include information from Appendix A of the PRD regarding the Tickets Module.",
+        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate the API examples against the Autotask API documentation. Test the skill by having someone unfamiliar with Autotask read it and explain ticket management concepts back to you.",
+        "priority": "high",
+        "dependencies": [
+          "5"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:56:26.139Z"
+      },
+      {
+        "id": "7",
+        "title": "Implement create-ticket command for Autotask",
+        "description": "Develop a slash command for creating tickets in Autotask",
+        "details": "Create the commands/create-ticket.md file for the Kaseya Autotask plugin following the command structure outlined in the PRD. The command should:\n\n1. Include proper frontmatter with name, description, and arguments\n2. List prerequisites including API credentials\n3. Outline steps for creating a ticket including validation, defaults, and error handling\n4. Include error handling for common scenarios\n\nThe command should accept the following arguments:\n- company (required): Company name or ID\n- title (required): Ticket title/summary\n- description (optional): Detailed description\n- queue (optional): Queue name or ID\n- priority (optional): Priority level (1-4)\n\nEnsure the command follows the format specified in the PRD and includes appropriate error handling.",
+        "testStrategy": "Review the command for completeness, accuracy, and adherence to the command format. Validate the command against the Autotask API documentation. If possible, test the command with a sandbox Autotask instance to verify it works as expected.",
+        "priority": "medium",
+        "dependencies": [
+          "5",
+          "6"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:56:58.645Z"
+      },
+      {
+        "id": "8",
+        "title": "Develop Autotask CRM skill",
+        "description": "Create a skill for the Kaseya Autotask plugin focused on CRM functionality",
+        "details": "Create the crm/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about CRM functionality. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask CRM components (companies, contacts, sites)\n3. Key concepts including company structure, contact roles, site management\n4. API patterns for CRM CRUD operations with JSON examples\n5. Common workflows for managing companies, contacts, and sites\n6. Error handling and troubleshooting guidance\n\nFollow the SKILL.md structure outlined in the PRD and ensure all examples use placeholder data only. Include information from Appendix A of the PRD regarding the CRM Module.",
+        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate the API examples against the Autotask API documentation. Test the skill by having someone unfamiliar with Autotask read it and explain CRM concepts back to you.",
+        "priority": "medium",
+        "dependencies": [
+          "5"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:58:12.988Z"
+      },
+      {
+        "id": "9",
+        "title": "Develop Autotask Projects skill",
+        "description": "Create a skill for the Kaseya Autotask plugin focused on project management",
+        "details": "Create the projects/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about project management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask project management\n3. Key concepts including project structure, tasks, phases, milestones\n4. API patterns for project CRUD operations with JSON examples\n5. Common workflows for creating and managing projects\n6. Error handling and troubleshooting guidance\n\nFollow the SKILL.md structure outlined in the PRD and ensure all examples use placeholder data only. Include information from Appendix A of the PRD regarding the Projects Module.",
+        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate the API examples against the Autotask API documentation. Test the skill by having someone unfamiliar with Autotask read it and explain project management concepts back to you.",
+        "priority": "medium",
+        "dependencies": [
+          "5"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:58:49.204Z"
+      },
+      {
+        "id": "10",
+        "title": "Develop Autotask Contracts skill",
+        "description": "Create a skill for the Kaseya Autotask plugin focused on contract management",
+        "details": "Create the contracts/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about contract management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask contract types and functionality\n3. Key concepts including contract types, service levels, billing rules\n4. API patterns for contract CRUD operations with JSON examples\n5. Common workflows for managing contracts\n6. Error handling and troubleshooting guidance\n\nFollow the SKILL.md structure outlined in the PRD and ensure all examples use placeholder data only. Include information from Appendix A of the PRD regarding the Contracts Module.",
+        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate the API examples against the Autotask API documentation. Test the skill by having someone unfamiliar with Autotask read it and explain contract management concepts back to you.",
+        "priority": "medium",
+        "dependencies": [
+          "5"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:59:28.896Z"
+      },
+      {
+        "id": "11",
+        "title": "Implement search-tickets command for Autotask",
+        "description": "Develop a slash command for searching tickets in Autotask",
+        "details": "Create the commands/search-tickets.md file for the Kaseya Autotask plugin following the command structure outlined in the PRD. The command should:\n\n1. Include proper frontmatter with name, description, and arguments\n2. List prerequisites including API credentials\n3. Outline steps for searching tickets with various filters\n4. Include error handling for common scenarios\n\nThe command should accept the following arguments:\n- company (optional): Company name or ID to filter by\n- status (optional): Ticket status to filter by\n- priority (optional): Priority level to filter by\n- queue (optional): Queue name or ID to filter by\n- dateRange (optional): Date range for ticket creation/update\n- searchText (optional): Text to search for in ticket title/description\n\nEnsure the command follows the format specified in the PRD and includes appropriate error handling.",
+        "testStrategy": "Review the command for completeness, accuracy, and adherence to the command format. Validate the command against the Autotask API documentation. If possible, test the command with a sandbox Autotask instance to verify it works as expected.",
+        "priority": "medium",
+        "dependencies": [
+          "5",
+          "6"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T14:57:31.092Z"
+      },
+      {
+        "id": "12",
+        "title": "Develop shared MSP terminology skill",
+        "description": "Create a vendor-agnostic skill covering common MSP terminology and acronyms",
+        "details": "Create the shared/skills/msp-terminology/SKILL.md file with comprehensive information about MSP terminology. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of MSP industry terminology\n3. Definitions of common acronyms (PSA, RMM, SLA, BCDR, etc.)\n4. Explanations of common service delivery concepts\n5. Descriptions of common roles in MSPs\n6. Vendor-neutral explanations of tool categories\n\nThis skill should be vendor-agnostic and serve as a foundation for understanding MSP concepts across all plugins. It should be comprehensive enough to give Claude a solid understanding of MSP operations and terminology.",
+        "testStrategy": "Review the skill for completeness, accuracy, and clarity. Test the skill by having someone unfamiliar with MSPs read it and explain key concepts back to you. Verify that all common MSP acronyms and terms are included and correctly defined.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:00:06.329Z"
+      },
+      {
+        "id": "13",
+        "title": "Develop shared ticket triage skill",
+        "description": "Create a vendor-agnostic skill covering best practices for ticket triage in MSPs",
+        "details": "Create the shared/skills/ticket-triage/SKILL.md file with comprehensive information about ticket triage best practices. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of ticket triage in MSP operations\n3. Common triage workflows and decision trees\n4. Priority determination guidelines\n5. Escalation criteria and processes\n6. Customer communication templates and examples\n\nThis skill should be vendor-agnostic and applicable across different PSA systems. It should provide Claude with a solid understanding of how MSPs handle incoming service requests and make decisions about routing, prioritization, and escalation.",
+        "testStrategy": "Review the skill for completeness, accuracy, and clarity. Test the skill by having experienced MSP technicians review it for alignment with industry best practices. Verify that the triage workflows and decision trees are logical and comprehensive.",
+        "priority": "medium",
+        "dependencies": [
+          "1",
+          "12"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:00:54.537Z"
+      },
+      {
+        "id": "14",
+        "title": "Implement ConnectWise Manage plugin structure",
+        "description": "Create the initial structure for the ConnectWise Manage plugin, which is part of the second phase vendor in the roadmap",
+        "details": "Create the directory structure for the ConnectWise Manage plugin following the plugin component structure outlined in the PRD:\n\n```\nconnectwise/manage/\n├── .claude-plugin/\n│   └── plugin.json           # Plugin manifest\n├── .mcp.json                 # MCP server configuration\n├── README.md                 # Product-specific documentation\n├── prd/                      # PRD directory\n├── commands/                 # Directory for commands\n├── skills/                   # Directory for skills\n│   ├── ticket-management/\n│   ├── service-board-routing/\n│   └── agreement-management/\n└── agents/                   # Directory for subagents\n```\n\nImplement the plugin.json manifest with the following content:\n\n```json\n{\n  \"name\": \"connectwise-manage\",\n  \"version\": \"0.1.0\",\n  \"description\": \"Claude plugins for ConnectWise Manage - tickets, service boards, agreements\",\n  \"author\": \"MSP Claude Plugins Community\",\n  \"vendor\": \"connectwise\",\n  \"product\": \"manage\",\n  \"api_version\": \"2022.1\",\n  \"requires_api_key\": true,\n  \"documentation_url\": \"https://developer.connectwise.com/Products/Manage/REST\"\n}\n```\n\nImplement a placeholder .mcp.json file with appropriate structure for ConnectWise authentication.",
+        "testStrategy": "Verify that the directory structure is created correctly. Validate the plugin.json file against the Claude plugin schema. Ensure the README.md file contains appropriate initial content.",
+        "priority": "low",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:01:25.869Z"
+      },
+      {
+        "id": "15",
+        "title": "Create project README and documentation",
+        "description": "Develop comprehensive README and documentation for the project",
+        "details": "Create a detailed README.md file for the root of the repository that includes:\n\n1. Project overview and purpose\n2. Vision and goals\n3. Current status and roadmap\n4. How to contribute\n5. How to use the plugins\n6. Directory structure explanation\n7. Vendor coverage status\n\nAlso create a CODE_OF_CONDUCT.md file based on the Contributor Covenant or similar standard. Ensure all documentation is clear, comprehensive, and welcoming to new contributors. Include information about the governance model and how decisions are made in the project.",
+        "testStrategy": "Review the documentation for completeness, clarity, and accuracy. Have potential contributors review the documentation and provide feedback. Test the documentation by having someone unfamiliar with the project follow it to understand the project and how to contribute.",
+        "priority": "high",
+        "dependencies": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:02:05.526Z"
+      },
+      {
+        "id": "16",
+        "title": "Enhance Autotask Ticket Skill with Comprehensive Field Definitions",
+        "description": "Update the existing Autotask Ticket skill with detailed field definitions from autotask-node, including status codes, priority values, SLA calculation logic, escalation rules, and metrics calculations.",
+        "details": "Enhance the existing tickets/SKILL.md file for the Kaseya Autotask plugin with more comprehensive field definitions and technical details:\n\n1. Add a new section titled \"Ticket Field Definitions\" that includes:\n   - Complete status code mappings with descriptions:\n     - NEW:1 - Ticket has been created but not yet assigned or worked on\n     - IN_PROGRESS:2 - Ticket is actively being worked on\n     - COMPLETE:5 - Ticket has been resolved and closed\n     - WAITING_CUSTOMER:6 - Ticket is on hold pending customer response\n     - WAITING_MATERIALS:13 - Ticket is on hold pending arrival of materials\n     - ESCALATED:14 - Ticket has been escalated to higher support tier\n\n   - Priority value mappings with descriptions:\n     - LOW:1 - Non-urgent issues with minimal business impact\n     - MEDIUM:2 - Standard issues affecting limited business functions\n     - HIGH:3 - Urgent issues with significant business impact\n     - CRITICAL:4 - Emergency issues causing business stoppage\n\n2. Add a section on \"SLA Calculation Logic\" that explains:\n   - How response time SLAs are calculated\n   - How resolution time SLAs are calculated\n   - Business hours vs. calendar hours calculation methods\n   - SLA pausing rules (when tickets are in WAITING_CUSTOMER status)\n   - SLA violation triggers and notifications\n\n3. Add a section on \"Escalation Rules\" that covers:\n   - Time-based escalation patterns\n   - Priority-based escalation paths\n   - Queue-based escalation workflows\n   - Notification templates for escalations\n   - Manual vs. automatic escalation processes\n\n4. Add a section on \"Ticket Metrics Calculations\" that explains:\n   - First response time calculation\n   - Resolution time calculation\n   - Technician utilization metrics\n   - SLA compliance percentage calculation\n   - Customer satisfaction score integration\n\n5. Update the API examples to include:\n   - Examples of creating tickets with specific status codes and priorities\n   - Examples of updating ticket status with proper field values\n   - Examples of calculating SLA metrics\n   - Examples of implementing escalation rules\n\n6. Include code snippets from the autotask-node library showing how to properly work with these fields and values.\n\n7. Update the troubleshooting section to address common issues related to status transitions, SLA calculations, and escalation rules.\n\nAll additions should maintain the existing format and style of the SKILL.md file while significantly enhancing the technical depth and practical utility of the content.",
+        "testStrategy": "1. Review the enhanced skill document for completeness, ensuring all status codes, priority values, SLA logic, escalation rules, and metrics calculations are accurately documented.\n\n2. Validate all field definitions against the official Autotask API documentation and the autotask-node library to ensure accuracy.\n\n3. Test the API examples by implementing them in a test environment to confirm they work as expected.\n\n4. Have an Autotask administrator review the SLA calculation logic and escalation rules sections for technical accuracy.\n\n5. Create test tickets in an Autotask development environment using the provided examples to verify the status codes and priority values work as documented.\n\n6. Develop a simple script using the autotask-node library that implements the SLA calculation logic as described in the skill, and verify the results match expected outcomes.\n\n7. Have someone unfamiliar with Autotask read the enhanced skill and explain back the concepts of status codes, priority values, SLA calculations, and escalation rules to verify clarity and comprehensiveness.\n\n8. Compare the enhanced skill against the original to ensure all existing content remains intact while the new content integrates seamlessly.\n\n9. Check that all code examples follow best practices and include proper error handling.",
+        "status": "done",
+        "dependencies": [
+          "6"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:14:09.328Z"
+      },
+      {
+        "id": "17",
+        "title": "Create Autotask API Patterns Skill",
+        "description": "Develop a comprehensive skill document covering Autotask API patterns including query operations, pagination, includes, authentication, and error handling.",
+        "details": "Create the api-patterns/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about API interaction patterns. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask API architecture and access methods\n3. Authentication patterns including header requirements and token management\n4. Detailed explanation of query builder operations with examples for all 14 operators:\n   - Equality operators: eq, ne\n   - Comparison operators: gt, gte, lt, lte\n   - String operators: contains, startsWith, endsWith\n   - Collection operators: in, notIn\n   - Null operators: isNull, isNotNull\n   - Range operator: between\n5. Pagination implementation with examples of:\n   - Page-based pagination\n   - Cursor-based pagination\n   - Handling large result sets\n6. Entity includes/expansion patterns for retrieving related data\n7. Zone detection and handling for multi-zone deployments\n8. Rate limiting considerations and best practices\n9. Comprehensive error handling patterns including:\n   - Common error codes and meanings\n   - Retry strategies\n   - Logging recommendations\n10. JSON examples for all operations and patterns\n\nFollow the skill template format and ensure all examples are accurate according to the latest Autotask API documentation. Include practical code snippets that demonstrate proper implementation of each pattern.",
+        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate all API examples against the current Autotask API documentation to ensure they reflect actual API behavior. Test each query operator with a real Autotask instance to verify the examples work as described. Have an experienced Autotask API developer review the document for technical accuracy. Test the skill by having someone with basic Autotask knowledge but limited API experience read it and then demonstrate their understanding of:\n\n1. How to construct queries using different operators\n2. How to implement pagination correctly\n3. How to handle authentication and zones\n4. How to properly handle API errors and rate limiting\n\nDocument any gaps in understanding and refine the skill accordingly. Finally, create a simple test script that implements the key patterns described in the skill to verify practical applicability.",
+        "status": "done",
+        "dependencies": [
+          "5",
+          "6",
+          "8",
+          "9",
+          "10"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:15:16.154Z"
+      },
+      {
+        "id": "18",
+        "title": "Create Autotask Time Entries Skill",
+        "description": "Develop a comprehensive skill document covering Autotask time entry fields, billing calculations, approval workflows, rate configuration, and integration with tickets/projects.",
+        "details": "Create the time-entries/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about time entry management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask time entry system and its importance in MSP operations\n3. Detailed explanation of time entry fields and their purposes:\n   - Date and time range\n   - Resource allocation\n   - Ticket/project association\n   - Work type and role\n   - Billable status\n   - Notes and internal comments\n\n4. Billing calculation logic:\n   - Standard vs overtime rates\n   - Contract billing rules\n   - Fixed price vs time and materials\n   - Rounding rules and minimum time entries\n\n5. Time entry approval workflows:\n   - Submission process\n   - Approval roles and permissions\n   - Rejection handling\n   - Batch approvals\n\n6. Rate configuration:\n   - Resource rates vs role rates\n   - Contract-specific rates\n   - Override hierarchies\n\n7. Integration with tickets and projects:\n   - How time entries affect ticket status\n   - Project budget impact\n   - Time allocation across phases\n\n8. API patterns for time entry operations with JSON examples:\n   - Creating time entries\n   - Updating existing entries\n   - Querying time entries\n   - Bulk operations\n\n9. Include relevant TimeEntry business logic from autotask-node library, with code examples showing:\n   - Data structure mapping\n   - Validation rules\n   - Common operations and transformations\n\n10. Error handling and troubleshooting guidance specific to time entries\n\nFollow the SKILL.md template format and ensure all examples are accurate and reflect current Autotask API behavior.",
+        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate all API examples against the current Autotask API documentation to ensure they reflect actual API behavior.\n\nTest the skill by:\n1. Having someone familiar with Autotask time entry processes review it for technical accuracy\n2. Verifying that all time entry fields are correctly documented\n3. Testing the API examples with a real Autotask instance to confirm they work as described\n4. Checking that the billing calculation explanations match actual Autotask behavior\n5. Ensuring the approval workflow documentation aligns with standard Autotask configurations\n6. Validating that the TimeEntry business logic from autotask-node is correctly represented\n7. Confirming that integration points with tickets and projects are accurately described\n8. Testing each API pattern with different time entry scenarios (billable vs non-billable, different work types, etc.)\n\nHave someone unfamiliar with Autotask time entries read the skill and explain the concepts back to verify the documentation is clear and comprehensive.",
+        "status": "done",
+        "dependencies": [
+          "5",
+          "9",
+          "10",
+          "17"
+        ],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:18:01.637Z"
+      },
+      {
+        "id": "19",
+        "title": "Create time-entry command for logging time against tickets and projects",
+        "description": "Develop a command-line interface command that allows users to log time entries against tickets and projects with billing code selection, notes, and duration calculation.",
+        "details": "Create a new command file in the appropriate directory structure for time entry functionality. The command should:\n\n1. Accept the following parameters:\n   - `--ticket-id` or `--project-id`: The ID of the ticket or project to log time against\n   - `--billing-code`: The billing code to use for the time entry (with selection from available codes)\n   - `--notes`: Description of work performed\n   - `--start-time`: Optional start time (defaults to current time if not provided)\n   - `--end-time`: Optional end time (for completed work)\n   - `--duration`: Optional duration in hours/minutes (alternative to providing start/end times)\n\n2. Implement the following functionality:\n   - Validate that either a ticket ID or project ID is provided\n   - Fetch available billing codes from the Autotask API and allow selection if not specified\n   - Calculate duration automatically if start and end times are provided\n   - Validate that the time entry has all required fields according to Autotask requirements\n   - Submit the time entry to the Autotask API\n   - Display confirmation with entry details upon successful submission\n\n3. Include error handling for:\n   - Invalid ticket or project IDs\n   - Invalid billing codes\n   - API connection failures\n   - Validation errors from the Autotask API\n   - Time entry conflicts or overlaps\n\n4. Follow the command template structure established in Task 2, including proper help text, examples, and documentation.\n\n5. Ensure the command integrates with the Autotask API patterns established in Task 17 for authentication and API interactions.\n\nThe command should be designed to be user-friendly with clear prompts and feedback, allowing for both interactive and non-interactive usage patterns.",
+        "testStrategy": "1. Unit Testing:\n   - Write unit tests for all validation logic\n   - Mock API responses for testing different scenarios\n   - Test duration calculation with various time formats\n   - Test error handling for all identified error cases\n\n2. Integration Testing:\n   - Test the command against a real Autotask instance\n   - Verify time entries are correctly created with all specified parameters\n   - Verify billing code selection works correctly\n   - Test both ticket and project time entries\n\n3. User Acceptance Testing:\n   - Have actual MSP technicians test the command in their workflow\n   - Gather feedback on usability and any missing features\n   - Verify the command works efficiently for daily time tracking needs\n\n4. Edge Case Testing:\n   - Test with very long notes\n   - Test with special characters in input\n   - Test time entries spanning midnight\n   - Test with various time zone configurations\n\n5. Documentation Verification:\n   - Ensure help text is comprehensive and accurate\n   - Verify examples work as documented\n   - Check that all parameters are properly documented",
+        "status": "done",
+        "dependencies": [
+          "2",
+          "5",
+          "17"
+        ],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:18:54.018Z"
+      },
+      {
+        "id": "20",
+        "title": "Create Autotask Configuration Items Skill",
+        "description": "Develop a comprehensive skill document covering hardware/software asset tracking, CI types, DNS records, SSL certificates, relationships, and CMDB patterns in Autotask.",
+        "details": "Create the configuration-items/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about Configuration Items (CI) management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask Configuration Items and CMDB functionality\n3. Key concepts including:\n   - CI types and categories (hardware, software, network devices, etc.)\n   - Asset tracking workflows and lifecycle management\n   - DNS record management through Autotask\n   - SSL certificate tracking and expiration management\n   - CI relationships and dependency mapping\n   - CMDB best practices and patterns\n\n4. API patterns for Configuration Item CRUD operations with JSON examples:\n   - Creating new CIs with proper attributes\n   - Updating CI status and properties\n   - Querying CIs with filters\n   - Managing relationships between CIs\n   - Bulk operations for CI management\n\n5. Common workflows:\n   - Onboarding new assets\n   - Tracking software licenses\n   - Managing DNS records\n   - SSL certificate lifecycle management\n   - Documenting network infrastructure\n   - Building relationship maps\n\n6. Error handling and troubleshooting guidance\n7. Best practices for CMDB maintenance and data quality\n\nFollow the SKILL.md template format and ensure all examples are accurate according to current Autotask API documentation. Include real-world scenarios that demonstrate practical applications of CI management in MSP environments.",
+        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate all API examples against the current Autotask API documentation to ensure they reflect actual API behavior. Test the skill by:\n\n1. Having someone familiar with Autotask CMDB review it for technical accuracy\n2. Verifying that all CI types and categories are correctly documented\n3. Testing each API example with a real Autotask instance to confirm functionality\n4. Ensuring the relationship mapping examples correctly demonstrate parent-child and peer relationships\n5. Validating that DNS record and SSL certificate management workflows are accurate\n6. Checking that asset lifecycle management processes align with Autotask best practices\n7. Confirming that the error handling guidance addresses common issues MSPs encounter with CI management\n\nAdditionally, have someone unfamiliar with Autotask read the skill and explain key CMDB concepts back to you to verify clarity and comprehensiveness.",
+        "status": "done",
+        "dependencies": [
+          "5",
+          "8",
+          "17"
+        ],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-02-04T15:20:34.826Z"
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2026-02-04T15:20:34.827Z",
+      "taskCount": 20,
+      "completedCount": 20,
+      "tags": [
+        "master"
+      ]
+    }
+  }
+}
