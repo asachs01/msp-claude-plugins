@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentation site using Astro with Starlight theme (in progress)
 - GitHub issues for additional PSA/RMM provider plugins (planned)
 
+## [1.1.0] - 2026-02-04
+
+### Added
+
+#### Datto RMM Plugin (`kaseya/datto-rmm/`)
+- **Devices Skill** - Device management with identifiers (UID, hostname, MAC, IP), device types (Desktop, Laptop, Server, ESXi Host, Network Device, Printer), status monitoring, user-defined fields (UDF1-30), and device health workflows
+- **Alerts Skill** - Comprehensive alert handling with all 25+ alert context types including antivirus_ctx, comp_script_ctx, eventlog_ctx, online_offline_status_ctx, patch_ctx, perf_disk_usage_ctx, perf_resource_usage_ctx, ping_ctx, process_status_ctx, ransomware_ctx, srvc_status_ctx, and more
+- **Sites Skill** - Site management with device assignment, site settings, proxy configuration, and site-level operations
+- **Jobs Skill** - Quick job execution, component scripts, job variables, status monitoring, and results retrieval
+- **Audit Skill** - Hardware inventory (CPU, RAM, disks), software inventory, network interfaces, ESXi host audits, and audit freshness tracking
+- **Variables Skill** - Account-level and site-level variables, CRUD operations, variable templates, and inheritance patterns
+- **API Patterns Skill** - OAuth 2.0 authentication, 6 regional platforms (Pinotage, Merlot, Concord, Vidal, Zinfandel, Syrah), token lifecycle (100-hour TTL), pagination (nextPageUrl), rate limiting (600 req/min), and Unix millisecond timestamp handling
+
+#### Datto RMM Commands
+- **device-lookup** - Find devices by hostname, IP address, or MAC address with site filtering
+- **resolve-alert** - Resolve open alerts with context-aware recommendations
+- **run-job** - Run quick jobs on devices with variable support and completion waiting
+- **site-devices** - List devices at a site with status, type, and alert filtering
+
 ## [1.0.0] - 2026-02-04
 
 ### Added
@@ -80,5 +99,6 @@ Each release entry should include:
 
 ---
 
-[Unreleased]: https://github.com/OWNER/msp-claude-plugins/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/OWNER/msp-claude-plugins/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/OWNER/msp-claude-plugins/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/OWNER/msp-claude-plugins/releases/tag/v1.0.0
