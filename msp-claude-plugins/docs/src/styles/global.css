@@ -111,7 +111,11 @@
   }
 
   .prose pre {
-    @apply my-4 rounded-lg overflow-x-auto;
+    @apply my-4 rounded-lg overflow-x-auto bg-neutral-900 text-neutral-100 p-4 relative;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0 text-inherit;
   }
 
   .prose table {
