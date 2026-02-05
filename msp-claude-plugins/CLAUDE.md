@@ -48,3 +48,9 @@ Plugins should use `~/.claude/settings.json` with an `env` section for credentia
 
 ### Validation Status Badges for Plugin Quality
 Use status badges (✅ Validated, 🧪 Community) rather than disclaimer paragraphs to set expectations. Brief footnote: "Validated = tested against production APIs. Community = follows patterns, may need adjustments." No hedging or apologies.
+
+### Claude Desktop vs Claude Code Plugin Architecture
+Claude Desktop uses `claude_desktop_config.json` (not settings.json) and supports MCPB extensions (zip archives), not directory-based plugins. For seamless "Connect" button auth like Anthropic's first-party integrations, vendors need remote HTTP MCP servers (e.g., `https://mcp.slack.com/mcp`). MSP vendors don't have these, so we need hosted MCP servers with our own OAuth layer to store user credentials securely.
+
+### Anthropic Remote MCP Server Pattern
+First-party integrations (Slack, Atlassian, Notion) use vendor-hosted MCP servers at `https://mcp.{vendor}.com/mcp` with OAuth handled by the vendor. For vendors without native OAuth (most MSP tools), implement a hosted MCP server with: (1) our own OAuth layer, (2) secure credential storage per user, (3) proxy to vendor API with stored credentials.
