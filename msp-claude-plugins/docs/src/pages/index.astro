@@ -4,9 +4,30 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import PluginCard from '@/components/PluginCard.astro';
 import InstallCommand from '@/components/InstallCommand.astro';
+import FAQSchema from '@/components/schema/FAQSchema.astro';
+import OrganizationSchema from '@/components/schema/OrganizationSchema.astro';
 import { plugins } from '@/data/plugins';
 
 const baseUrl = import.meta.env.BASE_URL;
+
+const faqs = [
+  {
+    question: "What are MSP Claude Plugins?",
+    answer: "MSP Claude Plugins are community-driven extensions for Claude Code that integrate with PSA and RMM tools including Autotask, Datto RMM, IT Glue, Syncro, Atera, SuperOps.ai, and HaloPSA. They provide skills, commands, and MCP server integrations to supercharge AI-assisted MSP workflows."
+  },
+  {
+    question: "How do I install MSP Claude Plugins?",
+    answer: "Install via the Claude Code marketplace with one command: /plugin marketplace add asachs01/msp-claude-plugins. Then browse available plugins with /plugin."
+  },
+  {
+    question: "What PSA and RMM tools are supported?",
+    answer: "Currently supported platforms include Kaseya Autotask PSA (with full MCP integration), Datto RMM, IT Glue, Syncro MSP, Atera, SuperOps.ai, and HaloPSA. ConnectWise PSA and Automate plugins are coming soon."
+  },
+  {
+    question: "Are MSP Claude Plugins free?",
+    answer: "Yes, all MSP Claude Plugins are free and open source under the MIT license. Community contributions are welcome."
+  }
+];
 
 const features = [
   {
@@ -33,6 +54,8 @@ const features = [
 ---
 
 <BaseLayout title="Home">
+  <FAQSchema faqs={faqs} />
+  <OrganizationSchema />
   <Header />
 
   <!-- Hero Section -->
@@ -41,8 +64,11 @@ const features = [
       <h1 class="text-4xl lg:text-6xl font-bold mb-6 tracking-tight">
         MSP Claude Plugins
       </h1>
-      <p class="text-xl lg:text-2xl text-[var(--muted)] max-w-3xl mx-auto mb-8">
-        One command to supercharge Claude for MSP workflows.
+      <p class="text-xl lg:text-2xl text-[var(--muted)] max-w-3xl mx-auto mb-4">
+        The definitive Claude Code plugin collection for Managed Service Providers.
+      </p>
+      <p class="text-lg text-[var(--muted)] max-w-2xl mx-auto mb-8">
+        <strong>9 plugins supporting 7 MSP platforms with 39+ specialized skills.</strong> Built following the <a href="https://docs.anthropic.com/claude-code/plugins" class="text-accent hover:underline">official Claude Code plugin specification</a>.
       </p>
 
       <div class="max-w-2xl mx-auto mb-8">
@@ -80,9 +106,12 @@ const features = [
     <div class="container">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold mb-4">9 Plugins, One Ecosystem</h2>
-        <p class="text-[var(--muted)] max-w-2xl mx-auto">
+        <p class="text-[var(--muted)] max-w-2xl mx-auto mb-4">
           Comprehensive support for the most popular MSP platforms. Each plugin includes skills,
           commands, and deep API knowledge.
+        </p>
+        <p class="text-sm text-[var(--muted)] max-w-xl mx-auto">
+          Covering Autotask PSA, Datto RMM, IT Glue, Syncro MSP, Atera, SuperOps.ai, and HaloPSA with ConnectWise integrations coming soon.
         </p>
       </div>
 
@@ -94,8 +123,29 @@ const features = [
     </div>
   </section>
 
-  <!-- Quick Start CTA -->
+  <!-- FAQ Section -->
   <section class="py-20">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+        <p class="text-[var(--muted)] max-w-2xl mx-auto">
+          Everything you need to know about MSP Claude Plugins.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto space-y-6">
+        {faqs.map(faq => (
+          <div class="card p-6">
+            <h3 class="font-semibold text-lg mb-2">{faq.question}</h3>
+            <p class="text-[var(--muted)]">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start CTA -->
+  <section class="py-20 bg-neutral-50 dark:bg-neutral-900/50">
     <div class="container">
       <div class="card max-w-4xl mx-auto text-center p-12">
         <h2 class="text-2xl font-bold mb-4">Ready to Get Started?</h2>
