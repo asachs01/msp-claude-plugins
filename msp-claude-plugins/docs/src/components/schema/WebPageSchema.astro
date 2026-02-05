@@ -1,0 +1,62 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  breadcrumbs?: Array<{
+    name: string;
+    url: string;
+  }>;
+}
+
+const {
+  title,
+  description,
+  url,
+  datePublished,
+  dateModified,
+  breadcrumbs
+} = Astro.props;
+
+const webPageSchema: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "description": description,
+  "url": url,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "MSP Claude Plugins",
+    "url": "https://asachs01.github.io/msp-claude-plugins/"
+  }
+};
+
+if (datePublished) {
+  webPageSchema.datePublished = datePublished;
+}
+
+if (dateModified) {
+  webPageSchema.dateModified = dateModified;
+}
+
+const schemas: Record<string, unknown>[] = [webPageSchema];
+
+if (breadcrumbs && breadcrumbs.length > 0) {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": crumb.name,
+      "item": crumb.url
+    }))
+  };
+  schemas.push(breadcrumbSchema);
+}
+---
+{schemas.map(schema => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

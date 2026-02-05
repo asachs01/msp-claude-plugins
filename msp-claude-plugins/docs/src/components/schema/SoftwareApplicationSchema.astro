@@ -1,0 +1,31 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory?: string;
+}
+
+const {
+  name,
+  description,
+  url,
+  applicationCategory = "DeveloperApplication"
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": name,
+  "description": description,
+  "url": url,
+  "applicationCategory": applicationCategory,
+  "operatingSystem": "Cross-platform",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
