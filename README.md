@@ -18,10 +18,9 @@ Inspired by Anthropic's [knowledge-work-plugins](https://github.com/anthropics/k
 
 ### Key Features
 
-- **Vendor-Organized Structure** - Find plugins by the tools you use (Kaseya, ConnectWise, etc.)
-- **Comprehensive Skills** - Domain knowledge for tickets, projects, contracts, and more
-- **Slash Commands** - Quick actions like `/create-ticket` and `/time-entry`
-- **MCP Integration** - Direct API connectivity to your PSA/RMM tools
+- **Vendor-Organized Structure** - Find plugins by the tools you use (Kaseya, Syncro, Atera, etc.)
+- **Comprehensive Skills** - Domain knowledge for tickets, assets, contracts, and more
+- **Slash Commands** - Quick actions like `/create-ticket` and `/search-tickets`
 - **Community-Driven** - Built by MSPs, for MSPs
 
 ---
@@ -29,26 +28,23 @@ Inspired by Anthropic's [knowledge-work-plugins](https://github.com/anthropics/k
 ## Architecture
 
 ```
-┌───────────────────────────────────────────────────────────────────────┐
-│                        MSP Claude Plugins                              │
-├───────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌─────────┐ │
-│  │  Kaseya   │ │   Datto   │ │  IT Glue  │ │  Syncro   │ │  Atera  │ │
-│  │ Autotask  │ │    RMM    │ │           │ │    MSP    │ │         │ │
-│  └───────────┘ └───────────┘ └───────────┘ └───────────┘ └─────────┘ │
-│                                                                        │
-│  ┌───────────┐ ┌───────────┐ ┌───────────┐                           │
-│  │ SuperOps  │ │  HaloPSA  │ │  Shared   │                           │
-│  │    .ai    │ │           │ │  Skills   │                           │
-│  └───────────┘ └───────────┘ └───────────┘                           │
-│                                                                        │
-│  Each plugin provides: Skills • Commands • MCP Integration            │
-│                                                                        │
-│  ┌──────────────────────────────────────────────────────────────────┐ │
-│  │  Quality Standards: PRD Requirements │ Skill Checklists │ Guides │ │
-│  └──────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                      MSP Claude Plugins                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │
+│  │  Kaseya  │ │  Datto   │ │ IT Glue  │ │  Syncro  │           │
+│  │ Autotask │ │   RMM    │ │          │ │   MSP    │           │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘           │
+│                                                                 │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │
+│  │  Atera   │ │ SuperOps │ │ HaloPSA  │ │  Shared  │           │
+│  │          │ │    .ai   │ │          │ │  Skills  │           │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘           │
+│                                                                 │
+│  Each plugin provides: Skills + Commands                        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
