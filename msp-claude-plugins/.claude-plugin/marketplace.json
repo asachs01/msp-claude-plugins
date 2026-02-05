@@ -10,31 +10,79 @@
     {
       "name": "autotask",
       "source": "./kaseya/autotask",
-      "description": "Kaseya Autotask PSA integration with tickets, CRM, projects, contracts, time entries, and configuration items",
+      "description": "Kaseya Autotask PSA - tickets, CRM, projects, contracts, billing",
       "version": "1.0.0",
       "category": "psa",
       "tags": ["kaseya", "autotask", "psa", "tickets", "msp"]
     },
     {
+      "name": "datto-rmm",
+      "source": "./kaseya/datto-rmm",
+      "description": "Datto RMM - devices, alerts, jobs, patches, monitoring",
+      "version": "1.0.0",
+      "category": "rmm",
+      "tags": ["kaseya", "datto", "rmm", "monitoring", "msp"]
+    },
+    {
       "name": "it-glue",
       "source": "./kaseya/it-glue",
-      "description": "Kaseya IT Glue documentation platform integration with organizations, configurations, passwords, documents, and flexible assets",
+      "description": "IT Glue - organizations, assets, passwords, flexible assets",
       "version": "1.0.0",
       "category": "documentation",
       "tags": ["kaseya", "it-glue", "documentation", "passwords", "msp"]
     },
     {
-      "name": "connectwise-manage",
+      "name": "syncro",
+      "source": "./syncro/syncro-msp",
+      "description": "Syncro MSP - tickets, customers, assets, invoicing",
+      "version": "1.0.0",
+      "category": "psa-rmm",
+      "tags": ["syncro", "psa", "rmm", "tickets", "msp"]
+    },
+    {
+      "name": "atera",
+      "source": "./atera/atera",
+      "description": "Atera - tickets, agents, customers, alerts, SNMP/HTTP monitors",
+      "version": "1.0.0",
+      "category": "psa-rmm",
+      "tags": ["atera", "rmm", "psa", "monitoring", "msp"]
+    },
+    {
+      "name": "superops",
+      "source": "./superops/superops-ai",
+      "description": "SuperOps.ai - tickets, assets, clients, runbooks (GraphQL)",
+      "version": "1.0.0",
+      "category": "psa-rmm",
+      "tags": ["superops", "psa", "rmm", "graphql", "msp"]
+    },
+    {
+      "name": "halopsa",
+      "source": "./halopsa/halopsa",
+      "description": "HaloPSA - tickets, clients, assets, contracts (OAuth 2.0)",
+      "version": "1.0.0",
+      "category": "psa",
+      "tags": ["halopsa", "psa", "tickets", "oauth", "msp"]
+    },
+    {
+      "name": "connectwise-psa",
       "source": "./connectwise/manage",
-      "description": "ConnectWise Manage PSA integration (planned)",
-      "version": "0.1.0",
+      "description": "ConnectWise PSA - tickets, companies, contacts, projects, time",
+      "version": "1.0.0",
       "category": "psa",
       "tags": ["connectwise", "psa", "tickets", "msp"]
     },
     {
+      "name": "connectwise-automate",
+      "source": "./connectwise/automate",
+      "description": "ConnectWise Automate - computers, clients, scripts, monitors, alerts",
+      "version": "1.0.0",
+      "category": "rmm",
+      "tags": ["connectwise", "automate", "rmm", "msp"]
+    },
+    {
       "name": "shared-skills",
       "source": "./shared",
-      "description": "Vendor-agnostic MSP skills including terminology and ticket triage",
+      "description": "Vendor-agnostic MSP skills - terminology and ticket triage",
       "version": "1.0.0",
       "category": "knowledge",
       "tags": ["msp", "terminology", "triage", "shared"]
