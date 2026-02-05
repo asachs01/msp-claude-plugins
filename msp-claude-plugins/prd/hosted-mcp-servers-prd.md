@@ -1,6 +1,6 @@
 # Hosted MCP Servers PRD
 
-> Version: 1.3.0
+> Version: 1.4.0
 > Created: 2026-02-05
 > Updated: 2026-02-05
 > Status: Draft - Awaiting Review
@@ -161,6 +161,161 @@ Instead of deploying individual MCP servers per vendor, a **unified MCP Gateway*
 | `node-superops` | `@asachs01/node-superops` | ✅ Published |
 | `node-halopsa` | `@asachs01/node-halopsa` | ✅ Published |
 | `autotask-node` | (local) | ✅ In use by autotask-mcp |
+
+---
+
+## GitHub Organization & Repository Structure
+
+### Why a Dedicated GitHub Organization?
+
+The hosted MCP servers are a distinct product from the msp-claude-plugins marketplace. A dedicated GitHub organization provides:
+
+1. **Clear separation of concerns** - Plugins vs hosted infrastructure
+2. **Independent access control** - Different maintainers for gateway vs MCP servers
+3. **CI/CD isolation** - Separate workflows, secrets, and deployment pipelines
+4. **Professional branding** - `wyre-mcp` clearly indicates hosted MCP services
+5. **Scalability** - Easy to add new MCP servers without cluttering main org
+
+### Organization Name
+
+**Recommended: `wyre-mcp`**
+
+Alternatives considered:
+- `wyre-ai-mcp` - More explicit but longer
+- `msp-mcp-servers` - Generic, doesn't brand to Wyre
+- `wyremcp` - No separator, harder to read
+
+### Repository Structure
+
+```
+github.com/wyre-mcp/
+├── mcp-gateway/              # Fork of agentic-community/mcp-gateway-registry
+│   ├── Python/FastAPI gateway
+│   ├── OAuth 2.1 + PKCE
+│   ├── Credential store
+│   └── Terraform for AWS ECS
+│
+├── autotask-mcp/             # TypeScript MCP server
+│   ├── Uses autotask-node
+│   └── Accepts creds via headers
+│
+├── datto-rmm-mcp/            # TypeScript MCP server
+│   ├── Uses @asachs01/node-datto-rmm
+│   └── Accepts creds via headers
+│
+├── itglue-mcp/               # TypeScript MCP server
+│   ├── Uses @asachs01/node-it-glue
+│   └── Accepts creds via headers
+│
+├── syncro-mcp/               # TypeScript MCP server
+│   ├── Uses @asachs01/node-syncro
+│   └── Accepts creds via headers
+│
+├── atera-mcp/                # TypeScript MCP server
+│   ├── Uses @asachs01/node-atera
+│   └── Accepts creds via headers
+│
+├── superops-mcp/             # TypeScript MCP server
+│   ├── Uses @asachs01/node-superops
+│   └── Accepts creds via headers
+│
+├── halopsa-mcp/              # TypeScript MCP server
+│   ├── Uses @asachs01/node-halopsa
+│   └── Native OAuth passthrough
+│
+├── connectwise-psa-mcp/      # TypeScript MCP server (Phase 2)
+│   └── New library needed
+│
+├── connectwise-automate-mcp/ # TypeScript MCP server (Phase 2)
+│   └── New library needed
+│
+└── .github/                  # Org-level templates
+    ├── ISSUE_TEMPLATE/
+    ├── PULL_REQUEST_TEMPLATE.md
+    └── workflows/            # Reusable workflows
+```
+
+### Repository Naming Convention
+
+```
+{vendor}-mcp
+```
+
+Examples:
+- `autotask-mcp` (not `autotask-mcp-server` or `mcp-autotask`)
+- `datto-rmm-mcp` (preserves "rmm" for clarity)
+- `itglue-mcp` (not `it-glue-mcp` - match API naming)
+
+### Repository Standards
+
+Each MCP server repository should include:
+
+```
+{vendor}-mcp/
+├── src/
+│   ├── index.ts              # MCP server entry point
+│   ├── tools/                # Tool implementations
+│   └── handlers/             # Credential header parsing
+├── tests/
+├── Dockerfile                # For gateway deployment
+├── package.json
+├── tsconfig.json
+├── README.md
+├── CHANGELOG.md
+├── LICENSE                   # Apache-2.0 or MIT
+└── .github/
+    └── workflows/
+        ├── ci.yml            # Build, lint, test
+        └── release.yml       # Semantic release + Docker push
+```
+
+### Deployment Model
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    GitHub Organization: wyre-mcp                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│   mcp-gateway repo          →  ghcr.io/wyre-mcp/mcp-gateway     │
+│   autotask-mcp repo         →  ghcr.io/wyre-mcp/autotask-mcp    │
+│   datto-rmm-mcp repo        →  ghcr.io/wyre-mcp/datto-rmm-mcp   │
+│   itglue-mcp repo           →  ghcr.io/wyre-mcp/itglue-mcp      │
+│   ...                       →  ...                               │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    AWS ECS / Docker Compose                      │
+│                    https://mcp.wyre.ai                           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Migration from Current Repos
+
+| Current Location | New Location |
+|-----------------|--------------|
+| `asachs01/autotask-mcp` | `wyre-mcp/autotask-mcp` |
+| (new) | `wyre-mcp/mcp-gateway` (fork) |
+| (new) | `wyre-mcp/datto-rmm-mcp` |
+| (new) | `wyre-mcp/itglue-mcp` |
+| (new) | `wyre-mcp/syncro-mcp` |
+| (new) | `wyre-mcp/atera-mcp` |
+| (new) | `wyre-mcp/superops-mcp` |
+| (new) | `wyre-mcp/halopsa-mcp` |
+
+### npm Package Scope
+
+Option A: Use `@wyre-mcp` scope (requires npm org)
+```json
+"name": "@wyre-mcp/datto-rmm-mcp"
+```
+
+Option B: No npm publishing (Docker-only deployment)
+- MCP servers run as containers, not installed via npm
+- Simplifies distribution, avoids npm scope complexity
+
+**Recommendation**: Option B - Docker-only. These servers are infrastructure, not libraries.
 
 ### Existing Gateway Solutions Evaluated
 
@@ -577,8 +732,16 @@ Headers:
 
 ## Implementation Phases
 
-### Phase 0: Fork & Customize MCP Gateway Registry (Week 1-2)
-- [ ] Fork [agentic-community/mcp-gateway-registry](https://github.com/agentic-community/mcp-gateway-registry)
+### Phase 0a: GitHub Organization Setup (Day 1)
+- [ ] Create `wyre-mcp` GitHub organization
+- [ ] Configure org settings (member permissions, required reviews)
+- [ ] Create org-level issue/PR templates
+- [ ] Set up GitHub Container Registry (ghcr.io/wyre-mcp)
+- [ ] Create org secrets for CI/CD (AWS credentials, registry tokens)
+- [ ] Fork `agentic-community/mcp-gateway-registry` → `wyre-mcp/mcp-gateway`
+
+### Phase 0b: Fork & Customize MCP Gateway (Week 1-2)
+- [ ] Clone fork locally: `wyre-mcp/mcp-gateway`
 - [ ] Set up local development environment (Docker Compose)
 - [ ] Extend `credentials-provider/` to support API key storage (not just OAuth tokens)
 - [ ] Add MSP-specific vendor configs to `oauth_providers.yaml` equivalent
@@ -588,37 +751,46 @@ Headers:
 - [ ] Validate ingress auth works with Keycloak or custom OAuth
 
 ### Phase 1: Datto RMM MCP Server (Week 3)
-- [ ] Create `datto-rmm-mcp` TypeScript project (MCP SDK + node-datto-rmm)
+- [ ] Create repo: `wyre-mcp/datto-rmm-mcp`
+- [ ] Initialize TypeScript project (MCP SDK + @asachs01/node-datto-rmm)
 - [ ] Implement tools: list_devices, get_device, list_alerts, resolve_alert, etc.
 - [ ] Accept credentials via `X-API-Key` / `X-API-Secret` headers from gateway
-- [ ] Add gateway route `/v1/datto-rmm/*` → datto-rmm-mcp
+- [ ] Create Dockerfile and CI/CD workflow
+- [ ] Add gateway route `/v1/datto-rmm/*` → datto-rmm-mcp container
 - [ ] Create Datto RMM credential entry page in gateway UI
 - [ ] Integration testing with real Datto API
-- [ ] Deploy MCP server alongside gateway
+- [ ] Push Docker image to ghcr.io/wyre-mcp/datto-rmm-mcp
+- [ ] Deploy alongside gateway
 
 ### Phase 2: IT Glue MCP Server (Week 4)
-- [ ] Create `itglue-mcp` TypeScript project (MCP SDK + node-it-glue)
+- [ ] Create repo: `wyre-mcp/itglue-mcp`
+- [ ] Initialize TypeScript project (MCP SDK + @asachs01/node-it-glue)
 - [ ] Implement tools: search_organizations, get_password, search_configs, etc.
 - [ ] Accept credentials via `X-API-Key` header from gateway
-- [ ] Add gateway route `/v1/itglue/*` → itglue-mcp
+- [ ] Create Dockerfile and CI/CD workflow
+- [ ] Add gateway route `/v1/itglue/*` → itglue-mcp container
 - [ ] Create IT Glue credential entry page in gateway UI
 - [ ] Integration testing with real IT Glue API
-- [ ] Deploy MCP server alongside gateway
+- [ ] Push Docker image to ghcr.io/wyre-mcp/itglue-mcp
+- [ ] Deploy alongside gateway
 
 ### Phase 3: Autotask Migration (Week 5)
-- [ ] Adapt existing `autotask-mcp` to accept credentials via headers
-- [ ] Add gateway route `/v1/autotask/*` → autotask-mcp
+- [ ] Fork/transfer `asachs01/autotask-mcp` → `wyre-mcp/autotask-mcp`
+- [ ] Adapt to accept credentials via `X-API-Key` / `X-API-Secret` headers
+- [ ] Add gateway route `/v1/autotask/*` → autotask-mcp container
 - [ ] Create Autotask credential entry page in gateway UI
+- [ ] Update Dockerfile and CI/CD for ghcr.io/wyre-mcp
 - [ ] Migration guide for existing local MCP users
 - [ ] Deploy alongside gateway
 
 ### Phase 4: Community Vendor MCP Servers (Weeks 6-9)
-- [ ] `syncro-mcp` (TypeScript + node-syncro)
-- [ ] `atera-mcp` (TypeScript + node-atera)
-- [ ] `superops-mcp` (TypeScript + node-superops)
-- [ ] `halopsa-mcp` (TypeScript + node-halopsa, native OAuth passthrough)
-- [ ] `connectwise-psa-mcp` (TypeScript, new library needed)
-- [ ] `connectwise-automate-mcp` (TypeScript, new library needed)
+- [ ] Create `wyre-mcp/syncro-mcp` (TypeScript + @asachs01/node-syncro)
+- [ ] Create `wyre-mcp/atera-mcp` (TypeScript + @asachs01/node-atera)
+- [ ] Create `wyre-mcp/superops-mcp` (TypeScript + @asachs01/node-superops)
+- [ ] Create `wyre-mcp/halopsa-mcp` (TypeScript + @asachs01/node-halopsa, native OAuth)
+- [ ] Create `wyre-mcp/connectwise-psa-mcp` (TypeScript, new library needed)
+- [ ] Create `wyre-mcp/connectwise-automate-mcp` (TypeScript, new library needed)
+- [ ] All repos follow standard structure with Dockerfile + CI/CD
 
 ### Phase 5: Production Hardening (Week 11+)
 - [ ] Multi-region deployment for latency
@@ -639,6 +811,8 @@ Headers:
 6. ~~**Hosting provider**: AWS (Lambda + API Gateway) vs Fly.io vs Railway vs Kubernetes?~~ → **Resolved: AWS ECS (Terraform included in MCP Gateway Registry) or Fly.io for simpler ops**
 7. ~~**Gateway vs Individual Servers**~~ → **Resolved: Unified gateway using MCP Gateway Registry as foundation**
 8. **Fork strategy**: Fork entire repo or extract just credentials-provider?
+9. ~~**GitHub Organization**~~ → **Resolved: `wyre-mcp` org with separate repos per MCP server**
+10. ~~**npm Publishing**~~ → **Resolved: Docker-only deployment, no npm packages for MCP servers**
 
 ## Architecture Decision: Gateway vs Individual Servers
 

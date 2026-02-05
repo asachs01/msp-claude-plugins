@@ -2,547 +2,702 @@
   "master": {
     "tasks": [
       {
-        "id": "1",
-        "title": "Set up repository structure",
-        "description": "Create the initial repository structure following the hierarchical organization outlined in the PRD",
-        "details": "Initialize a new GitHub repository with the name 'msp-claude-plugins' or 'claude-msp-marketplace'. Create the folder structure as specified in the PRD, including root directories for each vendor (kaseya, connectwise, halopsa, ninjaone, superops, datto, shared). Set up the _templates and _standards directories with placeholder files. Create the .claude-plugin directory with an initial marketplace.json manifest. Include LICENSE (Apache 2.0), README.md, CONTRIBUTING.md, and CODE_OF_CONDUCT.md files.\n\nCode for marketplace.json:\n```json\n{\n  \"name\": \"msp-claude-plugins-marketplace\",\n  \"version\": \"0.1.0\",\n  \"description\": \"A community-driven marketplace of Claude plugins for MSP tools\",\n  \"author\": \"MSP Claude Plugins Community\",\n  \"documentation_url\": \"https://github.com/[org-name]/msp-claude-plugins\"\n}\n```",
-        "testStrategy": "Verify that all directories and files are created with the correct structure. Validate the marketplace.json file against the Claude plugin schema. Ensure all placeholder files are properly formatted and contain appropriate initial content.",
+        "id": 42,
+        "title": "Create GitHub Organization and Repository Structure",
+        "description": "Set up the 'wyre-mcp' GitHub organization and establish the repository structure for the MCP Gateway and vendor-specific MCP servers.",
+        "details": "1. Create the 'wyre-mcp' GitHub organization\n2. Configure organization settings (member permissions, required reviews)\n3. Create organization-level issue/PR templates\n4. Set up GitHub Container Registry (ghcr.io/wyre-mcp)\n5. Create organization secrets for CI/CD (AWS credentials, registry tokens)\n6. Create initial repositories:\n   - mcp-gateway (fork of agentic-community/mcp-gateway-registry)\n   - autotask-mcp (migrate from asachs01/autotask-mcp)\n   - datto-rmm-mcp (new)\n   - itglue-mcp (new)\n   - Additional vendor repos as needed\n7. Establish standard repository structure with README, LICENSE, CI/CD workflows",
+        "testStrategy": "Verify organization creation and proper permissions. Confirm repository structure follows the defined pattern. Test CI/CD workflows with sample commits. Ensure GitHub Container Registry is properly configured for Docker image storage.",
         "priority": "high",
         "dependencies": [],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T02:09:55.656Z"
-      },
-      {
-        "id": "2",
-        "title": "Create contribution templates",
-        "description": "Develop templates for contributors to use when creating PRDs, skills, and commands",
-        "details": "Create the following template files in the _templates directory:\n\n1. plugin-prd-template.md - A template for creating PRDs following the structure outlined in the PRD\n2. skill-template/SKILL.md - A template for creating skills with proper frontmatter and sections\n3. command-template.md - A template for creating commands with proper arguments and descriptions\n\nAlso create the llm-prompts directory with the following files:\n1. prd-generation.md - The prompt for generating PRDs using LLMs\n2. skill-generation.md - The prompt for generating skills using LLMs\n3. command-generation.md - The prompt for generating commands using LLMs\n\nEnsure all templates follow the formats specified in the PRD and include appropriate placeholders and instructions for contributors.",
-        "testStrategy": "Review each template for completeness and adherence to the formats specified in the PRD. Test each template by creating a sample PRD, skill, and command to ensure they provide clear guidance and result in properly formatted outputs.",
-        "priority": "high",
-        "dependencies": [
-          "1"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:29:40.890Z"
-      },
-      {
-        "id": "3",
-        "title": "Develop contribution guidelines",
-        "description": "Create comprehensive contribution guidelines explaining the process for submitting new plugins, skills, and commands",
-        "details": "Create a detailed CONTRIBUTING.md file that outlines:\n\n1. The PRD mandate and review process\n2. How to use the templates\n3. The LLM-assisted development standards\n4. The quality checklist for submissions\n5. The PR review process\n6. Code of conduct guidelines\n7. How to get help or ask questions\n\nInclude specific instructions for:\n- Forking the repository\n- Creating a new branch\n- Using the templates\n- Submitting a PR\n- Responding to review feedback\n\nEmphasize that all development must begin with a PRD that is reviewed and approved before implementation begins.",
-        "testStrategy": "Have multiple potential contributors review the guidelines for clarity and completeness. Test the guidelines by following them to create a sample contribution and ensure the process is clear and achievable.",
-        "priority": "high",
-        "dependencies": [
-          "1",
-          "2"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:29:46.090Z"
-      },
-      {
-        "id": "4",
-        "title": "Develop quality standards documentation",
-        "description": "Create documentation outlining the quality standards for PRDs, skills, and commands",
-        "details": "Create the following files in the _standards directory:\n\n1. prd-requirements.md - Detailed requirements for PRDs, including sections, level of detail, and approval criteria\n2. skill-quality-checklist.md - Checklist for ensuring skills meet quality standards, including format, content, examples, and error handling\n3. api-documentation-guide.md - Guidelines for documenting API interactions, including authentication, endpoints, request/response formats, and error handling\n\nEach document should provide clear, actionable guidance for contributors to ensure their submissions meet the quality standards of the project. Include examples of good and bad practices where appropriate.",
-        "testStrategy": "Review the standards documentation for clarity, completeness, and alignment with the PRD. Test the standards by applying them to sample contributions and ensuring they result in high-quality outputs.",
-        "priority": "medium",
-        "dependencies": [
-          "1",
-          "2"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:31:49.702Z"
-      },
-      {
-        "id": "5",
-        "title": "Implement Kaseya Autotask plugin structure",
-        "description": "Create the initial structure for the Kaseya Autotask plugin, which is the first priority vendor in the roadmap",
-        "details": "Create the directory structure for the Kaseya Autotask plugin following the plugin component structure outlined in the PRD:\n\n```\nkaseya/autotask/\n├── .claude-plugin/\n│   └── plugin.json           # Plugin manifest\n├── .mcp.json                 # MCP server configuration\n├── README.md                 # Product-specific documentation\n├── prd/                      # PRD directory\n├── commands/                 # Directory for commands\n├── skills/                   # Directory for skills\n│   ├── tickets/\n│   ├── crm/\n│   ├── projects/\n│   ├── contracts/\n│   └── api-patterns/\n└── agents/                   # Directory for subagents\n```\n\nImplement the plugin.json manifest with the following content:\n\n```json\n{\n  \"name\": \"kaseya-autotask\",\n  \"version\": \"0.1.0\",\n  \"description\": \"Claude plugins for Kaseya Autotask PSA - tickets, CRM, projects, contracts\",\n  \"author\": \"MSP Claude Plugins Community\",\n  \"vendor\": \"kaseya\",\n  \"product\": \"autotask\",\n  \"api_version\": \"1.6\",\n  \"requires_api_key\": true,\n  \"documentation_url\": \"https://ww5.autotask.net/help/DeveloperHelp/Content/APIs/REST/REST_API_Home.htm\"\n}\n```\n\nImplement the .mcp.json file with the configuration specified in the PRD.",
-        "testStrategy": "Verify that the directory structure is created correctly. Validate the plugin.json and .mcp.json files against their respective schemas. Ensure the README.md file contains appropriate initial content.",
-        "priority": "high",
-        "dependencies": [
-          "1"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:33:24.485Z"
-      },
-      {
-        "id": "6",
-        "title": "Develop Autotask Ticket Management skill",
-        "description": "Create the first skill for the Kaseya Autotask plugin focused on ticket management",
-        "details": "Create the tickets/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about ticket management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask tickets and their role in service delivery\n3. Key concepts including ticket structure, queues, statuses, priorities\n4. API patterns for ticket CRUD operations with JSON examples\n5. Common workflows for ticket triage, escalation, and resolution\n6. Error handling and troubleshooting guidance\n\nFollow the SKILL.md structure outlined in the PRD and ensure all examples use placeholder data only (no real customer data). Include information from Appendix A of the PRD regarding the Tickets Module.",
-        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate the API examples against the Autotask API documentation. Test the skill by having someone unfamiliar with Autotask read it and explain ticket management concepts back to you.",
-        "priority": "high",
-        "dependencies": [
-          "5"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:34:10.124Z"
-      },
-      {
-        "id": "7",
-        "title": "Implement create-ticket command for Autotask",
-        "description": "Develop a slash command for creating tickets in Autotask",
-        "details": "Create the commands/create-ticket.md file for the Kaseya Autotask plugin following the command structure outlined in the PRD. The command should:\n\n1. Include proper frontmatter with name, description, and arguments\n2. List prerequisites including API credentials\n3. Outline steps for creating a ticket including validation, defaults, and error handling\n4. Include error handling for common scenarios\n\nThe command should accept the following arguments:\n- company (required): Company name or ID\n- title (required): Ticket title/summary\n- description (optional): Detailed description\n- queue (optional): Queue name or ID\n- priority (optional): Priority level (1-4)\n\nEnsure the command follows the format specified in the PRD and includes appropriate error handling.",
-        "testStrategy": "Review the command for completeness, accuracy, and adherence to the command format. Validate the command against the Autotask API documentation. If possible, test the command with a sandbox Autotask instance to verify it works as expected.",
-        "priority": "medium",
-        "dependencies": [
-          "5",
-          "6"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:37:34.997Z"
-      },
-      {
-        "id": "8",
-        "title": "Develop Autotask CRM skill",
-        "description": "Create a skill for the Kaseya Autotask plugin focused on CRM functionality",
-        "details": "Create the crm/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about CRM functionality. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask CRM components (companies, contacts, sites)\n3. Key concepts including company structure, contact roles, site management\n4. API patterns for CRM CRUD operations with JSON examples\n5. Common workflows for managing companies, contacts, and sites\n6. Error handling and troubleshooting guidance\n\nFollow the SKILL.md structure outlined in the PRD and ensure all examples use placeholder data only. Include information from Appendix A of the PRD regarding the CRM Module.",
-        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate the API examples against the Autotask API documentation. Test the skill by having someone unfamiliar with Autotask read it and explain CRM concepts back to you.",
-        "priority": "medium",
-        "dependencies": [
-          "5"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:38:18.870Z"
-      },
-      {
-        "id": "9",
-        "title": "Develop Autotask Projects skill",
-        "description": "Create a skill for the Kaseya Autotask plugin focused on project management",
-        "details": "Create the projects/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about project management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask project management\n3. Key concepts including project structure, tasks, phases, milestones\n4. API patterns for project CRUD operations with JSON examples\n5. Common workflows for creating and managing projects\n6. Error handling and troubleshooting guidance\n\nFollow the SKILL.md structure outlined in the PRD and ensure all examples use placeholder data only. Include information from Appendix A of the PRD regarding the Projects Module.",
-        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate the API examples against the Autotask API documentation. Test the skill by having someone unfamiliar with Autotask read it and explain project management concepts back to you.",
-        "priority": "medium",
-        "dependencies": [
-          "5"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:39:39.861Z"
-      },
-      {
-        "id": "10",
-        "title": "Develop Autotask Contracts skill",
-        "description": "Create a skill for the Kaseya Autotask plugin focused on contract management",
-        "details": "Create the contracts/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about contract management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask contract types and functionality\n3. Key concepts including contract types, service levels, billing rules\n4. API patterns for contract CRUD operations with JSON examples\n5. Common workflows for managing contracts\n6. Error handling and troubleshooting guidance\n\nFollow the SKILL.md structure outlined in the PRD and ensure all examples use placeholder data only. Include information from Appendix A of the PRD regarding the Contracts Module.",
-        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate the API examples against the Autotask API documentation. Test the skill by having someone unfamiliar with Autotask read it and explain contract management concepts back to you.",
-        "priority": "medium",
-        "dependencies": [
-          "5"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:40:30.361Z"
-      },
-      {
-        "id": "11",
-        "title": "Implement search-tickets command for Autotask",
-        "description": "Develop a slash command for searching tickets in Autotask",
-        "details": "Create the commands/search-tickets.md file for the Kaseya Autotask plugin following the command structure outlined in the PRD. The command should:\n\n1. Include proper frontmatter with name, description, and arguments\n2. List prerequisites including API credentials\n3. Outline steps for searching tickets with various filters\n4. Include error handling for common scenarios\n\nThe command should accept the following arguments:\n- company (optional): Company name or ID to filter by\n- status (optional): Ticket status to filter by\n- priority (optional): Priority level to filter by\n- queue (optional): Queue name or ID to filter by\n- dateRange (optional): Date range for ticket creation/update\n- searchText (optional): Text to search for in ticket title/description\n\nEnsure the command follows the format specified in the PRD and includes appropriate error handling.",
-        "testStrategy": "Review the command for completeness, accuracy, and adherence to the command format. Validate the command against the Autotask API documentation. If possible, test the command with a sandbox Autotask instance to verify it works as expected.",
-        "priority": "medium",
-        "dependencies": [
-          "5",
-          "6"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:41:39.995Z"
-      },
-      {
-        "id": "12",
-        "title": "Develop shared MSP terminology skill",
-        "description": "Create a vendor-agnostic skill covering common MSP terminology and acronyms",
-        "details": "Create the shared/skills/msp-terminology/SKILL.md file with comprehensive information about MSP terminology. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of MSP industry terminology\n3. Definitions of common acronyms (PSA, RMM, SLA, BCDR, etc.)\n4. Explanations of common service delivery concepts\n5. Descriptions of common roles in MSPs\n6. Vendor-neutral explanations of tool categories\n\nThis skill should be vendor-agnostic and serve as a foundation for understanding MSP concepts across all plugins. It should be comprehensive enough to give Claude a solid understanding of MSP operations and terminology.",
-        "testStrategy": "Review the skill for completeness, accuracy, and clarity. Test the skill by having someone unfamiliar with MSPs read it and explain key concepts back to you. Verify that all common MSP acronyms and terms are included and correctly defined.",
-        "priority": "high",
-        "dependencies": [
-          "1"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:38:23.395Z"
-      },
-      {
-        "id": "13",
-        "title": "Develop shared ticket triage skill",
-        "description": "Create a vendor-agnostic skill covering best practices for ticket triage in MSPs",
-        "details": "Create the shared/skills/ticket-triage/SKILL.md file with comprehensive information about ticket triage best practices. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of ticket triage in MSP operations\n3. Common triage workflows and decision trees\n4. Priority determination guidelines\n5. Escalation criteria and processes\n6. Customer communication templates and examples\n\nThis skill should be vendor-agnostic and applicable across different PSA systems. It should provide Claude with a solid understanding of how MSPs handle incoming service requests and make decisions about routing, prioritization, and escalation.",
-        "testStrategy": "Review the skill for completeness, accuracy, and clarity. Test the skill by having experienced MSP technicians review it for alignment with industry best practices. Verify that the triage workflows and decision trees are logical and comprehensive.",
-        "priority": "medium",
-        "dependencies": [
-          "1",
-          "12"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:38:25.148Z"
-      },
-      {
-        "id": "14",
-        "title": "Implement ConnectWise Manage plugin structure",
-        "description": "Create the initial structure for the ConnectWise Manage plugin, which is part of the second phase vendor in the roadmap",
-        "details": "Create the directory structure for the ConnectWise Manage plugin following the plugin component structure outlined in the PRD:\n\n```\nconnectwise/manage/\n├── .claude-plugin/\n│   └── plugin.json           # Plugin manifest\n├── .mcp.json                 # MCP server configuration\n├── README.md                 # Product-specific documentation\n├── prd/                      # PRD directory\n├── commands/                 # Directory for commands\n├── skills/                   # Directory for skills\n│   ├── ticket-management/\n│   ├── service-board-routing/\n│   └── agreement-management/\n└── agents/                   # Directory for subagents\n```\n\nImplement the plugin.json manifest with the following content:\n\n```json\n{\n  \"name\": \"connectwise-manage\",\n  \"version\": \"0.1.0\",\n  \"description\": \"Claude plugins for ConnectWise Manage - tickets, service boards, agreements\",\n  \"author\": \"MSP Claude Plugins Community\",\n  \"vendor\": \"connectwise\",\n  \"product\": \"manage\",\n  \"api_version\": \"2022.1\",\n  \"requires_api_key\": true,\n  \"documentation_url\": \"https://developer.connectwise.com/Products/Manage/REST\"\n}\n```\n\nImplement a placeholder .mcp.json file with appropriate structure for ConnectWise authentication.",
-        "testStrategy": "Verify that the directory structure is created correctly. Validate the plugin.json file against the Claude plugin schema. Ensure the README.md file contains appropriate initial content.",
-        "priority": "low",
-        "dependencies": [
-          "1"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:38:26.996Z"
-      },
-      {
-        "id": "15",
-        "title": "Create project README and documentation",
-        "description": "Develop comprehensive README and documentation for the project",
-        "details": "Create a detailed README.md file for the root of the repository that includes:\n\n1. Project overview and purpose\n2. Vision and goals\n3. Current status and roadmap\n4. How to contribute\n5. How to use the plugins\n6. Directory structure explanation\n7. Vendor coverage status\n\nAlso create a CODE_OF_CONDUCT.md file based on the Contributor Covenant or similar standard. Ensure all documentation is clear, comprehensive, and welcoming to new contributors. Include information about the governance model and how decisions are made in the project.",
-        "testStrategy": "Review the documentation for completeness, clarity, and accuracy. Have potential contributors review the documentation and provide feedback. Test the documentation by having someone unfamiliar with the project follow it to understand the project and how to contribute.",
-        "priority": "high",
-        "dependencies": [
-          "1",
-          "2",
-          "3",
-          "4"
-        ],
-        "status": "done",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:39:01.767Z"
-      },
-      {
-        "id": "16",
-        "title": "Enhance Autotask Ticket Skill with Comprehensive Field Definitions",
-        "description": "Update the existing Autotask Ticket skill with detailed field definitions from autotask-node, including status codes, priority values, SLA calculation logic, escalation rules, and metrics calculations.",
-        "details": "Enhance the existing tickets/SKILL.md file for the Kaseya Autotask plugin with more comprehensive field definitions and technical details:\n\n1. Add a new section titled \"Ticket Field Definitions\" that includes:\n   - Complete status code mappings with descriptions:\n     - NEW:1 - Ticket has been created but not yet assigned or worked on\n     - IN_PROGRESS:2 - Ticket is actively being worked on\n     - COMPLETE:5 - Ticket has been resolved and closed\n     - WAITING_CUSTOMER:6 - Ticket is on hold pending customer response\n     - WAITING_MATERIALS:13 - Ticket is on hold pending arrival of materials\n     - ESCALATED:14 - Ticket has been escalated to higher support tier\n\n   - Priority value mappings with descriptions:\n     - LOW:1 - Non-urgent issues with minimal business impact\n     - MEDIUM:2 - Standard issues affecting limited business functions\n     - HIGH:3 - Urgent issues with significant business impact\n     - CRITICAL:4 - Emergency issues causing business stoppage\n\n2. Add a section on \"SLA Calculation Logic\" that explains:\n   - How response time SLAs are calculated\n   - How resolution time SLAs are calculated\n   - Business hours vs. calendar hours calculation methods\n   - SLA pausing rules (when tickets are in WAITING_CUSTOMER status)\n   - SLA violation triggers and notifications\n\n3. Add a section on \"Escalation Rules\" that covers:\n   - Time-based escalation patterns\n   - Priority-based escalation paths\n   - Queue-based escalation workflows\n   - Notification templates for escalations\n   - Manual vs. automatic escalation processes\n\n4. Add a section on \"Ticket Metrics Calculations\" that explains:\n   - First response time calculation\n   - Resolution time calculation\n   - Technician utilization metrics\n   - SLA compliance percentage calculation\n   - Customer satisfaction score integration\n\n5. Update the API examples to include:\n   - Examples of creating tickets with specific status codes and priorities\n   - Examples of updating ticket status with proper field values\n   - Examples of calculating SLA metrics\n   - Examples of implementing escalation rules\n\n6. Include code snippets from the autotask-node library showing how to properly work with these fields and values.\n\n7. Update the troubleshooting section to address common issues related to status transitions, SLA calculations, and escalation rules.\n\nAll additions should maintain the existing format and style of the SKILL.md file while significantly enhancing the technical depth and practical utility of the content.",
-        "testStrategy": "1. Review the enhanced skill document for completeness, ensuring all status codes, priority values, SLA logic, escalation rules, and metrics calculations are accurately documented.\n\n2. Validate all field definitions against the official Autotask API documentation and the autotask-node library to ensure accuracy.\n\n3. Test the API examples by implementing them in a test environment to confirm they work as expected.\n\n4. Have an Autotask administrator review the SLA calculation logic and escalation rules sections for technical accuracy.\n\n5. Create test tickets in an Autotask development environment using the provided examples to verify the status codes and priority values work as documented.\n\n6. Develop a simple script using the autotask-node library that implements the SLA calculation logic as described in the skill, and verify the results match expected outcomes.\n\n7. Have someone unfamiliar with Autotask read the enhanced skill and explain back the concepts of status codes, priority values, SLA calculations, and escalation rules to verify clarity and comprehensiveness.\n\n8. Compare the enhanced skill against the original to ensure all existing content remains intact while the new content integrates seamlessly.\n\n9. Check that all code examples follow best practices and include proper error handling.",
-        "status": "done",
-        "dependencies": [
-          "6"
-        ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T01:39:21.390Z"
-      },
-      {
-        "id": "17",
-        "title": "Create Autotask API Patterns Skill",
-        "description": "Develop a comprehensive skill document covering Autotask API patterns including query operations, pagination, includes, authentication, and error handling.",
-        "details": "Create the api-patterns/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about API interaction patterns. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask API architecture and access methods\n3. Authentication patterns including header requirements and token management\n4. Detailed explanation of query builder operations with examples for all 14 operators:\n   - Equality operators: eq, ne\n   - Comparison operators: gt, gte, lt, lte\n   - String operators: contains, startsWith, endsWith\n   - Collection operators: in, notIn\n   - Null operators: isNull, isNotNull\n   - Range operator: between\n5. Pagination implementation with examples of:\n   - Page-based pagination\n   - Cursor-based pagination\n   - Handling large result sets\n6. Entity includes/expansion patterns for retrieving related data\n7. Zone detection and handling for multi-zone deployments\n8. Rate limiting considerations and best practices\n9. Comprehensive error handling patterns including:\n   - Common error codes and meanings\n   - Retry strategies\n   - Logging recommendations\n10. JSON examples for all operations and patterns\n\nFollow the skill template format and ensure all examples are accurate according to the latest Autotask API documentation. Include practical code snippets that demonstrate proper implementation of each pattern.",
-        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate all API examples against the current Autotask API documentation to ensure they reflect actual API behavior. Test each query operator with a real Autotask instance to verify the examples work as described. Have an experienced Autotask API developer review the document for technical accuracy. Test the skill by having someone with basic Autotask knowledge but limited API experience read it and then demonstrate their understanding of:\n\n1. How to construct queries using different operators\n2. How to implement pagination correctly\n3. How to handle authentication and zones\n4. How to properly handle API errors and rate limiting\n\nDocument any gaps in understanding and refine the skill accordingly. Finally, create a simple test script that implements the key patterns described in the skill to verify practical applicability.",
-        "status": "done",
-        "dependencies": [
-          "5",
-          "6",
-          "8",
-          "9",
-          "10"
-        ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-04T15:15:16.154Z"
-      },
-      {
-        "id": "18",
-        "title": "Create Autotask Time Entries Skill",
-        "description": "Develop a comprehensive skill document covering Autotask time entry fields, billing calculations, approval workflows, rate configuration, and integration with tickets/projects.",
-        "details": "Create the time-entries/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about time entry management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask time entry system and its importance in MSP operations\n3. Detailed explanation of time entry fields and their purposes:\n   - Date and time range\n   - Resource allocation\n   - Ticket/project association\n   - Work type and role\n   - Billable status\n   - Notes and internal comments\n\n4. Billing calculation logic:\n   - Standard vs overtime rates\n   - Contract billing rules\n   - Fixed price vs time and materials\n   - Rounding rules and minimum time entries\n\n5. Time entry approval workflows:\n   - Submission process\n   - Approval roles and permissions\n   - Rejection handling\n   - Batch approvals\n\n6. Rate configuration:\n   - Resource rates vs role rates\n   - Contract-specific rates\n   - Override hierarchies\n\n7. Integration with tickets and projects:\n   - How time entries affect ticket status\n   - Project budget impact\n   - Time allocation across phases\n\n8. API patterns for time entry operations with JSON examples:\n   - Creating time entries\n   - Updating existing entries\n   - Querying time entries\n   - Bulk operations\n\n9. Include relevant TimeEntry business logic from autotask-node library, with code examples showing:\n   - Data structure mapping\n   - Validation rules\n   - Common operations and transformations\n\n10. Error handling and troubleshooting guidance specific to time entries\n\nFollow the SKILL.md template format and ensure all examples are accurate and reflect current Autotask API behavior.",
-        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate all API examples against the current Autotask API documentation to ensure they reflect actual API behavior.\n\nTest the skill by:\n1. Having someone familiar with Autotask time entry processes review it for technical accuracy\n2. Verifying that all time entry fields are correctly documented\n3. Testing the API examples with a real Autotask instance to confirm they work as described\n4. Checking that the billing calculation explanations match actual Autotask behavior\n5. Ensuring the approval workflow documentation aligns with standard Autotask configurations\n6. Validating that the TimeEntry business logic from autotask-node is correctly represented\n7. Confirming that integration points with tickets and projects are accurately described\n8. Testing each API pattern with different time entry scenarios (billable vs non-billable, different work types, etc.)\n\nHave someone unfamiliar with Autotask time entries read the skill and explain the concepts back to verify the documentation is clear and comprehensive.",
-        "status": "done",
-        "dependencies": [
-          "5",
-          "9",
-          "10",
-          "17"
-        ],
-        "priority": "medium",
-        "subtasks": [],
-        "updatedAt": "2026-02-04T15:18:01.637Z"
-      },
-      {
-        "id": "19",
-        "title": "Create time-entry command for logging time against tickets and projects",
-        "description": "Develop a command-line interface command that allows users to log time entries against tickets and projects with billing code selection, notes, and duration calculation.",
-        "details": "Create a new command file in the appropriate directory structure for time entry functionality. The command should:\n\n1. Accept the following parameters:\n   - `--ticket-id` or `--project-id`: The ID of the ticket or project to log time against\n   - `--billing-code`: The billing code to use for the time entry (with selection from available codes)\n   - `--notes`: Description of work performed\n   - `--start-time`: Optional start time (defaults to current time if not provided)\n   - `--end-time`: Optional end time (for completed work)\n   - `--duration`: Optional duration in hours/minutes (alternative to providing start/end times)\n\n2. Implement the following functionality:\n   - Validate that either a ticket ID or project ID is provided\n   - Fetch available billing codes from the Autotask API and allow selection if not specified\n   - Calculate duration automatically if start and end times are provided\n   - Validate that the time entry has all required fields according to Autotask requirements\n   - Submit the time entry to the Autotask API\n   - Display confirmation with entry details upon successful submission\n\n3. Include error handling for:\n   - Invalid ticket or project IDs\n   - Invalid billing codes\n   - API connection failures\n   - Validation errors from the Autotask API\n   - Time entry conflicts or overlaps\n\n4. Follow the command template structure established in Task 2, including proper help text, examples, and documentation.\n\n5. Ensure the command integrates with the Autotask API patterns established in Task 17 for authentication and API interactions.\n\nThe command should be designed to be user-friendly with clear prompts and feedback, allowing for both interactive and non-interactive usage patterns.",
-        "testStrategy": "1. Unit Testing:\n   - Write unit tests for all validation logic\n   - Mock API responses for testing different scenarios\n   - Test duration calculation with various time formats\n   - Test error handling for all identified error cases\n\n2. Integration Testing:\n   - Test the command against a real Autotask instance\n   - Verify time entries are correctly created with all specified parameters\n   - Verify billing code selection works correctly\n   - Test both ticket and project time entries\n\n3. User Acceptance Testing:\n   - Have actual MSP technicians test the command in their workflow\n   - Gather feedback on usability and any missing features\n   - Verify the command works efficiently for daily time tracking needs\n\n4. Edge Case Testing:\n   - Test with very long notes\n   - Test with special characters in input\n   - Test time entries spanning midnight\n   - Test with various time zone configurations\n\n5. Documentation Verification:\n   - Ensure help text is comprehensive and accurate\n   - Verify examples work as documented\n   - Check that all parameters are properly documented",
-        "status": "done",
-        "dependencies": [
-          "2",
-          "5",
-          "17"
-        ],
-        "priority": "medium",
-        "subtasks": [],
-        "updatedAt": "2026-02-04T15:18:54.018Z"
-      },
-      {
-        "id": "20",
-        "title": "Create Autotask Configuration Items Skill",
-        "description": "Develop a comprehensive skill document covering hardware/software asset tracking, CI types, DNS records, SSL certificates, relationships, and CMDB patterns in Autotask.",
-        "details": "Create the configuration-items/SKILL.md file for the Kaseya Autotask plugin with comprehensive information about Configuration Items (CI) management. The skill should include:\n\n1. Proper frontmatter with description and triggers\n2. Overview of Autotask Configuration Items and CMDB functionality\n3. Key concepts including:\n   - CI types and categories (hardware, software, network devices, etc.)\n   - Asset tracking workflows and lifecycle management\n   - DNS record management through Autotask\n   - SSL certificate tracking and expiration management\n   - CI relationships and dependency mapping\n   - CMDB best practices and patterns\n\n4. API patterns for Configuration Item CRUD operations with JSON examples:\n   - Creating new CIs with proper attributes\n   - Updating CI status and properties\n   - Querying CIs with filters\n   - Managing relationships between CIs\n   - Bulk operations for CI management\n\n5. Common workflows:\n   - Onboarding new assets\n   - Tracking software licenses\n   - Managing DNS records\n   - SSL certificate lifecycle management\n   - Documenting network infrastructure\n   - Building relationship maps\n\n6. Error handling and troubleshooting guidance\n7. Best practices for CMDB maintenance and data quality\n\nFollow the SKILL.md template format and ensure all examples are accurate according to current Autotask API documentation. Include real-world scenarios that demonstrate practical applications of CI management in MSP environments.",
-        "testStrategy": "Review the skill for completeness, accuracy, and adherence to the SKILL.md format. Validate all API examples against the current Autotask API documentation to ensure they reflect actual API behavior. Test the skill by:\n\n1. Having someone familiar with Autotask CMDB review it for technical accuracy\n2. Verifying that all CI types and categories are correctly documented\n3. Testing each API example with a real Autotask instance to confirm functionality\n4. Ensuring the relationship mapping examples correctly demonstrate parent-child and peer relationships\n5. Validating that DNS record and SSL certificate management workflows are accurate\n6. Checking that asset lifecycle management processes align with Autotask best practices\n7. Confirming that the error handling guidance addresses common issues MSPs encounter with CI management\n\nAdditionally, have someone unfamiliar with Autotask read the skill and explain key CMDB concepts back to you to verify clarity and comprehensiveness.",
-        "status": "done",
-        "dependencies": [
-          "5",
-          "8",
-          "17"
-        ],
-        "priority": "medium",
-        "subtasks": [],
-        "updatedAt": "2026-02-04T15:20:34.826Z"
-      },
-      {
-        "id": "21",
-        "title": "Create comprehensive CHANGELOG.md",
-        "description": "Create a comprehensive CHANGELOG.md file following the Keep a Changelog format (keepachangelog.com/en/1.1.0/) to document all changes and features in the project.",
-        "details": "Create a CHANGELOG.md file in the root directory of the project following the Keep a Changelog format (keepachangelog.com/en/1.1.0/). The file should include:\n\n1. A header section explaining the purpose of the changelog and linking to the Keep a Changelog format\n2. An \"Unreleased\" section to track changes that are not yet in a release\n3. A \"1.0.0\" section documenting the initial release with all current features:\n   - Autotask plugin with 7 skills (Tickets, Projects, Contracts, CRM, Time Entries, API Patterns, Configuration Items)\n   - 3 commands (to be specified based on existing implementation)\n   - Shared skills (MSP Terminology, Ticket Triage)\n   - ConnectWise placeholder for future implementation\n   - Contribution infrastructure (templates, standards, documentation)\n\nEach version section should be organized into the following categories as needed:\n- Added: for new features\n- Changed: for changes in existing functionality\n- Deprecated: for soon-to-be removed features\n- Removed: for now removed features\n- Fixed: for any bug fixes\n- Security: in case of vulnerabilities\n\nFormat the changelog with proper Markdown syntax, including:\n- Clear headings for each version (## [1.0.0] - YYYY-MM-DD)\n- Bulleted lists for each entry\n- Links to GitHub issues/PRs where applicable\n- A link reference section at the bottom that will connect version numbers to GitHub release tags when the repository is created\n\nExample structure:\n```markdown\n# Changelog\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n## [Unreleased]\n\n## [1.0.0] - YYYY-MM-DD\n### Added\n- Autotask plugin with comprehensive ticket management skill\n- Autotask Projects skill for managing project workflows\n- Autotask Contracts skill for contract management\n- Autotask CRM skill for company and contact management\n- Autotask Time Entries skill for time tracking\n- Autotask API Patterns skill documenting query operations and authentication\n- Autotask Configuration Items skill for asset tracking\n- Shared MSP Terminology skill with industry-specific knowledge\n- Shared Ticket Triage skill for vendor-agnostic ticket handling\n- Command: [command name] for [purpose]\n- Command: [command name] for [purpose]\n- Command: [command name] for [purpose]\n- ConnectWise plugin placeholder for future implementation\n- Comprehensive contribution templates and standards\n\n[Unreleased]: https://github.com/username/repo/compare/v1.0.0...HEAD\n[1.0.0]: https://github.com/username/repo/releases/tag/v1.0.0\n```\n\nEnsure the changelog accurately reflects all current features and components of the project as documented in the existing tasks.",
-        "testStrategy": "To verify the CHANGELOG.md file is correctly implemented:\n\n1. Validate the format against the Keep a Changelog specification:\n   - Check that all required sections are present (header, unreleased, initial release)\n   - Verify the correct categorization (Added, Changed, Deprecated, etc.)\n   - Ensure proper Markdown formatting and hierarchy\n\n2. Verify content accuracy:\n   - Cross-reference the listed features with the actual implemented features\n   - Confirm all 7 Autotask skills are accurately described\n   - Verify all 3 commands are correctly documented\n   - Ensure shared skills are properly listed\n   - Confirm the ConnectWise placeholder is mentioned\n   - Validate that all contribution infrastructure is documented\n\n3. Test the Markdown rendering:\n   - Use a Markdown previewer to ensure the file renders correctly\n   - Check that links are properly formatted and will work when the repository is created\n   - Verify that the version comparison links at the bottom are correctly structured\n\n4. Peer review:\n   - Have team members review the changelog for completeness and accuracy\n   - Ensure the changelog provides clear value to users trying to understand project history\n\n5. Future-proofing:\n   - Verify the Unreleased section is ready for future entries\n   - Confirm the format can be easily maintained as the project evolves",
-        "status": "done",
-        "dependencies": [
-          "15"
-        ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-04T20:37:21.652Z"
-      },
-      {
-        "id": "22",
-        "title": "Enhance README.md with Comprehensive Project Documentation",
-        "description": "Update the existing README.md with comprehensive project documentation including badges, feature highlights, installation instructions, plugin directory overview, usage examples, architecture diagrams, and contribution guidelines.",
-        "details": "Enhance the existing README.md file with the following comprehensive documentation elements:\n\n1. Add project badges section at the top:\n   - Build status badge (GitHub Actions/CircleCI)\n   - License badge linking to LICENSE file\n   - npm version badge\n   - Code coverage badge\n\n2. Create a feature highlights section with:\n   - Screenshots of the system in action\n   - Diagrams illustrating key workflows\n   - Bullet points of core capabilities\n   - Value proposition for MSPs\n\n3. Develop a quick start guide with:\n   - Prerequisites\n   - Installation commands\n   - Basic configuration steps\n   - First-use examples\n\n4. Add detailed installation instructions:\n   - npm/yarn installation commands\n   - Manual installation steps\n   - Environment configuration requirements\n   - Troubleshooting common installation issues\n\n5. Create a plugin directory overview:\n   - Table listing all available plugins\n   - Brief description of each plugin's purpose\n   - Links to each plugin's detailed documentation\n   - Status indicators (stable, beta, etc.)\n\n6. Add usage examples for each plugin:\n   - Code snippets showing common operations\n   - Example output/responses\n   - Configuration options\n   - Best practices\n\n7. Include an architecture diagram showing:\n   - Vendor/plugin/skill structure\n   - Data flow between components\n   - Integration points with external systems\n   - Extension mechanisms\n\n8. Create a contributing section:\n   - Link to CONTRIBUTING.md\n   - Quick overview of contribution process\n   - Recognition of contributors\n   - Development environment setup\n\n9. Add license information with badge and link to LICENSE file\n\n10. Include links to:\n    - Full documentation site\n    - Community forums/Discord\n    - Issue tracker\n    - Roadmap\n\nEnsure all documentation follows a consistent style and tone, with proper formatting using Markdown features like headers, lists, code blocks, and tables.",
-        "testStrategy": "To verify the enhanced README.md is correctly implemented:\n\n1. Visual inspection:\n   - Confirm all required sections are present and properly formatted\n   - Verify all badges are displaying correctly and linking to appropriate resources\n   - Check that all images, diagrams, and screenshots are properly rendered\n   - Ensure consistent styling throughout the document\n\n2. Functional testing:\n   - Validate all links to ensure they point to correct destinations\n   - Test installation instructions by following them on a clean environment\n   - Verify code examples work as documented\n   - Confirm the quick start guide can be followed by a new user\n\n3. Content review:\n   - Have team members review for technical accuracy\n   - Check for completeness of plugin documentation\n   - Verify architecture diagram correctly represents the system\n   - Ensure contributing guidelines match CONTRIBUTING.md\n\n4. User testing:\n   - Have someone unfamiliar with the project follow the README\n   - Collect feedback on clarity and completeness\n   - Identify any confusing sections or missing information\n   - Verify they can successfully install and use the system\n\n5. Accessibility check:\n   - Ensure alt text for all images and diagrams\n   - Check color contrast for any custom styling\n   - Verify proper heading hierarchy for screen readers\n\n6. Markdown validation:\n   - Use a Markdown linter to check for syntax errors\n   - Test rendering on GitHub to ensure proper display\n   - Verify table formatting is consistent",
-        "status": "done",
-        "dependencies": [
-          "15"
-        ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-04T20:38:41.277Z"
-      },
-      {
-        "id": "23",
-        "title": "Enhance CONTRIBUTING.md with Detailed Contribution Workflow",
-        "description": "Update the existing CONTRIBUTING.md with comprehensive workflow instructions including environment setup, development guides for skills and commands, PR processes, and community guidelines.",
-        "details": "Enhance the existing CONTRIBUTING.md file with the following detailed sections:\n\n1. Repository Workflow\n   - Detailed fork and clone instructions with screenshots\n   - Branch naming conventions (feature/, bugfix/, docs/, etc.)\n   - Git workflow best practices for this project\n\n2. Development Environment Setup\n   - Required dependencies and tools with version requirements\n   - Step-by-step installation instructions for different operating systems\n   - Configuration of environment variables and settings\n   - Troubleshooting common setup issues\n\n3. Testing Requirements\n   - Unit testing expectations and framework usage\n   - Integration testing procedures\n   - Test coverage requirements\n   - How to run the test suite locally\n\n4. PR Template and Process\n   - Explanation of the PR template fields\n   - Screenshots of properly completed PR examples\n   - Required reviewers and approval process\n   - CI/CD pipeline explanation\n\n5. Code Review Process\n   - Review standards and expectations\n   - Common review feedback and how to address it\n   - Timeline expectations for reviews and responses\n\n6. Skill Development Guide\n   - Step-by-step tutorial with examples from existing skills (Autotask CRM, Tickets, etc.)\n   - Best practices for skill structure and documentation\n   - Common pitfalls to avoid\n   - Examples of well-implemented skills from the codebase\n\n7. Command Development Guide\n   - Command structure and architecture overview\n   - Parameter handling and validation patterns\n   - Error handling best practices\n   - Examples from existing commands (like time-entry)\n\n8. MCP Server Integration Guide\n   - How skills and commands interact with the MCP server\n   - Authentication and security considerations\n   - Performance optimization guidelines\n   - Debugging integration issues\n\n9. PRD Requirements Checklist\n   - Detailed explanation of each PRD section\n   - Examples of well-written PRDs\n   - Validation criteria for PRD approval\n\n10. Style Guide Enforcement\n    - Code style and formatting requirements\n    - Documentation style guidelines\n    - Linting and automated style checking tools\n    - How to configure editors for automatic compliance\n\n11. Issue Templates\n    - How to use the bug report template\n    - How to use the feature request template\n    - How to use the skill proposal template\n    - Examples of well-written issues\n\n12. Community Guidelines\n    - Communication channels and norms\n    - Meeting schedules and participation guidelines\n    - Mentorship opportunities\n    - Recognition program for contributors\n\nEach section should include concrete examples, code snippets where appropriate, and links to relevant resources or existing implementations in the codebase.",
-        "testStrategy": "To verify the enhanced CONTRIBUTING.md is correctly implemented:\n\n1. Document Review:\n   - Have at least three team members review the document for clarity, completeness, and accuracy\n   - Verify all sections listed in the implementation details are present and comprehensive\n   - Check that all links to external resources and internal documentation are valid\n\n2. Practical Testing:\n   - Have a new contributor follow the instructions to set up their environment and make a contribution\n   - Document any points of confusion or steps that need clarification\n   - Verify the contributor can successfully complete the entire workflow from fork to merged PR\n\n3. Technical Validation:\n   - Ensure all code examples are syntactically correct and follow project standards\n   - Validate that the development environment setup instructions work on all supported platforms\n   - Confirm that following the testing requirements results in tests that pass CI/CD\n\n4. Usability Testing:\n   - Create a survey for contributors to rate the clarity and usefulness of each section\n   - Track time-to-first-contribution for new contributors before and after the enhanced documentation\n   - Collect feedback on which sections were most helpful and which need improvement\n\n5. Integration Testing:\n   - Verify that the PR template usage instructions align with the actual template in the repository\n   - Ensure the style guide enforcement section matches the actual linting and formatting tools used\n   - Confirm that the issue templates described match those configured in the repository\n\n6. Documentation Maintenance Plan:\n   - Establish a process for keeping the CONTRIBUTING.md updated as project practices evolve\n   - Create a schedule for regular reviews and updates of the contribution guidelines",
-        "status": "done",
-        "dependencies": [
-          "3"
-        ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-04T20:40:23.606Z"
-      },
-      {
-        "id": "24",
-        "title": "Create Astro documentation site with Starlight theme",
-        "description": "Develop a comprehensive documentation site using Astro with the Starlight theme in the docs/ directory, featuring project overview, guides, references, and modern web features.",
-        "details": "Set up and implement a documentation site using Astro and the Starlight theme with the following structure and features:\n\n1. Project Setup:\n   - Initialize a new Astro project in the docs/ directory\n   - Install and configure the Starlight theme\n   - Set up GitHub Pages deployment configuration\n\n2. Site Structure:\n   - Home page: Create an engaging landing page with project overview, key features, and quick navigation links\n   - Getting Started guide:\n     - Installation instructions with code examples\n     - First plugin setup walkthrough with screenshots\n   - Plugin Catalog:\n     - Dedicated sections for each plugin (Autotask, ConnectWise)\n     - List of skills and commands for each plugin with brief descriptions\n     - Links to detailed reference pages\n   - Skill Reference:\n     - Complete API documentation for each skill\n     - Parameters, return values, and examples\n     - Organized by plugin and category\n   - Command Reference:\n     - Usage examples with command syntax\n     - Parameter descriptions and sample outputs\n     - Common use cases\n   - Developer Guide:\n     - Step-by-step instructions for creating skills\n     - Step-by-step instructions for creating commands\n     - MCP integration guidelines\n   - API Patterns Reference:\n     - Authentication patterns\n     - Request/response formats\n     - Error handling\n   - Contributing Guide:\n     - Contribution workflow\n     - Code standards\n     - PR process\n   - Changelog page:\n     - Integration with CHANGELOG.md content\n     - Version history with release dates\n\n3. Features to implement:\n   - Search functionality using Starlight's built-in search capabilities\n   - Dark/light mode toggle with system preference detection\n   - Mobile responsive design with appropriate breakpoints\n   - Sidebar navigation with collapsible sections\n   - GitHub Pages deployment configuration in .github/workflows/\n\n4. Technical implementation:\n   - Use Markdown for content with Astro's MDX support for interactive components\n   - Implement consistent styling across all pages\n   - Create reusable components for common elements (code blocks, callouts, etc.)\n   - Set up proper metadata for SEO\n   - Ensure accessibility compliance throughout the site",
-        "testStrategy": "To verify the documentation site is correctly implemented:\n\n1. Build and functionality testing:\n   - Run the build process and ensure it completes without errors\n   - Test local development server to confirm all pages render correctly\n   - Verify all links work and navigation is functional\n   - Test search functionality with various queries to ensure relevant results\n   - Confirm dark/light mode toggle works correctly\n   - Test responsive design across multiple device sizes (mobile, tablet, desktop)\n\n2. Content verification:\n   - Review all pages for content accuracy and completeness\n   - Ensure code examples are correct and properly formatted\n   - Verify that all sections described in the requirements are present\n   - Check that the changelog correctly reflects the content from CHANGELOG.md\n\n3. Cross-browser testing:\n   - Test the site in Chrome, Firefox, Safari, and Edge\n   - Verify functionality and appearance is consistent across browsers\n\n4. Deployment testing:\n   - Test the GitHub Pages deployment workflow\n   - Verify the site is accessible at the correct URL\n   - Check that all assets (images, styles, scripts) load correctly in production\n\n5. Performance testing:\n   - Run Lighthouse tests to check performance, accessibility, SEO, and best practices\n   - Ensure page load times are acceptable\n   - Verify that images are optimized for web\n\n6. User testing:\n   - Have team members navigate the documentation to find specific information\n   - Collect feedback on usability and content clarity\n   - Make adjustments based on user feedback",
-        "status": "done",
-        "dependencies": [
-          "15",
-          "21",
-          "4",
-          "17"
-        ],
-        "priority": "high",
+        "status": "pending",
         "subtasks": [
           {
             "id": 1,
-            "title": "Set up Astro project with Starlight theme",
-            "description": "Initialize the Astro project in the docs/ directory and configure the Starlight theme with basic settings",
+            "title": "Create and configure 'wyre-mcp' GitHub organization",
+            "description": "Set up the GitHub organization with proper permissions and settings for team collaboration.",
             "dependencies": [],
-            "details": "Create a new Astro project in the docs/ directory using 'npm create astro@latest'. Install the Starlight theme with 'npm install @astrojs/starlight'. Configure the astro.config.mjs file with Starlight integration. Set up basic site configuration in starlight.config.js including site title, description, and social links. Initialize the GitHub Pages deployment configuration in .github/workflows/ directory.",
+            "details": "Create the 'wyre-mcp' GitHub organization. Configure organization settings including member permissions, required reviews, and team structure. Set up organization-level issue and PR templates for standardized contributions. Document organization access procedures for new team members.",
             "status": "pending",
-            "testStrategy": "Verify the project builds successfully with 'npm run build'. Check that the Starlight theme is properly applied by running the development server and confirming the default layout appears. Validate the GitHub Pages workflow configuration.",
-            "parentId": "undefined"
+            "testStrategy": "Verify organization creation with correct name. Confirm member permission settings match requirements. Test PR template functionality with sample PR. Ensure organization settings align with security best practices."
           },
           {
             "id": 2,
-            "title": "Implement core site structure and navigation",
-            "description": "Create the main site structure including home page, sidebar navigation, and primary content sections",
+            "title": "Set up GitHub Container Registry and organization secrets",
+            "description": "Configure GitHub Container Registry and establish organization-level secrets for CI/CD workflows.",
             "dependencies": [
               1
             ],
-            "details": "Design and implement the home page with project overview, key features, and navigation links. Set up the sidebar navigation structure with collapsible sections for all major content areas. Create the basic page templates for Getting Started, Plugin Catalog, Skill Reference, Command Reference, Developer Guide, API Patterns Reference, Contributing Guide, and Changelog. Implement mobile responsive design with appropriate breakpoints and ensure the navigation works on all device sizes.",
+            "details": "Set up GitHub Container Registry (ghcr.io/wyre-mcp) for Docker image storage. Create and configure organization secrets for CI/CD pipelines including AWS credentials, registry tokens, and any other required authentication credentials. Document secret management procedures and access controls.",
             "status": "pending",
-            "testStrategy": "Test navigation on multiple device sizes to verify responsive design. Ensure all links in the sidebar correctly navigate to their respective pages. Validate the structure against the requirements to confirm all sections are included.",
-            "parentId": "undefined"
+            "testStrategy": "Verify Container Registry is properly configured by pushing and pulling a test image. Confirm secrets are accessible to workflows but properly secured. Test secret rotation procedures."
           },
           {
             "id": 3,
-            "title": "Develop content for guides and references",
-            "description": "Create comprehensive content for all documentation sections using Markdown and MDX",
+            "title": "Create MCP Gateway repository",
+            "description": "Fork the agentic-community/mcp-gateway-registry repository and set up as mcp-gateway.",
             "dependencies": [
+              1,
               2
             ],
-            "details": "Write detailed content for each section using Markdown with MDX for interactive components. Implement the Getting Started guide with installation instructions and setup walkthrough. Create the Plugin Catalog with sections for each plugin. Develop the Skill Reference with complete API documentation. Build the Command Reference with usage examples and parameter descriptions. Write the Developer Guide with step-by-step instructions. Create the API Patterns Reference with authentication patterns and formats. Integrate the CHANGELOG.md content into the Changelog page.",
+            "details": "Fork the agentic-community/mcp-gateway-registry repository into the wyre-mcp organization as mcp-gateway. Update repository configuration, README, and documentation to reflect the organization's standards. Set up branch protection rules, required reviewers, and CI/CD workflows. Configure repository-specific settings and access controls.",
             "status": "pending",
-            "testStrategy": "Review all content for accuracy, completeness, and adherence to documentation standards. Test all code examples to ensure they work as described. Verify that the CHANGELOG integration correctly displays the version history.",
-            "parentId": "undefined"
+            "testStrategy": "Verify fork is complete with all original code. Test CI/CD workflows with sample commits. Ensure branch protection rules prevent direct pushes to main branch. Confirm documentation accurately reflects the project."
           },
           {
             "id": 4,
-            "title": "Implement advanced features and components",
-            "description": "Add search functionality, dark/light mode toggle, and reusable components",
+            "title": "Create vendor-specific MCP repositories",
+            "description": "Set up repositories for Autotask, Datto RMM, and IT Glue MCP implementations.",
             "dependencies": [
-              2,
-              3
+              1,
+              2
             ],
-            "details": "Configure Starlight's built-in search capabilities for the documentation site. Implement dark/light mode toggle with system preference detection. Create reusable components for common elements such as code blocks, callouts, warning messages, and information panels. Ensure consistent styling across all pages by implementing a unified design system. Set up proper metadata for SEO optimization including page titles, descriptions, and Open Graph tags.",
+            "details": "Create the following repositories with standardized structure: autotask-mcp (migrate from asachs01/autotask-mcp), datto-rmm-mcp (new), and itglue-mcp (new). Each repository should include standard README, LICENSE, .github workflows directory, and consistent project structure. Set up branch protection and code owners.",
             "status": "pending",
-            "testStrategy": "Test search functionality with various queries to ensure relevant results appear. Verify dark/light mode toggle works correctly and respects system preferences. Test all reusable components across different contexts to ensure they render properly. Validate SEO metadata using testing tools.",
-            "parentId": "undefined"
+            "testStrategy": "Verify all repositories are created with consistent structure. Confirm migration of autotask-mcp preserves commit history. Test repository templates and workflows with sample commits. Ensure all repositories have proper license files."
           },
           {
             "id": 5,
-            "title": "Finalize deployment and quality assurance",
-            "description": "Complete GitHub Pages deployment configuration and perform comprehensive testing",
+            "title": "Establish standard CI/CD workflows across repositories",
+            "description": "Create and implement standardized CI/CD workflows for all repositories in the organization.",
             "dependencies": [
-              1,
+              3,
+              4
+            ],
+            "details": "Develop standardized GitHub Actions workflows for building, testing, and deploying MCP servers. Include workflows for Docker image building and publishing to GitHub Container Registry, automated testing, linting, and security scanning. Implement consistent versioning strategy across repositories. Document CI/CD processes in organization-level documentation.",
+            "status": "pending",
+            "testStrategy": "Test workflows on each repository with sample code changes. Verify Docker images build and publish correctly. Confirm test and linting processes run as expected. Validate security scanning identifies potential vulnerabilities."
+          }
+        ]
+      },
+      {
+        "id": 43,
+        "title": "Fork and Customize MCP Gateway",
+        "description": "Fork the MCP Gateway Registry repository and customize it to support API key storage, MSP-specific vendor configurations, and credential entry UI.",
+        "details": "1. Clone fork locally: 'wyre-mcp/mcp-gateway'\n2. Set up local development environment (Docker Compose)\n3. Extend 'credentials-provider/' to support API key storage (not just OAuth tokens)\n4. Add MSP-specific vendor configs to 'oauth_providers.yaml' equivalent\n5. Create vendor credential entry UI (FastAPI routes + Jinja2 templates)\n6. Customize branding/domain for 'mcp.wyre.ai'\n7. Implement session-aware stateful routing to map user sessions to stored credentials\n8. Add support for the following vendor routes:\n   - /v1/autotask/*\n   - /v1/datto-rmm/*\n   - /v1/itglue/*\n   - Additional vendor routes as needed\n9. Implement secure credential storage with AES-256 encryption",
+        "testStrategy": "Unit tests for credential storage and retrieval. Integration tests for OAuth flow with PKCE. UI tests for credential entry pages. Security testing for encryption implementation. Load testing for routing performance.",
+        "priority": "high",
+        "dependencies": [
+          42
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Fork Repository and Set Up Development Environment",
+            "description": "Fork the MCP Gateway Registry repository and set up the local development environment with Docker Compose.",
+            "dependencies": [],
+            "details": "Clone the repository to 'wyre-mcp/mcp-gateway', configure Git remote to track upstream changes, and set up Docker Compose for local development. Ensure all dependencies are properly installed and the application runs locally.",
+            "status": "pending",
+            "testStrategy": "Verify successful local build and application startup. Test basic functionality to ensure the development environment is working correctly."
+          },
+          {
+            "id": 2,
+            "title": "Extend Credential Provider for API Key Storage",
+            "description": "Modify the credentials-provider module to support API key storage in addition to OAuth tokens.",
+            "dependencies": [
+              1
+            ],
+            "details": "Extend the existing credential storage system to handle different credential types including API keys. Implement proper data models, storage mechanisms, and retrieval functions. Ensure backward compatibility with existing OAuth token storage.",
+            "status": "pending",
+            "testStrategy": "Unit tests for storing and retrieving different credential types. Security tests for credential encryption and decryption. Integration tests with the existing credential provider."
+          },
+          {
+            "id": 3,
+            "title": "Implement MSP-Specific Vendor Configurations",
+            "description": "Add support for MSP-specific vendor configurations by extending the oauth_providers.yaml equivalent.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create or modify configuration structures to support MSP-specific vendor settings. Implement a flexible configuration system that allows different MSPs to have their own vendor configurations while maintaining a common interface.",
+            "status": "pending",
+            "testStrategy": "Unit tests for configuration loading and validation. Integration tests with different MSP configurations to ensure proper isolation and functionality."
+          },
+          {
+            "id": 4,
+            "title": "Create Vendor Credential Entry UI",
+            "description": "Develop a user interface for entering and managing vendor credentials using FastAPI routes and Jinja2 templates.",
+            "dependencies": [
+              3
+            ],
+            "details": "Design and implement FastAPI routes for credential management. Create Jinja2 templates for the UI components. Implement form validation, error handling, and success notifications. Customize branding for 'mcp.wyre.ai' and ensure responsive design.",
+            "status": "pending",
+            "testStrategy": "UI tests for form submission and validation. Accessibility testing. Cross-browser compatibility testing. User experience testing with sample workflows."
+          },
+          {
+            "id": 5,
+            "title": "Implement Session-Aware Routing and Vendor Routes",
+            "description": "Develop session-aware stateful routing to map user sessions to stored credentials and add support for vendor-specific routes.",
+            "dependencies": [
+              4
+            ],
+            "details": "Implement session management to track user context. Create routing logic that maps sessions to the appropriate stored credentials. Add support for vendor-specific routes including /v1/autotask/*, /v1/datto-rmm/*, /v1/itglue/*, and others as needed. Implement secure credential access with AES-256 encryption for all stored credentials.",
+            "status": "pending",
+            "testStrategy": "Integration tests for routing logic. Security testing for session management. Load testing for routing performance. End-to-end tests for complete workflows with different vendor routes."
+          }
+        ]
+      },
+      {
+        "id": 44,
+        "title": "Implement Datto RMM MCP Server",
+        "description": "Create the Datto RMM MCP server repository and implement the required tools to interact with the Datto RMM API.",
+        "details": "1. Create repo: 'wyre-mcp/datto-rmm-mcp'\n2. Initialize TypeScript project with MCP SDK and @asachs01/node-datto-rmm\n3. Implement the following tools:\n   - datto_list_devices (GET /api/v2/account/devices)\n   - datto_get_device (GET /api/v2/device/{uid})\n   - datto_list_alerts (GET /api/v2/account/alerts)\n   - datto_resolve_alert (POST /api/v2/alert/{uid}/resolve)\n   - datto_list_sites (GET /api/v2/account/sites)\n   - datto_get_site (GET /api/v2/site/{uid})\n   - datto_run_quickjob (POST /api/v2/device/{uid}/quickjob)\n   - datto_get_audit (GET /api/v2/device/{uid}/audit/{type})\n4. Accept credentials via 'X-API-Key' / 'X-API-Secret' headers from gateway\n5. Create Dockerfile for containerization\n6. Implement error handling and rate limiting\n7. Add comprehensive logging",
+        "testStrategy": "Unit tests for each tool implementation. Integration tests with mock Datto RMM API. End-to-end tests with real API credentials (in secure CI environment). Performance testing for response times. Security testing for credential handling.",
+        "priority": "high",
+        "dependencies": [
+          42,
+          43
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Repository and Initialize TypeScript Project",
+            "description": "Set up the Datto RMM MCP server repository and initialize the TypeScript project with required dependencies.",
+            "dependencies": [],
+            "details": "Create the 'wyre-mcp/datto-rmm-mcp' repository on GitHub. Initialize a new TypeScript project with npm. Install the MCP SDK and @asachs01/node-datto-rmm package. Set up tsconfig.json, package.json, and basic project structure. Configure linting and formatting tools. Set up the initial server structure with Express.",
+            "status": "pending",
+            "testStrategy": "Verify project structure and dependency installation. Ensure the project builds without errors."
+          },
+          {
+            "id": 2,
+            "title": "Implement Device and Site Management Tools",
+            "description": "Develop the tools for listing and retrieving device and site information from the Datto RMM API.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement the following tools: datto_list_devices (GET /api/v2/account/devices), datto_get_device (GET /api/v2/device/{uid}), datto_list_sites (GET /api/v2/account/sites), and datto_get_site (GET /api/v2/site/{uid}). Create proper request handling, parameter validation, and response formatting for each endpoint. Implement pagination for list endpoints. Add appropriate error handling and input validation.",
+            "status": "pending",
+            "testStrategy": "Unit tests for each tool implementation. Integration tests with mock Datto RMM API responses. Test pagination and error handling scenarios."
+          },
+          {
+            "id": 3,
+            "title": "Implement Alert Management and QuickJob Tools",
+            "description": "Develop the tools for managing alerts and running quick jobs through the Datto RMM API.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement the following tools: datto_list_alerts (GET /api/v2/account/alerts), datto_resolve_alert (POST /api/v2/alert/{uid}/resolve), datto_run_quickjob (POST /api/v2/device/{uid}/quickjob), and datto_get_audit (GET /api/v2/device/{uid}/audit/{type}). Create proper request handling, parameter validation, and response formatting for each endpoint. Implement pagination for list endpoints. Add appropriate error handling and input validation.",
+            "status": "pending",
+            "testStrategy": "Unit tests for each tool implementation. Integration tests with mock Datto RMM API responses. Test various input scenarios and error conditions."
+          },
+          {
+            "id": 4,
+            "title": "Implement Authentication and Security Features",
+            "description": "Develop the authentication mechanism and implement security features for the Datto RMM MCP server.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement authentication using 'X-API-Key' and 'X-API-Secret' headers from the gateway. Add middleware to validate these credentials before processing requests. Implement rate limiting to prevent API abuse. Add request logging for security auditing. Implement secure error handling that doesn't expose sensitive information. Add input sanitization to prevent injection attacks. Implement proper HTTP security headers.",
+            "status": "pending",
+            "testStrategy": "Security testing for credential handling. Test rate limiting functionality. Verify proper error handling with invalid credentials. Test input validation and sanitization."
+          },
+          {
+            "id": 5,
+            "title": "Containerize and Finalize Implementation",
+            "description": "Create Docker configuration and finalize the implementation with comprehensive logging and documentation.",
+            "dependencies": [
               2,
               3,
               4
             ],
-            "details": "Finalize the GitHub Pages deployment workflow in .github/workflows/ directory. Configure custom domain settings if applicable. Perform comprehensive testing of the entire documentation site including all links, navigation, search functionality, and responsive design. Ensure accessibility compliance throughout the site by testing with screen readers and following WCAG guidelines. Optimize performance by minimizing asset sizes and implementing proper caching strategies. Create a final review checklist to verify all requirements have been met.",
+            "details": "Create a Dockerfile for containerization of the Datto RMM MCP server. Implement comprehensive logging throughout the application using a structured logging format. Add health check endpoints for container orchestration. Create documentation for API endpoints and usage. Add README with setup and configuration instructions. Implement graceful shutdown handling. Create CI/CD pipeline configuration for automated testing and deployment.",
             "status": "pending",
-            "testStrategy": "Run automated accessibility tests using tools like axe or Lighthouse. Test the complete GitHub Pages deployment process to ensure the site builds and deploys correctly. Perform cross-browser testing in Chrome, Firefox, Safari, and Edge. Validate that all features work as expected in the production environment.",
-            "parentId": "undefined"
+            "testStrategy": "Test Docker build and container functionality. Verify logging works correctly in containerized environment. End-to-end tests with real API credentials in a secure CI environment."
           }
-        ],
-        "updatedAt": "2026-02-04T20:56:54.014Z"
+        ]
       },
       {
-        "id": "25",
-        "title": "Create GitHub Repository with PSA/RMM Provider Plugin Issues",
-        "description": "Set up a GitHub repository and create detailed TODO issues for additional PSA/RMM provider plugins including Datto Autotask alternative, ConnectWise Automate, Datto RMM, NinjaOne, Syncro, HaloPSA, SuperOps, Atera, Freshdesk, and Zendesk for MSPs.",
-        "details": "1. Create a new GitHub repository for the project with an appropriate name that reflects the MSP integration focus.\n\n2. Set up the repository with:\n   - Proper README.md (can be based on Task #15)\n   - LICENSE file (recommend MIT or Apache 2.0)\n   - .gitignore appropriate for the project's tech stack\n   - CONTRIBUTING.md guidelines\n\n3. Configure repository settings:\n   - Branch protection rules for main/master branch\n   - Issue templates\n   - Pull request templates\n\n4. Create the following issue labels:\n   - enhancement\n   - good-first-issue\n   - help-wanted\n   - plus any additional organizational labels needed\n\n5. Create detailed TODO issues for each of the following PSA/RMM providers:\n   - Datto Autotask alternative\n   - ConnectWise Automate (RMM)\n   - Datto RMM\n   - NinjaOne (NinjaRMM)\n   - Syncro\n   - HaloPSA\n   - SuperOps\n   - Atera\n   - Freshdesk\n   - Zendesk for MSPs\n\n6. Each issue should follow a consistent template including:\n   - **Plugin Scope**: Clear definition of what functionality the plugin should cover\n   - **Key Entities**: List of primary data objects/entities to be supported\n   - **Suggested Skills**: Breakdown of individual skills needed for the plugin\n   - **MCP Integration Points**: How the plugin connects with the Multi-Cloud Platform\n   - **API Documentation**: Links to official API documentation and any helpful resources\n   - **Estimated Complexity**: Rating of implementation difficulty\n   - **Prerequisites**: Any dependencies or requirements\n\n7. Apply appropriate labels to each issue (enhancement, good-first-issue, help-wanted) based on complexity and suitability for new contributors.\n\n8. Create a project board to organize and track progress on these issues, with columns for:\n   - Backlog\n   - Ready for Development\n   - In Progress\n   - Review\n   - Done",
-        "testStrategy": "1. Verify the GitHub repository is properly set up:\n   - Confirm all basic files are present (README.md, LICENSE, .gitignore, CONTRIBUTING.md)\n   - Check that branch protection rules are properly configured\n   - Ensure issue and PR templates are working correctly\n\n2. Validate the issue labels:\n   - Confirm all required labels (enhancement, good-first-issue, help-wanted) exist\n   - Verify labels have appropriate descriptions and colors\n\n3. Review each provider issue for completeness:\n   - Check that all 10 provider issues have been created\n   - Verify each issue follows the template structure\n   - Confirm all sections (Plugin Scope, Key Entities, etc.) are filled out with detailed information\n   - Validate that API documentation links are accurate and working\n\n4. Test the issue organization:\n   - Ensure issues are properly labeled\n   - Verify issues appear correctly on the project board\n   - Check that issues can be filtered and searched effectively\n\n5. Conduct a peer review:\n   - Have at least one team member review all issues for accuracy and completeness\n   - Verify that the technical information provided is correct for each provider\n   - Ensure the suggested skills align with the project's skill template structure\n\n6. Document completion:\n   - Create a summary document listing all issues created with links\n   - Note any challenges or special considerations for specific providers\n   - Share the repository link and summary with the team",
-        "status": "done",
+        "id": 45,
+        "title": "Implement IT Glue MCP Server",
+        "description": "Create the IT Glue MCP server repository and implement the required tools to interact with the IT Glue API.",
+        "details": "1. Create repo: 'wyre-mcp/itglue-mcp'\n2. Initialize TypeScript project with MCP SDK and @asachs01/node-it-glue\n3. Implement the following tools:\n   - itglue_search_organizations (GET /organizations)\n   - itglue_get_organization (GET /organizations/{id})\n   - itglue_search_configurations (GET /configurations)\n   - itglue_get_configuration (GET /configurations/{id})\n   - itglue_search_passwords (GET /passwords)\n   - itglue_get_password (GET /passwords/{id})\n   - itglue_search_documents (GET /documents)\n   - itglue_search_flexible_assets (GET /flexible_assets)\n4. Accept credentials via 'X-API-Key' header from gateway\n5. Create Dockerfile for containerization\n6. Implement error handling and rate limiting\n7. Add comprehensive logging",
+        "testStrategy": "Unit tests for each tool implementation. Integration tests with mock IT Glue API. End-to-end tests with real API credentials (in secure CI environment). Performance testing for response times. Security testing for credential handling.",
+        "priority": "high",
         "dependencies": [
-          "15",
-          "2",
-          "4"
+          42,
+          43
         ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create repository and initialize TypeScript project",
+            "description": "Set up the IT Glue MCP server repository and initialize the TypeScript project with required dependencies.",
+            "dependencies": [],
+            "details": "Create the 'wyre-mcp/itglue-mcp' repository on GitHub. Initialize a TypeScript project with npm. Install required dependencies including MCP SDK and @asachs01/node-it-glue. Set up tsconfig.json, package.json, and basic project structure. Configure linting and formatting tools.",
+            "status": "pending",
+            "testStrategy": "Verify project structure and successful build with no errors. Ensure all dependencies are correctly installed and accessible."
+          },
+          {
+            "id": 2,
+            "title": "Implement organization and configuration tools",
+            "description": "Implement the IT Glue API tools for searching and retrieving organizations and configurations.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create implementations for itglue_search_organizations (GET /organizations), itglue_get_organization (GET /organizations/{id}), itglue_search_configurations (GET /configurations), and itglue_get_configuration (GET /configurations/{id}). Include parameter validation, response formatting, and error handling according to MCP specifications. Ensure proper API key handling via 'X-API-Key' header.",
+            "status": "pending",
+            "testStrategy": "Unit tests for each tool implementation. Integration tests with mock IT Glue API responses. Test error handling for various API failure scenarios."
+          },
+          {
+            "id": 3,
+            "title": "Implement password and document tools",
+            "description": "Implement the IT Glue API tools for searching and retrieving passwords and documents.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create implementations for itglue_search_passwords (GET /passwords), itglue_get_password (GET /passwords/{id}), itglue_search_documents (GET /documents), and itglue_search_flexible_assets (GET /flexible_assets). Implement secure handling of sensitive password data. Include parameter validation, response formatting, and error handling according to MCP specifications.",
+            "status": "pending",
+            "testStrategy": "Unit tests for each tool implementation. Security testing for password handling. Integration tests with mock IT Glue API responses. Test error handling for various API failure scenarios."
+          },
+          {
+            "id": 4,
+            "title": "Implement error handling and rate limiting",
+            "description": "Add comprehensive error handling and rate limiting to prevent API abuse and improve reliability.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Implement error handling for all API interactions including network errors, authentication failures, and unexpected responses. Add rate limiting to prevent exceeding IT Glue API limits. Implement retry logic with exponential backoff for transient errors. Create standardized error responses following MCP specifications. Add detailed logging for troubleshooting.",
+            "status": "pending",
+            "testStrategy": "Unit tests for error handling scenarios. Performance testing to verify rate limiting effectiveness. Integration tests with simulated API failures and rate limit responses."
+          },
+          {
+            "id": 5,
+            "title": "Create Dockerfile and finalize implementation",
+            "description": "Create Dockerfile for containerization and finalize the implementation with comprehensive logging.",
+            "dependencies": [
+              4
+            ],
+            "details": "Create a Dockerfile for containerizing the IT Glue MCP server. Implement comprehensive logging throughout the application using a structured logging format. Add health check endpoints. Finalize documentation including API usage examples, deployment instructions, and configuration options. Prepare the project for production deployment with proper versioning.",
+            "status": "pending",
+            "testStrategy": "Container build and run tests. End-to-end tests with real API credentials in a secure environment. Verify logging output and format. Test container health checks and restart capabilities."
+          }
+        ]
+      },
+      {
+        "id": 46,
+        "title": "Migrate Autotask MCP Server",
+        "description": "Migrate the existing Autotask MCP server to the new organization and adapt it to work with the gateway architecture.",
+        "details": "1. Fork/transfer 'asachs01/autotask-mcp' to 'wyre-mcp/autotask-mcp'\n2. Adapt to accept credentials via 'X-API-Key' / 'X-API-Secret' headers from gateway\n3. Update the codebase to match the standardized repository structure\n4. Create or update Dockerfile for containerization\n5. Update CI/CD workflow for ghcr.io/wyre-mcp\n6. Create migration guide for existing local MCP users\n7. Ensure compatibility with the gateway routing system\n8. Add comprehensive logging and error handling",
+        "testStrategy": "Unit tests for credential handling changes. Integration tests with gateway. Compatibility tests with existing clients. End-to-end tests with real API credentials. Migration testing to verify smooth transition for existing users.",
         "priority": "medium",
-        "subtasks": [],
-        "updatedAt": "2026-02-04T20:42:51.690Z"
+        "dependencies": [
+          42,
+          43
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Repository Transfer and Initial Setup",
+            "description": "Fork or transfer the existing Autotask MCP repository to the new organization and set up the basic project structure.",
+            "dependencies": [],
+            "details": "1. Transfer 'asachs01/autotask-mcp' to 'wyre-mcp/autotask-mcp' organization\n2. Update package.json with new organization details\n3. Update README.md with new organization information\n4. Set up the repository with standardized structure according to organization guidelines\n5. Configure initial project dependencies",
+            "status": "pending",
+            "testStrategy": "Verify repository transfer is complete and accessible. Ensure all files are properly transferred and the project structure follows organization standards."
+          },
+          {
+            "id": 2,
+            "title": "Implement Gateway Authentication Adaptation",
+            "description": "Modify the authentication mechanism to work with the gateway architecture using API key headers.",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Update authentication logic to accept 'X-API-Key' and 'X-API-Secret' headers from gateway\n2. Modify credential handling to extract and validate these headers\n3. Implement secure storage and processing of credentials\n4. Add unit tests for the new authentication flow\n5. Ensure backward compatibility with existing authentication methods where necessary",
+            "status": "pending",
+            "testStrategy": "Unit tests for credential handling. Integration tests with mock gateway. Security testing for proper credential handling and validation."
+          },
+          {
+            "id": 3,
+            "title": "Containerization and CI/CD Pipeline Setup",
+            "description": "Create or update Dockerfile and implement CI/CD workflow for the containerized application.",
+            "dependencies": [
+              1
+            ],
+            "details": "1. Create or update Dockerfile for containerization\n2. Configure multi-stage build for optimized container size\n3. Set up GitHub Actions workflow for automated testing\n4. Configure container publishing to ghcr.io/wyre-mcp\n5. Implement versioning strategy for container images\n6. Add container health checks and monitoring",
+            "status": "pending",
+            "testStrategy": "Verify container builds successfully. Test container startup and operation. Validate CI/CD pipeline successfully builds and publishes containers."
+          },
+          {
+            "id": 4,
+            "title": "Gateway Compatibility and Routing Implementation",
+            "description": "Ensure the MCP server is compatible with the gateway routing system and properly handles API requests.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "1. Implement compatibility with gateway routing system\n2. Update API endpoints to match gateway routing patterns\n3. Add route configuration for the gateway\n4. Implement request/response transformation as needed\n5. Test integration with the gateway\n6. Document routing configuration for deployment",
+            "status": "pending",
+            "testStrategy": "Integration tests with actual gateway. End-to-end tests with sample requests through the gateway. Performance testing to ensure acceptable response times."
+          },
+          {
+            "id": 5,
+            "title": "Logging, Error Handling, and Migration Documentation",
+            "description": "Implement comprehensive logging, error handling, and create migration documentation for existing users.",
+            "dependencies": [
+              4
+            ],
+            "details": "1. Add structured logging throughout the application\n2. Implement standardized error handling and error responses\n3. Create detailed migration guide for existing MCP users\n4. Document breaking changes and upgrade paths\n5. Provide examples of new authentication method\n6. Create troubleshooting guide for common migration issues\n7. Finalize all documentation",
+            "status": "pending",
+            "testStrategy": "Review logs for completeness and usefulness. Test error scenarios to ensure proper handling. Have existing users review migration documentation for clarity and completeness."
+          }
+        ]
       },
       {
-        "id": "26",
-        "title": "Implement Expanded Autotask Commands",
-        "description": "Create eight additional Autotask slash commands: /update-ticket, /add-note, /lookup-company, /lookup-contact, /lookup-asset, /check-contract, /my-tickets, and /reassign-ticket.",
-        "details": "Create the following command markdown files in the msp-claude-plugins/kaseya/autotask/commands/ directory, following the established patterns from existing commands:\n\n1. **update-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), status, priority, description, and other relevant ticket fields\n   - Implementation steps for updating an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n2. **add-note.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), note_text (required), note_type, visibility\n   - Implementation steps for adding notes to tickets\n   - Error handling for invalid ticket IDs and permission issues\n\n3. **lookup-company.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include company_name or company_id (at least one required)\n   - Implementation steps for retrieving company details\n   - Format for displaying company information including address, contacts, and active contracts\n\n4. **lookup-contact.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include contact_name, email, phone, or company_id (at least one required)\n   - Implementation steps for retrieving contact details\n   - Format for displaying contact information including role, company, and contact methods\n\n5. **lookup-asset.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include asset_id, asset_name, or company_id (at least one required)\n   - Implementation steps for retrieving asset details\n   - Format for displaying asset information including type, status, and configuration\n\n6. **check-contract.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include contract_id or company_id (at least one required)\n   - Implementation steps for retrieving contract details\n   - Format for displaying contract information including type, status, billing, and expiration\n\n7. **my-tickets.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include status (optional), priority (optional), and date_range (optional)\n   - Implementation steps for retrieving tickets assigned to the current user\n   - Format for displaying ticket list with key information\n\n8. **reassign-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required) and resource_id or resource_name (required)\n   - Implementation steps for reassigning a ticket to another resource\n   - Error handling for invalid ticket IDs, resource IDs, and permission issues\n\nEach command file should follow the established pattern:\n- Include proper frontmatter with name, description, and arguments\n- List prerequisites including API credentials\n- Outline steps for executing the command\n- Include error handling for common scenarios\n- Provide examples of successful execution and response formatting\n\nEnsure consistency with existing commands in terms of style, formatting, and error handling approaches.",
-        "testStrategy": "1. Review each command markdown file for completeness, accuracy, and adherence to the established command format:\n   - Verify frontmatter includes all required fields\n   - Confirm all necessary arguments are defined with appropriate descriptions\n   - Check that implementation steps are clear and comprehensive\n   - Ensure error handling covers common failure scenarios\n\n2. Validate each command against the Autotask API documentation:\n   - Confirm the endpoints and parameters match current API specifications\n   - Verify that field names and data types are correct\n   - Check that response handling aligns with API response formats\n\n3. Test each command with a sandbox Autotask instance:\n   - Execute each command with valid parameters and verify correct operation\n   - Test with invalid parameters to confirm error handling works as expected\n   - Verify that output formatting is consistent and user-friendly\n\n4. Cross-reference with existing commands:\n   - Ensure consistent naming conventions and argument patterns\n   - Verify similar error handling approaches\n   - Confirm output formatting follows established patterns\n\n5. Conduct a peer review:\n   - Have another developer review the commands for completeness and accuracy\n   - Address any feedback or suggestions for improvement\n\n6. Document any API limitations or edge cases discovered during testing in the command files.",
-        "status": "done",
-        "dependencies": [
-          "5",
-          "6",
-          "7",
-          "11"
-        ],
+        "id": 47,
+        "title": "Implement OAuth 2.1 with PKCE Authentication Flow",
+        "description": "Implement the OAuth 2.1 with PKCE authentication flow in the MCP Gateway to handle user authentication and credential management.",
+        "details": "1. Implement OAuth 2.1 authorization endpoint (/oauth/authorize)\n2. Implement token endpoint (/oauth/token) with PKCE verification\n3. Implement token refresh mechanism\n4. Create credential entry UI for vendors without native OAuth\n5. Implement secure storage for refresh tokens\n6. Add token revocation endpoint (/oauth/revoke)\n7. Implement session management\n8. Add audit logging for all authentication events\n9. Ensure compliance with MCP spec update (June 2025)\n10. Implement proper error handling and user feedback",
+        "testStrategy": "Unit tests for PKCE code challenge/verifier. Integration tests for the complete OAuth flow. Security testing for token handling. UI testing for credential entry pages. Compliance testing against MCP specification.",
         "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T04:07:00.014Z"
+        "dependencies": [
+          43
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement OAuth 2.1 Authorization Endpoint",
+            "description": "Create the authorization endpoint (/oauth/authorize) that initiates the OAuth 2.1 flow with PKCE support.",
+            "dependencies": [],
+            "details": "Implement the authorization endpoint that handles client authentication requests. This includes validating client IDs, generating authorization codes, storing PKCE code challenges, implementing state parameter for CSRF protection, and redirecting users to the appropriate callback URLs. Ensure proper scope validation and user consent flow.",
+            "status": "pending",
+            "testStrategy": "Unit tests for parameter validation. Integration tests for the complete authorization flow. Security testing for CSRF protection. Compliance testing against OAuth 2.1 specification."
+          },
+          {
+            "id": 2,
+            "title": "Implement Token Endpoint with PKCE Verification",
+            "description": "Create the token endpoint (/oauth/token) that exchanges authorization codes for access tokens with PKCE verification.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement the token endpoint that validates authorization codes, verifies PKCE code verifiers against stored code challenges, and issues access and refresh tokens. Include JWT generation for access tokens with appropriate claims and signatures. Implement proper error handling for invalid requests and failed verifications.",
+            "status": "pending",
+            "testStrategy": "Unit tests for PKCE verification logic. Integration tests for token exchange flow. Security testing for token generation. Performance testing for token issuance under load."
+          },
+          {
+            "id": 3,
+            "title": "Implement Token Refresh and Revocation Mechanisms",
+            "description": "Create endpoints and logic for refreshing access tokens and revoking tokens when needed.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement the refresh token flow that allows clients to obtain new access tokens without user interaction. Create the token revocation endpoint (/oauth/revoke) that invalidates access and refresh tokens. Implement secure storage for refresh tokens using encryption at rest. Add token lifecycle management including expiration handling and rotation policies.",
+            "status": "pending",
+            "testStrategy": "Unit tests for token validation and refresh logic. Integration tests for the complete refresh flow. Security testing for token storage. Compliance testing against OAuth 2.1 specification for token revocation."
+          },
+          {
+            "id": 4,
+            "title": "Create Credential Entry UI for Vendors",
+            "description": "Develop a user interface for vendors without native OAuth support to enter and manage their API credentials.",
+            "dependencies": [
+              3
+            ],
+            "details": "Design and implement a web-based UI for credential entry and management. Include form validation, secure transmission of credentials, and integration with the secure credential storage system. Implement user feedback for successful/failed operations and provide clear instructions for obtaining API credentials from various vendor platforms.",
+            "status": "pending",
+            "testStrategy": "UI testing for form validation and user experience. Integration tests with credential storage. Accessibility testing. Cross-browser compatibility testing. Security testing for credential transmission."
+          },
+          {
+            "id": 5,
+            "title": "Implement Session Management and Audit Logging",
+            "description": "Create session management functionality and comprehensive audit logging for all authentication events.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Implement session creation, validation, and expiration handling. Create audit logging system that records all authentication events including login attempts, token issuance, token refresh, and revocation. Ensure logs contain necessary information for security analysis while respecting privacy requirements. Implement proper error handling and user feedback for authentication failures.",
+            "status": "pending",
+            "testStrategy": "Unit tests for session management logic. Integration tests for audit logging. Performance testing for high-volume logging. Compliance testing against security standards for audit trails."
+          }
+        ]
       },
       {
-        "id": "27",
-        "title": "Implement Expanded Syncro Commands",
-        "description": "Create eight additional Syncro slash commands: /update-ticket, /add-ticket-comment, /log-time, /get-customer, /list-alerts, /resolve-alert, /search-assets, and /create-appointment.",
-        "details": "Create the following command markdown files in the msp-claude-plugins/syncro/syncro-msp/commands/ directory, following the established patterns from existing commands:\n\n1. **update-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), status, priority, description, and other relevant ticket fields\n   - Implementation steps for updating an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n2. **add-ticket-comment.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required) and comment (required)\n   - Implementation steps for adding a comment to an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n3. **log-time.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), time_spent (required), notes, billable (boolean)\n   - Implementation steps for logging time against a ticket\n   - Error handling for invalid inputs and permission issues\n\n4. **get-customer.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include customer_id or customer_name (at least one required)\n   - Implementation steps for retrieving customer information\n   - Error handling for invalid customer identifiers\n\n5. **list-alerts.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include status (optional), limit (optional), and other filtering options\n   - Implementation steps for retrieving and displaying alerts\n   - Error handling for API failures and permission issues\n\n6. **resolve-alert.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include alert_id (required) and resolution_notes (optional)\n   - Implementation steps for marking an alert as resolved\n   - Error handling for invalid alert IDs and permission issues\n\n7. **search-assets.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include search_term (required), asset_type (optional), customer_id (optional)\n   - Implementation steps for searching and displaying assets\n   - Error handling for invalid search parameters\n\n8. **create-appointment.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include customer_id (required), title (required), start_time (required), end_time (required), description, location\n   - Implementation steps for creating a new appointment\n   - Error handling for scheduling conflicts and invalid inputs\n\nEach command file should follow the established command structure:\n- Clear frontmatter with name, description, and arguments\n- Prerequisites section listing required API credentials and permissions\n- Implementation steps that are clear and comprehensive\n- Error handling for common failure scenarios\n- Examples of usage with expected outputs\n\nEnsure consistency in naming conventions, argument formats, and error handling approaches across all commands. Follow the patterns established in existing Syncro commands and adapt relevant patterns from the Autotask commands (Task #26) where appropriate.",
-        "testStrategy": "1. Review each command markdown file for completeness, accuracy, and adherence to the established command format:\n   - Verify frontmatter includes all required fields\n   - Confirm all necessary arguments are defined with appropriate descriptions\n   - Check that implementation steps are clear and comprehensive\n   - Ensure error handling covers common failure scenarios\n\n2. Validate each command against the Syncro API documentation:\n   - Verify that all required parameters are included\n   - Confirm that the implementation steps align with the API requirements\n   - Check that response handling is appropriate for the API's response format\n\n3. Test each command with a sandbox Syncro instance if available:\n   - Test the happy path with valid inputs\n   - Test error handling with invalid inputs\n   - Verify that the command output is formatted correctly and provides useful information\n\n4. Cross-check commands against similar commands in other plugins:\n   - Ensure consistent naming conventions and argument formats\n   - Verify similar functionality has similar implementation approaches\n\n5. Perform a final review to ensure:\n   - All eight commands are implemented\n   - Commands are placed in the correct directory structure\n   - Documentation is clear and comprehensive\n   - Error messages are helpful and actionable",
-        "status": "done",
-        "dependencies": [
-          "2",
-          "14",
-          "26"
-        ],
+        "id": 48,
+        "title": "Implement Secure Credential Storage",
+        "description": "Implement a secure credential storage system for the MCP Gateway to safely store and manage vendor API credentials.",
+        "details": "1. Design encrypted credential storage schema\n2. Implement AES-256 encryption for credentials at rest\n3. Create key derivation system (per-user encryption keys derived from master key)\n4. Implement secure credential retrieval mechanism\n5. Add audit logging for all credential access\n6. Implement tenant isolation to prevent cross-user data access\n7. Create credential rotation mechanism\n8. Implement secure deletion for user data removal\n9. Add backup and recovery procedures\n10. Document security practices for compliance purposes",
+        "testStrategy": "Security testing for encryption implementation. Penetration testing for credential storage. Unit tests for encryption/decryption operations. Integration tests for credential lifecycle. Compliance testing against security standards.",
         "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T04:06:42.612Z"
+        "dependencies": [
+          43,
+          47
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and implement encrypted credential storage schema",
+            "description": "Create a secure database schema for storing encrypted vendor API credentials with proper tenant isolation.",
+            "dependencies": [],
+            "details": "Design a database schema that supports AES-256 encryption for credentials at rest. Include fields for encrypted credential data, initialization vectors, tenant IDs for isolation, creation/modification timestamps, and credential metadata. Implement the database models and migration scripts.",
+            "status": "pending",
+            "testStrategy": "Unit tests for schema validation. Security review of database design. Test data isolation between tenants."
+          },
+          {
+            "id": 2,
+            "title": "Implement encryption and key derivation system",
+            "description": "Create a secure encryption service with AES-256 and a key derivation system for per-user encryption keys.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement an encryption service that uses AES-256 for credential encryption. Create a key derivation function that generates per-user encryption keys from a master key. Ensure secure key storage and management. Implement functions for encrypting and decrypting credential data with proper IV handling.",
+            "status": "pending",
+            "testStrategy": "Unit tests for encryption/decryption operations. Security testing of key derivation implementation. Penetration testing for encryption vulnerabilities."
+          },
+          {
+            "id": 3,
+            "title": "Develop secure credential retrieval and management API",
+            "description": "Create API endpoints for securely storing, retrieving, and managing vendor credentials with proper authentication.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement RESTful API endpoints for credential CRUD operations. Ensure all endpoints require proper authentication and authorization. Implement tenant isolation to prevent cross-user data access. Add input validation and sanitization for all API inputs. Create credential rotation mechanism for periodic updates.",
+            "status": "pending",
+            "testStrategy": "Integration tests for API endpoints. Security testing for authentication and authorization. Load testing for API performance."
+          },
+          {
+            "id": 4,
+            "title": "Implement comprehensive audit logging system",
+            "description": "Add detailed audit logging for all credential access and management operations for security compliance.",
+            "dependencies": [
+              3
+            ],
+            "details": "Create an audit logging service that records all credential access, modifications, and administrative actions. Log user ID, timestamp, action type, affected credential IDs (without sensitive data), and source IP. Ensure logs are tamper-resistant and stored securely. Implement log rotation and retention policies.",
+            "status": "pending",
+            "testStrategy": "Unit tests for logging functionality. Verification of log completeness for all credential operations. Compliance testing against security standards."
+          },
+          {
+            "id": 5,
+            "title": "Implement backup, recovery, and secure deletion procedures",
+            "description": "Create mechanisms for secure credential backup, recovery, and complete deletion when required.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Implement secure backup procedures for encrypted credentials with proper access controls. Create recovery mechanisms for restoring credentials from backups. Implement secure deletion functionality that ensures complete removal of user data when requested, including from backups. Document all security practices for compliance purposes.",
+            "status": "pending",
+            "testStrategy": "Integration tests for backup and recovery processes. Verification of secure deletion implementation. Documentation review for compliance requirements."
+          }
+        ]
       },
       {
-        "id": "28",
-        "title": "Implement Expanded HaloPSA Commands",
-        "description": "Create eight additional HaloPSA slash commands: /add-action, /update-ticket, /show-ticket, /sla-dashboard, /search-clients, /search-assets, /kb-search, and /contract-status.",
-        "details": "Create the following command markdown files in the msp-claude-plugins/halopsa/halopsa/commands/ directory, following the established patterns from existing commands:\n\n1. **add-action.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), action_type, description, and other relevant action fields\n   - Implementation steps for adding an action to an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n2. **update-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), status, priority, description, and other relevant ticket fields\n   - Implementation steps for updating an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n3. **show-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required)\n   - Implementation steps for retrieving and displaying ticket details\n   - Error handling for invalid ticket IDs and permission issues\n\n4. **sla-dashboard.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include optional filters like team, agent, priority, etc.\n   - Implementation steps for retrieving and displaying SLA status information\n   - Error handling for invalid parameters and permission issues\n\n5. **search-clients.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include search_term (required), limit, and other filtering options\n   - Implementation steps for searching and displaying client information\n   - Error handling for no results and permission issues\n\n6. **search-assets.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include search_term (required), client_id (optional), limit, and other filtering options\n   - Implementation steps for searching and displaying asset information\n   - Error handling for no results and permission issues\n\n7. **kb-search.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include search_term (required), category (optional), and other filtering options\n   - Implementation steps for searching and displaying knowledge base articles\n   - Error handling for no results and permission issues\n\n8. **contract-status.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include client_id (required)\n   - Implementation steps for retrieving and displaying contract information\n   - Error handling for invalid client IDs and permission issues\n\nEach command file should follow this general structure:\n```markdown\n---\nname: command-name\ndescription: Brief description of what the command does\narguments:\n  - name: arg1\n    description: Description of argument 1\n    required: true/false\n  - name: arg2\n    description: Description of argument 2\n    required: true/false\n---\n\n## Prerequisites\n- HaloPSA API credentials configured\n- Appropriate permissions in HaloPSA\n\n## Implementation\n1. Validate input parameters\n2. Construct API request to HaloPSA endpoint\n3. Process response data\n4. Format and return results to user\n\n## Error Handling\n- Handle case when required parameters are missing\n- Handle API authentication failures\n- Handle permission issues\n- Handle not found errors\n- Handle rate limiting\n```\n\nEnsure all commands follow consistent naming conventions, argument structures, and error handling approaches. Each command should provide clear, formatted output that is easy to read and understand in a chat interface.",
-        "testStrategy": "1. Review each command markdown file for completeness, accuracy, and adherence to the established command format:\n   - Verify frontmatter includes all required fields\n   - Confirm all necessary arguments are defined with appropriate descriptions\n   - Check that implementation steps are clear and comprehensive\n   - Ensure error handling covers common failure scenarios\n\n2. Validate each command against the HaloPSA API documentation:\n   - Verify the endpoints referenced exist\n   - Confirm the parameters match what the API expects\n   - Check that response handling aligns with API response format\n\n3. Conduct manual testing of each command with a sandbox HaloPSA instance:\n   - Test with valid inputs to verify successful operation\n   - Test with invalid inputs to verify error handling\n   - Test with edge cases (empty results, large result sets, special characters)\n   - Verify output formatting is clear and readable\n\n4. Perform integration testing to ensure commands work within the Claude plugin ecosystem:\n   - Test command discovery and help text display\n   - Verify commands appear in appropriate suggestion contexts\n   - Test command execution through the plugin interface\n\n5. Document any API limitations or rate limiting considerations that might affect command performance or reliability.\n\n6. Create example usage documentation for each command showing sample inputs and expected outputs.",
-        "status": "done",
+        "id": 49,
+        "title": "Deploy MCP Gateway to AWS ECS",
+        "description": "Deploy the MCP Gateway to AWS ECS using the existing Terraform configuration from the MCP Gateway Registry.",
+        "details": "1. Set up AWS account and configure credentials\n2. Review and customize the existing Terraform configuration\n3. Configure domain and SSL certificates for mcp.wyre.ai\n4. Set up AWS ECS cluster\n5. Configure load balancer and auto-scaling\n6. Set up database (PostgreSQL or MongoDB) for session storage\n7. Configure Redis for caching and rate limiting\n8. Implement monitoring and alerting\n9. Set up CI/CD pipeline for automated deployment\n10. Document deployment process and infrastructure",
+        "testStrategy": "Infrastructure testing with Terraform validation. Load testing for auto-scaling. Failover testing for high availability. Security testing for AWS configuration. End-to-end testing of deployed gateway.",
+        "priority": "medium",
         "dependencies": [
-          "2",
-          "26",
-          "27"
+          43,
+          47,
+          48
         ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T04:08:45.131Z"
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set up AWS infrastructure with Terraform",
+            "description": "Configure AWS account credentials and initialize the Terraform environment using the existing configuration from MCP Gateway Registry.",
+            "dependencies": [],
+            "details": "Set up AWS CLI with proper credentials, clone the Terraform configuration from MCP Gateway Registry, initialize Terraform workspace, and customize variables for our deployment. Ensure AWS permissions are properly configured for ECS deployment.",
+            "status": "pending",
+            "testStrategy": "Validate Terraform configuration using 'terraform validate' and 'terraform plan' to ensure no errors before deployment."
+          },
+          {
+            "id": 2,
+            "title": "Configure networking and security components",
+            "description": "Set up VPC, subnets, security groups, and configure domain with SSL certificates for mcp.wyre.ai.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create or update VPC configuration, configure public and private subnets, set up security groups with proper ingress/egress rules, register domain in Route53, request SSL certificate through ACM, and validate domain ownership for the certificate.",
+            "status": "pending",
+            "testStrategy": "Verify DNS resolution, SSL certificate validity, and security group configurations through AWS console and CLI tools."
+          },
+          {
+            "id": 3,
+            "title": "Deploy ECS cluster with load balancing",
+            "description": "Create ECS cluster, task definitions, services, and configure load balancer with auto-scaling capabilities.",
+            "dependencies": [
+              2
+            ],
+            "details": "Define ECS task definitions based on MCP Gateway container requirements, create ECS service with desired count, configure Application Load Balancer with target groups, set up auto-scaling policies based on CPU/memory utilization, and ensure proper health checks are in place.",
+            "status": "pending",
+            "testStrategy": "Test load balancer functionality, verify auto-scaling triggers under load, and confirm container health checks are functioning correctly."
+          },
+          {
+            "id": 4,
+            "title": "Set up supporting services (PostgreSQL and Redis)",
+            "description": "Deploy and configure PostgreSQL for session storage and Redis for caching and rate limiting.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create RDS PostgreSQL instance or use Amazon Aurora, configure security groups for database access, set up Redis using ElastiCache, configure backup policies, implement encryption at rest, and integrate connection strings with MCP Gateway configuration.",
+            "status": "pending",
+            "testStrategy": "Verify database connectivity from ECS tasks, test Redis caching functionality, and validate data persistence across container restarts."
+          },
+          {
+            "id": 5,
+            "title": "Implement CI/CD pipeline and monitoring",
+            "description": "Set up CI/CD pipeline for automated deployment and configure monitoring and alerting for the infrastructure.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Create GitHub Actions or AWS CodePipeline workflow for automated builds and deployments, configure CloudWatch for logs and metrics collection, set up alarms for critical metrics, implement X-Ray for distributed tracing, and document the entire deployment process and infrastructure for future reference.",
+            "status": "pending",
+            "testStrategy": "Verify CI/CD pipeline by making test commits, validate monitoring dashboards show appropriate metrics, and test alerting by triggering threshold violations."
+          }
+        ]
       },
       {
-        "id": "29",
-        "title": "Implement Expanded Atera Commands",
-        "description": "Create eight additional Atera slash commands: /update-ticket, /list-alerts, /resolve-alert, /run-powershell, /search-customers, /create-monitor, /get-kb-articles, and /log-time.",
-        "details": "Create the following command markdown files in the msp-claude-plugins/atera/atera/commands/ directory, following the established patterns from existing commands:\n\n1. **update-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), status, priority, description, and other relevant ticket fields\n   - Implementation steps for updating an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n2. **list-alerts.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include filters for severity, status, device, and time range\n   - Implementation steps for retrieving and displaying alerts\n   - Formatting guidance for presenting alerts in a readable format\n\n3. **resolve-alert.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include alert_id (required) and resolution_note\n   - Implementation steps for marking an alert as resolved\n   - Error handling for invalid alert IDs and permission issues\n\n4. **run-powershell.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include device_id (required), script_content or script_id, and execution parameters\n   - Implementation steps for executing PowerShell commands remotely\n   - Security considerations and error handling\n\n5. **search-customers.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include search_term (required), filters for customer type, status, etc.\n   - Implementation steps for searching and displaying customer information\n   - Formatting guidance for presenting customer data\n\n6. **create-monitor.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include device_id (required), monitor_type, thresholds, alert settings\n   - Implementation steps for creating a new monitoring configuration\n   - Error handling for invalid parameters and device compatibility\n\n7. **get-kb-articles.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include search_term, category, and other relevant filters\n   - Implementation steps for retrieving knowledge base articles\n   - Formatting guidance for presenting article content\n\n8. **log-time.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), time_spent, description, billable status\n   - Implementation steps for logging time entries against tickets\n   - Error handling for invalid ticket IDs and time formats\n\nEach command file should follow the established pattern:\n```markdown\n---\nname: command-name\ndescription: Brief description of what the command does\narguments:\n  - name: arg1\n    description: Description of argument 1\n    required: true/false\n  - name: arg2\n    description: Description of argument 2\n    required: true/false\n---\n\n# Command Name\n\n## Prerequisites\n- List of prerequisites (API access, permissions, etc.)\n\n## Implementation\n1. Step-by-step implementation details\n2. API endpoints to use\n3. Data transformation requirements\n4. Response handling\n\n## Error Handling\n- Common error scenarios and how to handle them\n```\n\nEnsure all commands adhere to the Atera API specifications and limitations. Reference the Atera API documentation for endpoint details, required parameters, and response formats.",
-        "testStrategy": "1. Review each command markdown file for completeness, accuracy, and adherence to the established command format:\n   - Verify frontmatter includes all required fields\n   - Confirm all necessary arguments are defined with appropriate descriptions\n   - Check that implementation steps are clear and comprehensive\n   - Ensure error handling covers common scenarios\n\n2. Validate each command against the Atera API documentation:\n   - Verify API endpoints exist and are correctly referenced\n   - Confirm required parameters are included\n   - Check that response handling matches API response format\n\n3. Conduct integration testing with a sandbox Atera instance:\n   - Test each command with valid inputs to verify successful operation\n   - Test with invalid inputs to verify error handling\n   - Verify data formatting and presentation is user-friendly\n\n4. Perform cross-command testing:\n   - Test workflows that involve multiple commands (e.g., list-alerts followed by resolve-alert)\n   - Verify consistent behavior and formatting across commands\n\n5. Documentation review:\n   - Have another team member review the command documentation for clarity\n   - Verify examples are provided where appropriate\n   - Ensure security considerations are addressed, especially for commands like run-powershell",
-        "status": "done",
+        "id": 50,
+        "title": "Implement HaloPSA MCP Server with Native OAuth",
+        "description": "Create the HaloPSA MCP server repository and implement native OAuth passthrough to leverage HaloPSA's built-in OAuth support.",
+        "details": "1. Create repo: 'wyre-mcp/halopsa-mcp'\n2. Initialize TypeScript project with MCP SDK and @asachs01/node-halopsa\n3. Implement native OAuth passthrough to HaloPSA's OAuth system\n4. Configure OAuth client registration with HaloPSA\n5. Implement token refresh handling\n6. Create tools for HaloPSA API interaction\n7. Create Dockerfile for containerization\n8. Implement error handling and logging\n9. Add gateway route configuration for /v1/halopsa/*\n10. Document OAuth configuration requirements",
+        "testStrategy": "Unit tests for OAuth implementation. Integration tests with HaloPSA OAuth sandbox. End-to-end tests with real OAuth credentials. Security testing for token handling. Performance testing for response times.",
+        "priority": "medium",
         "dependencies": [
-          "2",
-          "26",
-          "27",
-          "28"
+          42,
+          43,
+          47
         ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T04:09:22.347Z"
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create HaloPSA MCP repository and initialize TypeScript project",
+            "description": "Set up the repository structure and initialize the TypeScript project with required dependencies.",
+            "dependencies": [],
+            "details": "Create the 'wyre-mcp/halopsa-mcp' repository. Initialize a TypeScript project with proper configuration. Install MCP SDK and @asachs01/node-halopsa packages. Set up the project structure following MCP standards. Configure ESLint and Prettier for code quality. Set up Jest for testing.",
+            "status": "pending",
+            "testStrategy": "Verify project structure and dependencies. Run basic smoke tests to ensure the project builds correctly."
+          },
+          {
+            "id": 2,
+            "title": "Implement HaloPSA OAuth passthrough and client registration",
+            "description": "Create the OAuth passthrough implementation to leverage HaloPSA's built-in OAuth system and configure client registration.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement OAuth authorization endpoints that pass through to HaloPSA's OAuth system. Create configuration for OAuth client registration with HaloPSA. Implement secure storage for client credentials. Create documentation for the OAuth configuration requirements. Implement proper error handling for OAuth failures.",
+            "status": "pending",
+            "testStrategy": "Unit tests for OAuth implementation. Integration tests with HaloPSA OAuth sandbox. Security testing for proper credential handling."
+          },
+          {
+            "id": 3,
+            "title": "Implement token refresh handling and API interaction tools",
+            "description": "Create token refresh mechanism and build tools for interacting with the HaloPSA API.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement automatic token refresh when tokens expire. Create error handling for failed refreshes. Build a set of utility functions for common HaloPSA API interactions. Implement proper logging for API calls and responses. Create abstraction layer for API interactions to simplify tool development.",
+            "status": "pending",
+            "testStrategy": "Unit tests for token refresh logic. Integration tests with mock API responses. Performance testing for API interaction tools."
+          },
+          {
+            "id": 4,
+            "title": "Create Dockerfile and containerization setup",
+            "description": "Implement containerization for the HaloPSA MCP server with proper configuration.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a Dockerfile for containerizing the HaloPSA MCP server. Implement multi-stage builds for optimized container size. Configure environment variables for runtime configuration. Set up health checks and proper signal handling. Create docker-compose configuration for local development. Document container deployment requirements.",
+            "status": "pending",
+            "testStrategy": "Build and run container tests. Verify proper environment variable handling. Test container startup and shutdown procedures."
+          },
+          {
+            "id": 5,
+            "title": "Configure gateway routes and finalize documentation",
+            "description": "Add gateway route configuration and complete comprehensive documentation for the HaloPSA MCP server.",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Configure gateway routes for /v1/halopsa/* endpoints. Implement proper error handling and logging for all routes. Create comprehensive documentation including setup instructions, OAuth configuration, API usage examples, and troubleshooting guides. Add API endpoint documentation with request/response examples. Create deployment guides for various environments.",
+            "status": "pending",
+            "testStrategy": "End-to-end testing with gateway integration. Documentation review and validation. User acceptance testing with documentation."
+          }
+        ]
       },
       {
-        "id": "30",
-        "title": "Implement Expanded SuperOps Commands",
-        "description": "Create eight additional SuperOps slash commands: /update-ticket, /add-ticket-note, /log-time, /list-alerts, /acknowledge-alert, /resolve-alert, /run-script, and /get-asset.",
-        "details": "Create the following command markdown files in the msp-claude-plugins/superops/superops-ai/commands/ directory, following the established patterns from existing commands:\n\n1. **update-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), status, priority, description, and other relevant ticket fields\n   - Implementation steps for updating an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n2. **add-ticket-note.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required) and note_content (required)\n   - Implementation steps for adding a note to an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n3. **log-time.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), time_spent (required), description, billable flag\n   - Implementation steps for logging time against a ticket\n   - Error handling for invalid inputs and permission issues\n\n4. **list-alerts.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include filters for status, severity, asset_id, and time range\n   - Implementation steps for retrieving and displaying alerts\n   - Formatting guidance for presenting alert information clearly\n\n5. **acknowledge-alert.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include alert_id (required) and optional note\n   - Implementation steps for acknowledging an alert\n   - Error handling for invalid alert IDs and permission issues\n\n6. **resolve-alert.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include alert_id (required), resolution_note, and root_cause\n   - Implementation steps for resolving an alert\n   - Error handling for invalid alert IDs and permission issues\n\n7. **run-script.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include script_id (required), asset_id (required), and script parameters\n   - Implementation steps for executing a script on a specified asset\n   - Error handling for invalid script IDs, asset IDs, and execution failures\n\n8. **get-asset.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include asset_id or asset_name (at least one required)\n   - Implementation steps for retrieving and displaying asset information\n   - Formatting guidance for presenting asset details clearly\n\nEach command should follow the established pattern:\n- Clear frontmatter with name, description, and arguments\n- Comprehensive argument descriptions with type information and examples\n- Step-by-step implementation guidance\n- Error handling for common scenarios\n- Examples of usage and expected output\n- References to relevant SuperOps API endpoints",
-        "testStrategy": "1. Review each command markdown file for completeness, accuracy, and adherence to the established command format:\n   - Verify frontmatter includes all required fields\n   - Confirm all necessary arguments are defined with appropriate descriptions\n   - Check that implementation steps are clear and comprehensive\n   - Ensure error handling covers common failure scenarios\n\n2. Validate each command against the SuperOps API documentation:\n   - Confirm the commands use the correct API endpoints\n   - Verify required parameters match the API specifications\n   - Check that response handling aligns with API response formats\n\n3. Test each command with a sandbox SuperOps instance if available:\n   - Create test tickets, alerts, and assets for testing\n   - Execute each command with valid inputs and verify correct behavior\n   - Test with invalid inputs to verify error handling\n   - Test edge cases (e.g., large result sets, special characters in inputs)\n\n4. Conduct peer review:\n   - Have another developer review the command implementations\n   - Verify consistency with other MSP plugin commands\n   - Check for any security concerns or best practice violations\n\n5. Document test results:\n   - Create a test report documenting the testing performed\n   - Note any issues found and their resolutions\n   - Include screenshots of successful command executions",
-        "status": "done",
+        "id": 51,
+        "title": "Implement Additional Vendor MCP Servers",
+        "description": "Create MCP servers for additional vendors: Syncro, Atera, SuperOps, ConnectWise PSA, and ConnectWise Automate.",
+        "details": "1. Create repositories for each vendor:\n   - wyre-mcp/syncro-mcp\n   - wyre-mcp/atera-mcp\n   - wyre-mcp/superops-mcp\n   - wyre-mcp/connectwise-psa-mcp\n   - wyre-mcp/connectwise-automate-mcp\n2. Initialize TypeScript projects with MCP SDK and respective node libraries\n3. Implement credential handling for each vendor's authentication method\n4. Create tools for each vendor's API interaction\n5. Create Dockerfiles for containerization\n6. Implement error handling and logging\n7. Add gateway route configurations for each vendor\n8. Create credential entry UI for each vendor\n9. Document API capabilities and limitations\n10. Implement rate limiting and error handling specific to each vendor",
+        "testStrategy": "Unit tests for each vendor implementation. Integration tests with mock APIs. End-to-end tests with real credentials (in secure CI environment). Performance testing for response times. Security testing for credential handling.",
+        "priority": "low",
         "dependencies": [
-          "2",
-          "26",
-          "27",
-          "28",
-          "29"
+          42,
+          43,
+          47,
+          48
         ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T04:07:37.457Z"
-      },
-      {
-        "id": "31",
-        "title": "Implement Expanded ConnectWise PSA Commands",
-        "description": "Create eight additional ConnectWise PSA slash commands: /add-note, /update-ticket, /close-ticket, /log-time, /lookup-config, /check-agreement, /schedule-entry, and /get-ticket.",
-        "details": "Create the following command markdown files in the msp-claude-plugins/connectwise/manage/commands/ directory, following the established patterns from existing commands:\n\n1. **add-note.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), note_text (required), internal_flag (optional), and other relevant note fields\n   - Implementation steps for adding a note to an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n2. **update-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), status, priority, summary, description, and other relevant ticket fields\n   - Implementation steps for updating an existing ticket\n   - Error handling for invalid ticket IDs and permission issues\n\n3. **close-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), resolution_note (required), resolution_code (required), and other closure-related fields\n   - Implementation steps for closing a ticket with proper resolution\n   - Error handling for tickets that cannot be closed due to business rules\n\n4. **log-time.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required), time_entry_type, hours, notes, billable_flag, and other time entry fields\n   - Implementation steps for logging time against a ticket\n   - Error handling for invalid time entries or permission issues\n\n5. **lookup-config.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include config_id or name (required), and other search parameters\n   - Implementation steps for retrieving configuration item details\n   - Error handling for configurations not found\n\n6. **check-agreement.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include company_id or name (required), agreement_type (optional)\n   - Implementation steps for checking agreement details and status\n   - Error handling for companies or agreements not found\n\n7. **schedule-entry.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include member_id (required), start_time (required), end_time (required), description, and other scheduling fields\n   - Implementation steps for creating a schedule entry\n   - Error handling for scheduling conflicts or permission issues\n\n8. **get-ticket.md**:\n   - Frontmatter with name, description, and arguments\n   - Arguments should include ticket_id (required)\n   - Implementation steps for retrieving comprehensive ticket details\n   - Error handling for tickets not found or permission issues\n\nEach command file should:\n- Follow the established markdown format with proper frontmatter\n- Include clear descriptions of all arguments\n- Provide detailed implementation steps for Claude to follow\n- Include error handling for common failure scenarios\n- Reference the ConnectWise Manage API endpoints and authentication requirements\n- Include examples of successful command usage and output formatting",
-        "testStrategy": "1. Review each command markdown file for completeness, accuracy, and adherence to the established command format:\n   - Verify frontmatter includes all required fields\n   - Confirm all necessary arguments are defined with appropriate descriptions\n   - Check that implementation steps are clear and comprehensive\n   - Ensure error handling covers common failure scenarios\n\n2. Validate each command against the ConnectWise Manage API documentation:\n   - Verify API endpoints are correctly referenced\n   - Confirm required parameters match API specifications\n   - Check that response handling aligns with API response formats\n\n3. Test each command with a sandbox ConnectWise Manage instance:\n   - Create test tickets for commands that require existing tickets\n   - Verify successful execution of each command with valid inputs\n   - Test error handling with invalid inputs (missing required fields, invalid IDs, etc.)\n   - Verify output formatting is consistent and user-friendly\n\n4. Perform integration testing with Claude:\n   - Test each command through the Claude interface\n   - Verify Claude correctly interprets and executes the commands\n   - Check that Claude provides helpful error messages when commands fail\n   - Verify Claude formats the command outputs in a readable manner\n\n5. Document any API limitations or edge cases discovered during testing",
-        "status": "done",
-        "dependencies": [
-          "14"
-        ],
-        "priority": "high",
-        "subtasks": [],
-        "updatedAt": "2026-02-05T04:08:29.565Z"
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create and initialize vendor MCP repositories",
+            "description": "Set up the repository structure for all five vendors and initialize TypeScript projects with MCP SDK.",
+            "dependencies": [],
+            "details": "Create GitHub repositories for Syncro, Atera, SuperOps, ConnectWise PSA, and ConnectWise Automate. Initialize each with TypeScript, install MCP SDK and respective vendor API libraries. Set up project structure with standard folders (src, tests, config). Configure tsconfig.json, package.json, and basic CI/CD pipeline.",
+            "status": "pending",
+            "testStrategy": "Verify repository structure and successful build of each project. Test dependency installation and project initialization scripts."
+          },
+          {
+            "id": 2,
+            "title": "Implement vendor-specific authentication and credential handling",
+            "description": "Create authentication modules for each vendor's specific authentication requirements and integrate with secure credential storage.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement authentication modules for each vendor: OAuth for Syncro and SuperOps, API key for Atera, and complex authentication for ConnectWise products. Integrate with the secure credential storage system from Task 48. Create credential validation and refresh mechanisms. Implement proper error handling for authentication failures.",
+            "status": "pending",
+            "testStrategy": "Unit tests for authentication modules. Integration tests with mock credentials. Security testing for proper credential handling and storage."
+          },
+          {
+            "id": 3,
+            "title": "Develop vendor-specific API interaction tools",
+            "description": "Create the core API interaction tools for each vendor, implementing the required MCP functionality.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement API interaction tools for each vendor, focusing on device/asset management, alert handling, and site/customer management. Create standardized interfaces that conform to MCP specifications. Implement rate limiting, pagination handling, and error recovery. Ensure proper logging of API interactions while protecting sensitive data.",
+            "status": "pending",
+            "testStrategy": "Unit tests for each API tool. Integration tests with mock API responses. End-to-end tests with sandbox environments where available."
+          },
+          {
+            "id": 4,
+            "title": "Create containerization and deployment configurations",
+            "description": "Develop Dockerfiles and deployment configurations for each vendor MCP server.",
+            "dependencies": [
+              3
+            ],
+            "details": "Create Dockerfiles for each vendor MCP server with proper base images, security considerations, and optimization. Implement multi-stage builds to minimize image size. Configure environment variables for runtime configuration. Create docker-compose files for local development. Add gateway route configurations for each vendor in the MCP Gateway.",
+            "status": "pending",
+            "testStrategy": "Test Docker builds and container startup. Verify proper configuration loading. Test gateway routing and connection to each vendor MCP server."
+          },
+          {
+            "id": 5,
+            "title": "Implement documentation and testing",
+            "description": "Create comprehensive documentation and implement testing strategies for each vendor MCP server.",
+            "dependencies": [
+              4
+            ],
+            "details": "Document API capabilities and limitations for each vendor. Create usage examples and troubleshooting guides. Implement comprehensive test suites including unit tests, integration tests, and end-to-end tests. Create performance benchmarks and security validation tests. Document known issues and vendor-specific quirks or limitations.",
+            "status": "pending",
+            "testStrategy": "Review documentation for completeness and accuracy. Verify test coverage meets project standards. Perform security and performance testing against actual vendor APIs in controlled environments."
+          }
+        ]
       }
     ],
     "metadata": {
-      "version": "1.0.0",
-      "lastModified": "2026-02-05T04:09:22.347Z",
-      "taskCount": 31,
-      "completedCount": 31,
-      "tags": [
-        "master"
-      ]
+      "created": "2026-02-05T14:29:59.590Z",
+      "updated": "2026-02-05T14:36:58.052Z",
+      "description": "Tasks for master context"
     }
   },
   "node-it-glue": {
