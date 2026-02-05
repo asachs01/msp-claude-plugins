@@ -390,6 +390,41 @@ export const plugins: Plugin[] = [
     },
     path: 'connectwise/automate',
     compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
+  },
+  {
+    id: 'ninjaone-rmm',
+    name: 'NinjaOne (NinjaRMM)',
+    vendor: 'NinjaOne',
+    description: 'Cloud-native RMM for device management, alerts, ticketing, and remote monitoring across Windows, Mac, and Linux endpoints.',
+    category: 'rmm',
+    features: [
+      'Device Management',
+      'Organization Management',
+      'Alert Monitoring',
+      'Ticketing',
+      'Remote Control'
+    ],
+    skills: [
+      { name: 'devices', description: 'Device management, services, inventory, maintenance windows' },
+      { name: 'organizations', description: 'Organization and location management' },
+      { name: 'alerts', description: 'Alert monitoring, dismissal, and webhook configuration' },
+      { name: 'tickets', description: 'Ticket management and log entries' },
+      { name: 'api-patterns', description: 'OAuth 2.0 authentication, pagination, rate limiting' }
+    ],
+    commands: [
+      { name: '/ninjaone-search-devices', description: 'Search devices across organizations' },
+      { name: '/ninjaone-device-info', description: 'Get detailed device information' },
+      { name: '/ninjaone-list-alerts', description: 'List active alerts with filtering' },
+      { name: '/ninjaone-create-ticket', description: 'Create a new ticket' }
+    ],
+    apiInfo: {
+      baseUrl: 'https://app.ninjarmm.com (US) / eu.ninjarmm.com (EU) / oc.ninjarmm.com (OC)',
+      auth: 'OAuth 2.0 Client Credentials',
+      rateLimit: 'Varies by endpoint',
+      docsUrl: 'https://app.ninjarmm.com/apidocs/'
+    },
+    path: 'ninjaone/ninjaone-rmm',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   }
 ];
 

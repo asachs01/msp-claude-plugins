@@ -80,6 +80,14 @@
       "tags": ["connectwise", "automate", "rmm", "msp"]
     },
     {
+      "name": "ninjaone-rmm",
+      "source": "./ninjaone/ninjaone-rmm",
+      "description": "NinjaOne (NinjaRMM) - devices, organizations, alerts, tickets",
+      "version": "1.0.0",
+      "category": "rmm",
+      "tags": ["ninjaone", "ninjarmm", "rmm", "monitoring", "msp"]
+    },
+    {
       "name": "shared-skills",
       "source": "./shared",
       "description": "Vendor-agnostic MSP skills - terminology and ticket triage",
