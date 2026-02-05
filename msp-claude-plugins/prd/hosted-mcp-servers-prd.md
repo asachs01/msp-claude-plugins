@@ -1,6 +1,6 @@
 # Hosted MCP Servers PRD
 
-> Version: 1.2.0
+> Version: 1.3.0
 > Created: 2026-02-05
 > Updated: 2026-02-05
 > Status: Draft - Awaiting Review
@@ -86,12 +86,12 @@ Instead of deploying individual MCP servers per vendor, a **unified MCP Gateway*
 4. **Session-aware routing** - Requests routed to correct vendor based on user context
 5. **Easier credential management** - Per-tenant encrypted storage in one place
 
-### Gateway Architecture
+### Hybrid Architecture: Python Gateway + TypeScript MCP Servers
 
 ```
 ┌─────────────────┐     ┌──────────────────────────────────────────────────┐
-│  Claude Desktop │     │              MCP Gateway                          │
-│  or Claude Code │────▶│  https://mcp.wyre.ai                   │
+│  Claude Desktop │     │         MCP Gateway (Python/FastAPI)             │
+│  or Claude Code │────▶│         https://mcp.wyre.ai                      │
 └─────────────────┘     │                                                  │
         │               │  ┌─────────────────────────────────────────────┐ │
         │               │  │           OAuth 2.1 + PKCE Layer            │ │
@@ -108,18 +108,59 @@ Instead of deploying individual MCP servers per vendor, a **unified MCP Gateway*
                         │  │  - Tenant isolation                         │ │
                         │  └─────────────────────────────────────────────┘ │
                         │                      │                            │
-                        │  ┌───────┬───────┬───────┬───────┬───────────┐  │
-                        │  │ Auto- │ Datto │  IT   │ Halo  │   ...     │  │
-                        │  │ task  │  RMM  │ Glue  │  PSA  │           │  │
-                        │  │Handler│Handler│Handler│Handler│           │  │
-                        │  └───┬───┴───┬───┴───┬───┴───┬───┴───────────┘  │
-                        └──────│───────│───────│───────│──────────────────┘
-                               ▼       ▼       ▼       ▼
-                        ┌──────────┐ ┌──────────┐ ┌──────────┐
-                        │ Autotask │ │ Datto    │ │ IT Glue  │  ...
-                        │   API    │ │   API    │ │   API    │
-                        └──────────┘ └──────────┘ └──────────┘
+                        │  ┌─────────────────────────────────────────────┐ │
+                        │  │    Reverse Proxy (NGINX / FastAPI Router)   │ │
+                        │  │  - Route /v1/{vendor}/* to MCP server       │ │
+                        │  │  - Inject credentials in headers            │ │
+                        │  └─────────────────────────────────────────────┘ │
+                        └──────────────────────│───────────────────────────┘
+                                               │
+         ┌─────────────┬───────────────────────┼───────────────┬─────────────┐
+         ▼             ▼                       ▼               ▼             ▼
+  ┌────────────┐ ┌────────────┐        ┌────────────┐  ┌────────────┐ ┌────────────┐
+  │ autotask   │ │ datto-rmm  │        │  itglue    │  │  syncro    │ │   atera    │
+  │    mcp     │ │    mcp     │        │    mcp     │  │    mcp     │ │    mcp     │
+  │(TypeScript)│ │(TypeScript)│        │(TypeScript)│  │(TypeScript)│ │(TypeScript)│
+  │            │ │            │        │            │  │            │ │            │
+  │ uses       │ │ uses       │        │ uses       │  │ uses       │ │ uses       │
+  │ autotask-  │ │ node-datto-│        │ node-it-   │  │ node-      │ │ node-      │
+  │ node       │ │ rmm        │        │ glue       │  │ syncro     │ │ atera      │
+  └─────┬──────┘ └─────┬──────┘        └─────┬──────┘  └─────┬──────┘ └─────┬──────┘
+        │              │                     │               │             │
+        ▼              ▼                     ▼               ▼             ▼
+  ┌──────────┐  ┌──────────┐          ┌──────────┐   ┌──────────┐  ┌──────────┐
+  │ Autotask │  │ Datto    │          │ IT Glue  │   │  Syncro  │  │  Atera   │
+  │   API    │  │   API    │          │   API    │   │   API    │  │   API    │
+  └──────────┘  └──────────┘          └──────────┘   └──────────┘  └──────────┘
 ```
+
+### Why Hybrid Architecture?
+
+| Component | Language | Rationale |
+|-----------|----------|-----------|
+| **MCP Gateway** | Python | MCP Gateway Registry has auth/routing/credential storage built |
+| **MCP Servers** | TypeScript | Leverage our existing node-* libraries |
+
+**Credential Flow:**
+1. User authenticates with gateway → enters Datto API key via web UI
+2. Gateway stores encrypted credentials in vault
+3. Request comes in: `GET /v1/datto-rmm/tools/list`
+4. Gateway looks up user's Datto credentials from vault
+5. Gateway proxies to `datto-rmm-mcp` with `X-API-Key` / `X-API-Secret` headers
+6. TypeScript MCP server uses `node-datto-rmm` with injected credentials
+7. Response returned through gateway to client
+
+### Our Existing TypeScript Libraries
+
+| Library | npm Package | Status |
+|---------|-------------|--------|
+| `node-datto-rmm` | `@asachs01/node-datto-rmm` | ✅ Published |
+| `node-it-glue` | `@asachs01/node-it-glue` | ✅ Published |
+| `node-syncro` | `@asachs01/node-syncro` | ✅ Published |
+| `node-atera` | `@asachs01/node-atera` | ✅ Published |
+| `node-superops` | `@asachs01/node-superops` | ✅ Published |
+| `node-halopsa` | `@asachs01/node-halopsa` | ✅ Published |
+| `autotask-node` | (local) | ✅ In use by autotask-mcp |
 
 ### Existing Gateway Solutions Evaluated
 
@@ -320,14 +361,40 @@ Priority order based on:
 
 | Component | Technology | Rationale |
 |-----------|------------|-----------|
-| MCP Gateway | Node.js/TypeScript | MCP SDK is TypeScript-native |
-| Auth Layer | OAuth 2.1 + PKCE | MCP spec compliant (June 2025) |
-| Credential Store | AWS Secrets Manager or Vault | Enterprise-grade encryption |
-| Hosting | **Option A**: AWS Lambda + API Gateway | Serverless, scales to zero |
+| **MCP Gateway** | Python/FastAPI | Fork MCP Gateway Registry (auth/routing built) |
+| **MCP Servers** | Node.js/TypeScript | Use our existing node-* libraries |
+| Auth Layer | OAuth 2.1 + PKCE | MCP spec compliant (June 2025), already in Gateway Registry |
+| Credential Store | File-based (encrypted) or Vault | Gateway Registry uses `.oauth-tokens/` with 0600 perms |
+| Hosting | **Option A**: AWS ECS Fargate | Terraform included in Gateway Registry |
 | | **Option B**: Fly.io or Railway | Simpler deployment, lower ops burden |
-| | **Option C**: Kubernetes (EKS/GKE) | Enterprise, multi-region |
-| Database | PostgreSQL (Supabase or RDS) | Sessions, audit logs, user metadata |
+| | **Option C**: Docker Compose | Development and small deployments |
+| Database | PostgreSQL or MongoDB | Sessions, audit logs (Gateway Registry supports both) |
 | Cache | Redis (Upstash or ElastiCache) | Session state, rate limiting |
+
+### Dual-Stack Deployment
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Docker Compose / K8s                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │  mcp-gateway (Python container)                          │   │
+│  │  - FastAPI + NGINX                                       │   │
+│  │  - Port 443 (external)                                   │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                              │                                   │
+│       ┌──────────────────────┼──────────────────────┐           │
+│       ▼                      ▼                      ▼           │
+│  ┌──────────┐          ┌──────────┐          ┌──────────┐      │
+│  │ autotask │          │ datto-rmm│          │  itglue  │ ...  │
+│  │   mcp    │          │   mcp    │          │   mcp    │      │
+│  │ (Node.js)│          │ (Node.js)│          │ (Node.js)│      │
+│  │ Port 3001│          │ Port 3002│          │ Port 3003│      │
+│  └──────────┘          └──────────┘          └──────────┘      │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ### Gateway Endpoint Format (Recommended)
 
@@ -520,34 +587,38 @@ Headers:
 - [ ] Deploy to AWS ECS using existing Terraform (or Fly.io for simpler ops)
 - [ ] Validate ingress auth works with Keycloak or custom OAuth
 
-### Phase 1: Datto RMM Handler (Week 4)
-- [ ] Implement DattoRMMHandler in gateway
-- [ ] Add all Datto RMM tools (list_devices, get_device, list_alerts, etc.)
-- [ ] Create Datto RMM credential entry page
+### Phase 1: Datto RMM MCP Server (Week 3)
+- [ ] Create `datto-rmm-mcp` TypeScript project (MCP SDK + node-datto-rmm)
+- [ ] Implement tools: list_devices, get_device, list_alerts, resolve_alert, etc.
+- [ ] Accept credentials via `X-API-Key` / `X-API-Secret` headers from gateway
+- [ ] Add gateway route `/v1/datto-rmm/*` → datto-rmm-mcp
+- [ ] Create Datto RMM credential entry page in gateway UI
 - [ ] Integration testing with real Datto API
-- [ ] Update plugin `.mcp.json` to use gateway URL
+- [ ] Deploy MCP server alongside gateway
 
-### Phase 2: IT Glue Handler (Week 5)
-- [ ] Implement ITGlueHandler in gateway
-- [ ] Add all IT Glue tools (search_organizations, get_password, etc.)
-- [ ] Create IT Glue credential entry page
+### Phase 2: IT Glue MCP Server (Week 4)
+- [ ] Create `itglue-mcp` TypeScript project (MCP SDK + node-it-glue)
+- [ ] Implement tools: search_organizations, get_password, search_configs, etc.
+- [ ] Accept credentials via `X-API-Key` header from gateway
+- [ ] Add gateway route `/v1/itglue/*` → itglue-mcp
+- [ ] Create IT Glue credential entry page in gateway UI
 - [ ] Integration testing with real IT Glue API
-- [ ] Update plugin `.mcp.json` to use gateway URL
+- [ ] Deploy MCP server alongside gateway
 
-### Phase 3: Autotask Handler (Week 6)
-- [ ] Port existing autotask-mcp logic to AutotaskHandler
-- [ ] Migrate tools to gateway format
-- [ ] Create Autotask credential entry page
+### Phase 3: Autotask Migration (Week 5)
+- [ ] Adapt existing `autotask-mcp` to accept credentials via headers
+- [ ] Add gateway route `/v1/autotask/*` → autotask-mcp
+- [ ] Create Autotask credential entry page in gateway UI
 - [ ] Migration guide for existing local MCP users
-- [ ] Update plugin `.mcp.json` to use gateway URL
+- [ ] Deploy alongside gateway
 
-### Phase 4: Community Vendor Handlers (Weeks 7-10)
-- [ ] HaloPSAHandler (native OAuth passthrough - cleanest)
-- [ ] SyncroHandler (API key)
-- [ ] AteraHandler (API key)
-- [ ] SuperOpsHandler (Bearer token + GraphQL)
-- [ ] ConnectWisePSAHandler (API key + Client ID)
-- [ ] ConnectWiseAutomateHandler (Token-based)
+### Phase 4: Community Vendor MCP Servers (Weeks 6-9)
+- [ ] `syncro-mcp` (TypeScript + node-syncro)
+- [ ] `atera-mcp` (TypeScript + node-atera)
+- [ ] `superops-mcp` (TypeScript + node-superops)
+- [ ] `halopsa-mcp` (TypeScript + node-halopsa, native OAuth passthrough)
+- [ ] `connectwise-psa-mcp` (TypeScript, new library needed)
+- [ ] `connectwise-automate-mcp` (TypeScript, new library needed)
 
 ### Phase 5: Production Hardening (Week 11+)
 - [ ] Multi-region deployment for latency
