@@ -16,6 +16,14 @@
       "tags": ["kaseya", "autotask", "psa", "tickets", "msp"]
     },
     {
+      "name": "it-glue",
+      "source": "./kaseya/it-glue",
+      "description": "Kaseya IT Glue documentation platform integration with organizations, configurations, passwords, documents, and flexible assets",
+      "version": "1.0.0",
+      "category": "documentation",
+      "tags": ["kaseya", "it-glue", "documentation", "passwords", "msp"]
+    },
+    {
       "name": "connectwise-manage",
       "source": "./connectwise/manage",
       "description": "ConnectWise Manage PSA integration (planned)",
