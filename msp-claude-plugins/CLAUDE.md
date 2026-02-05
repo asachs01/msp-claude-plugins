@@ -22,3 +22,21 @@ Starlight uses a specific icon set. Use `seti:folder` for folder icons (not `fol
 
 ### GitHub Actions Workflow Location for Monorepos
 When the git repo root differs from the docs directory (e.g., repo at `/mspMarketPlace/` but docs at `/mspMarketPlace/msp-claude-plugins/docs/`), the `.github/workflows/` must be at the repo root, and workflow paths must reference the full path (e.g., `msp-claude-plugins/docs/`).
+
+### Claude Code Plugin Architecture: Skills vs MCP
+Plugins have value without MCP servers - skills provide domain knowledge, commands provide prompt templates. MCP servers require implementing the MCP protocol; client libraries (like node-syncro) are NOT MCP servers and cannot be invoked via `npx` in .mcp.json. Only include .mcp.json when an actual MCP server package exists.
+
+### Plugin.json Valid Schema Fields
+Valid fields: `name`, `version`, `description`, `author`, `homepage`, `repository`, `license`, `mcpServers`, `hooks`. Don't use custom fields like `vendor`, `product`, `api_version`, `requires_api_key`. Document auth requirements in README instead.
+
+### ESLint varsIgnorePattern for Underscore Variables
+`argsIgnorePattern: "^_"` only applies to function arguments, not destructured variables. To ignore underscore-prefixed variables in destructuring, add `varsIgnorePattern: "^_"`. Full config: `["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]`.
+
+### Marketplace-First README Pattern
+Following anthropics/knowledge-work-plugins, lead with one-command marketplace install (`/plugin marketplace add owner/repo`), then clean plugin table, then progressive disclosure. Dramatically shorter and more effective than detailed technical READMEs.
+
+### Custom Astro vs Starlight Trade-off
+Custom Astro sites require manually building navigation, search (Pagefind), dark mode, and code copy. Worth it when PRD specifies exact design system (colors, typography) that Starlight can't match.
+
+### Marketplace.json Plugin Entries
+Each plugin needs `name` (for `--plugin` flag), `source` (relative path like `./kaseya/autotask`), `description`, `version`, `category`, and `tags`. The `source` path must start with `./`.
