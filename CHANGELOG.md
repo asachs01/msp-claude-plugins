@@ -30,6 +30,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **run-job** - Run quick jobs on devices with variable support and completion waiting
 - **site-devices** - List devices at a site with status, type, and alert filtering
 
+#### IT Glue Plugin (`kaseya/it-glue/`)
+- **Organizations Skill** - Organization CRUD, relationships, and hierarchies
+- **Configuration Types Skill** - Asset types and custom field definitions
+- **Passwords Skill** - Secure password management and retrieval
+- **Flexible Assets Skill** - Custom documentation templates and fields
+- **API Patterns Skill** - X-API-KEY authentication, filtering, embedding related resources
+
+#### Syncro Plugin (`syncro/syncro-msp/`)
+- **Tickets Skill** - Ticket CRUD with status (New, In Progress, Resolved), priority levels, timers, comments
+- **Customers Skill** - Customer and contact management, onboarding workflows
+- **Assets Skill** - Asset tracking with RMM properties, patch management, remote access
+- **Invoices Skill** - Invoice creation, line items, payments, email sending
+- **API Patterns Skill** - Bearer token auth, page-based pagination (180 req/min)
+
+#### Syncro Commands
+- **create-ticket** - Create tickets with customer validation and duplicate detection
+- **search-tickets** - Search with filters for customer, status, priority, date range
+
+#### Atera Plugin (`atera/atera/`)
+- **Tickets Skill** - Ticket management with SLA tracking, work hours, comments
+- **Agents Skill** - RMM agent monitoring, PowerShell execution, lifecycle management
+- **Customers Skill** - Customer CRUD with custom values
+- **Alerts Skill** - Alert triage with severity levels (Critical, Warning, Information)
+- **Devices Skill** - HTTP/SNMP/TCP monitor configuration with common OIDs
+- **API Patterns Skill** - X-API-KEY header auth, OData pagination (700 req/min)
+
+#### Atera Commands
+- **create-ticket** - Create tickets with customer/contact resolution
+- **search-agents** - Search RMM agents by customer or machine name
+
+#### SuperOps.ai Plugin (`superops/superops-ai/`)
+- **Tickets Skill** - Ticket CRUD, notes, time entries, status workflows (GraphQL)
+- **Assets Skill** - Asset inventory, software, disk details, script execution
+- **Clients Skill** - Client CRUD, sites, contacts, custom fields
+- **Alerts Skill** - Alert acknowledgment, resolution, ticket creation
+- **Runbooks Skill** - Script discovery, execution (single/bulk/scheduled), status monitoring
+- **API Patterns Skill** - Bearer token + CustomerSubDomain, cursor pagination (800 req/min)
+
+#### SuperOps.ai Commands
+- **create-ticket** - Create tickets via GraphQL mutation
+- **list-assets** - Query assets with filtering
+
+#### HaloPSA Plugin (`halopsa/halopsa/`)
+- **Tickets Skill** - Ticket management with actions (notes), attachments, SLA calculations
+- **Clients Skill** - Client hierarchy, sites, contacts
+- **Assets Skill** - Asset tracking, device management, RMM integration
+- **Contracts Skill** - Recurring billing, prepaid hours, renewal workflows
+- **API Patterns Skill** - OAuth 2.0 client credentials, offset pagination (500 req/3min)
+
+#### HaloPSA Commands
+- **create-ticket** - Create tickets with contract validation
+- **search-tickets** - Multi-filter search with status/priority/date options
+
 ## [1.0.0] - 2026-02-04
 
 ### Added
@@ -99,6 +152,6 @@ Each release entry should include:
 
 ---
 
-[Unreleased]: https://github.com/OWNER/msp-claude-plugins/compare/v1.1.0...HEAD
-[1.1.0]: https://github.com/OWNER/msp-claude-plugins/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/OWNER/msp-claude-plugins/releases/tag/v1.0.0
+[Unreleased]: https://github.com/asachs01/msp-claude-plugins/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/asachs01/msp-claude-plugins/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/asachs01/msp-claude-plugins/releases/tag/v1.0.0
