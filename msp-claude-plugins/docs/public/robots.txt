@@ -26,4 +26,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://asachs01.github.io/msp-claude-plugins/sitemap-index.xml
+Sitemap: https://wyre-technology.github.io/msp-claude-plugins/sitemap-index.xml
