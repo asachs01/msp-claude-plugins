@@ -24,14 +24,37 @@ const categoryLabels = {
   rmm: 'RMM',
   documentation: 'Documentation'
 };
+
+const compatibilityBadges = {
+  claudeCode: plugin.compatibility.claudeCode
+    ? { label: 'Claude Code', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400', icon: '✓' }
+    : { label: 'Claude Code', color: 'bg-gray-100 text-gray-500', icon: '✗' },
+  claudeDesktop: plugin.compatibility.claudeDesktop === true
+    ? { label: 'Claude Desktop', color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400', icon: '✓' }
+    : plugin.compatibility.claudeDesktop === 'coming-soon'
+    ? { label: 'Claude Desktop', color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400', icon: '🔜' }
+    : { label: 'Claude Desktop', color: 'bg-gray-100 text-gray-500', icon: '✗' },
+  validated: plugin.compatibility.validated
+    ? { label: 'Validated', color: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400', icon: '✓' }
+    : { label: 'Community', color: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400', icon: '🧪' }
+};
 ---
 
 <DocsLayout title={plugin.name} description={plugin.description}>
-  <div class="flex items-center gap-3 mb-2">
+  <div class="flex flex-wrap items-center gap-2 mb-2">
     <span class={`text-xs font-medium px-2 py-1 rounded-full ${categoryColors[plugin.category]}`}>
       {categoryLabels[plugin.category]}
     </span>
-    <span class="text-[var(--muted)]">{plugin.vendor}</span>
+    <span class={`text-xs font-medium px-2 py-1 rounded-full ${compatibilityBadges.validated.color}`}>
+      {compatibilityBadges.validated.icon} {compatibilityBadges.validated.label}
+    </span>
+    <span class={`text-xs font-medium px-2 py-1 rounded-full ${compatibilityBadges.claudeCode.color}`}>
+      {compatibilityBadges.claudeCode.icon} {compatibilityBadges.claudeCode.label}
+    </span>
+    <span class={`text-xs font-medium px-2 py-1 rounded-full ${compatibilityBadges.claudeDesktop.color}`}>
+      {compatibilityBadges.claudeDesktop.icon} {compatibilityBadges.claudeDesktop.label}
+    </span>
+    <span class="text-[var(--muted)]">• {plugin.vendor}</span>
   </div>
 
   <h1>{plugin.name}</h1>

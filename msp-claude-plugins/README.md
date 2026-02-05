@@ -1,6 +1,17 @@
 # MSP Claude Plugins
 
+![Claude Code](https://img.shields.io/badge/Claude_Code-✓_Full_Support-blue?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQyIDAtOC0zLjU4LTgtOHMzLjU4LTggOC04IDggMy41OCA4IDgtMy41OCA4LTggOHoiLz48L3N2Zz4=)
+![Claude Desktop](https://img.shields.io/badge/Claude_Desktop-Partial_(MCP_only)-yellow?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0yMSAzSDNjLTEuMSAwLTIgLjktMiAydjE0YzAgMS4xLjkgMiAyIDJoMThjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMnptMCAxNkgzVjVoMTh2MTR6Ii8+PC9zdmc+)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 Community-driven Claude Code plugins for Managed Service Providers.
+
+## Compatibility
+
+| Platform | Support | Notes |
+|----------|---------|-------|
+| **Claude Code** | ✅ Full | All skills, commands, and MCP servers |
+| **Claude Desktop** | ⚠️ Partial | Only MCP servers (Autotask). Hosted MCP servers coming soon. |
 
 ## Quick Start
 
@@ -10,20 +21,22 @@ Community-driven Claude Code plugins for Managed Service Providers.
 
 ## Available Plugins
 
-| Plugin | Vendor | Category | Status | Description |
-|--------|--------|----------|--------|-------------|
-| `autotask` | Kaseya | PSA | ✅ Validated | Tickets, CRM, projects, contracts |
-| `datto-rmm` | Kaseya | RMM | ✅ Validated | Devices, alerts, jobs, patches |
-| `it-glue` | Kaseya | Documentation | ✅ Validated | Organizations, assets, passwords, documents |
-| `syncro` | Syncro | PSA/RMM | 🧪 Community | Tickets, customers, assets, invoicing |
-| `atera` | Atera | PSA/RMM | 🧪 Community | Tickets, agents, alerts, monitors |
-| `superops` | SuperOps | PSA/RMM | 🧪 Community | Tickets, assets, alerts, runbooks (GraphQL) |
-| `halopsa` | Halo | PSA | 🧪 Community | Tickets, clients, assets, contracts (OAuth 2.0) |
-| `connectwise-psa` | ConnectWise | PSA | 🧪 Community | Tickets, companies, projects, time |
-| `connectwise-automate` | ConnectWise | RMM | 🧪 Community | Computers, scripts, monitors |
-| `shared-skills` | — | Knowledge | ✅ Validated | Vendor-agnostic MSP terminology and ticket triage |
+| Plugin | Vendor | Status | Code | Desktop | Description |
+|--------|--------|--------|------|---------|-------------|
+| `autotask` | Kaseya | ✅ Validated | ✅ | ✅ | Tickets, CRM, projects, contracts |
+| `datto-rmm` | Kaseya | ✅ Validated | ✅ | 🔜 | Devices, alerts, jobs, patches |
+| `it-glue` | Kaseya | ✅ Validated | ✅ | 🔜 | Organizations, assets, passwords, documents |
+| `syncro` | Syncro | 🧪 Community | ✅ | 🔜 | Tickets, customers, assets, invoicing |
+| `atera` | Atera | 🧪 Community | ✅ | 🔜 | Tickets, agents, alerts, monitors |
+| `superops` | SuperOps | 🧪 Community | ✅ | 🔜 | Tickets, assets, alerts, runbooks |
+| `halopsa` | Halo | 🧪 Community | ✅ | 🔜 | Tickets, clients, assets, contracts |
+| `connectwise-psa` | ConnectWise | 🧪 Community | ✅ | 🔜 | Tickets, companies, projects, time |
+| `connectwise-automate` | ConnectWise | 🧪 Community | ✅ | 🔜 | Computers, scripts, monitors |
+| `shared-skills` | — | ✅ Validated | ✅ | — | MSP terminology and ticket triage |
 
-**✅ Validated** - Tested against production APIs. **🧪 Community** - Follows validated patterns, may need adjustments for your environment.
+**Status:** ✅ Validated = Tested against production APIs | 🧪 Community = May need adjustments
+**Code:** Claude Code support (skills + commands) | **Desktop:** Claude Desktop support (MCP server)
+🔜 = Hosted MCP server coming soon
 
 ## Commands (71 total)
 

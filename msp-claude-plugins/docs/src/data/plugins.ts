@@ -9,6 +9,11 @@ export interface Plugin {
   commands: Command[];
   apiInfo: ApiInfo;
   path: string;
+  compatibility: {
+    claudeCode: boolean;
+    claudeDesktop: boolean | 'coming-soon';
+    validated: boolean;
+  };
 }
 
 export interface Skill {
@@ -68,7 +73,8 @@ export const plugins: Plugin[] = [
       rateLimit: '10,000 requests per hour',
       docsUrl: 'https://ww5.autotask.net/help/DeveloperHelp/Content/APIs/REST/REST_API_Home.htm'
     },
-    path: 'kaseya/autotask'
+    path: 'kaseya/autotask',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: true }
   },
   {
     id: 'datto-rmm',
@@ -104,7 +110,8 @@ export const plugins: Plugin[] = [
       rateLimit: '600 requests per minute',
       docsUrl: 'https://rmm.datto.com/help/en/Content/2SETUP/APIv2.htm'
     },
-    path: 'kaseya/datto-rmm'
+    path: 'kaseya/datto-rmm',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: true }
   },
   {
     id: 'it-glue',
@@ -141,7 +148,8 @@ export const plugins: Plugin[] = [
       rateLimit: '3000 requests per 5 minutes',
       docsUrl: 'https://api.itglue.com/developer/'
     },
-    path: 'kaseya/it-glue'
+    path: 'kaseya/it-glue',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: true }
   },
   {
     id: 'syncro',
@@ -180,7 +188,8 @@ export const plugins: Plugin[] = [
       rateLimit: '180 requests per minute',
       docsUrl: 'https://api-docs.syncromsp.com/'
     },
-    path: 'syncro/syncro-msp'
+    path: 'syncro/syncro-msp',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   },
   {
     id: 'atera',
@@ -221,7 +230,8 @@ export const plugins: Plugin[] = [
       rateLimit: '700 requests per minute',
       docsUrl: 'https://app.atera.com/apidocs/'
     },
-    path: 'atera/atera'
+    path: 'atera/atera',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   },
   {
     id: 'superops',
@@ -262,7 +272,8 @@ export const plugins: Plugin[] = [
       rateLimit: '800 requests per minute',
       docsUrl: 'https://developer.superops.ai/'
     },
-    path: 'superops/superops-ai'
+    path: 'superops/superops-ai',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   },
   {
     id: 'halopsa',
@@ -301,7 +312,8 @@ export const plugins: Plugin[] = [
       rateLimit: '500 requests per 3 minutes',
       docsUrl: 'https://halopsa.com/apidocs/'
     },
-    path: 'halopsa/halopsa'
+    path: 'halopsa/halopsa',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   },
   {
     id: 'connectwise-psa',
@@ -342,7 +354,8 @@ export const plugins: Plugin[] = [
       rateLimit: '60 requests per minute',
       docsUrl: 'https://developer.connectwise.com/Products/ConnectWise_PSA'
     },
-    path: 'connectwise/manage'
+    path: 'connectwise/manage',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   },
   {
     id: 'connectwise-automate',
@@ -375,7 +388,8 @@ export const plugins: Plugin[] = [
       rateLimit: '60 requests per minute',
       docsUrl: 'https://developer.connectwise.com/Products/ConnectWise_Automate'
     },
-    path: 'connectwise/automate'
+    path: 'connectwise/automate',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   }
 ];
 
