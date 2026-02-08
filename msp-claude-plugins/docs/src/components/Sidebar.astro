@@ -1,5 +1,6 @@
 ---
 import { plugins } from '@/data/plugins';
+import { mcpServers } from '@/data/mcp-servers';
 
 const baseUrl = import.meta.env.BASE_URL;
 const currentPath = Astro.url.pathname;
@@ -26,6 +27,16 @@ const sidebarItems: SidebarItem[] = [
       ...plugins.map(p => ({
         label: p.name,
         href: `${baseUrl}plugins/${p.id}/`
+      }))
+    ]
+  },
+  {
+    label: 'MCP Servers',
+    children: [
+      { label: 'Overview', href: `${baseUrl}mcp-servers/` },
+      ...mcpServers.map(s => ({
+        label: s.name,
+        href: `${baseUrl}mcp-servers/${s.id}/`
       }))
     ]
   },

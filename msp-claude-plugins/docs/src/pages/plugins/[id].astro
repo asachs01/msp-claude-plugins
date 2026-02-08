@@ -2,6 +2,7 @@
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import InstallCommand from '@/components/InstallCommand.astro';
 import { plugins, getPluginById } from '@/data/plugins';
+import { getMcpServerByPluginId } from '@/data/mcp-servers';
 
 export function getStaticPaths() {
   return plugins.map(plugin => ({
@@ -12,6 +13,7 @@ export function getStaticPaths() {
 
 const { plugin } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
+const companionMcpServer = getMcpServerByPluginId(plugin.id);
 
 const categoryColors = {
   psa: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
@@ -62,6 +64,19 @@ const compatibilityBadges = {
   <p class="lead text-lg text-[var(--muted)] mb-8">
     {plugin.description}
   </p>
+
+  {companionMcpServer && (
+    <div class="not-prose my-6 p-4 rounded-lg border border-cyan-500/30 bg-cyan-500/5">
+      <p class="text-sm font-medium mb-1">🔌 Recommended MCP Server</p>
+      <p class="text-sm text-[var(--muted)]">
+        Pair this plugin with the{' '}
+        <a href={`${baseUrl}mcp-servers/${companionMcpServer.id}/`} class="text-accent hover:underline font-medium">
+          {companionMcpServer.name}
+        </a>{' '}
+        for direct API access alongside skills and commands.
+      </p>
+    </div>
+  )}
 
   <h2>Installation</h2>
 

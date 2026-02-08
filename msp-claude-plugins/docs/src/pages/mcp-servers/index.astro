@@ -1,0 +1,73 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import McpServerCard from '@/components/McpServerCard.astro';
+import { mcpServers, getMcpServersByCategory } from '@/data/mcp-servers';
+
+const psaServers = getMcpServersByCategory('psa');
+const rmmServers = getMcpServersByCategory('rmm');
+const docServers = getMcpServersByCategory('documentation');
+---
+
+<DocsLayout title="MCP Servers">
+  <h1>MCP Servers</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Browse all {mcpServers.length} MCP servers for MSP platforms. Each server gives Claude
+    direct API access to your tools via the Model Context Protocol.
+  </p>
+
+  <h2>PSA Platforms ({psaServers.length})</h2>
+
+  <p>Professional Services Automation servers for ticket management, CRM, and billing.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {psaServers.map(server => (
+      <McpServerCard server={server} />
+    ))}
+  </div>
+
+  <h2>RMM Platforms ({rmmServers.length})</h2>
+
+  <p>Remote Monitoring and Management servers for device management and automation.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {rmmServers.map(server => (
+      <McpServerCard server={server} />
+    ))}
+  </div>
+
+  <h2>Documentation Platforms ({docServers.length})</h2>
+
+  <p>Documentation and knowledge base servers for asset tracking and password management.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {docServers.map(server => (
+      <McpServerCard server={server} />
+    ))}
+  </div>
+
+  <h2>All MCP Servers at a Glance</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Server</th>
+        <th>Category</th>
+        <th>Domains</th>
+        <th>Tools</th>
+        <th>Docker</th>
+      </tr>
+    </thead>
+    <tbody>
+      {mcpServers.map(server => (
+        <tr>
+          <td><a href={`${import.meta.env.BASE_URL}mcp-servers/${server.id}/`}>{server.name}</a></td>
+          <td class="capitalize">{server.category}</td>
+          <td>{server.domains.length}</td>
+          <td>{server.domains.reduce((sum, d) => sum + d.tools.length, 0)}</td>
+          <td>{server.dockerAvailable ? '✓' : '—'}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</DocsLayout>

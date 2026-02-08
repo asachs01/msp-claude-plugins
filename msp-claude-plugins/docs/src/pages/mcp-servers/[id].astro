@@ -1,0 +1,176 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import InstallCommand from '@/components/InstallCommand.astro';
+import { mcpServers, getMcpServerById } from '@/data/mcp-servers';
+import { getPluginById } from '@/data/plugins';
+
+export function getStaticPaths() {
+  return mcpServers.map(server => ({
+    params: { id: server.id },
+    props: { server }
+  }));
+}
+
+const { server } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+const companionPlugin = server.companionPluginId ? getPluginById(server.companionPluginId) : undefined;
+
+const categoryColors = {
+  psa: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+  rmm: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  documentation: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
+};
+
+const categoryLabels = {
+  psa: 'PSA',
+  rmm: 'RMM',
+  documentation: 'Documentation'
+};
+
+const totalTools = server.domains.reduce((sum, d) => sum + d.tools.length, 0);
+---
+
+<DocsLayout title={server.name} description={server.description}>
+  <div class="flex flex-wrap items-center gap-2 mb-2">
+    <span class={`text-xs font-medium px-2 py-1 rounded-full ${categoryColors[server.category]}`}>
+      {categoryLabels[server.category]}
+    </span>
+    <span class="text-xs font-medium px-2 py-1 rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400">
+      MCP Server
+    </span>
+    {server.dockerAvailable && (
+      <span class="text-xs font-medium px-2 py-1 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400">
+        🐳 Docker
+      </span>
+    )}
+  </div>
+
+  <h1>{server.name}</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    {server.description}
+  </p>
+
+  {companionPlugin && (
+    <div class="not-prose my-6 p-4 rounded-lg border border-accent/30 bg-accent/5">
+      <p class="text-sm font-medium mb-1">🔗 Companion Plugin</p>
+      <p class="text-sm text-[var(--muted)]">
+        Pair this MCP server with the{' '}
+        <a href={`${baseUrl}plugins/${companionPlugin.id}/`} class="text-accent hover:underline font-medium">
+          {companionPlugin.name} plugin
+        </a>{' '}
+        for skills, commands, and API knowledge alongside direct API access.
+      </p>
+    </div>
+  )}
+
+  <h2>Installation</h2>
+
+  <p>Run the MCP server with npx:</p>
+
+  <div class="not-prose my-6">
+    <InstallCommand command={server.installCommand} />
+  </div>
+
+  <p>Or install the package:</p>
+
+  <div class="not-prose my-6">
+    <InstallCommand command={`npm install ${server.npmPackage}`} />
+  </div>
+
+  <h3>Claude Desktop Configuration</h3>
+
+  <p>Add to your <code>claude_desktop_config.json</code>:</p>
+
+  <pre><code class="language-json">{JSON.stringify({
+    mcpServers: {
+      [server.id]: {
+        command: 'npx',
+        args: [server.npmPackage],
+        env: Object.fromEntries(
+          server.envVars.filter(v => v.required).map(v => [v.name, `your-${v.name.toLowerCase().replace(/_/g, '-')}`])
+        )
+      }
+    }
+  }, null, 2)}</code></pre>
+
+  <h2>Authentication</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Required</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {server.envVars.map(envVar => (
+        <tr>
+          <td><code>{envVar.name}</code></td>
+          <td>{envVar.required ? 'Yes' : 'No'}</td>
+          <td>{envVar.description}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Architecture</h2>
+
+  <p>{server.architecture}</p>
+
+  <h2>Available Tools ({totalTools})</h2>
+
+  <p>Tools are organized into {server.domains.length} domains:</p>
+
+  {server.domains.map(domain => (
+    <h3>{domain.name}</h3>
+    <p>{domain.description}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {domain.tools.map(tool => (
+          <tr>
+            <td><code>{tool.name}</code></td>
+            <td>{tool.description}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ))}
+
+  {server.rateLimit && (
+    <>
+      <h2>Rate Limits</h2>
+      <p>{server.rateLimit}. The underlying client library handles rate limiting automatically.</p>
+    </>
+  )}
+
+  <div class="mt-12 pt-8 border-t border-[var(--border)]">
+    <p class="text-[var(--muted)]">
+      <strong>GitHub:</strong>{' '}
+      <a
+        href={server.repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {server.repoUrl}
+      </a>
+    </p>
+    <p class="text-[var(--muted)]">
+      <strong>npm:</strong>{' '}
+      <a
+        href={`https://www.npmjs.com/package/${server.npmPackage}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {server.npmPackage}
+      </a>
+    </p>
+  </div>
+</DocsLayout>
