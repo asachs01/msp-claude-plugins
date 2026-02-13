@@ -94,6 +94,14 @@
       "version": "1.0.0",
       "category": "knowledge",
       "tags": ["msp", "terminology", "triage", "shared"]
+    },
+    {
+      "name": "salesbuildr",
+      "source": "./salesbuildr/salesbuildr",
+      "description": "Salesbuildr CRM - contacts, companies, opportunities, quotes",
+      "version": "1.0.0",
+      "category": "crm",
+      "tags": ["salesbuildr", "crm", "sales", "quotes", "msp"]
     }
   ]
 }
