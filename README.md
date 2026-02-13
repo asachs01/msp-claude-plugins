@@ -25,8 +25,30 @@ Nine vendor-specific plugins with domain knowledge for PSA, RMM, and documentati
 | **HaloPSA** | Enterprise PSA with OAuth - tickets, clients, assets, contracts |
 | **ConnectWise PSA** | Industry-leading PSA - tickets, companies, contacts, projects, time |
 | **ConnectWise Automate** | Enterprise RMM - computers, clients, scripts, monitors, alerts |
+| **NinjaOne** | NinjaOne RMM - devices, organizations, alerts, ticketing |
 
 Plus shared skills for MSP terminology and ticket triage best practices.
+
+### Plugin Maturity
+
+| Plugin | Status | Notes |
+|--------|--------|-------|
+| **Autotask PSA** | ✅ Production | Deep coverage, MCP server, actively used |
+| **Datto RMM** | 🔨 Beta | Core functionality, MCP server available |
+| **IT Glue** | 🔨 Beta | Core functionality, MCP server available |
+| **Syncro** | 🔨 Beta | Core functionality, MCP server available |
+| **Atera** | 🔨 Beta | Core functionality, MCP server available |
+| **SuperOps.ai** | 🔨 Beta | Core functionality, MCP server available |
+| **HaloPSA** | 🔨 Beta | Core functionality, MCP server available |
+| **ConnectWise PSA** | 🚧 Alpha | Initial implementation |
+| **ConnectWise Automate** | 🚧 Alpha | Initial implementation |
+| **NinjaOne** | 🚧 Alpha | Initial implementation |
+
+> Maturity levels: ✅ **Production** — used in real MSP environments with comprehensive coverage. 🔨 **Beta** — functional with core features, feedback welcome. 🚧 **Alpha** — early implementation, expect gaps.
+
+> **New here?** The [Autotask PSA plugin](msp-claude-plugins/kaseya/autotask/) is our most
+> mature integration with comprehensive ticket management, CRM, project, contract, and billing
+> coverage. It's a great place to start and see what's possible. Other plugins are modeled after it.
 
 ---
 
@@ -42,6 +64,21 @@ When you ask "create a high priority ticket for Acme Corp", Claude knows:
 - What priority values mean (varies by vendor!)
 - How to authenticate
 - Rate limit boundaries
+
+---
+
+## Architecture
+
+Each plugin consists of three layers:
+
+1. **Skills** — Markdown files with domain knowledge (API patterns, field mappings,
+   vendor terminology). Low maintenance, easy to contribute to.
+2. **Commands** — Slash commands for common MSP workflows. Moderate complexity.
+3. **MCP Servers** — Full server implementations that connect Claude to vendor APIs.
+   These handle authentication, rate limiting, and data transformation.
+
+Most contributions touch skills and commands. MCP server changes are more involved
+and benefit from familiarity with the vendor's API.
 
 ---
 
@@ -75,11 +112,18 @@ Each plugin uses environment variables for authentication. See the plugin's READ
 
 ## Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md).
+We welcome contributions at every level — from typo fixes to new platform plugins.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for our tiered contribution guide.
 
-**All contributions require a PRD first** — this ensures clear problem definition and documentation that lives with code.
+## Community
 
----
+This project is maintained by [WYRE Technology](https://wyre.technology), a Chattanooga-based
+MSP focused on AI enablement.
+
+- **Questions or feedback?** Open a [Discussion](https://github.com/wyre-technology/msp-claude-plugins/discussions)
+- **Found a bug?** File an [Issue](https://github.com/wyre-technology/msp-claude-plugins/issues)
+- **Want to contribute?** See [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Using this in your MSP?** We'd love to hear about it — drop us a note in Discussions
 
 ## License
 

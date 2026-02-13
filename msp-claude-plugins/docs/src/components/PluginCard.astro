@@ -19,6 +19,18 @@ const categoryLabels = {
   rmm: 'RMM',
   documentation: 'Documentation'
 };
+
+const maturityColors = {
+  production: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
+  beta: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+  alpha: 'bg-gray-100 text-gray-600 dark:bg-gray-800/30 dark:text-gray-400'
+};
+
+const maturityLabels = {
+  production: 'Production',
+  beta: 'Beta',
+  alpha: 'Alpha'
+};
 ---
 
 <a href={`${baseUrl}plugins/${plugin.id}/`} class="card group block">
@@ -29,9 +41,14 @@ const categoryLabels = {
       </h3>
       <p class="text-sm text-[var(--muted)]">{plugin.vendor}</p>
     </div>
-    <span class={`text-xs font-medium px-2 py-1 rounded-full ${categoryColors[plugin.category]}`}>
-      {categoryLabels[plugin.category]}
-    </span>
+    <div class="flex gap-1.5">
+      <span class={`text-xs font-medium px-2 py-1 rounded-full ${maturityColors[plugin.maturity]}`}>
+        {maturityLabels[plugin.maturity]}
+      </span>
+      <span class={`text-xs font-medium px-2 py-1 rounded-full ${categoryColors[plugin.category]}`}>
+        {categoryLabels[plugin.category]}
+      </span>
+    </div>
   </div>
 
   <p class="text-[var(--muted)] text-sm mb-4 line-clamp-2">

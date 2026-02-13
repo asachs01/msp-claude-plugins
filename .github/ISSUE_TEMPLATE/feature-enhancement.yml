@@ -1,0 +1,50 @@
+name: Feature Enhancement
+description: Propose a new command, skill, or expanded coverage for an existing plugin (Tier 2)
+title: "[Enhancement] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: plugin
+    attributes:
+      label: Plugin affected
+      description: Which plugin does this enhancement target?
+      options:
+        - Autotask PSA
+        - Datto RMM
+        - IT Glue
+        - Syncro MSP
+        - Atera
+        - SuperOps.ai
+        - HaloPSA
+        - ConnectWise PSA
+        - ConnectWise Automate
+        - NinjaOne
+        - Shared Skills
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What are you adding or changing?
+      description: Describe the new command, skill, or coverage you want to add.
+      placeholder: "e.g., Add a /bulk-update-tickets command to Autotask that updates status and priority for multiple tickets at once."
+    validations:
+      required: true
+
+  - type: textarea
+    id: api-endpoints
+    attributes:
+      label: API endpoints involved
+      description: List any vendor API endpoints this will use (if known).
+      placeholder: "e.g., PATCH /v1.0/Tickets/entityInformation"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: breaking-changes
+    attributes:
+      label: Breaking changes
+      options:
+        - label: This change modifies existing command behavior or skill content
+          required: false

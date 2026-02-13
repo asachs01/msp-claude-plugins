@@ -1,59 +1,66 @@
 # Contributing to MSP Claude Plugins
 
-Thank you for your interest in contributing to the MSP Claude Plugins Marketplace! This document provides comprehensive guidelines for contributing plugins, skills, and commands.
+Thank you for your interest in contributing to MSP Claude Plugins! This guide covers everything from quick fixes to building new platform plugins.
 
 ## Table of Contents
 
-- [The PRD Mandate](#the-prd-mandate)
+- [Contribution Tiers](#contribution-tiers)
 - [Getting Started](#getting-started)
 - [Development Environment Setup](#development-environment-setup)
-- [Contribution Workflow](#contribution-workflow)
 - [Skill Development Guide](#skill-development-guide)
 - [Command Development Guide](#command-development-guide)
 - [MCP Server Integration Guide](#mcp-server-integration-guide)
 - [Testing Requirements](#testing-requirements)
 - [Style Guide](#style-guide)
 - [Pull Request Process](#pull-request-process)
-- [Issue Templates](#issue-templates)
 - [Getting Help](#getting-help)
 
 ---
 
-## The PRD Mandate
+## Contribution Tiers
 
-**All development begins with a PRD. This is non-negotiable.**
+Not every change needs a PRD. We use a tiered system so the process matches the scope of the work.
 
-Before any code is written, any skill is created, or any command is defined, a PRD must be:
+### Tier 1 — Quick Fixes (no PRD needed)
 
-1. **Created** using the template in `_templates/plugin-prd-template.md`
-2. **Reviewed** by at least one community member
-3. **Approved** via PR review process
-4. **Stored** in the plugin's `prd/` directory
+Just fork, branch, and open a PR.
 
-### Why PRDs First?
+**Examples:**
+- Typo fixes in skills or documentation
+- Field mapping corrections (wrong status codes, incorrect enum values)
+- Bug fixes in existing commands
+- Error message improvements
+- README updates
 
-| Benefit | Description |
-|---------|-------------|
-| **Clear Problem Definition** | Forces articulation of what problem you're solving |
-| **Community Input** | Enables feedback before development effort |
-| **Living Documentation** | Creates docs that live with the code |
-| **Scope Control** | Prevents scope creep and feature drift |
-| **Validation** | Ensures the contribution is valuable to the community |
+### Tier 2 — Feature Enhancements (lightweight proposal)
 
-### PRD Requirements Checklist
+Open a [Feature Enhancement issue](https://github.com/wyre-technology/msp-claude-plugins/issues/new?template=feature-enhancement.yml) describing what you want to add. Get a maintainer thumbs-up, then submit a PR.
 
-Before submitting a PRD, verify these items:
+**Examples:**
+- New commands for existing plugins
+- New skill files for existing plugins
+- Expanded MCP server coverage (new tools/endpoints)
+- Significant changes to existing behavior
 
-- [ ] **Problem Statement** - Clearly describes the problem being solved
-- [ ] **User Stories** - At least 3 concrete user stories
-- [ ] **Scope** - Explicitly lists what's in scope and out of scope
-- [ ] **API Research** - References official vendor API documentation
-- [ ] **Technical Approach** - Describes implementation strategy
-- [ ] **Success Criteria** - Defines what "done" looks like
-- [ ] **Security Considerations** - Addresses credential handling
-- [ ] **Testing Plan** - Describes how the contribution will be validated
+### Tier 3 — New Platforms (full PRD)
 
-See `_standards/prd-requirements.md` for detailed requirements.
+Building a plugin for a vendor we don't support yet? Submit a PRD first.
+
+1. Copy the template from `_templates/plugin-prd-template.md`
+2. Fill it out and submit as a PR with `[PRD]` prefix
+3. Get community review and maintainer approval
+4. Implement once approved
+
+**PRD Requirements Checklist:**
+
+- [ ] Problem statement
+- [ ] At least 3 user stories
+- [ ] Scope (in/out)
+- [ ] API research with links to vendor docs
+- [ ] Technical approach
+- [ ] Success criteria
+- [ ] Security considerations (credential handling)
+- [ ] Testing plan
 
 ---
 
@@ -80,14 +87,10 @@ git clone https://github.com/YOUR-USERNAME/msp-claude-plugins.git
 cd msp-claude-plugins
 
 # 3. Add upstream remote for syncing
-git remote add upstream https://github.com/OWNER/msp-claude-plugins.git
+git remote add upstream https://github.com/wyre-technology/msp-claude-plugins.git
 
 # 4. Verify remotes
 git remote -v
-# origin    https://github.com/YOUR-USERNAME/msp-claude-plugins.git (fetch)
-# origin    https://github.com/YOUR-USERNAME/msp-claude-plugins.git (push)
-# upstream  https://github.com/OWNER/msp-claude-plugins.git (fetch)
-# upstream  https://github.com/OWNER/msp-claude-plugins.git (push)
 ```
 
 ### Syncing Your Fork
@@ -114,7 +117,7 @@ msp-claude-plugins/
 │   └── autotask/           # Reference implementation
 ├── connectwise/             # ConnectWise vendor plugins
 ├── shared/                  # Vendor-agnostic skills
-└── docs/                    # Documentation site (when available)
+└── docs/                    # Documentation site
 ```
 
 ### Recommended Tools
@@ -144,83 +147,6 @@ export CW_PRIVATE_KEY="your-private-key"
 export CW_CLIENT_ID="your-client-id"
 
 # Never commit these values!
-```
-
----
-
-## Contribution Workflow
-
-### Phase 1: PRD Creation
-
-```bash
-# 1. Create PRD branch
-git checkout main && git pull upstream main
-git checkout -b prd/vendor-product-component
-
-# 2. Create PRD directory structure
-mkdir -p vendor/product/prd
-
-# 3. Copy and fill out PRD template
-cp _templates/plugin-prd-template.md vendor/product/prd/component-prd.md
-
-# 4. Commit and push
-git add vendor/product/prd/
-git commit -m "PRD: Add PRD for vendor/product/component"
-git push origin prd/vendor-product-component
-
-# 5. Create Pull Request with [PRD] prefix
-# Title: [PRD] vendor/product/component
-```
-
-### Phase 2: Implementation (After PRD Approval)
-
-```bash
-# 1. Create feature branch from updated main
-git checkout main && git pull upstream main
-git checkout -b feature/vendor-product-component
-
-# 2. Implement according to approved PRD
-# - Create skill files in skills/
-# - Create command files in commands/
-# - Update plugin.json if needed
-# - Update README.md
-
-# 3. Commit with conventional commit format
-git add .
-git commit -m "feat(autotask): Add time entry skill per PRD #123"
-
-# 4. Push and create PR
-git push origin feature/vendor-product-component
-# Create PR linking to approved PRD
-```
-
-### Commit Message Format
-
-Use [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
-
-| Type | Use Case |
-|------|----------|
-| `feat` | New feature (skill, command, plugin) |
-| `fix` | Bug fix |
-| `docs` | Documentation only |
-| `style` | Formatting, no code change |
-| `refactor` | Code restructuring |
-| `test` | Adding tests |
-| `chore` | Maintenance tasks |
-
-Examples:
-```
-feat(autotask): Add configuration items skill
-fix(autotask): Correct ticket status code values
-docs(readme): Add usage examples
 ```
 
 ---
@@ -287,39 +213,9 @@ Study the Autotask tickets skill as a reference:
 **Key elements to note:**
 
 1. **Frontmatter Triggers** - Multiple relevant keywords
-   ```yaml
-   triggers:
-     - autotask ticket
-     - service ticket
-     - create ticket autotask
-     - ticket queue
-     - ticket status
-   ```
-
 2. **Status Code Tables** - Clear reference data
-   ```markdown
-   | Status ID | Name | Description | Business Logic |
-   |-----------|------|-------------|----------------|
-   | **1** | NEW | Newly created ticket | Default for new tickets |
-   ```
-
 3. **Business Logic Code** - Practical validation examples
-   ```javascript
-   function validateStatusTransition(currentStatus, newStatus, ticket) {
-     // Validation logic
-   }
-   ```
-
 4. **API Examples** - Real request/response patterns
-   ```json
-   POST /v1.0/Tickets
-   {
-     "companyID": 12345,
-     "title": "Issue description",
-     "status": 1,
-     "priority": 2
-   }
-   ```
 
 ### Skill Quality Checklist
 
@@ -376,11 +272,6 @@ Brief description of the command's purpose.
    - Sub-step details
    - API calls made
 
-2. **Step title** - Description
-   ```json
-   // Example API request
-   ```
-
 ## Parameters
 
 | Parameter | Type | Required | Default | Description |
@@ -404,7 +295,7 @@ Brief description of the command's purpose.
 
 ### Success
 ```
-✅ Operation completed
+Operation completed
 Details...
 ```
 
@@ -556,9 +447,9 @@ If you don't have API access:
 
 // Bad - uses real data
 {
-  "companyID": 987654321,  // Real ID
-  "title": "Fix John's email",  // Real person
-  "contactEmail": "john@realcompany.com"  // Real email
+  "companyID": 987654321,
+  "title": "Fix John's email",
+  "contactEmail": "john@realcompany.com"
 }
 ```
 
@@ -574,6 +465,24 @@ If you don't have API access:
 
 ## Pull Request Process
 
+### Commit Message Format
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>(<scope>): <description>
+```
+
+| Type | Use Case |
+|------|----------|
+| `feat` | New feature (skill, command, plugin) |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `style` | Formatting, no code change |
+| `refactor` | Code restructuring |
+| `test` | Adding tests |
+| `chore` | Maintenance tasks |
+
 ### PR Title Format
 
 | Type | Format | Example |
@@ -583,32 +492,6 @@ If you don't have API access:
 | Fix | `fix(scope): description` | `fix(autotask): Correct status codes` |
 | Docs | `docs(scope): description` | `docs(readme): Add examples` |
 
-### PR Description Template
-
-```markdown
-## Summary
-Brief description of changes
-
-## Related PRD
-Link to approved PRD (for feature PRs)
-
-## Changes
-- Change 1
-- Change 2
-
-## Testing
-- [ ] Tested manually
-- [ ] API examples validated
-- [ ] MCP integration tested (if applicable)
-
-## Checklist
-- [ ] PRD approved (for features)
-- [ ] Quality checklist complete
-- [ ] No credentials in code
-- [ ] README updated
-- [ ] CHANGELOG updated
-```
-
 ### Review Process
 
 1. **Automated Checks** - Formatting, links, structure
@@ -616,95 +499,14 @@ Link to approved PRD (for feature PRs)
 3. **Maintainer Review** - For significant changes
 4. **Community Testing** - For untested contributions
 
-### Responding to Feedback
-
-- Address all comments before re-requesting review
-- Use "Resolve conversation" when addressed
-- Ask for clarification if feedback is unclear
-- Be patient - reviewers are volunteers
-
----
-
-## Issue Templates
-
-### Bug Report
-
-When reporting bugs, include:
-
-```markdown
-**Plugin/Skill Affected:** kaseya/autotask/tickets
-
-**Description:** Brief description of the bug
-
-**Expected Behavior:** What should happen
-
-**Actual Behavior:** What actually happens
-
-**Steps to Reproduce:**
-1. Step 1
-2. Step 2
-3. Step 3
-
-**Environment:**
-- Claude Code version:
-- OS:
-- API version (if known):
-
-**Additional Context:** Screenshots, logs, etc.
-```
-
-### Feature Request
-
-When requesting features, include:
-
-```markdown
-**Plugin/Vendor:** Which vendor/product
-
-**Problem Statement:** What problem does this solve?
-
-**Proposed Solution:** Your idea for the solution
-
-**User Stories:**
-- As a [role], I want to [action] so that [benefit]
-
-**Alternatives Considered:** Other approaches you thought of
-
-**Willingness to Contribute:**
-- [ ] I would be willing to submit a PRD for this
-- [ ] I would be willing to implement this
-```
-
-### New Plugin Request
-
-When requesting a new vendor plugin:
-
-```markdown
-**Vendor:** Vendor name
-**Product:** Product name
-
-**API Documentation:** Link to official API docs
-
-**Key Entities:** What should the plugin cover?
-- Entity 1
-- Entity 2
-
-**Community Interest:** Why is this valuable?
-
-**Willingness to Contribute:**
-- [ ] I have API access for testing
-- [ ] I would be willing to lead this plugin
-```
-
 ---
 
 ## Getting Help
 
-### Communication Channels
-
 | Channel | Use Case |
 |---------|----------|
-| GitHub Issues | Bug reports, feature requests |
-| GitHub Discussions | Questions, ideas, community chat |
+| [GitHub Issues](https://github.com/wyre-technology/msp-claude-plugins/issues) | Bug reports, feature requests |
+| [GitHub Discussions](https://github.com/wyre-technology/msp-claude-plugins/discussions) | Questions, ideas, community chat |
 | PR Comments | Code review, implementation questions |
 
 ### Getting API Access
@@ -716,9 +518,9 @@ If you need API access for testing:
 3. **Community Help** - Post in discussions asking for testing help
 4. **Documentation-Based** - Build from docs, mark as untested
 
-### Mentorship
+### New to Contributing?
 
-New to contributing? Look for issues labeled:
+Look for issues labeled:
 - `good-first-issue` - Great starting points
 - `help-wanted` - Community help needed
 - `documentation` - Lower barrier to entry
@@ -733,20 +535,9 @@ We are committed to providing a welcoming and inclusive environment for all cont
 
 ---
 
-## Recognition
-
-Contributors are recognized in:
-- CHANGELOG.md for significant contributions
-- README.md acknowledgments section
-- GitHub contributor graphs
-
-Thank you for contributing to the MSP Claude Plugins Marketplace!
-
----
-
 <p align="center">
   <strong>Questions?</strong> Open an issue or start a discussion.
   <br>
-  <a href="https://github.com/OWNER/msp-claude-plugins/issues">Issues</a> •
-  <a href="https://github.com/OWNER/msp-claude-plugins/discussions">Discussions</a>
+  <a href="https://github.com/wyre-technology/msp-claude-plugins/issues">Issues</a> &bull;
+  <a href="https://github.com/wyre-technology/msp-claude-plugins/discussions">Discussions</a>
 </p>

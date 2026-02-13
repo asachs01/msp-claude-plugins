@@ -4,6 +4,7 @@ export interface Plugin {
   vendor: string;
   description: string;
   category: 'psa' | 'rmm' | 'documentation';
+  maturity: 'production' | 'beta' | 'alpha';
   features: string[];
   skills: Skill[];
   commands: Command[];
@@ -40,6 +41,7 @@ export const plugins: Plugin[] = [
     vendor: 'Kaseya',
     description: 'Professional Services Automation for ticket management, CRM, projects, contracts, and time tracking.',
     category: 'psa',
+    maturity: 'production',
     features: [
       'Ticket Management',
       'CRM Operations',
@@ -82,6 +84,7 @@ export const plugins: Plugin[] = [
     vendor: 'Kaseya',
     description: 'Remote Monitoring and Management for device management, alerts, jobs, and automation.',
     category: 'rmm',
+    maturity: 'beta',
     features: [
       'Device Management',
       'Alert Handling',
@@ -119,6 +122,7 @@ export const plugins: Plugin[] = [
     vendor: 'Kaseya',
     description: 'Documentation platform for organizations, assets, passwords, and flexible documentation.',
     category: 'documentation',
+    maturity: 'beta',
     features: [
       'Organization Management',
       'Configuration Items',
@@ -157,6 +161,7 @@ export const plugins: Plugin[] = [
     vendor: 'Syncro',
     description: 'All-in-one PSA/RMM for ticket management, customer operations, assets, and invoicing.',
     category: 'psa',
+    maturity: 'beta',
     features: [
       'Ticket Management',
       'Customer Operations',
@@ -197,6 +202,7 @@ export const plugins: Plugin[] = [
     vendor: 'Atera',
     description: 'Cloud-native RMM/PSA for tickets, agents, customers, alerts, and device monitoring.',
     category: 'psa',
+    maturity: 'beta',
     features: [
       'Ticket Management',
       'Agent Management',
@@ -239,6 +245,7 @@ export const plugins: Plugin[] = [
     vendor: 'SuperOps',
     description: 'AI-powered PSA/RMM for tickets, assets, clients, alerts, and runbook automation.',
     category: 'psa',
+    maturity: 'beta',
     features: [
       'Ticket Management',
       'Asset Management',
@@ -281,6 +288,7 @@ export const plugins: Plugin[] = [
     vendor: 'Halo',
     description: 'Modern PSA for ticket management, client operations, asset tracking, and contracts.',
     category: 'psa',
+    maturity: 'beta',
     features: [
       'Ticket Management',
       'Client Operations',
@@ -321,6 +329,7 @@ export const plugins: Plugin[] = [
     vendor: 'ConnectWise',
     description: 'Industry-leading PSA for tickets, companies, contacts, projects, and time tracking.',
     category: 'psa',
+    maturity: 'alpha',
     features: [
       'Ticket Management',
       'Company Management',
@@ -363,6 +372,7 @@ export const plugins: Plugin[] = [
     vendor: 'ConnectWise',
     description: 'Enterprise RMM for computer management, scripts, monitors, alerts, and client management.',
     category: 'rmm',
+    maturity: 'alpha',
     features: [
       'Computer Management',
       'Script Execution',
@@ -397,6 +407,7 @@ export const plugins: Plugin[] = [
     vendor: 'NinjaOne',
     description: 'Cloud-native RMM for device management, alerts, ticketing, and remote monitoring across Windows, Mac, and Linux endpoints.',
     category: 'rmm',
+    maturity: 'alpha',
     features: [
       'Device Management',
       'Organization Management',

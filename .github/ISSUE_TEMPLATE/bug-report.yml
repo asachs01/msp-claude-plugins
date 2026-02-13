@@ -1,0 +1,75 @@
+name: Bug Report
+description: Report a bug in a plugin skill, command, or MCP server
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: plugin
+    attributes:
+      label: Plugin affected
+      description: Which plugin has the bug?
+      options:
+        - Autotask PSA
+        - Datto RMM
+        - IT Glue
+        - Syncro MSP
+        - Atera
+        - SuperOps.ai
+        - HaloPSA
+        - ConnectWise PSA
+        - ConnectWise Automate
+        - NinjaOne
+        - Shared Skills
+        - Documentation Site
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: What type of component is affected?
+      options:
+        - Skill (domain knowledge)
+        - Command (slash command)
+        - MCP Server
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly. What did you expect vs what actually happened?
+      placeholder: |
+        Expected: The /create-ticket command should set priority to "High" (value 2).
+        Actual: It sets priority to "Critical" (value 1) instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce this bug?
+      placeholder: |
+        1. Run /create-ticket with priority "High"
+        2. Check the created ticket in Autotask
+        3. Priority is set to Critical instead of High
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Any relevant environment details.
+      placeholder: |
+        - Claude Code version: X.X.X
+        - OS: macOS / Windows / Linux
+        - Plugin version: latest from main
+    validations:
+      required: false
