@@ -123,6 +123,32 @@ const features = [
     </div>
   </section>
 
+  <!-- Hosted Gateway Coming Soon -->
+  <section class="py-20">
+    <div class="container">
+      <div class="card max-w-4xl mx-auto p-12 border border-blue-500/20 bg-blue-950/10">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30">Coming Soon</span>
+          <h2 class="text-2xl font-bold">Hosted MCP Gateway</h2>
+        </div>
+        <p class="text-[var(--muted)] mb-4 max-w-2xl">
+          Connect your MSP tools to Claude without self-hosting. Enter your API credentials once, and Claude Desktop handles the rest.
+        </p>
+        <ul class="text-[var(--muted)] text-sm space-y-2 mb-6">
+          <li>Supports Datto RMM, IT Glue, Autotask PSA, and more coming</li>
+          <li>OAuth 2.1 + PKCE authentication — works natively with Claude Desktop</li>
+          <li>Encrypted credential storage with per-user isolation</li>
+          <li>No infrastructure to manage — just add the URL to your Claude config</li>
+        </ul>
+        <p class="text-xs text-[var(--muted)]">
+          User accounts and a managed gateway are in development. In the meantime, you can
+          <a href={`${baseUrl}getting-started/deployment/`} class="text-accent hover:underline">self-host MCP servers</a>
+          using Docker or your preferred cloud provider.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ Section -->
   <section class="py-20">
     <div class="container">
