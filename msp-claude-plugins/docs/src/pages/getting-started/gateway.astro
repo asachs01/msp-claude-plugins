@@ -1,0 +1,67 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+---
+<DocsLayout title="MCP Gateway" description="Hosted MCP gateway at mcp.wyre.ai with OAuth 2.1 and encrypted credential storage.">
+  <h1>MCP Gateway</h1>
+  
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Connect Claude Desktop to all MSP tools through a single hosted gateway at
+    <code>mcp.wyre.ai</code>. No Docker, no config files — just add a URL and authenticate.
+  </p>
+
+  <h2>How It Works</h2>
+  <ol>
+    <li>Add <code>https://mcp.wyre.ai/v1/{vendor}/mcp</code> as an MCP server URL in Claude Desktop</li>
+    <li>Claude initiates an OAuth 2.1 + PKCE flow — a browser window opens</li>
+    <li>Enter your vendor API credentials (API keys, secrets, etc.)</li>
+    <li>The gateway encrypts and stores your credentials (AES-256-GCM)</li>
+    <li>All subsequent requests are proxied through the gateway with automatic credential injection</li>
+  </ol>
+
+  <h2>Supported Vendors</h2>
+  <table>
+    <thead><tr><th>Vendor</th><th>URL</th></tr></thead>
+    <tbody>
+      <tr><td>Autotask PSA</td><td><code>https://mcp.wyre.ai/v1/autotask/mcp</code></td></tr>
+      <tr><td>Datto RMM</td><td><code>https://mcp.wyre.ai/v1/datto-rmm/mcp</code></td></tr>
+      <tr><td>IT Glue</td><td><code>https://mcp.wyre.ai/v1/itglue/mcp</code></td></tr>
+      <tr><td>Syncro MSP</td><td><code>https://mcp.wyre.ai/v1/syncro/mcp</code></td></tr>
+      <tr><td>Atera</td><td><code>https://mcp.wyre.ai/v1/atera/mcp</code></td></tr>
+      <tr><td>SuperOps.ai</td><td><code>https://mcp.wyre.ai/v1/superops/mcp</code></td></tr>
+      <tr><td>HaloPSA</td><td><code>https://mcp.wyre.ai/v1/halopsa/mcp</code></td></tr>
+      <tr><td>ConnectWise Manage</td><td><code>https://mcp.wyre.ai/v1/connectwise-manage/mcp</code></td></tr>
+      <tr><td>ConnectWise Automate</td><td><code>https://mcp.wyre.ai/v1/connectwise-automate/mcp</code></td></tr>
+      <tr><td>NinjaOne</td><td><code>https://mcp.wyre.ai/v1/ninjaone/mcp</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Claude Desktop Configuration</h2>
+  <p>Add any or all vendors to your Claude Desktop config:</p>
+  <pre><code class="language-json">{
+  "mcpServers": {
+    "autotask": { "url": "https://mcp.wyre.ai/v1/autotask/mcp" },
+    "datto-rmm": { "url": "https://mcp.wyre.ai/v1/datto-rmm/mcp" },
+    "syncro": { "url": "https://mcp.wyre.ai/v1/syncro/mcp" }
+  }
+}</code></pre>
+
+  <h2>Security</h2>
+  <ul>
+    <li><strong>OAuth 2.1 + PKCE</strong> — industry-standard authentication with mandatory code challenge</li>
+    <li><strong>AES-256-GCM encryption</strong> — credentials encrypted at rest with per-user key derivation (PBKDF2, 100k iterations, SHA-512)</li>
+    <li><strong>Refresh token rotation</strong> — old tokens revoked on every use</li>
+    <li><strong>No credential exposure</strong> — vendor API keys never leave the gateway; injected as HTTP headers on the internal network</li>
+  </ul>
+
+  <h2>Self-Hosting</h2>
+  <p>
+    The gateway is open source. Run your own instance for full control:
+  </p>
+  <pre><code class="language-bash">git clone https://github.com/wyre-technology/mcp-gateway.git
+cd mcp-gateway
+docker compose up</code></pre>
+  <p>
+    See the <a href="https://github.com/wyre-technology/mcp-gateway">mcp-gateway repository</a> for
+    full configuration and deployment documentation.
+  </p>
+</DocsLayout>
