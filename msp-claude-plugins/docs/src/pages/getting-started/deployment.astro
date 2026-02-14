@@ -36,6 +36,11 @@ const baseUrl = import.meta.env.BASE_URL;
         <td>Docker Engine</td>
       </tr>
       <tr>
+        <td><strong>MCPB Bundle</strong></td>
+        <td>Claude Desktop users, non-technical setup</td>
+        <td>Claude Desktop 0.10+</td>
+      </tr>
+      <tr>
         <td><strong>DigitalOcean</strong></td>
         <td>Managed cloud hosting, team access</td>
         <td>DigitalOcean account</td>
@@ -132,6 +137,26 @@ docker build --target production -t syncro-mcp:latest .</code></pre>
     <li>Exposes port <code>8080</code></li>
     <li>HTTP transport enabled by default</li>
   </ul>
+
+  <h2>MCPB (MCP Bundle)</h2>
+  <p>
+    Every MCP server ships as an <code>.mcpb</code> bundle — a self-contained package for Claude Desktop.
+    Download the latest bundle from each server's GitHub Releases page and install directly.
+  </p>
+
+  <h3>Install from GitHub Release</h3>
+  <ol>
+    <li>Go to the MCP server's <a href="https://github.com/wyre-technology">GitHub releases page</a></li>
+    <li>Download the <code>.mcpb</code> file from the latest release</li>
+    <li>Open Claude Desktop → Settings → MCP Servers → Install from file</li>
+    <li>Select the downloaded <code>.mcpb</code> file</li>
+    <li>Enter your vendor credentials when prompted</li>
+  </ol>
+
+  <p>
+    MCPB bundles include all dependencies and a manifest that tells Claude Desktop exactly
+    what credentials to ask for. No terminal or Node.js required.
+  </p>
 
   <h2>DigitalOcean App Platform</h2>
 
