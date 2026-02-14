@@ -90,7 +90,7 @@ export const mcpServers: McpServer[] = [
     ],
     architecture: 'Decision tree with lazy-loaded domain handlers. Navigate to a domain first, then use domain-specific tools.',
     installCommand: 'npx @wyre-technology/connectwise-automate-mcp',
-    dockerAvailable: false,
+    dockerAvailable: true,
     rateLimit: '60 requests per minute'
   },
   {
@@ -349,7 +349,7 @@ export const mcpServers: McpServer[] = [
     ],
     architecture: 'Decision tree with lazy-loaded domain handlers and custom GraphQL support.',
     installCommand: 'npx @wyre-technology/superops-mcp',
-    dockerAvailable: false,
+    dockerAvailable: true,
     rateLimit: '800 requests per minute'
   },
   {
@@ -484,6 +484,131 @@ export const mcpServers: McpServer[] = [
     installCommand: 'npx @wyre-technology/syncro-mcp',
     dockerAvailable: true,
     rateLimit: '180 requests per minute'
+  },
+  {
+    id: 'datto-rmm',
+    name: 'Datto RMM MCP',
+    npmPackage: '@wyre-technology/datto-rmm-mcp',
+    description: 'MCP server for Datto RMM providing device management, monitoring alerts, patch management, and remote job execution.',
+    category: 'rmm',
+    repoUrl: 'https://github.com/wyre-technology/datto-rmm-mcp',
+    companionPluginId: 'datto-rmm',
+    envVars: [
+      { name: 'DATTO_API_KEY', required: true, description: 'Datto RMM API key' },
+      { name: 'DATTO_API_SECRET', required: true, description: 'Datto RMM API secret' },
+      { name: 'DATTO_PLATFORM', required: true, description: 'Platform: pinotage, concord, or merlot' }
+    ],
+    domains: [
+      { name: 'Devices', description: 'Manage and monitor endpoints.', tools: [
+        { name: 'List devices', description: 'List devices with filters' },
+        { name: 'Get device details', description: 'Get detailed device info' },
+        { name: 'Search devices', description: 'Search by name/criteria' }
+      ]},
+      { name: 'Alerts', description: 'Monitor device alerts.', tools: [
+        { name: 'List alerts', description: 'List alerts with filters' },
+        { name: 'Get alert details', description: 'Get alert info' },
+        { name: 'Resolve alert', description: 'Resolve/dismiss an alert' }
+      ]},
+      { name: 'Jobs', description: 'Remote job execution.', tools: [
+        { name: 'List jobs', description: 'List scheduled/completed jobs' },
+        { name: 'Create job', description: 'Create a remote job' }
+      ]},
+      { name: 'Patches', description: 'Patch management.', tools: [
+        { name: 'List patches', description: 'List available patches' },
+        { name: 'Approve patches', description: 'Approve patches for deployment' }
+      ]}
+    ],
+    architecture: 'Flat tool exposure with domain-organized handlers.',
+    installCommand: 'npx @wyre-technology/datto-rmm-mcp',
+    dockerAvailable: true,
+    rateLimit: '600 requests per minute'
+  },
+  {
+    id: 'autotask',
+    name: 'Autotask MCP',
+    npmPackage: '@wyre-technology/autotask-mcp',
+    description: 'MCP server for Kaseya Autotask PSA — access companies, contacts, tickets, time entries, projects, contracts, and billing through AI assistants.',
+    category: 'psa',
+    repoUrl: 'https://github.com/wyre-technology/autotask-mcp',
+    companionPluginId: 'autotask',
+    envVars: [
+      { name: 'AUTOTASK_USERNAME', required: true, description: 'Autotask API username (email)' },
+      { name: 'AUTOTASK_SECRET', required: true, description: 'Autotask API secret key' },
+      { name: 'AUTOTASK_INTEGRATION_CODE', required: true, description: 'Autotask integration code' }
+    ],
+    domains: [
+      { name: 'Tickets', description: 'Service ticket management.', tools: [
+        { name: 'List tickets', description: 'List/search tickets with filters' },
+        { name: 'Get ticket', description: 'Get ticket details' },
+        { name: 'Create ticket', description: 'Create a new ticket' },
+        { name: 'Update ticket', description: 'Update ticket fields' },
+        { name: 'Add note', description: 'Add note to ticket' }
+      ]},
+      { name: 'Companies', description: 'CRM company management.', tools: [
+        { name: 'List companies', description: 'List/search companies' },
+        { name: 'Get company', description: 'Get company details' },
+        { name: 'Create company', description: 'Create a new company' }
+      ]},
+      { name: 'Contacts', description: 'Contact management.', tools: [
+        { name: 'List contacts', description: 'List/search contacts' },
+        { name: 'Get contact', description: 'Get contact details' }
+      ]},
+      { name: 'Time Entries', description: 'Time tracking and billing.', tools: [
+        { name: 'List time entries', description: 'List time entries with filters' },
+        { name: 'Create time entry', description: 'Log time against ticket/project' }
+      ]},
+      { name: 'Projects', description: 'Project management.', tools: [
+        { name: 'List projects', description: 'List projects' },
+        { name: 'Get project', description: 'Get project details' }
+      ]},
+      { name: 'Contracts', description: 'Service agreements.', tools: [
+        { name: 'List contracts', description: 'List contracts' },
+        { name: 'Get contract', description: 'Get contract details' }
+      ]}
+    ],
+    architecture: 'Comprehensive flat tool exposure with intelligent caching and ID-to-name resolution.',
+    installCommand: 'npx @wyre-technology/autotask-mcp',
+    dockerAvailable: true,
+    rateLimit: '10,000 requests per hour'
+  },
+  {
+    id: 'connectwise-manage',
+    name: 'ConnectWise Manage MCP',
+    npmPackage: '@wyre-technology/connectwise-manage-mcp',
+    description: 'MCP server for ConnectWise Manage (PSA) providing ticket management, company/contact CRM, project management, and time tracking.',
+    category: 'psa',
+    repoUrl: 'https://github.com/wyre-technology/connectwise-manage-mcp',
+    companionPluginId: 'connectwise-psa',
+    envVars: [
+      { name: 'CW_MANAGE_COMPANY_ID', required: true, description: 'ConnectWise company identifier' },
+      { name: 'CW_MANAGE_PUBLIC_KEY', required: true, description: 'API member public key' },
+      { name: 'CW_MANAGE_PRIVATE_KEY', required: true, description: 'API member private key' },
+      { name: 'CW_MANAGE_CLIENT_ID', required: true, description: 'ConnectWise client ID' }
+    ],
+    domains: [
+      { name: 'Tickets', description: 'Service ticket management.', tools: [
+        { name: 'List tickets', description: 'List tickets with filters' },
+        { name: 'Get ticket', description: 'Get ticket details' },
+        { name: 'Create ticket', description: 'Create a new ticket' },
+        { name: 'Update ticket', description: 'Update ticket fields' }
+      ]},
+      { name: 'Companies', description: 'Company management.', tools: [
+        { name: 'List companies', description: 'List companies' },
+        { name: 'Get company', description: 'Get company details' }
+      ]},
+      { name: 'Contacts', description: 'Contact management.', tools: [
+        { name: 'List contacts', description: 'List contacts' },
+        { name: 'Get contact', description: 'Get contact details' }
+      ]},
+      { name: 'Projects', description: 'Project management.', tools: [
+        { name: 'List projects', description: 'List projects' },
+        { name: 'Get project', description: 'Get project details' }
+      ]}
+    ],
+    architecture: 'Decision tree with lazy-loaded domain handlers.',
+    installCommand: 'npx @wyre-technology/connectwise-manage-mcp',
+    dockerAvailable: true,
+    rateLimit: '60 requests per minute'
   }
 ];
 
