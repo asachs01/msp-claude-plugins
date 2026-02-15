@@ -1,34 +1,53 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 
-const vendorUrlExample = `{
+const claudeCodeExample = `// .mcp.json (in your project root)
+{
   "mcpServers": {
     "autotask": { "url": "https://mcp.wyre.ai/v1/autotask/mcp" },
     "datto-rmm": { "url": "https://mcp.wyre.ai/v1/datto-rmm/mcp" },
     "syncro": { "url": "https://mcp.wyre.ai/v1/syncro/mcp" }
   }
 }`;
+
+const claudeDesktopExample = `// claude_desktop_config.json
+{
+  "mcpServers": {
+    "autotask": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.wyre.ai/v1/autotask/mcp"]
+    },
+    "datto-rmm": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.wyre.ai/v1/datto-rmm/mcp"]
+    },
+    "syncro": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.wyre.ai/v1/syncro/mcp"]
+    }
+  }
+}`;
 ---
 <DocsLayout title="MCP Gateway" description="Hosted MCP gateway at mcp.wyre.ai with OAuth 2.1 and encrypted credential storage.">
   <h1>MCP Gateway</h1>
-  
+
   <p class="lead text-lg text-[var(--muted)] mb-8">
-    Connect Claude Desktop to all MSP tools through a single hosted gateway at
+    Connect Claude to all MSP tools through a single hosted gateway at
     <code>mcp.wyre.ai</code>. No Docker, no config files — just add a URL and authenticate.
   </p>
 
   <h2>How It Works</h2>
   <ol>
-    <li>Add <code>{"https://mcp.wyre.ai/v1/{vendor}/mcp"}</code> as an MCP server URL in Claude Desktop</li>
+    <li>Add the gateway URL as an MCP server in Claude Code or Claude Desktop (see configuration below)</li>
     <li>Claude initiates an OAuth 2.1 + PKCE flow — a browser window opens</li>
-    <li>Enter your vendor API credentials (API keys, secrets, etc.)</li>
-    <li>The gateway encrypts and stores your credentials (AES-256-GCM)</li>
+    <li>Log in or sign up, then enter your vendor API credentials (API keys, secrets, etc.)</li>
+    <li>The gateway validates your credentials, then encrypts and stores them (AES-256-GCM)</li>
     <li>All subsequent requests are proxied through the gateway with automatic credential injection</li>
   </ol>
 
   <h2>Supported Vendors</h2>
   <table>
-    <thead><tr><th>Vendor</th><th>URL</th></tr></thead>
+    <thead><tr><th>Vendor</th><th>Gateway URL</th></tr></thead>
     <tbody>
       <tr><td>Autotask PSA</td><td><code>https://mcp.wyre.ai/v1/autotask/mcp</code></td></tr>
       <tr><td>Datto RMM</td><td><code>https://mcp.wyre.ai/v1/datto-rmm/mcp</code></td></tr>
@@ -37,15 +56,30 @@ const vendorUrlExample = `{
       <tr><td>Atera</td><td><code>https://mcp.wyre.ai/v1/atera/mcp</code></td></tr>
       <tr><td>SuperOps.ai</td><td><code>https://mcp.wyre.ai/v1/superops/mcp</code></td></tr>
       <tr><td>HaloPSA</td><td><code>https://mcp.wyre.ai/v1/halopsa/mcp</code></td></tr>
-      <tr><td>ConnectWise Manage</td><td><code>https://mcp.wyre.ai/v1/connectwise-manage/mcp</code></td></tr>
+      <tr><td>ConnectWise PSA</td><td><code>https://mcp.wyre.ai/v1/connectwise-psa/mcp</code></td></tr>
       <tr><td>ConnectWise Automate</td><td><code>https://mcp.wyre.ai/v1/connectwise-automate/mcp</code></td></tr>
       <tr><td>NinjaOne</td><td><code>https://mcp.wyre.ai/v1/ninjaone/mcp</code></td></tr>
     </tbody>
   </table>
 
-  <h2>Claude Desktop Configuration</h2>
-  <p>Add any or all vendors to your Claude Desktop config:</p>
-  <pre><code class="language-json" set:text={vendorUrlExample} /></pre>
+  <h2>Claude Code (CLI)</h2>
+  <p>Claude Code supports remote MCP servers natively. Add a <code>.mcp.json</code> to your project root:</p>
+  <pre><code class="language-json" set:text={claudeCodeExample} /></pre>
+  <p class="text-sm text-[var(--muted)] mt-2">
+    On first use, Claude Code will open a browser for OAuth authentication. After that, the connection is automatic.
+  </p>
+
+  <h2>Claude Desktop</h2>
+  <p>
+    Claude Desktop only supports stdio-based MCP servers. Remote HTTP servers require the
+    <a href="https://www.npmjs.com/package/mcp-remote" target="_blank" rel="noopener noreferrer"><code>mcp-remote</code></a>
+    bridge. Add to your <code>claude_desktop_config.json</code>:
+  </p>
+  <pre><code class="language-json" set:text={claudeDesktopExample} /></pre>
+  <p class="text-sm text-[var(--muted)] mt-2">
+    <strong>Requires Node.js 18+.</strong> The <code>npx -y mcp-remote</code> command downloads the bridge on first run.
+    Alternatively, Claude Pro/Team/Enterprise users can add remote servers via <strong>Settings → Connectors</strong> in Claude Desktop without the bridge.
+  </p>
 
   <h2>Security</h2>
   <ul>
