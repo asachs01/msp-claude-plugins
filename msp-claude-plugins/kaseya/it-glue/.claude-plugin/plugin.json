@@ -2,7 +2,9 @@
   "name": "kaseya-it-glue",
   "version": "1.0.0",
   "description": "Claude plugins for IT Glue documentation platform - organizations, assets, passwords, documents",
-  "author": "MSP Claude Plugins Community",
+  "author": {
+    "name": "MSP Claude Plugins Community"
+  },
   "homepage": "https://github.com/wyre-technology/msp-claude-plugins",
   "repository": "https://github.com/wyre-technology/msp-claude-plugins",
   "license": "Apache-2.0"
