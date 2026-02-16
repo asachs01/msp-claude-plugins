@@ -332,6 +332,41 @@ export const plugins: Plugin[] = [
     compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   },
   {
+    id: 'liongard',
+    name: 'Liongard',
+    vendor: 'Liongard',
+    description: 'Configuration monitoring and change detection for environments, inspections, systems, and compliance assessments.',
+    category: 'rmm',
+    maturity: 'beta',
+    features: [
+      'Environment Management',
+      'Inspection Monitoring',
+      'System Configuration',
+      'Detection & Alerting',
+      'Change Tracking'
+    ],
+    skills: [
+      { name: 'overview', description: 'Liongard platform overview, authentication, and API patterns' },
+      { name: 'environments', description: 'Environment and agent management' },
+      { name: 'inspections', description: 'Inspection monitoring and configuration data' },
+      { name: 'systems', description: 'System (inspector) configuration and launchpoints' },
+      { name: 'detections', description: 'Change detection, alerts, and compliance metrics' }
+    ],
+    commands: [
+      { name: '/liongard-health-check', description: 'Verify Liongard connectivity and API health' },
+      { name: '/liongard-environment-summary', description: 'Summarize environments with agent and system counts' }
+    ],
+    apiInfo: {
+      baseUrl: 'https://{instance}.app.liongard.com/api/v1 and /api/v2',
+      auth: 'X-ROAR-API-KEY header',
+      rateLimit: '300 requests per minute',
+      docsUrl: 'https://docs.liongard.com/reference/overview'
+    },
+    path: 'liongard/liongard',
+    mcpRepo: 'https://github.com/wyre-technology/liongard-mcp',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
+  },
+  {
     id: 'connectwise-psa',
     name: 'ConnectWise PSA',
     vendor: 'ConnectWise',

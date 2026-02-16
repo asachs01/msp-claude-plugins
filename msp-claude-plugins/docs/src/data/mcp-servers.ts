@@ -572,6 +572,100 @@ export const mcpServers: McpServer[] = [
     rateLimit: '10,000 requests per hour'
   },
   {
+    id: 'liongard',
+    name: 'Liongard MCP',
+    npmPackage: '@wyre-technology/liongard-mcp',
+    description: 'MCP server for Liongard with decision tree architecture for managing environments, inspections, systems, detections, alerts, and configuration monitoring.',
+    category: 'rmm',
+    repoUrl: 'https://github.com/wyre-technology/liongard-mcp',
+    companionPluginId: 'liongard',
+    envVars: [
+      { name: 'LIONGARD_INSTANCE', required: true, description: 'Your Liongard instance subdomain (e.g., yourcompany)' },
+      { name: 'LIONGARD_API_KEY', required: true, description: 'Your Liongard API key (X-ROAR-API-KEY)' }
+    ],
+    domains: [
+      {
+        name: 'Environments',
+        description: 'Manage Liongard environments (customers/tenants).',
+        tools: [
+          { name: 'liongard_environments_list', description: 'List environments with filters' },
+          { name: 'liongard_environments_get', description: 'Get environment details' },
+          { name: 'liongard_environments_create', description: 'Create a new environment' },
+          { name: 'liongard_environments_update', description: 'Update an existing environment' }
+        ]
+      },
+      {
+        name: 'Agents',
+        description: 'Manage Liongard collector agents.',
+        tools: [
+          { name: 'liongard_agents_list', description: 'List agents' },
+          { name: 'liongard_agents_get', description: 'Get agent details' }
+        ]
+      },
+      {
+        name: 'Systems',
+        description: 'Manage inspectors (system types) and their configurations.',
+        tools: [
+          { name: 'liongard_systems_list', description: 'List available inspectors' },
+          { name: 'liongard_systems_get', description: 'Get inspector details' }
+        ]
+      },
+      {
+        name: 'Launchpoints',
+        description: 'Manage launchpoint configurations that connect inspectors to environments.',
+        tools: [
+          { name: 'liongard_launchpoints_list', description: 'List launchpoints with filters' },
+          { name: 'liongard_launchpoints_get', description: 'Get launchpoint details' },
+          { name: 'liongard_launchpoints_create', description: 'Create a new launchpoint' }
+        ]
+      },
+      {
+        name: 'Detections',
+        description: 'Monitor configuration changes and compliance detections.',
+        tools: [
+          { name: 'liongard_detections_list', description: 'List detections with filters' },
+          { name: 'liongard_detections_get', description: 'Get detection details' }
+        ]
+      },
+      {
+        name: 'Alerts',
+        description: 'View and manage Liongard alerts.',
+        tools: [
+          { name: 'liongard_alerts_list', description: 'List alerts with filters' },
+          { name: 'liongard_alerts_get', description: 'Get alert details' }
+        ]
+      },
+      {
+        name: 'Metrics',
+        description: 'View compliance metrics and scoring.',
+        tools: [
+          { name: 'liongard_metrics_list', description: 'List metrics' },
+          { name: 'liongard_metrics_get', description: 'Get metric details' }
+        ]
+      },
+      {
+        name: 'Timeline',
+        description: 'View inspection history and configuration timeline.',
+        tools: [
+          { name: 'liongard_timeline_list', description: 'List timeline entries' },
+          { name: 'liongard_timeline_get', description: 'Get timeline entry details' }
+        ]
+      },
+      {
+        name: 'Inventory',
+        description: 'Manage identity and device inventory.',
+        tools: [
+          { name: 'liongard_inventory_identities', description: 'List identity records' },
+          { name: 'liongard_inventory_devices', description: 'List device profiles' }
+        ]
+      }
+    ],
+    architecture: 'Decision tree with lazy-loaded domain handlers. Navigate to a domain first, then use domain-specific tools.',
+    installCommand: 'npx @wyre-technology/liongard-mcp',
+    dockerAvailable: true,
+    rateLimit: '300 requests per minute'
+  },
+  {
     id: 'connectwise-manage',
     name: 'ConnectWise Manage MCP',
     npmPackage: '@wyre-technology/connectwise-manage-mcp',
