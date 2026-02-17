@@ -3,7 +3,7 @@ export interface Plugin {
   name: string;
   vendor: string;
   description: string;
-  category: 'psa' | 'rmm' | 'documentation';
+  category: 'psa' | 'rmm' | 'documentation' | 'crm';
   maturity: 'production' | 'beta' | 'alpha';
   features: string[];
   skills: Skill[];
@@ -482,6 +482,49 @@ export const plugins: Plugin[] = [
     path: 'ninjaone/ninjaone-rmm',
     mcpRepo: 'https://github.com/wyre-technology/ninjaone-mcp',
     compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
+  },
+  {
+    id: 'salesbuildr',
+    name: 'SalesBuildr',
+    vendor: 'SalesBuildr',
+    description: 'CRM and quoting platform for companies, contacts, opportunities, products, and quote management.',
+    category: 'crm',
+    maturity: 'alpha',
+    features: [
+      'Company Management',
+      'Contact Management',
+      'Opportunity Tracking',
+      'Product Catalog',
+      'Quote Generation'
+    ],
+    skills: [
+      { name: 'companies-contacts', description: 'Company and contact management' },
+      { name: 'opportunities', description: 'Opportunity tracking and pipeline management' },
+      { name: 'products', description: 'Product catalog and pricing' },
+      { name: 'quotes', description: 'Quote creation and management' },
+      { name: 'api-patterns', description: 'SalesBuildr API authentication, pagination, rate limiting' }
+    ],
+    commands: [
+      { name: '/search-companies', description: 'Search for companies by name' },
+      { name: '/create-contact', description: 'Create a new contact' },
+      { name: '/search-contacts', description: 'Search contacts by name or company' },
+      { name: '/search-opportunities', description: 'Search opportunities by criteria' },
+      { name: '/create-opportunity', description: 'Create a new sales opportunity' },
+      { name: '/update-opportunity', description: 'Update opportunity fields (stage, value)' },
+      { name: '/search-products', description: 'Search the product catalog' },
+      { name: '/create-quote', description: 'Create a new quote' },
+      { name: '/get-quote', description: 'Retrieve quote details' },
+      { name: '/search-quotes', description: 'Search quotes by criteria' }
+    ],
+    apiInfo: {
+      baseUrl: 'https://portal.salesbuildr.com/public-api',
+      auth: 'api-key header',
+      rateLimit: '500 requests per 10 minutes',
+      docsUrl: 'https://portal.salesbuildr.com/public-api'
+    },
+    path: 'salesbuildr/salesbuildr',
+    mcpRepo: 'https://github.com/wyre-technology/salesbuildr-mcp',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   }
 ];
 
@@ -489,7 +532,7 @@ export function getPluginById(id: string): Plugin | undefined {
   return plugins.find(p => p.id === id);
 }
 
-export function getPluginsByCategory(category: 'psa' | 'rmm' | 'documentation'): Plugin[] {
+export function getPluginsByCategory(category: 'psa' | 'rmm' | 'documentation' | 'crm'): Plugin[] {
   return plugins.filter(p => p.category === category);
 }
 
