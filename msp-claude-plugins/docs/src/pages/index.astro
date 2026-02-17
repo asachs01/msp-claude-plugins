@@ -71,17 +71,34 @@ const features = [
         <strong>11 plugins supporting 8 MSP platforms with 44+ specialized skills.</strong> Built following the <a href="https://docs.anthropic.com/claude-code/plugins" class="text-accent hover:underline">official Claude Code plugin specification</a>.
       </p>
 
-      <div class="max-w-2xl mx-auto mb-8">
-        <InstallCommand size="lg" />
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <!-- Gateway path -->
+        <div class="card p-8 border border-green-500/30 bg-green-950/5 dark:bg-green-950/10 text-left">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span class="text-xs font-semibold uppercase tracking-wider text-green-500">Recommended</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Use the Hosted Gateway</h3>
+          <p class="text-[var(--muted)] text-sm mb-4">
+            Connect your MSP tools to Claude Desktop in minutes. No servers to manage — just add your API credentials and go.
+          </p>
+          <a href="/auth/signup" class="btn btn-primary w-full text-center">Get Started Free</a>
+        </div>
 
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href={`${baseUrl}getting-started/`} class="btn btn-primary">
-          Get Started
-        </a>
-        <a href={`${baseUrl}plugins/`} class="btn btn-secondary">
-          Browse Plugins
-        </a>
+        <!-- Self-host path -->
+        <div class="card p-8 text-left">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-5 h-5 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span class="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">Self-Host</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Run Your Own MCP Servers</h3>
+          <p class="text-[var(--muted)] text-sm mb-4">
+            Full control with local MCP servers. Install the plugin collection and configure each integration yourself.
+          </p>
+          <div class="mb-0">
+            <InstallCommand size="sm" />
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -123,26 +140,82 @@ const features = [
     </div>
   </section>
 
-  <!-- Hosted MCP Gateway -->
+  <!-- Two Paths Comparison -->
   <section class="py-20">
     <div class="container">
-      <div class="card max-w-4xl mx-auto p-12 border border-green-500/20 bg-green-950/10">
-        <div class="flex items-center gap-3 mb-4">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">Live</span>
-          <h2 class="text-2xl font-bold">Hosted MCP Gateway</h2>
-        </div>
-        <p class="text-[var(--muted)] mb-4 max-w-2xl">
-          Connect your MSP tools to Claude without self-hosting. Enter your API credentials once, and Claude Desktop handles the rest.
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Two Ways to Connect</h2>
+        <p class="text-[var(--muted)] max-w-2xl mx-auto">
+          Use the hosted gateway for zero-config setup, or self-host for full control. Both give you the same MCP integrations.
         </p>
-        <ul class="text-[var(--muted)] text-sm space-y-2 mb-6">
-          <li>Supports Datto RMM, IT Glue, Autotask PSA, and more</li>
-          <li>OAuth 2.1 + PKCE authentication — works natively with Claude Desktop</li>
-          <li>Encrypted credential storage with per-user isolation</li>
-          <li>No infrastructure to manage — just add the URL to your Claude config</li>
-        </ul>
-        <div class="flex flex-wrap gap-3">
-          <a href="/auth/signup" class="btn btn-primary text-sm">Get Started Free</a>
-          <a href={`${baseUrl}getting-started/gateway/`} class="btn btn-secondary text-sm">Learn More</a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Gateway column -->
+        <div class="card p-8 border border-green-500/20 bg-green-950/5 dark:bg-green-950/10">
+          <div class="flex items-center gap-2 mb-6">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">Recommended</span>
+            <h3 class="text-xl font-bold">Hosted Gateway</h3>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Works with Claude Desktop out of the box</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>OAuth 2.1 + PKCE — no API keys in local config</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Encrypted credential storage with per-user isolation</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>No Docker, no servers, no maintenance</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>All supported vendors available immediately</span>
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-3">
+            <a href="/auth/signup" class="btn btn-primary text-sm">Get Started Free</a>
+            <a href={`${baseUrl}getting-started/gateway/`} class="btn btn-secondary text-sm">Learn More</a>
+          </div>
+        </div>
+
+        <!-- Self-host column -->
+        <div class="card p-8">
+          <div class="flex items-center gap-2 mb-6">
+            <h3 class="text-xl font-bold">Self-Hosted</h3>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Full control over your MCP server infrastructure</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Credentials stay on your machine — nothing leaves your network</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Works with Claude Code, Claude Desktop, or any MCP client</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Includes Claude Code skills and commands beyond MCP</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Open source — customize, extend, contribute</span>
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-3">
+            <a href={`${baseUrl}getting-started/`} class="btn btn-primary text-sm">Installation Guide</a>
+            <a href={`${baseUrl}plugins/`} class="btn btn-secondary text-sm">Browse Plugins</a>
+          </div>
         </div>
       </div>
     </div>
@@ -175,10 +248,15 @@ const features = [
       <div class="card max-w-4xl mx-auto text-center p-12">
         <h2 class="text-2xl font-bold mb-4">Ready to Get Started?</h2>
         <p class="text-[var(--muted)] mb-8 max-w-xl mx-auto">
-          Install all MSP plugins with a single command, then restart Claude Code to activate.
+          Connect your MSP tools to Claude in minutes — use the hosted gateway or self-host with a single install command.
         </p>
 
-        <div class="max-w-xl mx-auto mb-6">
+        <div class="flex flex-wrap justify-center gap-4 mb-6">
+          <a href="/auth/signup" class="btn btn-primary">Use the Gateway</a>
+          <a href={`${baseUrl}getting-started/`} class="btn btn-secondary">Self-Host Guide</a>
+        </div>
+
+        <div class="max-w-xl mx-auto mb-4">
           <InstallCommand />
         </div>
 
