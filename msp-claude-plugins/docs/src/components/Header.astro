@@ -141,6 +141,14 @@ function isExactActive(href?: string): boolean {
   </div>
 </header>
 
+<!-- Search modal -->
+<div id="search-dialog" class="search-dialog hidden" role="dialog" aria-modal="true" aria-label="Search documentation">
+  <div id="search-dialog-backdrop" class="absolute inset-0"></div>
+  <div class="relative w-full max-w-2xl mx-4 bg-[var(--background)] rounded-xl border border-[var(--border)] shadow-2xl overflow-hidden max-h-[70vh] flex flex-col">
+    <div id="search-container" class="pagefind-ui p-4 overflow-y-auto"></div>
+  </div>
+</div>
+
 <!-- Mobile menu overlay -->
 <div id="mobile-menu" class="fixed inset-0 z-[100] hidden">
   <!-- Backdrop -->
@@ -204,12 +212,69 @@ function isExactActive(href?: string): boolean {
   menuClose?.addEventListener('click', closeMenu);
   menuBackdrop?.addEventListener('click', closeMenu);
 
-  // Close on Escape
+  // Search modal
+  const searchButton = document.getElementById('search-button');
+  const searchDialog = document.getElementById('search-dialog');
+  const searchBackdrop = document.getElementById('search-dialog-backdrop');
+  let pagefindLoaded = false;
+
+  async function openSearch() {
+    searchDialog?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    if (!pagefindLoaded) {
+      pagefindLoaded = true;
+      // Load Pagefind UI CSS
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/pagefind/pagefind-ui.css';
+      document.head.appendChild(link);
+      // Load Pagefind UI JS via script tag (can't use import — only exists post-build)
+      await new Promise<void>((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = '/pagefind/pagefind-ui.js';
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error('Failed to load Pagefind'));
+        document.head.appendChild(script);
+      });
+      // @ts-ignore — PagefindUI is now on window
+      new window.PagefindUI({
+        element: '#search-container',
+        showSubResults: true,
+        showImages: false,
+      });
+    }
+
+    // Focus the search input after Pagefind renders
+    requestAnimationFrame(() => {
+      const input = document.querySelector<HTMLInputElement>('.pagefind-ui--touch .pagefind-ui__search-input, .pagefind-ui__search-input');
+      input?.focus();
+    });
+  }
+
+  function closeSearch() {
+    searchDialog?.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  searchButton?.addEventListener('click', openSearch);
+  searchBackdrop?.addEventListener('click', closeSearch);
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
+    if (e.key === 'Escape') {
+      if (!searchDialog?.classList.contains('hidden')) {
+        closeSearch();
+      } else {
+        closeMenu();
+      }
+    }
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
-      console.log('Search triggered');
+      if (searchDialog?.classList.contains('hidden')) {
+        openSearch();
+      } else {
+        closeSearch();
+      }
     }
   });
 </script>

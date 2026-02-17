@@ -146,7 +146,8 @@
 
 /* Search dialog */
 .search-dialog {
-  @apply fixed inset-0 z-50 flex items-start justify-center pt-[20vh] bg-black/50;
+  @apply fixed inset-0 flex items-start justify-center pt-[20vh] bg-black/50;
+  z-index: 200;
 }
 
 .search-input {
