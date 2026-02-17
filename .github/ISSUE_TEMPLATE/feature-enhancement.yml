@@ -19,6 +19,8 @@ body:
         - ConnectWise PSA
         - ConnectWise Automate
         - NinjaOne
+        - Liongard
+        - Gateway / Infrastructure
         - Shared Skills
     validations:
       required: true
