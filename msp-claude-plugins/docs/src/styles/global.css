@@ -144,9 +144,9 @@
   @apply absolute top-2 right-2 p-2 rounded-md bg-neutral-700 hover:bg-neutral-600 text-neutral-300 hover:text-white transition-colors duration-200;
 }
 
-/* Search dialog */
+/* Search dialog — display is toggled via JS (hidden ↔ flex) */
 .search-dialog {
-  @apply fixed inset-0 flex items-start justify-center pt-[20vh] bg-black/50;
+  @apply fixed inset-0 items-start justify-center pt-[20vh] bg-black/50;
   z-index: 200;
 }
 

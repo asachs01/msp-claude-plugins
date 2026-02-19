@@ -219,7 +219,10 @@ function isExactActive(href?: string): boolean {
   let pagefindLoaded = false;
 
   async function openSearch() {
-    searchDialog?.classList.remove('hidden');
+    if (searchDialog) {
+      searchDialog.classList.remove('hidden');
+      searchDialog.style.display = 'flex';
+    }
     document.body.style.overflow = 'hidden';
 
     if (!pagefindLoaded) {
@@ -253,7 +256,10 @@ function isExactActive(href?: string): boolean {
   }
 
   function closeSearch() {
-    searchDialog?.classList.add('hidden');
+    if (searchDialog) {
+      searchDialog.classList.add('hidden');
+      searchDialog.style.display = '';
+    }
     document.body.style.overflow = '';
   }
 
