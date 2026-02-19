@@ -9,6 +9,7 @@ import OrganizationSchema from '@/components/schema/OrganizationSchema.astro';
 import { plugins } from '@/data/plugins';
 
 const baseUrl = import.meta.env.BASE_URL;
+const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyretechnology.com';
 
 const faqs = [
   {
@@ -82,7 +83,7 @@ const features = [
           <p class="text-[var(--muted)] text-sm mb-4">
             Connect your MSP tools to Claude Desktop in minutes. No servers to manage — just add your API credentials and go.
           </p>
-          <a href="/auth/signup" class="btn btn-primary w-full text-center">Get Started Free</a>
+          <a href={`${gatewayUrl}/waitlist`} class="btn btn-primary w-full text-center">Get Started Free</a>
         </div>
 
         <!-- Self-host path -->
@@ -180,7 +181,7 @@ const features = [
             </li>
           </ul>
           <div class="flex flex-wrap gap-3">
-            <a href="/auth/signup" class="btn btn-primary text-sm">Get Started Free</a>
+            <a href={`${gatewayUrl}/waitlist`} class="btn btn-primary text-sm">Get Started Free</a>
             <a href={`${baseUrl}getting-started/gateway/`} class="btn btn-secondary text-sm">Learn More</a>
           </div>
         </div>
@@ -252,7 +253,7 @@ const features = [
         </p>
 
         <div class="flex flex-wrap justify-center gap-4 mb-6">
-          <a href="/auth/signup" class="btn btn-primary">Use the Gateway</a>
+          <a href={`${gatewayUrl}/waitlist`} class="btn btn-primary">Use the Gateway</a>
           <a href={`${baseUrl}getting-started/`} class="btn btn-secondary">Self-Host Guide</a>
         </div>
 

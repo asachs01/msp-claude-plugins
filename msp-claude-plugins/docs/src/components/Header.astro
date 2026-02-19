@@ -3,6 +3,7 @@ import { plugins } from '@/data/plugins';
 import { mcpServers } from '@/data/mcp-servers';
 
 const baseUrl = import.meta.env.BASE_URL;
+const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyretechnology.com';
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
@@ -133,7 +134,7 @@ function isExactActive(href?: string): boolean {
           </svg>
         </a>
 
-        <a href="/auth/login" class="hidden sm:inline-flex items-center px-4 py-1.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors">
+        <a href={`${gatewayUrl}/auth/login`} class="hidden sm:inline-flex items-center px-4 py-1.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors">
           Sign in
         </a>
       </div>
@@ -142,7 +143,7 @@ function isExactActive(href?: string): boolean {
 </header>
 
 <!-- Search modal -->
-<div id="search-dialog" class="search-dialog hidden" role="dialog" aria-modal="true" aria-label="Search documentation">
+<div id="search-dialog" class="search-dialog hidden" role="dialog" aria-modal="true" aria-label="Search documentation" data-base-url={baseUrl}>
   <div id="search-dialog-backdrop" class="absolute inset-0"></div>
   <div class="relative w-full max-w-2xl mx-4 bg-[var(--background)] rounded-xl border border-[var(--border)] shadow-2xl overflow-hidden max-h-[70vh] flex flex-col">
     <div id="search-container" class="pagefind-ui p-4 overflow-y-auto"></div>
@@ -216,6 +217,7 @@ function isExactActive(href?: string): boolean {
   const searchButton = document.getElementById('search-button');
   const searchDialog = document.getElementById('search-dialog');
   const searchBackdrop = document.getElementById('search-dialog-backdrop');
+  const basePath = searchDialog?.dataset.baseUrl || '/';
   let pagefindLoaded = false;
 
   async function openSearch() {
@@ -230,12 +232,12 @@ function isExactActive(href?: string): boolean {
       // Load Pagefind UI CSS
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = '/pagefind/pagefind-ui.css';
+      link.href = `${basePath}pagefind/pagefind-ui.css`;
       document.head.appendChild(link);
       // Load Pagefind UI JS via script tag (can't use import — only exists post-build)
       await new Promise<void>((resolve, reject) => {
         const script = document.createElement('script');
-        script.src = '/pagefind/pagefind-ui.js';
+        script.src = `${basePath}pagefind/pagefind-ui.js`;
         script.onload = () => resolve();
         script.onerror = () => reject(new Error('Failed to load Pagefind'));
         document.head.appendChild(script);
