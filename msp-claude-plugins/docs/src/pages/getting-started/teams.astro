@@ -1,0 +1,237 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<DocsLayout title="Teams &amp; Organizations" description="Create a team, invite members, share vendor credentials, and connect Claude to your MSP tools through the MCP Gateway.">
+  <h1>Teams &amp; Organizations</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    The MCP Gateway lets you create a team, share vendor credentials across members,
+    and connect Claude to your MSP tools — all through a single dashboard.
+  </p>
+
+  <h2>Overview</h2>
+
+  <p>
+    Every user on the gateway belongs to an <strong>organization</strong> (team). Organizations
+    have a <strong>plan</strong> (Community or Pro) that determines available features:
+  </p>
+
+  <table>
+    <thead><tr><th>Feature</th><th>Community</th><th>Pro</th></tr></thead>
+    <tbody>
+      <tr><td>Personal vendor connections</td><td>3 max</td><td>Unlimited</td></tr>
+      <tr><td>Team (shared) credentials</td><td>&mdash;</td><td>Unlimited</td></tr>
+      <tr><td>Team members</td><td>&mdash;</td><td>Unlimited</td></tr>
+      <tr><td>Invite links</td><td>&mdash;</td><td>Yes</td></tr>
+      <tr><td>Audit logging</td><td>&mdash;</td><td>Yes</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Getting Started</h2>
+
+  <p>
+    The gateway is currently in <strong>invite-only alpha</strong>. To get access:
+  </p>
+
+  <ol>
+    <li>Visit <a href="https://mcp.wyretechnology.com/waitlist">mcp.wyretechnology.com/waitlist</a> and sign up for early access, or use an invite code if you already have one.</li>
+    <li>Once approved, sign in at <a href="https://mcp.wyretechnology.com/auth/login">mcp.wyretechnology.com/auth/login</a> using your work email.</li>
+    <li>You&apos;ll land on the <strong>Settings</strong> dashboard where you can create a team and connect vendors.</li>
+  </ol>
+
+  <img src={`${baseUrl}images/gateway/waitlist.png`} alt="MCP Gateway waitlist page with invite code sign-in link" style="border-radius:8px;border:1px solid #2a2a2a;margin:24px 0;" />
+
+  <h2>Step 1: Create a Team</h2>
+
+  <p>
+    On the Settings page, you&apos;ll see a <strong>Team</strong> section. Enter a team name
+    and, optionally, an <strong>invite code</strong> to unlock the Pro plan immediately.
+  </p>
+
+  <ol>
+    <li>Type your team name (e.g., your company name)</li>
+    <li>If you have an alpha invite code, enter it in the second field</li>
+    <li>Click <strong>Create a Team</strong></li>
+  </ol>
+
+  <p>
+    Teams created with a valid invite code are automatically upgraded to the <strong>Pro</strong> plan.
+    Without a code, your team starts on the Community plan. You can upgrade later by entering
+    an invite code in the settings.
+  </p>
+
+  <img src={`${baseUrl}images/gateway/settings-dashboard.png`} alt="Settings dashboard showing team section, personal connections, and team connections" style="border-radius:8px;border:1px solid #2a2a2a;margin:24px 0;" />
+
+  <h2>Step 2: Connect Vendor Credentials</h2>
+
+  <p>
+    There are two types of credentials on the gateway:
+  </p>
+
+  <ul>
+    <li><strong>Personal connections</strong> &mdash; tied to your individual account. Only you can use them.</li>
+    <li><strong>Team connections</strong> &mdash; shared across all team members. Anyone on the team can use them via MCP. Requires Pro plan.</li>
+  </ul>
+
+  <h3>Personal Connections</h3>
+
+  <p>
+    Click <strong>Connect</strong> on any vendor card in the &ldquo;Your Connections&rdquo; section.
+    You&apos;ll see a credential form specific to that vendor (API key, subdomain, region, etc.).
+    The gateway validates your credentials against the vendor API before storing them.
+  </p>
+
+  <img src={`${baseUrl}images/gateway/connect-vendor.png`} alt="Vendor credential entry form with API Key field, Connect button, and Cancel button" style="border-radius:8px;border:1px solid #2a2a2a;margin:24px 0;" />
+
+  <p>
+    Credentials are encrypted at rest with AES-256-GCM and per-user key derivation (PBKDF2, 100k
+    iterations, SHA-512). Your API keys never leave the gateway &mdash; they&apos;re injected into
+    requests on the server side.
+  </p>
+
+  <h3>Team Connections (Pro)</h3>
+
+  <p>
+    Team owners can add shared credentials from the <strong>Manage Team</strong> page.
+    Click <strong>Connect for Team</strong> on any vendor card, enter the credentials in the
+    modal, and submit. All team members will immediately have access to that vendor via MCP.
+  </p>
+
+  <p>
+    When both personal and team credentials exist for the same vendor, <strong>personal
+    credentials take priority</strong>.
+  </p>
+
+  <h2>Step 3: Invite Team Members</h2>
+
+  <p>
+    From the Settings page, click <strong>Manage Team</strong> to open the team management page.
+  </p>
+
+  <img src={`${baseUrl}images/gateway/team-settings.png`} alt="Team management page showing members list, invite links, and team vendor connections" style="border-radius:8px;border:1px solid #2a2a2a;margin:24px 0;" />
+
+  <p>
+    The team management page has three sections:
+  </p>
+
+  <h3>Members</h3>
+
+  <p>
+    Lists everyone on the team with their role (<strong>Owner</strong> or <strong>Member</strong>)
+    and join date. Owners can remove members from the team.
+  </p>
+
+  <h3>Invitations</h3>
+
+  <p>
+    Click <strong>Create Invite Link</strong> to generate a shareable URL. Invite links expire
+    after 7 days. You can copy the link to share it, or revoke it if no longer needed.
+  </p>
+
+  <p>
+    When a colleague opens the invite link, they&apos;ll be prompted to sign in (or create an
+    account) and then see an &ldquo;Accept &amp; Join Team&rdquo; page. Once accepted, they
+    appear in the Members list and can immediately use the team&apos;s shared credentials.
+  </p>
+
+  <h3>Team Connections</h3>
+
+  <p>
+    The same vendor grid as the main settings page, but for shared credentials. Only the team
+    owner can connect or disconnect team-level credentials.
+  </p>
+
+  <h2>Step 4: Connect Claude to the Gateway</h2>
+
+  <p>
+    Once your credentials are stored, configure Claude to use the gateway as an MCP server.
+    See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway setup guide</a> for detailed
+    instructions, but here&apos;s the short version:
+  </p>
+
+  <h3>Claude Code (CLI)</h3>
+
+  <p>Add a <code>.mcp.json</code> to your project root:</p>
+
+  <pre><code class="language-json">{`{
+  "mcpServers": {
+    "autotask": { "url": "https://mcp.wyretechnology.com/v1/autotask/mcp" },
+    "datto-rmm": { "url": "https://mcp.wyretechnology.com/v1/datto-rmm/mcp" },
+    "itglue": { "url": "https://mcp.wyretechnology.com/v1/itglue/mcp" }
+  }
+}`}</code></pre>
+
+  <p>
+    On first use, Claude Code opens a browser for OAuth authentication. After that,
+    connections are automatic. The gateway injects your stored credentials (personal or team)
+    into each proxied request.
+  </p>
+
+  <h3>Claude Desktop</h3>
+
+  <p>
+    Claude Desktop requires the <code>mcp-remote</code> bridge for remote MCP servers.
+    Add to your <code>claude_desktop_config.json</code>:
+  </p>
+
+  <pre><code class="language-json">{`{
+  "mcpServers": {
+    "autotask": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/autotask/mcp"]
+    }
+  }
+}`}</code></pre>
+
+  <p class="text-sm text-[var(--muted)] mt-2">
+    <strong>Requires Node.js 18+.</strong> Claude Pro/Team/Enterprise users can alternatively
+    add remote servers via <strong>Settings &rarr; Connectors</strong> without the bridge.
+  </p>
+
+  <h2>How Authentication Works</h2>
+
+  <p>
+    The MCP Gateway uses <strong>OAuth 2.1 with PKCE</strong> for authentication:
+  </p>
+
+  <ol>
+    <li>Claude sends an MCP request to the gateway URL</li>
+    <li>The gateway returns an OAuth challenge — Claude opens a browser window</li>
+    <li>You sign in via Auth0 (email/password or social login)</li>
+    <li>The gateway issues a session token and redirect URI back to Claude</li>
+    <li>All subsequent MCP requests include the session token automatically</li>
+    <li>The gateway looks up your stored credentials, injects them into the vendor API request, and proxies the response back to Claude</li>
+  </ol>
+
+  <p>
+    Sessions use signed cookies with refresh token rotation. Vendor credentials are
+    never exposed to Claude or transmitted outside the gateway.
+  </p>
+
+  <h2>Credential Resolution Order</h2>
+
+  <p>
+    When the gateway receives an MCP request for a vendor, it resolves credentials in this order:
+  </p>
+
+  <ol>
+    <li><strong>Personal credentials</strong> &mdash; if you have individual credentials stored for that vendor, those are used</li>
+    <li><strong>Team credentials</strong> &mdash; if no personal credentials exist, the gateway falls back to your team&apos;s shared credentials</li>
+  </ol>
+
+  <p>
+    This means team members can override shared credentials with their own if needed (e.g.,
+    a team lead with elevated API permissions).
+  </p>
+
+  <h2>Next Steps</h2>
+
+  <ul>
+    <li><a href={`${baseUrl}getting-started/gateway/`}>Gateway setup guide</a> &mdash; full configuration details and supported vendors</li>
+    <li><a href={`${baseUrl}mcp-servers/`}>MCP Servers</a> &mdash; explore what each vendor server can do</li>
+    <li><a href={`${baseUrl}plugins/`}>Plugins</a> &mdash; use Claude Code plugins for local, self-hosted access</li>
+  </ul>
+</DocsLayout>
