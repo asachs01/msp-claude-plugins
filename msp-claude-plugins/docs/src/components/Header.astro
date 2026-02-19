@@ -143,7 +143,7 @@ function isExactActive(href?: string): boolean {
 </header>
 
 <!-- Search modal -->
-<div id="search-dialog" class="search-dialog hidden" role="dialog" aria-modal="true" aria-label="Search documentation" data-base-url={baseUrl}>
+<div id="search-dialog" class="search-dialog" role="dialog" aria-modal="true" aria-label="Search documentation" data-base-url={baseUrl}>
   <div id="search-dialog-backdrop" class="absolute inset-0"></div>
   <div class="relative w-full max-w-2xl mx-4 bg-[var(--background)] rounded-xl border border-[var(--border)] shadow-2xl overflow-hidden max-h-[70vh] flex flex-col">
     <div id="search-container" class="pagefind-ui p-4 overflow-y-auto"></div>
@@ -222,7 +222,6 @@ function isExactActive(href?: string): boolean {
 
   async function openSearch() {
     if (searchDialog) {
-      searchDialog.classList.remove('hidden');
       searchDialog.style.display = 'flex';
     }
     document.body.style.overflow = 'hidden';
@@ -259,8 +258,7 @@ function isExactActive(href?: string): boolean {
 
   function closeSearch() {
     if (searchDialog) {
-      searchDialog.classList.add('hidden');
-      searchDialog.style.display = '';
+      searchDialog.style.display = 'none';
     }
     document.body.style.overflow = '';
   }
@@ -268,9 +266,13 @@ function isExactActive(href?: string): boolean {
   searchButton?.addEventListener('click', openSearch);
   searchBackdrop?.addEventListener('click', closeSearch);
 
+  function isSearchOpen() {
+    return searchDialog?.style.display === 'flex';
+  }
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      if (!searchDialog?.classList.contains('hidden')) {
+      if (isSearchOpen()) {
         closeSearch();
       } else {
         closeMenu();
@@ -278,10 +280,10 @@ function isExactActive(href?: string): boolean {
     }
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
-      if (searchDialog?.classList.contains('hidden')) {
-        openSearch();
-      } else {
+      if (isSearchOpen()) {
         closeSearch();
+      } else {
+        openSearch();
       }
     }
   });

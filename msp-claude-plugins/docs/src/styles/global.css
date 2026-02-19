@@ -144,10 +144,16 @@
   @apply absolute top-2 right-2 p-2 rounded-md bg-neutral-700 hover:bg-neutral-600 text-neutral-300 hover:text-white transition-colors duration-200;
 }
 
-/* Search dialog — display is toggled via JS (hidden ↔ flex) */
+/* Search dialog — starts hidden; JS sets display:flex to open, display:none to close */
 .search-dialog {
-  @apply fixed inset-0 items-start justify-center pt-[20vh] bg-black/50;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.5);
   z-index: 200;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 20vh;
 }
 
 .search-input {
