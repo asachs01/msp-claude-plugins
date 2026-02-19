@@ -4,9 +4,9 @@ import DocsLayout from '@/layouts/DocsLayout.astro';
 const claudeCodeExample = `// .mcp.json (in your project root)
 {
   "mcpServers": {
-    "autotask": { "url": "https://mcp.wyre.ai/v1/autotask/mcp" },
-    "datto-rmm": { "url": "https://mcp.wyre.ai/v1/datto-rmm/mcp" },
-    "syncro": { "url": "https://mcp.wyre.ai/v1/syncro/mcp" }
+    "autotask": { "url": "https://mcp.wyretechnology.com/v1/autotask/mcp" },
+    "datto-rmm": { "url": "https://mcp.wyretechnology.com/v1/datto-rmm/mcp" },
+    "syncro": { "url": "https://mcp.wyretechnology.com/v1/syncro/mcp" }
   }
 }`;
 
@@ -15,25 +15,25 @@ const claudeDesktopExample = `// claude_desktop_config.json
   "mcpServers": {
     "autotask": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.wyre.ai/v1/autotask/mcp"]
+      "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/autotask/mcp"]
     },
     "datto-rmm": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.wyre.ai/v1/datto-rmm/mcp"]
+      "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/datto-rmm/mcp"]
     },
     "syncro": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.wyre.ai/v1/syncro/mcp"]
+      "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/syncro/mcp"]
     }
   }
 }`;
 ---
-<DocsLayout title="MCP Gateway" description="Hosted MCP gateway at mcp.wyre.ai with OAuth 2.1 and encrypted credential storage.">
+<DocsLayout title="MCP Gateway" description="Hosted MCP gateway at mcp.wyretechnology.com with OAuth 2.1 and encrypted credential storage.">
   <h1>MCP Gateway</h1>
 
   <p class="lead text-lg text-[var(--muted)] mb-8">
     Connect Claude to all MSP tools through a single hosted gateway at
-    <code>mcp.wyre.ai</code>. No Docker, no config files — just add a URL and authenticate.
+    <code>mcp.wyretechnology.com</code>. No Docker, no config files — just add a URL and authenticate.
   </p>
 
   <h2>How It Works</h2>
@@ -49,16 +49,18 @@ const claudeDesktopExample = `// claude_desktop_config.json
   <table>
     <thead><tr><th>Vendor</th><th>Gateway URL</th></tr></thead>
     <tbody>
-      <tr><td>Autotask PSA</td><td><code>https://mcp.wyre.ai/v1/autotask/mcp</code></td></tr>
-      <tr><td>Datto RMM</td><td><code>https://mcp.wyre.ai/v1/datto-rmm/mcp</code></td></tr>
-      <tr><td>IT Glue</td><td><code>https://mcp.wyre.ai/v1/itglue/mcp</code></td></tr>
-      <tr><td>Syncro MSP</td><td><code>https://mcp.wyre.ai/v1/syncro/mcp</code></td></tr>
-      <tr><td>Atera</td><td><code>https://mcp.wyre.ai/v1/atera/mcp</code></td></tr>
-      <tr><td>SuperOps.ai</td><td><code>https://mcp.wyre.ai/v1/superops/mcp</code></td></tr>
-      <tr><td>HaloPSA</td><td><code>https://mcp.wyre.ai/v1/halopsa/mcp</code></td></tr>
-      <tr><td>ConnectWise PSA</td><td><code>https://mcp.wyre.ai/v1/connectwise-psa/mcp</code></td></tr>
-      <tr><td>ConnectWise Automate</td><td><code>https://mcp.wyre.ai/v1/connectwise-automate/mcp</code></td></tr>
-      <tr><td>NinjaOne</td><td><code>https://mcp.wyre.ai/v1/ninjaone/mcp</code></td></tr>
+      <tr><td>Autotask PSA</td><td><code>https://mcp.wyretechnology.com/v1/autotask/mcp</code></td></tr>
+      <tr><td>Datto RMM</td><td><code>https://mcp.wyretechnology.com/v1/datto-rmm/mcp</code></td></tr>
+      <tr><td>IT Glue</td><td><code>https://mcp.wyretechnology.com/v1/itglue/mcp</code></td></tr>
+      <tr><td>Syncro MSP</td><td><code>https://mcp.wyretechnology.com/v1/syncro/mcp</code></td></tr>
+      <tr><td>Atera</td><td><code>https://mcp.wyretechnology.com/v1/atera/mcp</code></td></tr>
+      <tr><td>SuperOps.ai</td><td><code>https://mcp.wyretechnology.com/v1/superops/mcp</code></td></tr>
+      <tr><td>HaloPSA</td><td><code>https://mcp.wyretechnology.com/v1/halopsa/mcp</code></td></tr>
+      <tr><td>ConnectWise PSA</td><td><code>https://mcp.wyretechnology.com/v1/connectwise-psa/mcp</code></td></tr>
+      <tr><td>ConnectWise Automate</td><td><code>https://mcp.wyretechnology.com/v1/connectwise-automate/mcp</code></td></tr>
+      <tr><td>NinjaOne</td><td><code>https://mcp.wyretechnology.com/v1/ninjaone/mcp</code></td></tr>
+      <tr><td>Liongard</td><td><code>https://mcp.wyretechnology.com/v1/liongard/mcp</code></td></tr>
+      <tr><td>SalesBuildr</td><td><code>https://mcp.wyretechnology.com/v1/salesbuildr/mcp</code></td></tr>
     </tbody>
   </table>
 
