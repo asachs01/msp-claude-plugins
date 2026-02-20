@@ -8,47 +8,65 @@
 
 Then restart Claude Code. That's it.
 
+**Documentation:** [mcp.wyretechnology.com](https://mcp.wyretechnology.com)
+
 ---
 
 ## What you get
 
-Nine vendor-specific plugins with domain knowledge for PSA, RMM, and documentation tools:
+Twelve vendor-specific plugins with domain knowledge for PSA, RMM, documentation, and CRM tools:
 
 | Plugin | Description |
 |--------|-------------|
-| **Autotask** | Kaseya Autotask PSA - tickets, CRM, projects, contracts, billing |
+| **Autotask PSA** | Kaseya Autotask PSA - tickets, CRM, projects, contracts, billing |
 | **Datto RMM** | Datto remote monitoring - devices, alerts, jobs, patches |
 | **IT Glue** | IT documentation - organizations, assets, passwords, flexible assets |
 | **Syncro** | All-in-one PSA/RMM - tickets, customers, assets, invoicing |
 | **Atera** | RMM/PSA platform - tickets, agents, customers, alerts, SNMP/HTTP monitors |
 | **SuperOps.ai** | Modern PSA/RMM with GraphQL - tickets, assets, clients, runbooks |
 | **HaloPSA** | Enterprise PSA with OAuth - tickets, clients, assets, contracts |
+| **Liongard** | Configuration monitoring - environments, inspections, systems, detections, alerts |
 | **ConnectWise PSA** | Industry-leading PSA - tickets, companies, contacts, projects, time |
 | **ConnectWise Automate** | Enterprise RMM - computers, clients, scripts, monitors, alerts |
 | **NinjaOne** | NinjaOne RMM - devices, organizations, alerts, ticketing |
+| **SalesBuildr** | Sales CRM - contacts, companies, opportunities, quotes |
 
 Plus shared skills for MSP terminology and ticket triage best practices.
 
 ### Plugin Maturity
 
-| Plugin | Status | Notes |
-|--------|--------|-------|
-| **Autotask PSA** | ✅ Production | Deep coverage, MCP server, actively used |
-| **Datto RMM** | 🔨 Beta | Core functionality, MCP server available |
-| **IT Glue** | 🔨 Beta | Core functionality, MCP server available |
-| **Syncro** | 🔨 Beta | Core functionality, MCP server available |
-| **Atera** | 🔨 Beta | Core functionality, MCP server available |
-| **SuperOps.ai** | 🔨 Beta | Core functionality, MCP server available |
-| **HaloPSA** | 🔨 Beta | Core functionality, MCP server available |
-| **ConnectWise PSA** | 🚧 Alpha | Initial implementation |
-| **ConnectWise Automate** | 🚧 Alpha | Initial implementation |
-| **NinjaOne** | 🚧 Alpha | Initial implementation |
+| Plugin | Status | MCP Server |
+|--------|--------|------------|
+| **Autotask PSA** | ✅ Production | [autotask-mcp](https://github.com/wyre-technology/autotask-mcp) |
+| **Datto RMM** | 🔨 Beta | [datto-rmm-mcp](https://github.com/wyre-technology/datto-rmm-mcp) |
+| **IT Glue** | 🔨 Beta | [itglue-mcp](https://github.com/wyre-technology/itglue-mcp) |
+| **Syncro** | 🔨 Beta | [syncro-mcp](https://github.com/wyre-technology/syncro-mcp) |
+| **Atera** | 🔨 Beta | [atera-mcp](https://github.com/wyre-technology/atera-mcp) |
+| **SuperOps.ai** | 🔨 Beta | [superops-mcp](https://github.com/wyre-technology/superops-mcp) |
+| **HaloPSA** | 🔨 Beta | [halopsa-mcp](https://github.com/wyre-technology/halopsa-mcp) |
+| **Liongard** | 🔨 Beta | [liongard-mcp](https://github.com/wyre-technology/liongard-mcp) |
+| **ConnectWise PSA** | 🔨 Beta | [connectwise-manage-mcp](https://github.com/wyre-technology/connectwise-manage-mcp) |
+| **ConnectWise Automate** | 🔨 Beta | [connectwise-automate-mcp](https://github.com/wyre-technology/connectwise-automate-mcp) |
+| **NinjaOne** | 🔨 Beta | [ninjaone-mcp](https://github.com/wyre-technology/ninjaone-mcp) |
+| **SalesBuildr** | 🚧 Alpha | [salesbuildr-mcp](https://github.com/wyre-technology/salesbuildr-mcp) |
 
 > Maturity levels: ✅ **Production** — used in real MSP environments with comprehensive coverage. 🔨 **Beta** — functional with core features, feedback welcome. 🚧 **Alpha** — early implementation, expect gaps.
 
-> **New here?** The [Autotask PSA plugin](msp-claude-plugins/kaseya/autotask/) is our most
-> mature integration with comprehensive ticket management, CRM, project, contract, and billing
-> coverage. It's a great place to start and see what's possible. Other plugins are modeled after it.
+---
+
+## Two Ways to Connect
+
+### Hosted Gateway (Recommended)
+
+Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 12 vendors available immediately.
+
+[Get Started Free](https://mcp.wyretechnology.com/waitlist)
+
+### Self-Hosted
+
+Run MCP servers yourself for full control. Each server is available as an npm package, Docker image, or MCPB bundle for Claude Desktop.
+
+See the [Getting Started guide](https://mcp.wyretechnology.com/getting-started/) for installation instructions.
 
 ---
 
@@ -90,6 +108,7 @@ Want just one vendor? Install individually:
 /plugin marketplace add wyre-technology/msp-claude-plugins --plugin autotask
 /plugin marketplace add wyre-technology/msp-claude-plugins --plugin syncro
 /plugin marketplace add wyre-technology/msp-claude-plugins --plugin halopsa
+/plugin marketplace add wyre-technology/msp-claude-plugins --plugin liongard
 ```
 
 ---
@@ -105,8 +124,11 @@ Each plugin uses environment variables for authentication. See the plugin's READ
 - [Atera](msp-claude-plugins/atera/atera/README.md) — X-API-KEY header
 - [SuperOps.ai](msp-claude-plugins/superops/superops-ai/README.md) — Bearer token
 - [HaloPSA](msp-claude-plugins/halopsa/halopsa/README.md) — OAuth 2.0 client credentials
+- [Liongard](msp-claude-plugins/liongard/liongard/README.md) — Access Key ID + Secret (X-ROAR-API-KEY)
 - [ConnectWise PSA](msp-claude-plugins/connectwise/manage/README.md) — Public/private key + client ID
 - [ConnectWise Automate](msp-claude-plugins/connectwise/automate/README.md) — Integrator credentials
+- [NinjaOne](msp-claude-plugins/ninjaone/ninjaone-rmm/README.md) — OAuth 2.0 client credentials
+- [SalesBuildr](msp-claude-plugins/salesbuildr/salesbuildr/README.md) — API key
 
 ---
 
@@ -117,7 +139,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for our tiered contribution guide.
 
 ## Community
 
-This project is maintained by [WYRE Technology](https://wyre.technology), a Chattanooga-based
+This project is maintained by [WYRE Technology](https://wyretechnology.com), a Chattanooga-based
 MSP focused on AI enablement.
 
 - **Questions or feedback?** Open a [Discussion](https://github.com/wyre-technology/msp-claude-plugins/discussions)

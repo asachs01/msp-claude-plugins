@@ -96,9 +96,17 @@
       "tags": ["msp", "terminology", "triage", "shared"]
     },
     {
+      "name": "liongard",
+      "source": "./msp-claude-plugins/liongard/liongard",
+      "description": "Liongard - environments, inspections, systems, detections, alerts, configuration monitoring",
+      "version": "1.0.0",
+      "category": "rmm",
+      "tags": ["liongard", "rmm", "monitoring", "inspections", "msp"]
+    },
+    {
       "name": "salesbuildr",
-      "source": "./salesbuildr/salesbuildr",
-      "description": "Salesbuildr CRM - contacts, companies, opportunities, quotes",
+      "source": "./msp-claude-plugins/salesbuildr/salesbuildr",
+      "description": "SalesBuildr CRM - contacts, companies, opportunities, quotes",
       "version": "1.0.0",
       "category": "crm",
       "tags": ["salesbuildr", "crm", "sales", "quotes", "msp"]
