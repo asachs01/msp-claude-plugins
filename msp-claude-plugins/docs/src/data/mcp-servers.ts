@@ -11,6 +11,7 @@ export interface McpServer {
   architecture: string;
   installCommand: string;
   dockerAvailable: boolean;
+  mcpbAvailable: boolean;
   rateLimit?: string;
 }
 
@@ -91,6 +92,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Decision tree with lazy-loaded domain handlers. Navigate to a domain first, then use domain-specific tools.',
     installCommand: 'npx @wyre-technology/connectwise-automate-mcp',
     dockerAvailable: true,
+    mcpbAvailable: true,
     rateLimit: '60 requests per minute'
   },
   {
@@ -156,6 +158,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Hierarchical tool loading with navigation-based domain selection and lazy-loaded handlers.',
     installCommand: 'npx @wyre-technology/ninjaone-mcp',
     dockerAvailable: true,
+    mcpbAvailable: true,
     rateLimit: 'Varies by endpoint'
   },
   {
@@ -225,6 +228,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Decision tree with lazy-loaded domain handlers. Navigate to a domain first, then use domain-specific tools.',
     installCommand: 'npx @wyre-technology/halopsa-mcp',
     dockerAvailable: true,
+    mcpbAvailable: true,
     rateLimit: '500 requests per 3 minutes'
   },
   {
@@ -282,6 +286,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Flat tool exposure — all tools available immediately. Includes a health check utility tool.',
     installCommand: 'npx @wyre-technology/itglue-mcp',
     dockerAvailable: true,
+    mcpbAvailable: false,
     rateLimit: '3000 requests per 5 minutes'
   },
   {
@@ -350,6 +355,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Decision tree with lazy-loaded domain handlers and custom GraphQL support.',
     installCommand: 'npx @wyre-technology/superops-mcp',
     dockerAvailable: true,
+    mcpbAvailable: false,
     rateLimit: '800 requests per minute'
   },
   {
@@ -415,6 +421,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Decision tree with lazy-loaded domain handlers. Navigate to a domain first, then use domain-specific tools.',
     installCommand: 'npx @wyre-technology/atera-mcp',
     dockerAvailable: true,
+    mcpbAvailable: false,
     rateLimit: '700 requests per minute'
   },
   {
@@ -483,6 +490,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Decision tree with lazy-loaded domain handlers. Navigate to a domain first, then use domain-specific tools.',
     installCommand: 'npx @wyre-technology/syncro-mcp',
     dockerAvailable: true,
+    mcpbAvailable: false,
     rateLimit: '180 requests per minute'
   },
   {
@@ -521,6 +529,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Flat tool exposure with domain-organized handlers.',
     installCommand: 'npx @wyre-technology/datto-rmm-mcp',
     dockerAvailable: true,
+    mcpbAvailable: false,
     rateLimit: '600 requests per minute'
   },
   {
@@ -569,6 +578,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Comprehensive flat tool exposure with intelligent caching and ID-to-name resolution.',
     installCommand: 'npx @wyre-technology/autotask-mcp',
     dockerAvailable: true,
+    mcpbAvailable: true,
     rateLimit: '10,000 requests per hour'
   },
   {
@@ -663,6 +673,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Decision tree with lazy-loaded domain handlers. Navigate to a domain first, then use domain-specific tools.',
     installCommand: 'npx @wyre-technology/liongard-mcp',
     dockerAvailable: true,
+    mcpbAvailable: false,
     rateLimit: '300 requests per minute'
   },
   {
@@ -702,6 +713,7 @@ export const mcpServers: McpServer[] = [
     architecture: 'Decision tree with lazy-loaded domain handlers.',
     installCommand: 'npx @wyre-technology/connectwise-manage-mcp',
     dockerAvailable: true,
+    mcpbAvailable: true,
     rateLimit: '60 requests per minute'
   }
 ];
