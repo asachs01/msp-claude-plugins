@@ -56,6 +56,11 @@ const ghPackageUrl = `${server.repoUrl}/pkgs/npm/${packageName}`;
     <a href={ghPackageUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[var(--link)] hover:underline">
       GitHub Package
     </a>
+    <span class="text-[var(--muted)]">•</span>
+    <a href={`${server.repoUrl}/releases`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[var(--link)] hover:underline">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+      MCPB Bundle
+    </a>
   </div>
 
   <div class="flex flex-wrap items-center gap-3 mb-4 not-prose">
@@ -99,6 +104,16 @@ const ghPackageUrl = `${server.repoUrl}/pkgs/npm/${packageName}`;
   <div class="not-prose my-6">
     <InstallCommand command={`npm install ${server.npmPackage}`} />
   </div>
+
+  <h3>MCPB Bundle (Claude Desktop)</h3>
+
+  <p>
+    Download the <code>.mcpb</code> bundle from
+    <a href={`${server.repoUrl}/releases`} target="_blank" rel="noopener noreferrer">GitHub Releases</a>
+    for a zero-config Claude Desktop install. No Node.js or terminal required — just open the
+    bundle in Claude Desktop via <strong>Settings &rarr; MCP Servers &rarr; Install from file</strong>.
+    Requires Claude Desktop 0.10+.
+  </p>
 
   <h3>Claude Desktop Configuration</h3>
 
