@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "hudu": {
+      "type": "http",
+      "url": "${HUDU_BASE_URL}/api/v1",
+      "headers": {
+        "x-api-key": "${HUDU_API_KEY}"
+      },
+      "note": "Community MCP servers available: jlbyh2o/hudu-mcp, Npab19/Hudu2-MCP"
+    }
+  }
+}

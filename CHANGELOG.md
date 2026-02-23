@@ -10,6 +10,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Cross-vendor incident correlation skill and `/correlate-incident` command — correlates PSA tickets, RMM device state, documentation assets, and config monitoring changes into a unified incident summary (issue #20)
 - Vendor field mappings and normalization tables for priority, status, company, and device fields across Autotask, Datto RMM, IT Glue, Liongard, and other vendors
+
+#### Hudu Plugin (`hudu/hudu/`)
+- **Companies Skill** - Company CRUD, archive/unarchive, PSA integration matching via `id_in_integration`, parent/child relationships, onboarding/offboarding workflows
+- **Assets Skill** - Asset management with asset layouts (custom field templates), custom field types (Text, RichText, Number, Date, CheckBox, Dropdown, AssetTag), layout management, warranty tracking
+- **Articles Skill** - Knowledge base article CRUD, folder management, draft vs published state, company-specific vs global articles, HTML content format
+- **Passwords Skill** - Secure credential storage via `/api/v1/asset_passwords`, password folders, OTP secrets, security audit logging, API key permission requirements
+- **Websites Skill** - Website records with SSL/TLS monitoring, email security tracking (DMARC/DKIM/SPF status and policy), DNS records
+- **API Patterns Skill** - `x-api-key` header authentication, page-based pagination (25/page), 300 req/min rate limiting, API naming differences (UI "Password" → API `asset_passwords`, UI "Process" → API `procedures`)
+
+#### Hudu Commands
+- **lookup-asset** - Find assets by name, hostname, serial number, or IP with company and layout filters
+- **search-articles** - Search knowledge base articles by keyword with company filter and result limit
+- **find-company** - Find companies by name with status filter (active/archived/all)
+- **get-password** - Retrieve credentials with mandatory company parameter, mask-by-default with `--show` flag
+
+#### RocketCyber Plugin (`kaseya/rocketcyber/`)
+- **Incidents Skill** - Security incident lifecycle (New → In Progress → Resolved/False Positive), severity levels, verdicts (Malicious/Suspicious/Benign), SOC analyst triage workflow, PSA ticket cross-correlation
+- **Agents Skill** - RocketAgent deployment and monitoring, communication status (Online/Offline), platform support (Windows/macOS/Linux), health audits, offline agent troubleshooting
+- **Accounts Skill** - Provider/customer account hierarchy, account types and statuses, new customer setup, account-level security posture assessment
+- **Apps Skill** - Application discovery and categorization (Security, Remote Access, Productivity), unauthorized software auditing, security coverage checks
+- **API Patterns Skill** - Bearer token authentication, regional base URL (`https://api-{region}.rocketcyber.com/v3`), provider-scoped API keys, conservative rate limiting
+
+#### RocketCyber Commands
+- **search-incidents** - Search security incidents by account, status, severity, and verdict
+- **account-summary** - Security posture summary with agent status, active incidents, application inventory, and health assessment (HEALTHY/MODERATE/DEGRADED)
+
 - Documentation site using Astro with Starlight theme (in progress)
 - GitHub issues for additional PSA/RMM provider plugins (planned)
 

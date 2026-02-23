@@ -1,0 +1,11 @@
+{
+  "name": "hudu",
+  "version": "0.1.0",
+  "description": "Claude plugins for Hudu documentation platform - companies, assets, articles, passwords, websites",
+  "author": {
+    "name": "MSP Claude Plugins Community"
+  },
+  "homepage": "https://github.com/wyre-technology/msp-claude-plugins",
+  "repository": "https://github.com/wyre-technology/msp-claude-plugins",
+  "license": "Apache-2.0"
+}
