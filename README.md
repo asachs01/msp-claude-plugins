@@ -56,9 +56,9 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 | **ConnectWise Automate** | 🔨 Beta | [connectwise-automate-mcp](https://github.com/wyre-technology/connectwise-automate-mcp) |
 | **NinjaOne** | 🔨 Beta | [ninjaone-mcp](https://github.com/wyre-technology/ninjaone-mcp) |
 | **SalesBuildr** | 🚧 Alpha | [salesbuildr-mcp](https://github.com/wyre-technology/salesbuildr-mcp) |
-| **Pax8** | 🚧 Alpha | — |
-| **Xero** | 🚧 Alpha | — |
-| **QuickBooks Online** | 🚧 Alpha | — |
+| **Pax8** | 🔨 Beta | [pax8-mcp](https://github.com/wyre-technology/pax8-mcp) |
+| **Xero** | 🔨 Beta | [xero-mcp](https://github.com/wyre-technology/xero-mcp) |
+| **QuickBooks Online** | 🔨 Beta | [qbo-mcp](https://github.com/wyre-technology/qbo-mcp) |
 
 > Maturity levels: ✅ **Production** — used in real MSP environments with comprehensive coverage. 🔨 **Beta** — functional with core features, feedback welcome. 🚧 **Alpha** — early implementation, expect gaps.
 
