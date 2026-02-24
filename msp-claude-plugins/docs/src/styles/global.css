@@ -55,11 +55,11 @@
   }
 
   .code-block {
-    @apply bg-neutral-900 text-neutral-100 rounded-lg p-4 overflow-x-auto font-mono text-sm;
+    @apply bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 rounded-lg p-4 overflow-x-auto font-mono text-sm border border-neutral-200 dark:border-transparent;
   }
 
   .install-command {
-    @apply bg-neutral-900 text-green-400 rounded-lg px-4 py-3 font-mono text-base flex items-center justify-between;
+    @apply bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-green-400 rounded-lg px-4 py-3 font-mono text-base flex items-center justify-between border border-neutral-200 dark:border-transparent;
   }
 
   .nav-link {
@@ -111,7 +111,7 @@
   }
 
   .prose pre {
-    @apply my-4 rounded-lg overflow-x-auto bg-neutral-900 text-neutral-100 p-4 relative;
+    @apply my-4 rounded-lg overflow-x-auto bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 p-4 relative border border-neutral-200 dark:border-transparent;
   }
 
   .prose pre code {
@@ -141,7 +141,28 @@
 
 /* Copy button for code blocks */
 .copy-button {
-  @apply absolute top-2 right-2 p-2 rounded-md bg-neutral-700 hover:bg-neutral-600 text-neutral-300 hover:text-white transition-colors duration-200;
+  @apply absolute top-2 right-2 p-2 rounded-md bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 text-neutral-500 dark:text-neutral-300 hover:text-neutral-700 dark:hover:text-white transition-colors duration-200;
+}
+
+/* Shiki dual-theme support: apply correct colors based on light/dark mode */
+html:not(.dark) .astro-code span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+}
+
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+html:not(.dark) .astro-code {
+  background-color: var(--shiki-light-bg, #f6f8fa) !important;
+  color: var(--shiki-light, #24292e) !important;
+}
+
+html.dark .astro-code {
+  background-color: var(--shiki-dark-bg, #24292e) !important;
+  color: var(--shiki-dark, #e1e4e8) !important;
 }
 
 /* Search dialog — starts hidden; JS sets display:flex to open, display:none to close */
