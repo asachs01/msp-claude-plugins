@@ -829,6 +829,44 @@ export const plugins: Plugin[] = [
     path: 'sentinelone/sentinelone',
     mcpRepo: 'https://github.com/Sentinel-One/purple-mcp',
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'cipp',
+    name: 'CIPP',
+    vendor: 'CyberDrain',
+    description: 'M365 multi-tenant management for tenant operations, user lifecycle, standards compliance, security posture, and alert monitoring.',
+    category: 'security',
+    maturity: 'alpha',
+    features: [
+      'Tenant Management',
+      'User Lifecycle',
+      'Standards Compliance',
+      'Security Posture',
+      'Alert Monitoring'
+    ],
+    skills: [
+      { name: 'api-patterns', description: 'API key authentication, base URL patterns, endpoints, and error handling' },
+      { name: 'tenants', description: 'Tenant listing, details, cache refresh, exclusions, and onboarding' },
+      { name: 'users', description: 'User CRUD, offboarding, license management, and mailbox permissions' },
+      { name: 'standards', description: 'Standards deployment, monitoring, and compliance checking' },
+      { name: 'security', description: 'Secure Score, conditional access, MFA status, and security posture' },
+      { name: 'alerts', description: 'Alert management, audit logs, and incident tracking' }
+    ],
+    commands: [
+      { name: '/cipp-tenant-summary', description: 'List all managed tenants with status overview' },
+      { name: '/cipp-user-offboard', description: 'Offboard a user (disable, revoke, convert mailbox)' },
+      { name: '/cipp-standards-check', description: 'Check standards compliance across tenants' },
+      { name: '/cipp-security-posture', description: 'Review Secure Score and MFA status' },
+      { name: '/cipp-alert-review', description: 'Review recent alerts and audit log events' }
+    ],
+    apiInfo: {
+      baseUrl: 'https://{instance}.app/api',
+      auth: 'API Key',
+      rateLimit: 'Standard rate limits',
+      docsUrl: 'https://docs.cipp.app/'
+    },
+    path: 'cipp/cipp',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   }
 ];
 

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cipp": {
+      "url": "${CIPP_BASE_URL}/api",
+      "note": "CIPP API. Requires API key from CIPP Settings > Backend > API Authentication."
+    }
+  }
+}
