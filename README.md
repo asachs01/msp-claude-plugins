@@ -14,13 +14,15 @@ Then restart Claude Code. That's it.
 
 ## What you get
 
-Twelve vendor-specific plugins with domain knowledge for PSA, RMM, documentation, and CRM tools:
+Seventeen vendor-specific plugins with domain knowledge for PSA, RMM, documentation, security, accounting, and CRM tools:
 
 | Plugin | Description |
 |--------|-------------|
 | **Autotask PSA** | Kaseya Autotask PSA - tickets, CRM, projects, contracts, billing |
 | **Datto RMM** | Datto remote monitoring - devices, alerts, jobs, patches |
 | **IT Glue** | IT documentation - organizations, assets, passwords, flexible assets |
+| **Hudu** | IT documentation - companies, assets, articles, passwords, websites |
+| **RocketCyber** | Managed SOC - incidents, agents, events, threat detection |
 | **Syncro** | All-in-one PSA/RMM - tickets, customers, assets, invoicing |
 | **Atera** | RMM/PSA platform - tickets, agents, customers, alerts, SNMP/HTTP monitors |
 | **SuperOps.ai** | Modern PSA/RMM with GraphQL - tickets, assets, clients, runbooks |
@@ -30,8 +32,11 @@ Twelve vendor-specific plugins with domain knowledge for PSA, RMM, documentation
 | **ConnectWise Automate** | Enterprise RMM - computers, clients, scripts, monitors, alerts |
 | **NinjaOne** | NinjaOne RMM - devices, organizations, alerts, ticketing |
 | **SalesBuildr** | Sales CRM - contacts, companies, opportunities, quotes |
+| **Pax8** | Cloud marketplace - companies, products, subscriptions, orders, invoices |
+| **Xero** | Accounting - contacts, invoices, payments, accounts, reports |
+| **QuickBooks Online** | Accounting - customers, invoices, expenses, payments, reports |
 
-Plus shared skills for MSP terminology and ticket triage best practices.
+Plus shared skills for MSP terminology, ticket triage, cross-vendor incident correlation, and billing reconciliation.
 
 ### Plugin Maturity
 
@@ -40,6 +45,8 @@ Plus shared skills for MSP terminology and ticket triage best practices.
 | **Autotask PSA** | ✅ Production | [autotask-mcp](https://github.com/wyre-technology/autotask-mcp) |
 | **Datto RMM** | 🔨 Beta | [datto-rmm-mcp](https://github.com/wyre-technology/datto-rmm-mcp) |
 | **IT Glue** | 🔨 Beta | [itglue-mcp](https://github.com/wyre-technology/itglue-mcp) |
+| **Hudu** | 🔨 Beta | [hudu-mcp](https://github.com/wyre-technology/hudu-mcp) |
+| **RocketCyber** | 🔨 Beta | [rocketcyber-mcp](https://github.com/wyre-technology/rocketcyber-mcp) |
 | **Syncro** | 🔨 Beta | [syncro-mcp](https://github.com/wyre-technology/syncro-mcp) |
 | **Atera** | 🔨 Beta | [atera-mcp](https://github.com/wyre-technology/atera-mcp) |
 | **SuperOps.ai** | 🔨 Beta | [superops-mcp](https://github.com/wyre-technology/superops-mcp) |
@@ -49,6 +56,9 @@ Plus shared skills for MSP terminology and ticket triage best practices.
 | **ConnectWise Automate** | 🔨 Beta | [connectwise-automate-mcp](https://github.com/wyre-technology/connectwise-automate-mcp) |
 | **NinjaOne** | 🔨 Beta | [ninjaone-mcp](https://github.com/wyre-technology/ninjaone-mcp) |
 | **SalesBuildr** | 🚧 Alpha | [salesbuildr-mcp](https://github.com/wyre-technology/salesbuildr-mcp) |
+| **Pax8** | 🚧 Alpha | — |
+| **Xero** | 🚧 Alpha | — |
+| **QuickBooks Online** | 🚧 Alpha | — |
 
 > Maturity levels: ✅ **Production** — used in real MSP environments with comprehensive coverage. 🔨 **Beta** — functional with core features, feedback welcome. 🚧 **Alpha** — early implementation, expect gaps.
 
@@ -58,7 +68,7 @@ Plus shared skills for MSP terminology and ticket triage best practices.
 
 ### Hosted Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 12 vendors available immediately.
+Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 17 vendors available immediately.
 
 [Get Started Free](https://mcp.wyretechnology.com/waitlist)
 
@@ -120,6 +130,8 @@ Each plugin uses environment variables for authentication. See the plugin's READ
 - [Autotask](msp-claude-plugins/kaseya/autotask/README.md) — API key + integration code
 - [Datto RMM](msp-claude-plugins/kaseya/datto-rmm/README.md) — API key header
 - [IT Glue](msp-claude-plugins/kaseya/it-glue/README.md) — API key header
+- [Hudu](msp-claude-plugins/hudu/hudu/README.md) — API key + base URL
+- [RocketCyber](msp-claude-plugins/kaseya/rocketcyber/README.md) — Bearer API key
 - [Syncro](msp-claude-plugins/syncro/syncro-msp/README.md) — API key query param
 - [Atera](msp-claude-plugins/atera/atera/README.md) — X-API-KEY header
 - [SuperOps.ai](msp-claude-plugins/superops/superops-ai/README.md) — Bearer token
@@ -129,6 +141,9 @@ Each plugin uses environment variables for authentication. See the plugin's READ
 - [ConnectWise Automate](msp-claude-plugins/connectwise/automate/README.md) — Integrator credentials
 - [NinjaOne](msp-claude-plugins/ninjaone/ninjaone-rmm/README.md) — OAuth 2.0 client credentials
 - [SalesBuildr](msp-claude-plugins/salesbuildr/salesbuildr/README.md) — API key
+- [Pax8](msp-claude-plugins/pax8/pax8/README.md) — Bearer token
+- [Xero](msp-claude-plugins/xero/xero/README.md) — OAuth 2.0
+- [QuickBooks Online](msp-claude-plugins/quickbooks/quickbooks-online/README.md) — OAuth 2.0
 
 ---
 

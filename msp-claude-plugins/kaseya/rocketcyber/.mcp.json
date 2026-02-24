@@ -2,11 +2,11 @@
   "mcpServers": {
     "rocketcyber": {
       "type": "http",
-      "url": "https://api-us.rocketcyber.com/v3",
+      "url": "https://rocketcyber-mcp.wyre.workers.dev/mcp",
       "headers": {
-        "Authorization": "Bearer ${ROCKETCYBER_API_KEY}"
-      },
-      "note": "No community MCP server exists yet. Reference: Celerium PowerShell wrapper on GitHub."
+        "X-RocketCyber-API-Key": "${ROCKETCYBER_API_KEY}",
+        "X-RocketCyber-Region": "${ROCKETCYBER_REGION}"
+      }
     }
   }
 }

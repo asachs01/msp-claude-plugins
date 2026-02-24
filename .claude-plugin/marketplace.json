@@ -110,6 +110,46 @@
       "version": "1.0.0",
       "category": "crm",
       "tags": ["salesbuildr", "crm", "sales", "quotes", "msp"]
+    },
+    {
+      "name": "hudu",
+      "source": "./msp-claude-plugins/hudu/hudu",
+      "description": "Hudu IT documentation - companies, assets, articles, passwords, websites",
+      "version": "1.0.0",
+      "category": "documentation",
+      "tags": ["hudu", "documentation", "assets", "passwords", "msp"]
+    },
+    {
+      "name": "rocketcyber",
+      "source": "./msp-claude-plugins/kaseya/rocketcyber",
+      "description": "RocketCyber managed SOC - incidents, agents, events, threat detection",
+      "version": "1.0.0",
+      "category": "security",
+      "tags": ["kaseya", "rocketcyber", "soc", "security", "msp"]
+    },
+    {
+      "name": "pax8",
+      "source": "./msp-claude-plugins/pax8/pax8",
+      "description": "Pax8 cloud marketplace - companies, products, subscriptions, orders, invoices",
+      "version": "1.0.0",
+      "category": "marketplace",
+      "tags": ["pax8", "marketplace", "subscriptions", "cloud", "msp"]
+    },
+    {
+      "name": "xero",
+      "source": "./msp-claude-plugins/xero/xero",
+      "description": "Xero accounting - contacts, invoices, payments, accounts, reports",
+      "version": "1.0.0",
+      "category": "accounting",
+      "tags": ["xero", "accounting", "invoices", "payments", "msp"]
+    },
+    {
+      "name": "quickbooks-online",
+      "source": "./msp-claude-plugins/quickbooks/quickbooks-online",
+      "description": "QuickBooks Online - customers, invoices, expenses, payments, reports",
+      "version": "1.0.0",
+      "category": "accounting",
+      "tags": ["quickbooks", "accounting", "invoices", "expenses", "msp"]
     }
   ]
 }

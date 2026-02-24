@@ -2,11 +2,11 @@
   "mcpServers": {
     "hudu": {
       "type": "http",
-      "url": "${HUDU_BASE_URL}/api/v1",
+      "url": "https://hudu-mcp.wyre.workers.dev/mcp",
       "headers": {
-        "x-api-key": "${HUDU_API_KEY}"
-      },
-      "note": "Community MCP servers available: jlbyh2o/hudu-mcp, Npab19/Hudu2-MCP"
+        "X-Hudu-Base-URL": "${HUDU_BASE_URL}",
+        "X-Hudu-API-Key": "${HUDU_API_KEY}"
+      }
     }
   }
 }
