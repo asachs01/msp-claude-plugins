@@ -787,6 +787,48 @@ export const plugins: Plugin[] = [
     },
     path: 'pandadoc/pandadoc',
     compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
+  },
+  {
+    id: 'sentinelone',
+    name: 'SentinelOne',
+    vendor: 'SentinelOne',
+    description: 'XDR platform for Purple AI threat hunting, alerts, vulnerabilities, misconfigurations, and asset inventory.',
+    category: 'security',
+    maturity: 'beta',
+    features: [
+      'Purple AI Threat Hunting',
+      'Alert Management',
+      'Vulnerability Management',
+      'Cloud Security Posture',
+      'Asset Inventory',
+      'PowerQuery Analytics'
+    ],
+    skills: [
+      { name: 'api-patterns', description: 'Service User token auth, uvx installation, transport modes' },
+      { name: 'purple-ai', description: 'Natural language cybersecurity investigation and query generation' },
+      { name: 'alerts', description: 'Unified alert management, triage, and investigation' },
+      { name: 'vulnerabilities', description: 'XSPM vulnerability tracking, EPSS scores, patch prioritization' },
+      { name: 'misconfigurations', description: 'Cloud security posture, compliance standards, remediation' },
+      { name: 'inventory', description: 'Unified asset inventory across endpoints, cloud, identity, and network' },
+      { name: 'threat-hunting', description: 'PowerQuery analytics against Singularity Data Lake' }
+    ],
+    commands: [
+      { name: '/alert-triage', description: 'Triage new alerts by severity' },
+      { name: '/investigate-alert', description: 'Deep investigation of a specific alert' },
+      { name: '/vuln-report', description: 'Vulnerability summary with patch prioritization' },
+      { name: '/hunt-threat', description: 'Threat hunting via Purple AI + PowerQuery' },
+      { name: '/asset-inventory', description: 'Asset inventory summary by surface type' },
+      { name: '/posture-review', description: 'Cloud security posture and compliance review' }
+    ],
+    apiInfo: {
+      baseUrl: 'https://{console}.sentinelone.net',
+      auth: 'Service User Token (Account/Site level)',
+      rateLimit: 'Standard rate limits',
+      docsUrl: 'https://github.com/Sentinel-One/purple-mcp'
+    },
+    path: 'sentinelone/sentinelone',
+    mcpRepo: 'https://github.com/Sentinel-One/purple-mcp',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   }
 ];
 
