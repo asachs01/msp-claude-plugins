@@ -711,6 +711,82 @@ export const plugins: Plugin[] = [
     path: 'quickbooks/quickbooks-online',
     mcpRepo: 'https://github.com/wyre-technology/qbo-mcp',
     compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
+  },
+  {
+    id: 'hubspot',
+    name: 'HubSpot CRM',
+    vendor: 'HubSpot',
+    description: 'CRM platform for contacts, companies, deals, tickets, activities, and associations.',
+    category: 'crm',
+    maturity: 'beta',
+    features: [
+      'Contact Management',
+      'Company Management',
+      'Deal & Pipeline Tracking',
+      'Ticket Management',
+      'Activity Logging'
+    ],
+    skills: [
+      { name: 'api-patterns', description: 'OAuth 2.0 + PKCE authentication, Streamable HTTP transport, CRM Search API' },
+      { name: 'contacts', description: 'Contact management, lifecycle stages, and lead tracking' },
+      { name: 'companies', description: 'Company management, industry tracking, and domain-based dedup' },
+      { name: 'deals', description: 'Deal pipeline management, forecasting, and revenue tracking' },
+      { name: 'tickets', description: 'Support ticket management, priorities, and SLA tracking' },
+      { name: 'activities', description: 'Tasks, notes, associations, and engagement tracking' }
+    ],
+    commands: [
+      { name: '/search-contacts', description: 'Search contacts by name, email, or company' },
+      { name: '/search-deals', description: 'Search deals by name, stage, or company' },
+      { name: '/create-deal', description: 'Create a new deal with company association' },
+      { name: '/log-activity', description: 'Log a note or create a task on a record' },
+      { name: '/pipeline-summary', description: 'Summarize deal pipeline by stage with forecasts' },
+      { name: '/lookup-company', description: 'Find a company with associated contacts and deals' }
+    ],
+    apiInfo: {
+      baseUrl: 'https://mcp.hubspot.com/',
+      auth: 'OAuth 2.0 + PKCE (MCP Auth App)',
+      rateLimit: '100 requests per 10 seconds',
+      docsUrl: 'https://developers.hubspot.com/mcp'
+    },
+    path: 'hubspot/hubspot',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
+  },
+  {
+    id: 'pandadoc',
+    name: 'PandaDoc',
+    vendor: 'PandaDoc',
+    description: 'Document automation for proposals, contracts, e-signatures, and sales document management.',
+    category: 'crm',
+    maturity: 'beta',
+    features: [
+      'Document Creation',
+      'Template Management',
+      'E-Signature Workflows',
+      'Proposal Tracking',
+      'Recipient Management'
+    ],
+    skills: [
+      { name: 'api-patterns', description: 'API key authentication, MCP server connection, rate limits' },
+      { name: 'documents', description: 'Document lifecycle, creation, sending, and status tracking' },
+      { name: 'templates', description: 'Template library management and MSP template types' },
+      { name: 'recipients', description: 'Recipient roles, signing order, and completion tracking' },
+      { name: 'proposals', description: 'MSP proposal workflows, pricing tables, and pipeline tracking' }
+    ],
+    commands: [
+      { name: '/create-document', description: 'Create a document from a template with recipients' },
+      { name: '/send-document', description: 'Send a document for e-signature' },
+      { name: '/document-status', description: 'Check document status and signing progress' },
+      { name: '/list-templates', description: 'List available document templates' },
+      { name: '/proposal-pipeline', description: 'Summarize proposal pipeline by status' }
+    ],
+    apiInfo: {
+      baseUrl: 'https://developers.pandadoc.com/mcp',
+      auth: 'API Key (Authorization header)',
+      rateLimit: '300 requests per minute (Business)',
+      docsUrl: 'https://developers.pandadoc.com/reference'
+    },
+    path: 'pandadoc/pandadoc',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   }
 ];
 

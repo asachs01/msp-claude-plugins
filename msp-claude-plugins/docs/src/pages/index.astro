@@ -14,7 +14,7 @@ const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyretechnology.co
 const faqs = [
   {
     question: "What are MSP Claude Plugins?",
-    answer: "MSP Claude Plugins are community-driven extensions for Claude Code that integrate with PSA, RMM, and CRM tools including Autotask, Datto RMM, IT Glue, Syncro, Atera, SuperOps.ai, HaloPSA, Liongard, ConnectWise, NinjaOne, and SalesBuildr. They provide skills, commands, and MCP server integrations to supercharge AI-assisted MSP workflows."
+    answer: "MSP Claude Plugins are community-driven extensions for Claude Code that integrate with PSA, RMM, CRM, and sales tools including Autotask, Datto RMM, IT Glue, Syncro, Atera, SuperOps.ai, HaloPSA, Liongard, ConnectWise, NinjaOne, SalesBuildr, HubSpot, and PandaDoc. They provide skills, commands, and MCP server integrations to supercharge AI-assisted MSP workflows."
   },
   {
     question: "How do I install MSP Claude Plugins?",
@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "What PSA and RMM tools are supported?",
-    answer: "Currently supported platforms include Kaseya Autotask PSA, Datto RMM, IT Glue, Hudu, RocketCyber, Syncro MSP, Atera, SuperOps.ai, HaloPSA, Liongard, ConnectWise PSA, ConnectWise Automate, NinjaOne, SalesBuildr, Pax8, Xero, and QuickBooks Online. All 17 have MCP server integrations."
+    answer: "Currently supported platforms include Kaseya Autotask PSA, Datto RMM, IT Glue, Hudu, RocketCyber, Syncro MSP, Atera, SuperOps.ai, HaloPSA, Liongard, ConnectWise PSA, ConnectWise Automate, NinjaOne, SalesBuildr, Pax8, Xero, QuickBooks Online, HubSpot CRM, and PandaDoc. All 19 have MCP server integrations."
   },
   {
     question: "Are MSP Claude Plugins free?",
@@ -69,15 +69,15 @@ const features = [
         The definitive Claude Code plugin collection for Managed Service Providers.
       </p>
       <p class="text-lg text-[var(--muted)] max-w-2xl mx-auto mb-8">
-        <strong>17 plugins supporting 17 MSP platforms with 70+ specialized skills.</strong> Built following the <a href="https://docs.anthropic.com/claude-code/plugins" class="text-accent hover:underline">official Claude Code plugin specification</a>.
+        <strong>19 plugins supporting 19 MSP platforms with 80+ specialized skills.</strong> Built following the <a href="https://docs.anthropic.com/claude-code/plugins" class="text-accent hover:underline">official Claude Code plugin specification</a>.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         <!-- Gateway path -->
-        <div class="card p-8 border border-green-500/30 bg-green-950/5 dark:bg-green-950/10 text-left">
+        <div class="card p-8 border border-green-300 dark:border-green-500/30 bg-green-50 dark:bg-green-950/10 text-left">
           <div class="flex items-center gap-2 mb-3">
-            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <span class="text-xs font-semibold uppercase tracking-wider text-green-500">Recommended</span>
+            <svg class="w-5 h-5 text-green-600 dark:text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span class="text-xs font-semibold uppercase tracking-wider text-green-600 dark:text-green-500">Recommended</span>
           </div>
           <h3 class="text-xl font-bold mb-2">Use the Hosted Gateway</h3>
           <p class="text-[var(--muted)] text-sm mb-4">
@@ -123,13 +123,13 @@ const features = [
   <section class="py-20 bg-neutral-50 dark:bg-neutral-900/50">
     <div class="container">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">17 Plugins, One Ecosystem</h2>
+        <h2 class="text-3xl font-bold mb-4">19 Plugins, One Ecosystem</h2>
         <p class="text-[var(--muted)] max-w-2xl mx-auto mb-4">
           Comprehensive support for the most popular MSP platforms. Each plugin includes skills,
           commands, and deep API knowledge.
         </p>
         <p class="text-sm text-[var(--muted)] max-w-xl mx-auto">
-          Covering Autotask PSA, Datto RMM, IT Glue, Syncro MSP, Atera, SuperOps.ai, HaloPSA, Liongard, ConnectWise PSA, ConnectWise Automate, NinjaOne, and SalesBuildr.
+          Covering Autotask PSA, Datto RMM, IT Glue, Syncro MSP, Atera, SuperOps.ai, HaloPSA, Liongard, ConnectWise PSA, ConnectWise Automate, NinjaOne, SalesBuildr, HubSpot CRM, and PandaDoc.
         </p>
       </div>
 
@@ -153,9 +153,9 @@ const features = [
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         <!-- Gateway column -->
-        <div class="card p-8 border border-green-500/20 bg-green-950/5 dark:bg-green-950/10">
+        <div class="card p-8 border border-green-300 dark:border-green-500/20 bg-green-50 dark:bg-green-950/10">
           <div class="flex items-center gap-2 mb-6">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30">Recommended</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 border border-green-300 dark:bg-green-500/20 dark:text-green-400 dark:border-green-500/30">Recommended</span>
             <h3 class="text-xl font-bold">Hosted Gateway</h3>
           </div>
           <ul class="space-y-3 mb-8 text-sm">

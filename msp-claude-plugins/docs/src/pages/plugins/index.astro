@@ -6,6 +6,10 @@ import { plugins, getPluginsByCategory } from '@/data/plugins';
 const psaPlugins = getPluginsByCategory('psa');
 const rmmPlugins = getPluginsByCategory('rmm');
 const docPlugins = getPluginsByCategory('documentation');
+const crmPlugins = getPluginsByCategory('crm');
+const securityPlugins = getPluginsByCategory('security');
+const marketplacePlugins = getPluginsByCategory('marketplace');
+const accountingPlugins = getPluginsByCategory('accounting');
 ---
 
 <DocsLayout title="Plugin Catalog">
@@ -42,6 +46,46 @@ const docPlugins = getPluginsByCategory('documentation');
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
     {docPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>CRM & Sales ({crmPlugins.length})</h2>
+
+  <p>CRM, quoting, and document automation plugins for sales pipelines, proposals, and e-signatures.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {crmPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>Security ({securityPlugins.length})</h2>
+
+  <p>Security and SOC plugins for incident management, threat detection, and compliance.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {securityPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>Marketplace ({marketplacePlugins.length})</h2>
+
+  <p>Cloud marketplace plugins for product catalogs, subscriptions, and licensing.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {marketplacePlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>Accounting ({accountingPlugins.length})</h2>
+
+  <p>Accounting and financial plugins for invoicing, payments, and reporting.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {accountingPlugins.map(plugin => (
       <PluginCard plugin={plugin} />
     ))}
   </div>

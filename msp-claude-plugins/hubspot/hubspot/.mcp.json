@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "hubspot": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.hubspot.com/"
+      ],
+      "env": {
+        "HUBSPOT_CLIENT_ID": "${HUBSPOT_CLIENT_ID}",
+        "HUBSPOT_CLIENT_SECRET": "${HUBSPOT_CLIENT_SECRET}"
+      },
+      "note": "Uses HubSpot's official remote MCP server with OAuth 2.0 + PKCE. Create MCP Auth App at developers.hubspot.com"
+    }
+  }
+}
