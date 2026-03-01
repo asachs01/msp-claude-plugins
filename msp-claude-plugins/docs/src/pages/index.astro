@@ -7,9 +7,26 @@ import InstallCommand from '@/components/InstallCommand.astro';
 import FAQSchema from '@/components/schema/FAQSchema.astro';
 import OrganizationSchema from '@/components/schema/OrganizationSchema.astro';
 import { plugins } from '@/data/plugins';
+import { prompts } from '@/data/prompts';
 
 const baseUrl = import.meta.env.BASE_URL;
 const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyretechnology.com';
+
+const pluginCount = plugins.length;
+const skillCount = plugins.flatMap(p => p.skills).length;
+const platformCount = pluginCount;
+
+// Short, punchy prompt examples for the typewriter — demonstrating real value
+const typingExamples = [
+  "Which tickets are at risk of breaching SLA in the next 4 hours?",
+  "Pull a QBR summary for Acme Corp covering the past 90 days.",
+  "Find devices 4+ years old across all clients for hardware refresh.",
+  "Show all unbilled work that's ready to invoice.",
+  "Prepare a shift handoff brief for the incoming on-call engineer.",
+  "Which clients have grown device count but not their contract?",
+  "Correlate active PagerDuty incidents with open HaloPSA tickets.",
+  "Identify the top 3 risk areas for TechCorp based on current data.",
+];
 
 const faqs = [
   {
@@ -68,8 +85,17 @@ const features = [
       <p class="text-xl lg:text-2xl text-[var(--muted)] max-w-3xl mx-auto mb-4">
         The definitive Claude Code plugin collection for Managed Service Providers.
       </p>
-      <p class="text-lg text-[var(--muted)] max-w-2xl mx-auto mb-8">
-        <strong>20 plugins supporting 20 MSP platforms with 90+ specialized skills.</strong> Built following the <a href="https://docs.anthropic.com/claude-code/plugins" class="text-accent hover:underline">official Claude Code plugin specification</a>.
+      <!-- Animated stat counters -->
+      <p class="text-lg font-semibold max-w-2xl mx-auto mb-4">
+        <span class="counter" data-target={pluginCount}>0</span> plugins &middot;
+        <span class="counter" data-target={platformCount}>0</span> MSP platforms &middot;
+        <span class="counter" data-target={skillCount} data-suffix="+">0</span> specialized skills
+      </p>
+
+      <!-- Typewriter prompt examples -->
+      <p class="text-base text-[var(--muted)] max-w-2xl mx-auto mb-8 min-h-[1.75rem]">
+        <span class="text-accent font-mono">&gt;</span>
+        <span id="typewriter" class="ml-2 text-[var(--text)]"></span><span id="typewriter-cursor" class="animate-pulse text-accent font-bold ml-px">|</span>
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -123,7 +149,7 @@ const features = [
   <section class="py-20 bg-neutral-50 dark:bg-neutral-900/50">
     <div class="container">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">20 Plugins, One Ecosystem</h2>
+        <h2 class="text-3xl font-bold mb-4">{pluginCount} Plugins, One Ecosystem</h2>
         <p class="text-[var(--muted)] max-w-2xl mx-auto mb-4">
           Comprehensive support for the most popular MSP platforms. Each plugin includes skills,
           commands, and deep API knowledge.
@@ -272,3 +298,78 @@ const features = [
 
   <Footer />
 </BaseLayout>
+
+<script define:vars={{ typingExamples }}>
+// ── Count-up animation ──────────────────────────────────────────────
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const suffix = el.dataset.suffix ?? '';
+  const duration = 1200;
+  const start = performance.now();
+
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target) + (progress === 1 ? suffix : '');
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const counters = document.querySelectorAll('.counter');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+counters.forEach(el => observer.observe(el));
+
+// ── Typewriter animation ────────────────────────────────────────────
+const typewriterEl = document.getElementById('typewriter');
+const examples = typingExamples;
+let exampleIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let isPaused = false;
+
+function type() {
+  const current = examples[exampleIndex];
+
+  if (isPaused) {
+    isPaused = false;
+    isDeleting = true;
+    setTimeout(type, 1800);
+    return;
+  }
+
+  if (!isDeleting) {
+    typewriterEl.textContent = current.slice(0, charIndex + 1);
+    charIndex++;
+    if (charIndex === current.length) {
+      isPaused = true;
+      setTimeout(type, 50);
+      return;
+    }
+    setTimeout(type, 38);
+  } else {
+    typewriterEl.textContent = current.slice(0, charIndex - 1);
+    charIndex--;
+    if (charIndex === 0) {
+      isDeleting = false;
+      exampleIndex = (exampleIndex + 1) % examples.length;
+      setTimeout(type, 400);
+      return;
+    }
+    setTimeout(type, 18);
+  }
+}
+
+// Small delay before starting so the page has settled
+setTimeout(type, 800);
+</script>
