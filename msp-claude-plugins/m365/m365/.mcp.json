@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "m365": {
+      "command": "npx",
+      "args": ["-y", "@softeria/ms-365-mcp-server@latest"],
+      "env": {
+        "MICROSOFT_CLIENT_ID": "${MICROSOFT_CLIENT_ID}",
+        "MICROSOFT_CLIENT_SECRET": "${MICROSOFT_CLIENT_SECRET}",
+        "MICROSOFT_TENANT_ID": "${MICROSOFT_TENANT_ID}"
+      },
+      "note": "Softeria MS-365 MCP server: https://github.com/softeria/ms-365-mcp-server"
+    }
+  }
+}
