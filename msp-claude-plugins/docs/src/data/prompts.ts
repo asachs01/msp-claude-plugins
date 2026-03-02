@@ -447,6 +447,152 @@ Structure it as:
 Keep the tone blameless — we're fixing systems, not blaming people.`,
   },
 
+  // ── Email Security ────────────────────────────────────────────────
+
+  {
+    id: 'noc-email-threat-briefing',
+    role: 'noc',
+    title: 'Daily Email Threat Briefing',
+    description: 'Morning summary of email threats, blocked attacks, and phishing incidents across all clients.',
+    plugins: ['proofpoint', 'avanan', 'abnormal', 'mimecast'],
+    mcpServers: ['proofpoint', 'avanan', 'abnormal', 'mimecast'],
+    prompt: `Give me a morning email threat briefing covering the last 24 hours across all clients.
+
+Include:
+- Total blocked threats by type (phishing, malware, BEC, spam) with counts
+- Any threats that were delivered to users (not blocked) — these are highest priority
+- New or active campaigns targeting our clients
+- Any users who clicked a malicious URL or opened a dangerous attachment
+- Clients with unusually high threat volume compared to their baseline
+
+Flag anything that requires immediate action (delivered threats, active BEC attempts, credential phishing). Keep the rest as a summary table.`,
+  },
+
+  {
+    id: 'noc-phishing-investigation',
+    role: 'noc',
+    title: 'Phishing Incident Investigation',
+    description: 'Investigate a reported phishing email — trace delivery, identify recipients, and assess impact.',
+    plugins: ['proofpoint', 'avanan', 'abnormal', 'ironscales', 'knowbe4'],
+    mcpServers: ['proofpoint', 'avanan', 'abnormal', 'ironscales', 'knowbe4'],
+    prompt: `I need to investigate a phishing email reported by [USER] at [CLIENT NAME].
+
+Known details: [paste subject line, sender, or any other details you have]
+
+Help me:
+1. Find the original email and its full headers / metadata
+2. Identify all other recipients at this client or across clients who received the same or similar email
+3. Check whether any recipients clicked links or opened attachments
+4. Determine if any credentials or data may have been compromised
+5. Identify the campaign or threat actor if known
+6. List every mailbox that still has a copy of the email (for remediation)
+
+End with a recommended remediation: quarantine scope, user notifications needed, and any account lockouts to consider.`,
+  },
+
+  {
+    id: 'noc-email-quarantine-review',
+    role: 'noc',
+    title: 'Quarantine Review',
+    description: 'Review held and quarantined emails across clients — identify false positives and genuine threats.',
+    plugins: ['spamtitan', 'mimecast', 'avanan'],
+    mcpServers: ['spamtitan', 'mimecast', 'avanan'],
+    prompt: `Review the current email quarantine queue across all clients.
+
+I need to:
+1. See all messages held in quarantine in the last 24 hours, grouped by client
+2. Identify any that look like false positives (legitimate business email, newsletters the user opted into, known vendors)
+3. Confirm which messages are genuine threats that should remain quarantined or be deleted
+4. Flag any quarantine entries that have been waiting more than 48 hours without review (user may be waiting on an important email)
+
+For likely false positives, tell me what action to take (release and allowlist sender/domain). For confirmed threats, confirm deletion. Highlight any patterns that suggest an allowlist or blocklist rule update is needed.`,
+  },
+
+  {
+    id: 'noc-security-awareness-status',
+    role: 'noc',
+    title: 'Security Awareness Training Status',
+    description: 'Review phishing simulation results and training completion rates across clients.',
+    plugins: ['knowbe4'],
+    mcpServers: ['knowbe4'],
+    prompt: `Give me a security awareness training status report across all clients.
+
+Cover:
+- Active phishing simulation campaigns: click rates and failure rates per client
+- Training completion rates — who is overdue or has outstanding assignments
+- Highest-risk users by risk score (frequent clickers, incomplete training)
+- Clients with click rates above 10% — these need attention
+- Improvement trends: are clients getting better or worse over time?
+
+Flag the top 5 highest-risk users overall so we can have a conversation with their client's IT contact. Include a recommendation for clients with persistently high failure rates (more frequent simulations, mandatory retraining, etc.).`,
+  },
+
+  {
+    id: 'support-phishing-report-response',
+    role: 'support',
+    title: 'End User Phishing Report Handler',
+    description: 'Triage a user-reported phishing email — assess risk, scope the blast radius, and advise the user.',
+    plugins: ['ironscales', 'knowbe4', 'abnormal', 'proofpoint'],
+    mcpServers: ['ironscales', 'knowbe4', 'abnormal', 'proofpoint'],
+    prompt: `A user at [CLIENT NAME] has reported a suspicious email. I need to triage it quickly.
+
+User report: [paste the user's description or forwarded email headers]
+
+Steps I need help with:
+1. Look up the reported message in our email security platform — is it already classified?
+2. Check if other users at this client (or other clients) received the same email
+3. Classify it: genuine phishing / spam / safe (false positive)
+4. If it's a genuine threat: has anyone clicked or interacted with it?
+5. Draft a brief response to the reporting user explaining what we found and what they should do
+
+If the email is confirmed phishing and others received it, automatically suggest escalating to the phishing investigation workflow.`,
+  },
+
+  {
+    id: 'support-quarantine-release-request',
+    role: 'support',
+    title: 'Quarantine Release Request',
+    description: 'Process a user request to release a quarantined email — verify it\'s safe before releasing.',
+    plugins: ['spamtitan', 'mimecast', 'avanan'],
+    mcpServers: ['spamtitan', 'mimecast', 'avanan'],
+    prompt: `A user at [CLIENT NAME] has requested release of a quarantined email.
+
+User details: [sender address, subject, approximate date received]
+
+Before releasing, help me:
+1. Find the quarantined message
+2. Review the sender, subject, headers, and any link/attachment analysis
+3. Assess whether it's genuinely safe to release (expected sender, legitimate content, no suspicious links)
+4. Check if the sender domain has a history of spam or phishing in our system
+
+If safe: release the message and recommend whether to add the sender to the allowlist.
+If not safe: explain why to the user and suggest they contact the sender through a different channel to re-send.
+
+Always err on the side of caution — if there's any doubt, don't release.`,
+  },
+
+  {
+    id: 'account-email-security-posture',
+    role: 'account',
+    title: 'Email Security Posture for QBR',
+    description: 'Client-facing email security summary — threats blocked, user risk, and training progress.',
+    plugins: ['proofpoint', 'avanan', 'abnormal', 'mimecast', 'knowbe4'],
+    mcpServers: ['proofpoint', 'avanan', 'abnormal', 'mimecast', 'knowbe4'],
+    prompt: `Prepare an email security posture summary for [CLIENT NAME] to use in our upcoming QBR.
+
+The audience is their leadership team — keep it business-focused, not technical.
+
+Cover:
+- Total threats blocked in the past quarter (phishing, malware, BEC, spam) and what that would have meant if unprotected
+- Any threats that got through — how they were detected and resolved
+- User risk: what percentage of users are clicking phishing simulations, how has it improved?
+- Training completion rate — is the team keeping up with security awareness training?
+- Top 3 threat types targeting their organization this quarter
+- Any recommended improvements or upcoming threats to be aware of
+
+Frame it as value delivered: "we blocked X attacks this quarter that could have cost you Y." Keep the language accessible for non-technical executives.`,
+  },
+
 ];
 
 export function getPromptsByRole(role: PromptRole): Prompt[] {
