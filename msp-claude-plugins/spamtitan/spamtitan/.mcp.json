@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "spamtitan": {
+      "type": "http",
+      "url": "https://mcp.wyretechnology.com/v1/spamtitan/mcp",
+      "headers": {
+        "X-SpamTitan-API-Key": "${SPAMTITAN_API_KEY}"
+      }
+    }
+  }
+}

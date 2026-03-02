@@ -1,0 +1,11 @@
+{
+  "name": "knowbe4",
+  "version": "0.1.0",
+  "description": "Claude plugins for KnowBe4 — PhishER phishing incident triage, mass remediation, phishing simulation campaigns, training completion tracking, and user risk scoring for MSPs",
+  "author": {
+    "name": "MSP Claude Plugins Community"
+  },
+  "homepage": "https://github.com/wyre-technology/msp-claude-plugins",
+  "repository": "https://github.com/wyre-technology/msp-claude-plugins",
+  "license": "Apache-2.0"
+}
