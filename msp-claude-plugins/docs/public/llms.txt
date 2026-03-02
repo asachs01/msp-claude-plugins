@@ -1,0 +1,66 @@
+# MSP Claude Plugins
+
+> Connect your MSP tools to Claude AI via the Model Context Protocol (MCP). 24 plugins covering Autotask, ConnectWise, Datto RMM, NinjaOne, IT Glue, and more.
+
+MSP Claude Plugins is a free, open-source collection of integrations that connect Managed Service Provider (MSP) platforms to Claude via the Model Context Protocol (MCP). It is built and maintained by WYRE Technology.
+
+## What it does
+
+MSP Claude Plugins provides two ways to connect MSP tools to Claude:
+
+1. **Hosted Gateway** (recommended): A cloud-hosted MCP gateway at mcp.wyretechnology.com. Connect Claude Desktop or any MCP client with OAuth 2.1 + PKCE authentication. No servers to manage, encrypted credential storage with per-user isolation.
+
+2. **Self-Hosted**: Run MCP servers locally. Install via Claude Code marketplace with `/plugin marketplace add wyre-technology/msp-claude-plugins`. Full control, credentials stay on your machine.
+
+## Supported platforms (24 plugins)
+
+### PSA (Professional Services Automation)
+- Autotask PSA (Kaseya) — Production. Ticket management, CRM, projects, contracts, time tracking. 5 skills, 11 commands.
+- ConnectWise PSA — Alpha. Tickets, companies, contacts, projects, time tracking. 6 skills, 10 commands.
+- HaloPSA — Beta. Ticket management, client operations, asset tracking, contracts. 5 skills, 10 commands.
+- Syncro MSP — Beta. All-in-one PSA/RMM for tickets, customers, assets, invoicing. 5 skills, 10 commands.
+- Atera — Beta. Cloud-native RMM/PSA for tickets, agents, customers, alerts. 6 skills, 10 commands.
+- SuperOps.ai — Beta. AI-powered PSA/RMM for tickets, assets, clients, runbook automation. 6 skills, 10 commands.
+
+### RMM (Remote Monitoring & Management)
+- Datto RMM (Kaseya) — Production. Device management, alerts, jobs, automation. 7 skills, 4 commands.
+- ConnectWise Automate — Alpha. Enterprise RMM for computers, scripts, monitors, alerts. 6 skills, 2 commands.
+- NinjaOne (NinjaRMM) — Alpha. Cloud-native RMM for devices, alerts, ticketing across Windows/Mac/Linux. 5 skills, 4 commands.
+
+### IT Documentation
+- IT Glue (Kaseya) — Production. Organizations, assets, passwords, flexible documentation. 7 skills, 4 commands.
+- Hudu — Beta. Companies, assets, articles, passwords, website monitoring. 6 skills, 4 commands.
+
+### Security & Monitoring
+- Liongard — Production. Configuration monitoring and change detection. 5 skills, 2 commands.
+- RocketCyber (Kaseya) — Beta. Managed SOC for incidents, agents, threat detection. 5 skills, 2 commands.
+- SentinelOne — Beta. XDR with Purple AI threat hunting, alerts, vulnerabilities. 7 skills, 6 commands.
+- PagerDuty — Production. On-call incident management with 66 tools. 3 skills, 3 commands.
+- BetterStack — Production. Uptime monitoring, on-call scheduling, telemetry. 3 skills, 3 commands.
+- Rootly — Beta. Incident management, AI analysis, on-call scheduling, postmortems. 3 skills, 0 commands.
+
+### Sales & Distribution
+- SalesBuildr — Alpha. CRM and quoting for companies, contacts, opportunities, products. 5 skills, 10 commands.
+- Pax8 — Production. Cloud marketplace for companies, products, subscriptions, orders, invoices. 6 skills, 4 commands.
+- HubSpot CRM — Beta. Contacts, companies, deals, tickets, activities. 6 skills, 6 commands.
+- PandaDoc — Beta. Document automation for proposals, contracts, e-signatures. 5 skills, 5 commands.
+
+### Accounting & Finance
+- Xero — Beta. Contacts, invoices, payments, chart of accounts, financial reporting. 6 skills, 4 commands.
+- QuickBooks Online (Intuit) — Beta. Customers, invoices, expenses, payments, reporting. 6 skills, 4 commands.
+
+### Productivity
+- Microsoft 365 — Beta. Users, mailboxes, Teams, OneDrive, licensing, security. Multi-tenant via Entra ID OAuth. 8 skills, 4 commands.
+
+## Pricing
+
+All MSP Claude Plugins are free and open source under the Apache 2.0 license. The hosted gateway has a free tier (details at mcp.wyretechnology.com/waitlist).
+
+## Links
+
+- Website: https://mcp.wyretechnology.com
+- GitHub: https://github.com/wyre-technology/msp-claude-plugins
+- Getting Started: https://mcp.wyretechnology.com/getting-started/
+- Gateway: https://mcp.wyretechnology.com/getting-started/gateway/
+- All Plugins: https://mcp.wyretechnology.com/plugins/
+- Waitlist: https://mcp.wyretechnology.com/waitlist

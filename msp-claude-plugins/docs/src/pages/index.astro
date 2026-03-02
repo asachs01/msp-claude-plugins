@@ -44,6 +44,22 @@ const faqs = [
   {
     question: "Are MSP Claude Plugins free?",
     answer: "Yes, all MSP Claude Plugins are free and open source under the Apache 2.0 license. Community contributions are welcome."
+  },
+  {
+    question: "What is the Model Context Protocol (MCP)?",
+    answer: "MCP (Model Context Protocol) is an open standard that allows AI models like Claude to securely connect to external tools and data sources. MSP Claude Plugins use MCP to give Claude direct access to your PSA, RMM, documentation, security, and billing platforms — enabling natural language queries and actions across your entire MSP stack."
+  },
+  {
+    question: "How does the hosted gateway work?",
+    answer: "The hosted gateway at mcp.wyretechnology.com acts as a secure proxy between Claude Desktop and your MSP platforms. You authenticate via OAuth 2.1 with PKCE, store your vendor API credentials (encrypted with per-user isolation), and Claude connects through a single MCP endpoint. No local servers, no Docker, no maintenance required."
+  },
+  {
+    question: "Is my data secure with the gateway?",
+    answer: "Yes. The gateway uses OAuth 2.1 + PKCE authentication, encrypts all stored credentials, and provides per-user isolation. Your vendor API credentials are never exposed to other users. For maximum security, you can also self-host the MCP servers so credentials never leave your network."
+  },
+  {
+    question: "What is the difference between the gateway and self-hosting?",
+    answer: "The hosted gateway requires zero infrastructure — connect Claude Desktop in minutes with just your API credentials. Self-hosting gives you full control: run MCP servers locally, keep all credentials on your machine, and customize or extend the open-source code. Both approaches provide the same MCP integrations and plugin capabilities."
   }
 ];
 
@@ -71,7 +87,7 @@ const features = [
 ];
 ---
 
-<BaseLayout title="Home">
+<BaseLayout title="AI-Powered MCP Integrations for Autotask, ConnectWise, Datto & More">
   <FAQSchema faqs={faqs} />
   <OrganizationSchema />
   <Header />
@@ -87,9 +103,9 @@ const features = [
       </p>
       <!-- Animated stat counters -->
       <p class="text-lg font-semibold max-w-2xl mx-auto mb-4">
-        <span class="counter" data-target={pluginCount}>0</span> plugins &middot;
-        <span class="counter" data-target={platformCount}>0</span> MSP platforms &middot;
-        <span class="counter" data-target={skillCount} data-suffix="+">0</span> specialized skills
+        <span class="counter" data-target={pluginCount}>{pluginCount}</span> plugins &middot;
+        <span class="counter" data-target={platformCount}>{platformCount}</span> MSP platforms &middot;
+        <span class="counter" data-target={skillCount} data-suffix="+">{skillCount}+</span> specialized skills
       </p>
 
       <!-- Typewriter prompt examples -->
