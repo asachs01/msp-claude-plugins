@@ -86,7 +86,7 @@ export const plugins: Plugin[] = [
     vendor: 'Kaseya',
     description: 'Remote Monitoring and Management for device management, alerts, jobs, and automation.',
     category: 'rmm',
-    maturity: 'beta',
+    maturity: 'production',
     features: [
       'Device Management',
       'Alert Handling',
@@ -125,7 +125,7 @@ export const plugins: Plugin[] = [
     vendor: 'Kaseya',
     description: 'Documentation platform for organizations, assets, passwords, and flexible documentation.',
     category: 'documentation',
-    maturity: 'beta',
+    maturity: 'production',
     features: [
       'Organization Management',
       'Configuration Items',
@@ -337,7 +337,7 @@ export const plugins: Plugin[] = [
     vendor: 'Liongard',
     description: 'Configuration monitoring and change detection for environments, inspections, systems, and compliance assessments.',
     category: 'security',
-    maturity: 'beta',
+    maturity: 'production',
     features: [
       'Environment Management',
       'Inspection Monitoring',
@@ -605,7 +605,7 @@ export const plugins: Plugin[] = [
     vendor: 'Pax8',
     description: 'Cloud marketplace for managing companies, products, subscriptions, orders, and invoices.',
     category: 'sales',
-    maturity: 'beta',
+    maturity: 'production',
     features: [
       'Company Management',
       'Product Catalog',
@@ -939,6 +939,38 @@ export const plugins: Plugin[] = [
     },
     path: 'm365/m365',
     compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
+  },
+  {
+    id: 'rootly',
+    name: 'Rootly',
+    vendor: 'Rootly',
+    description: 'Incident management and on-call platform with 25 tools covering incidents, alerts, AI analysis, on-call scheduling, and postmortem workflows.',
+    category: 'security',
+    maturity: 'beta',
+    features: [
+      'Incident Management',
+      'On-Call Scheduling',
+      'AI Incident Analysis',
+      'Alert Management',
+      'Postmortem Workflows',
+      'Service Catalog',
+      'Automation Workflows'
+    ],
+    skills: [
+      { name: 'incidents', description: 'Incident lifecycle, AI analysis (find_related_incidents, suggest_solutions), action items' },
+      { name: 'oncall', description: 'Handoff summaries, shift metrics, health risk detection' },
+      { name: 'api-patterns', description: 'Bearer auth, hosted MCP, 25-tool reference, JSON:API pagination' }
+    ],
+    commands: [],
+    apiInfo: {
+      baseUrl: 'https://mcp.rootly.com',
+      auth: 'Authorization: Bearer <API Token>',
+      rateLimit: 'Standard Rootly API rate limits; back off 30-60s on 429',
+      docsUrl: 'https://rootly.com/docs'
+    },
+    path: 'rootly/rootly',
+    mcpRepo: 'https://mcp.rootly.com',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   }
 ];
 

@@ -14,7 +14,7 @@ Then restart Claude Code. That's it.
 
 ## What you get
 
-Eighteen vendor-specific plugins with domain knowledge for PSA, RMM, documentation, security, accounting, CRM, and productivity tools:
+Nineteen vendor-specific plugins with domain knowledge for PSA, RMM, documentation, security, accounting, CRM, and productivity tools:
 
 | Plugin | Description |
 |--------|-------------|
@@ -36,6 +36,7 @@ Eighteen vendor-specific plugins with domain knowledge for PSA, RMM, documentati
 | **Xero** | Accounting - contacts, invoices, payments, accounts, reports |
 | **QuickBooks Online** | Accounting - customers, invoices, expenses, payments, reports |
 | **Microsoft 365** | M365 admin - users, mailboxes, Teams, OneDrive, licensing, security |
+| **Rootly** | Incident management - incidents, alerts, on-call, AI analysis, postmortems |
 
 Plus shared skills for MSP terminology, ticket triage, cross-vendor incident correlation, and billing reconciliation.
 
@@ -44,23 +45,24 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 | Plugin | Status | MCP Server |
 |--------|--------|------------|
 | **Autotask PSA** | ✅ Production | [autotask-mcp](https://github.com/wyre-technology/autotask-mcp) |
-| **Datto RMM** | 🔨 Beta | [datto-rmm-mcp](https://github.com/wyre-technology/datto-rmm-mcp) |
-| **IT Glue** | 🔨 Beta | [itglue-mcp](https://github.com/wyre-technology/itglue-mcp) |
+| **Datto RMM** | ✅ Production | [datto-rmm-mcp](https://github.com/wyre-technology/datto-rmm-mcp) |
+| **IT Glue** | ✅ Production | [itglue-mcp](https://github.com/wyre-technology/itglue-mcp) |
 | **Hudu** | 🔨 Beta | [hudu-mcp](https://github.com/wyre-technology/hudu-mcp) |
 | **RocketCyber** | 🔨 Beta | [rocketcyber-mcp](https://github.com/wyre-technology/rocketcyber-mcp) |
 | **Syncro** | 🔨 Beta | [syncro-mcp](https://github.com/wyre-technology/syncro-mcp) |
 | **Atera** | 🔨 Beta | [atera-mcp](https://github.com/wyre-technology/atera-mcp) |
 | **SuperOps.ai** | 🔨 Beta | [superops-mcp](https://github.com/wyre-technology/superops-mcp) |
 | **HaloPSA** | 🔨 Beta | [halopsa-mcp](https://github.com/wyre-technology/halopsa-mcp) |
-| **Liongard** | 🔨 Beta | [liongard-mcp](https://github.com/wyre-technology/liongard-mcp) |
+| **Liongard** | ✅ Production | [liongard-mcp](https://github.com/wyre-technology/liongard-mcp) |
 | **ConnectWise PSA** | 🔨 Beta | [connectwise-manage-mcp](https://github.com/wyre-technology/connectwise-manage-mcp) |
 | **ConnectWise Automate** | 🔨 Beta | [connectwise-automate-mcp](https://github.com/wyre-technology/connectwise-automate-mcp) |
 | **NinjaOne** | 🔨 Beta | [ninjaone-mcp](https://github.com/wyre-technology/ninjaone-mcp) |
 | **SalesBuildr** | 🚧 Alpha | [salesbuildr-mcp](https://github.com/wyre-technology/salesbuildr-mcp) |
-| **Pax8** | 🔨 Beta | [Pax8 Hosted](https://mcp.pax8.com/v1/mcp) (official) |
+| **Pax8** | ✅ Production | [Pax8 Hosted](https://mcp.pax8.com/v1/mcp) (official) |
 | **Xero** | 🔨 Beta | [xero-mcp](https://github.com/wyre-technology/xero-mcp) |
 | **QuickBooks Online** | 🔨 Beta | [qbo-mcp](https://github.com/wyre-technology/qbo-mcp) |
 | **Microsoft 365** | 🔨 Beta | [ms-365-mcp-server](https://github.com/softeria/ms-365-mcp-server) (Softeria) |
+| **Rootly** | 🔨 Beta | [Rootly Hosted](https://mcp.rootly.com) (official) |
 
 > Maturity levels: ✅ **Production** — used in real MSP environments with comprehensive coverage. 🔨 **Beta** — functional with core features, feedback welcome. 🚧 **Alpha** — early implementation, expect gaps.
 
@@ -70,7 +72,7 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 
 ### Hosted Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 18 vendors available immediately.
+Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 19 vendors available immediately.
 
 [Get Started Free](https://mcp.wyretechnology.com/waitlist)
 
@@ -147,6 +149,7 @@ Each plugin uses environment variables for authentication. See the plugin's READ
 - [Xero](msp-claude-plugins/xero/xero/README.md) — OAuth 2.0
 - [QuickBooks Online](msp-claude-plugins/quickbooks/quickbooks-online/README.md) — OAuth 2.0
 - [Microsoft 365](msp-claude-plugins/m365/m365/README.md) — OAuth 2.0 (multi-tenant Entra ID)
+- [Rootly](msp-claude-plugins/rootly/rootly/README.md) — API token (Bearer)
 
 ---
 
