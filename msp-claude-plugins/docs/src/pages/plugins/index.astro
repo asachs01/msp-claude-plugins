@@ -9,6 +9,7 @@ const docPlugins = getPluginsByCategory('documentation');
 const securityPlugins = getPluginsByCategory('security');
 const salesPlugins = getPluginsByCategory('sales');
 const accountingPlugins = getPluginsByCategory('accounting');
+const productivityPlugins = getPluginsByCategory('productivity');
 ---
 
 <DocsLayout title="Plugin Catalog">
@@ -79,6 +80,20 @@ const accountingPlugins = getPluginsByCategory('accounting');
     ))}
   </div>
 
+  {productivityPlugins.length > 0 && (
+    <>
+      <h2>Productivity ({productivityPlugins.length})</h2>
+
+      <p>Productivity and collaboration plugins for email, calendaring, file storage, and user management.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+        {productivityPlugins.map(plugin => (
+          <PluginCard plugin={plugin} />
+        ))}
+      </div>
+    </>
+  )}
+
   <h2>All Plugins at a Glance</h2>
 
   <table>
@@ -96,7 +111,7 @@ const accountingPlugins = getPluginsByCategory('accounting');
         <tr>
           <td><a href={`${import.meta.env.BASE_URL}plugins/${plugin.id}/`}>{plugin.name}</a></td>
           <td>{plugin.vendor}</td>
-          <td>{{psa: 'PSA', rmm: 'RMM', documentation: 'IT Documentation', security: 'Security', sales: 'Sales & Distribution', accounting: 'Accounting & Finance'}[plugin.category]}</td>
+          <td>{{psa: 'PSA', rmm: 'RMM', documentation: 'IT Documentation', security: 'Security', sales: 'Sales & Distribution', accounting: 'Accounting & Finance', productivity: 'Productivity'}[plugin.category]}</td>
           <td>{plugin.skills.length}</td>
           <td>{plugin.commands.length}</td>
         </tr>
