@@ -2,7 +2,7 @@
   "mcpServers": {
     "rocketcyber": {
       "type": "http",
-      "url": "https://rocketcyber-mcp.wyre.workers.dev/mcp",
+      "url": "${ROCKETCYBER_MCP_URL}",
       "headers": {
         "X-RocketCyber-API-Key": "${ROCKETCYBER_API_KEY}",
         "X-RocketCyber-Region": "${ROCKETCYBER_REGION}"
