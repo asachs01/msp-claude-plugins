@@ -2,7 +2,7 @@
   "mcpServers": {
     "hudu": {
       "type": "http",
-      "url": "https://hudu-mcp.wyre.workers.dev/mcp",
+      "url": "${HUDU_MCP_URL}",
       "headers": {
         "X-Hudu-Base-URL": "${HUDU_BASE_URL}",
         "X-Hudu-API-Key": "${HUDU_API_KEY}"
