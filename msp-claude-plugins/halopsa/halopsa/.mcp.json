@@ -2,7 +2,7 @@
   "mcpServers": {
     "halopsa": {
       "type": "http",
-      "url": "https://halopsa-mcp.wyre.workers.dev/mcp",
+      "url": "${HALOPSA_MCP_URL}",
       "headers": {
         "X-Halo-Client-ID": "${HALOPSA_CLIENT_ID}",
         "X-Halo-Client-Secret": "${HALOPSA_CLIENT_SECRET}",
