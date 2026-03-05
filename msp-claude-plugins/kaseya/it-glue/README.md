@@ -26,17 +26,18 @@ You need an IT Glue API key with appropriate permissions:
 
 ### Environment Variables
 
-Set the following environment variables:
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `ITGLUE_API_KEY` | Yes | — | IT Glue API key |
+| `ITGLUE_REGION` | No | `us` | API region: `us`, `eu`, or `au` |
+| `ITGLUE_MCP_URL` | No | `https://itglue-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
 
-```bash
-export IT_GLUE_API_KEY="ITG.your-api-key-here"
-export IT_GLUE_REGION="us"  # us, eu, or au
-```
+
 
 ## Installation
 
 1. Clone this plugin to your Claude plugins directory
-2. Configure environment variables
+2. Configure environment variables above
 3. The MCP server will be automatically started when needed
 
 ## Available Skills
@@ -64,27 +65,34 @@ export IT_GLUE_REGION="us"  # us, eu, or au
 
 ### Find an Organization
 
-```
-/find-organization "Acme"
-```
+
 
 ### Look Up an Asset
 
-```
-/lookup-asset "DC-01" --organization "Acme Corp"
-```
+
 
 ### Search Documentation
 
-```
-/search-docs "backup procedure" --organization "Acme Corp"
-```
+
 
 ### Get a Password
 
-```
-/get-password "Domain Admin" --organization "Acme Corp"
-```
+
+
+## Working with Flexible Assets
+
+Flexible asset type IDs are **instance-specific** — every IT Glue account has different IDs. Always discover types before searching:
+
+
+
+## Documents vs Flexible Assets
+
+IT Glue has two documentation systems:
+
+- **Documents** — Free-form HTML documents (runbooks, SOPs, network diagrams). Requires the Documents module to be enabled on your IT Glue subscription. Returns 404 if not enabled.
+- **Flexible Assets** — Structured templates with typed fields. Available on all plans. Most documentation lives here.
+
+If `search_documents` returns 404, use `list_flexible_asset_types` + `search_flexible_assets` instead.
 
 ## Security Considerations
 
@@ -106,11 +114,19 @@ export IT_GLUE_REGION="us"  # us, eu, or au
 
 IT Glue operates in multiple regions:
 
-| Region | Base URL | Environment Variable |
-|--------|----------|---------------------|
-| US | `https://api.itglue.com` | `IT_GLUE_REGION=us` |
-| EU | `https://api.eu.itglue.com` | `IT_GLUE_REGION=eu` |
-| AU | `https://api.au.itglue.com` | `IT_GLUE_REGION=au` |
+| Region | Base URL | `ITGLUE_REGION` value |
+|--------|----------|------------------------|
+| US | `https://api.itglue.com` | `us` (default) |
+| EU | `https://api.eu.itglue.com` | `eu` |
+| AU | `https://api.au.itglue.com` | `au` |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `ITGLUE_MCP_URL` to your gateway's IT Glue endpoint:
+
+
+
+The gateway handles authentication via OAuth — remove the `ITGLUE_API_KEY` header from your setup when using gateway mode.
 
 ## API Rate Limits
 
@@ -119,28 +135,27 @@ IT Glue enforces rate limits:
 - 3000 requests per 5 minutes
 - ~100 requests per second burst limit
 
-The plugin automatically handles rate limiting with exponential backoff.
-
 ## Troubleshooting
 
-### Authentication Errors
+### Authentication Errors (401)
 
-If you see "401 Unauthorized":
-1. Verify `IT_GLUE_API_KEY` is set correctly
+1. Verify `ITGLUE_API_KEY` is set correctly
 2. Check the API key hasn't expired
 3. Confirm the key has required permissions
 
-### Wrong Region
+### Wrong Region (404 on valid resources)
 
-If you see "404 Not Found" for valid resources:
-1. Verify `IT_GLUE_REGION` matches your IT Glue account
-2. Try each region (us, eu, au) if unsure
+1. Verify `ITGLUE_REGION` matches your IT Glue account
+2. Try `us`, `eu`, or `au` if unsure
 
-### Rate Limiting
+### Documents return 404
 
-If you see "429 Too Many Requests":
+Your IT Glue subscription doesn't include the Documents module. Use `search_flexible_assets` instead — that's where documentation lives on most plans.
+
+### Rate Limiting (429)
+
 1. Wait for the rate limit window to reset
-2. Reduce the frequency of requests
+2. Reduce request frequency
 3. Use pagination for large data sets
 
 ## API Documentation
@@ -152,9 +167,17 @@ If you see "429 Too Many Requests":
 
 See the main [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
 
-All contributions require a PRD in the `prd/` directory before implementation.
-
 ## Changelog
+
+### 1.0.2 (2026-03-05)
+
+- Added `list_flexible_asset_types` tool to discover type IDs
+- Fixed flexible assets skill to document type discovery workflow
+- Fixed documents skill to use correct org-scoped endpoint
+
+### 1.0.1 (2026-03-05)
+
+- Fixed documents skill: use `/organizations/{id}/relationships/documents` (not top-level `/documents`)
 
 ### 1.0.0 (2026-02-04)
 
