@@ -2,7 +2,7 @@
   "mcpServers": {
     "autotask": {
       "type": "http",
-      "url": "https://autotask-mcp.wyre.workers.dev/mcp",
+      "url": "${AUTOTASK_MCP_URL}",
       "headers": {
         "X-API-Key": "${AUTOTASK_USERNAME}",
         "X-API-Secret": "${AUTOTASK_SECRET}",
