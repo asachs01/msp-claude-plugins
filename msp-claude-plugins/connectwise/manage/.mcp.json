@@ -2,7 +2,7 @@
   "mcpServers": {
     "connectwise-manage": {
       "type": "http",
-      "url": "https://connectwise-manage-mcp.wyre.workers.dev/mcp",
+      "url": "${CONNECTWISE_MANAGE_MCP_URL}",
       "headers": {
         "X-CWM-Company-ID": "${CW_MANAGE_COMPANY_ID}",
         "X-CWM-Public-Key": "${CW_MANAGE_PUBLIC_KEY}",
