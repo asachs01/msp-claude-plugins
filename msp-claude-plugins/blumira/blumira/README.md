@@ -33,6 +33,30 @@ Blumira MCP authenticates with a JWT token:
 export BLUMIRA_JWT_TOKEN="your-jwt-token"
 ```
 
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `BLUMIRA_JWT_TOKEN` | Yes | | JWT token from Settings > API Access |
+| `BLUMIRA_MCP_URL` | No | `https://mcp.wyretechnology.com/v1/blumira/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `BLUMIRA_MCP_URL` to your gateway's endpoint:
+
+```
+BLUMIRA_MCP_URL=https://your-gateway-domain/v1/blumira/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → Blumira → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "BLUMIRA_MCP_URL": "https://your-gateway-domain/v1/blumira/mcp"
+  }
+}
+```
+
 ## Installation
 
 ### Via MCP Gateway (Recommended)

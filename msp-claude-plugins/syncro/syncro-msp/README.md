@@ -39,10 +39,30 @@ For project-specific configuration, use `.claude/settings.local.json` (gitignore
 
 ### Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `SYNCRO_SUBDOMAIN` | Yes | Your Syncro subdomain (from `https://{subdomain}.syncromsp.com`) |
-| `SYNCRO_API_KEY` | Yes | API key from Admin > API Tokens |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `SYNCRO_SUBDOMAIN` | Yes | | Your Syncro subdomain (from `https://{subdomain}.syncromsp.com`) |
+| `SYNCRO_API_KEY` | Yes | | API key from Admin > API Tokens |
+| `SYNCRO_MCP_URL` | No | `https://syncro-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `SYNCRO_MCP_URL` to your gateway's endpoint:
+
+```
+SYNCRO_MCP_URL=https://your-gateway-domain/v1/syncro/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → Syncro → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "SYNCRO_MCP_URL": "https://your-gateway-domain/v1/syncro/mcp"
+  }
+}
+```
 
 ### Obtaining API Credentials
 

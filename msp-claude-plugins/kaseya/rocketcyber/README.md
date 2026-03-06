@@ -39,10 +39,30 @@ For project-specific configuration, use `.claude/settings.local.json` (gitignore
 
 ### Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `ROCKETCYBER_API_KEY` | Yes | API key from Provider Settings > API tab |
-| `ROCKETCYBER_REGION` | No | Region prefix for base URL (default: `us`). Determines base URL: `https://api-{region}.rocketcyber.com/v3` |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `ROCKETCYBER_API_KEY` | Yes | | API key from Provider Settings > API tab |
+| `ROCKETCYBER_REGION` | No | `us` | Region prefix for base URL. Determines base URL: `https://api-{region}.rocketcyber.com/v3` |
+| `ROCKETCYBER_MCP_URL` | No | `https://rocketcyber-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `ROCKETCYBER_MCP_URL` to your gateway's endpoint:
+
+```
+ROCKETCYBER_MCP_URL=https://your-gateway-domain/v1/rocketcyber/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → RocketCyber → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "ROCKETCYBER_MCP_URL": "https://your-gateway-domain/v1/rocketcyber/mcp"
+  }
+}
+```
 
 ### Obtaining API Credentials
 

@@ -40,11 +40,31 @@ For project-specific configuration, use `.claude/settings.local.json` (gitignore
 
 ### Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `SUPEROPS_SUBDOMAIN` | Yes | Your SuperOps company subdomain |
-| `SUPEROPS_API_TOKEN` | Yes | Bearer token from Settings > Integrations > API |
-| `SUPEROPS_API_URL` | No | API URL (defaults to US: `https://api.superops.ai/graphql`) |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `SUPEROPS_SUBDOMAIN` | Yes | | Your SuperOps company subdomain |
+| `SUPEROPS_API_TOKEN` | Yes | | Bearer token from Settings > Integrations > API |
+| `SUPEROPS_API_URL` | No | `https://api.superops.ai/graphql` | API URL (US). Use `https://euapi.superops.ai/graphql` for EU |
+| `SUPEROPS_MCP_URL` | No | `https://superops-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `SUPEROPS_MCP_URL` to your gateway's endpoint:
+
+```
+SUPEROPS_MCP_URL=https://your-gateway-domain/v1/superops/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → SuperOps → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "SUPEROPS_MCP_URL": "https://your-gateway-domain/v1/superops/mcp"
+  }
+}
+```
 
 ### Obtaining API Credentials
 

@@ -30,6 +30,31 @@ export HUNTRESS_API_KEY="your-api-key"
 export HUNTRESS_API_SECRET="your-api-secret"
 ```
 
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `HUNTRESS_API_KEY` | Yes | | API key from Settings > API Credentials |
+| `HUNTRESS_API_SECRET` | Yes | | API secret from Settings > API Credentials |
+| `HUNTRESS_MCP_URL` | No | `https://mcp.wyretechnology.com/v1/huntress/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `HUNTRESS_MCP_URL` to your gateway's endpoint:
+
+```
+HUNTRESS_MCP_URL=https://your-gateway-domain/v1/huntress/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → Huntress → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "HUNTRESS_MCP_URL": "https://your-gateway-domain/v1/huntress/mcp"
+  }
+}
+```
+
 ## Installation
 
 ### Via MCP Gateway (Recommended)

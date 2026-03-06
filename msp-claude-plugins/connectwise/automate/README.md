@@ -45,6 +45,35 @@ export CONNECTWISE_AUTOMATE_PASS="password"
 export CONNECTWISE_AUTOMATE_2FA="optional-2fa-key"
 ```
 
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `CONNECTWISE_AUTOMATE_SERVER` | Yes | | Your Automate server hostname |
+| `CONNECTWISE_AUTOMATE_USERNAME` | Yes (option 1) | | Integrator username |
+| `CONNECTWISE_AUTOMATE_PASSWORD` | Yes (option 1) | | Integrator password |
+| `CONNECTWISE_AUTOMATE_USER` | Yes (option 2) | | User login username |
+| `CONNECTWISE_AUTOMATE_PASS` | Yes (option 2) | | User login password |
+| `CONNECTWISE_AUTOMATE_2FA` | No | | TOTP bypass key for 2FA |
+| `CONNECTWISE_AUTOMATE_MCP_URL` | No | `https://connectwise-automate-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `CONNECTWISE_AUTOMATE_MCP_URL` to your gateway's endpoint:
+
+```
+CONNECTWISE_AUTOMATE_MCP_URL=https://your-gateway-domain/v1/connectwise-automate/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → ConnectWise Automate → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "CONNECTWISE_AUTOMATE_MCP_URL": "https://your-gateway-domain/v1/connectwise-automate/mcp"
+  }
+}
+```
+
 ### API Base URL
 
 ```

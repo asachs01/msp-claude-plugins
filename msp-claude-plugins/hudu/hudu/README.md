@@ -32,6 +32,31 @@ export HUDU_BASE_URL="https://your-company.huducloud.com"
 export HUDU_API_KEY="your-api-key-here"
 ```
 
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `HUDU_BASE_URL` | Yes | | Your Hudu instance URL (e.g., `https://your-company.huducloud.com`) |
+| `HUDU_API_KEY` | Yes | | API key from Admin > API Keys |
+| `HUDU_MCP_URL` | No | `https://hudu-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `HUDU_MCP_URL` to your gateway's endpoint:
+
+```
+HUDU_MCP_URL=https://your-gateway-domain/v1/hudu/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → Hudu → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "HUDU_MCP_URL": "https://your-gateway-domain/v1/hudu/mcp"
+  }
+}
+```
+
 ## Installation
 
 1. Clone this plugin to your Claude plugins directory

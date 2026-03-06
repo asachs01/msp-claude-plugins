@@ -38,9 +38,10 @@ For project-specific configuration, use `.claude/settings.local.json` (gitignore
 
 ### Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `ATERA_API_KEY` | Yes | API key from Admin > API |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `ATERA_API_KEY` | Yes | | API key from Admin > API |
+| `ATERA_MCP_URL` | No | `https://atera-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
 
 ### Obtaining API Credentials
 
@@ -55,6 +56,25 @@ For project-specific configuration, use `.claude/settings.local.json` (gitignore
 3. **API Key Permissions**
    - The API key inherits the permissions of the user who created it
    - Ensure your user has appropriate permissions for the operations you need
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `ATERA_MCP_URL` to your gateway's endpoint:
+
+```
+ATERA_MCP_URL=https://your-gateway-domain/v1/atera/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → Atera → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "ATERA_MCP_URL": "https://your-gateway-domain/v1/atera/mcp"
+  }
+}
+```
 
 ### Testing Your Connection
 

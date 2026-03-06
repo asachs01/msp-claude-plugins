@@ -12,13 +12,33 @@ Claude Code plugin for NinjaOne Remote Monitoring and Management.
 
 Set these environment variables:
 
-| Variable | Description |
-|----------|-------------|
-| `NINJAONE_CLIENT_ID` | OAuth 2.0 Client ID |
-| `NINJAONE_CLIENT_SECRET` | OAuth 2.0 Client Secret |
-| `NINJAONE_REGION` | Region: `us`, `eu`, or `oc` |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `NINJAONE_CLIENT_ID` | Yes | | OAuth 2.0 Client ID |
+| `NINJAONE_CLIENT_SECRET` | Yes | | OAuth 2.0 Client Secret |
+| `NINJAONE_REGION` | Yes | | Region: `us`, `eu`, or `oc` |
+| `NINJAONE_MCP_URL` | No | `https://ninjaone-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
 
 Get credentials from **Administration > Apps > API** in NinjaOne.
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `NINJAONE_MCP_URL` to your gateway's endpoint:
+
+```
+NINJAONE_MCP_URL=https://your-gateway-domain/v1/ninjaone/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → NinjaOne → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "NINJAONE_MCP_URL": "https://your-gateway-domain/v1/ninjaone/mcp"
+  }
+}
+```
 
 ## Skills
 

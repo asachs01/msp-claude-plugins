@@ -42,12 +42,32 @@ For project-specific configuration, use `.claude/settings.local.json` (gitignore
 
 ### Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `HALOPSA_TENANT` | Yes | Your HaloPSA tenant name (from `https://{tenant}.halopsa.com`) |
-| `HALOPSA_CLIENT_ID` | Yes | OAuth 2.0 Client ID |
-| `HALOPSA_CLIENT_SECRET` | Yes | OAuth 2.0 Client Secret |
-| `HALOPSA_AUTH_SERVER` | No | Auth server URL (defaults to `https://{tenant}.halopsa.com/auth`) |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `HALOPSA_TENANT` | Yes | | Your HaloPSA tenant name (from `https://{tenant}.halopsa.com`) |
+| `HALOPSA_CLIENT_ID` | Yes | | OAuth 2.0 Client ID |
+| `HALOPSA_CLIENT_SECRET` | Yes | | OAuth 2.0 Client Secret |
+| `HALOPSA_AUTH_SERVER` | No | `https://{tenant}.halopsa.com/auth` | Auth server URL |
+| `HALOPSA_MCP_URL` | No | `https://halopsa-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `HALOPSA_MCP_URL` to your gateway's endpoint:
+
+```
+HALOPSA_MCP_URL=https://your-gateway-domain/v1/halopsa/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → HaloPSA → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "HALOPSA_MCP_URL": "https://your-gateway-domain/v1/halopsa/mcp"
+  }
+}
+```
 
 ### Obtaining API Credentials
 

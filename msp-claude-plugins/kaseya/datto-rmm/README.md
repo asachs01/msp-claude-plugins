@@ -34,6 +34,32 @@ export DATTO_API_SECRET="your-api-secret"
 export DATTO_PLATFORM="merlot"  # Your platform
 ```
 
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `DATTO_API_KEY` | Yes | | Your Datto RMM API key |
+| `DATTO_API_SECRET` | Yes | | Your Datto RMM API secret |
+| `DATTO_PLATFORM` | Yes | | Your platform (e.g., `merlot`, `pinotage`, `concord`) |
+| `DATTO_RMM_MCP_URL` | No | `https://datto-rmm-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `DATTO_RMM_MCP_URL` to your gateway's endpoint:
+
+```
+DATTO_RMM_MCP_URL=https://your-gateway-domain/v1/datto-rmm/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → Datto RMM → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "DATTO_RMM_MCP_URL": "https://your-gateway-domain/v1/datto-rmm/mcp"
+  }
+}
+```
+
 ### Supported Platforms
 
 Datto RMM operates across 6 regional platforms:

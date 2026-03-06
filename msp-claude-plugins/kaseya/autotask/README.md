@@ -44,12 +44,32 @@ For project-specific configuration, use `.claude/settings.local.json` (gitignore
 
 ### Environment Variables Reference
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `AUTOTASK_USERNAME` | Yes | API user email address |
-| `AUTOTASK_SECRET` | Yes | API secret key |
-| `AUTOTASK_INTEGRATION_CODE` | Yes | Your integration code |
-| `AUTOTASK_API_ZONE` | Yes | Data center zone (e.g., `webservices5`) |
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `AUTOTASK_USERNAME` | Yes | | API user email address |
+| `AUTOTASK_SECRET` | Yes | | API secret key |
+| `AUTOTASK_INTEGRATION_CODE` | Yes | | Your integration code |
+| `AUTOTASK_API_ZONE` | Yes | | Data center zone (e.g., `webservices5`) |
+| `AUTOTASK_MCP_URL` | No | `https://autotask-mcp.wyre.workers.dev/mcp` | MCP server URL — override to use a self-hosted gateway |
+
+## Self-Hosted Gateway
+
+If you run the [mcp-gateway](https://github.com/wyre-technology/mcp-gateway), set `AUTOTASK_MCP_URL` to your gateway's endpoint:
+
+```
+AUTOTASK_MCP_URL=https://your-gateway-domain/v1/autotask/mcp
+```
+
+**Setting env vars in Claude.ai:** Go to your org → Settings → Integrations → Autotask → Configure and add the variable.
+
+**Setting env vars in Claude Code:** Add to `~/.claude/settings.json`:
+```json
+{
+  "env": {
+    "AUTOTASK_MCP_URL": "https://your-gateway-domain/v1/autotask/mcp"
+  }
+}
+```
 
 ### Obtaining API Credentials
 
