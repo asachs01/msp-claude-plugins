@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "wyre-gateway": {
+      "type": "http",
+      "url": "${WYRE_GATEWAY_URL}"
+    }
+  }
+}
