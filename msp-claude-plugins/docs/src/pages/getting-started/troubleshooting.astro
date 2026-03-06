@@ -1,0 +1,142 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+<DocsLayout title="Troubleshooting" description="Common issues and fixes when using the MCP Gateway with Claude Desktop and Claude Code.">
+  <h1>Troubleshooting</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Common issues and fixes for the MCP Gateway. If your issue isn't listed here,
+    check the <a href="https://mcp.wyretechnology.com/health/vendors" target="_blank" rel="noopener noreferrer">vendor health dashboard</a>
+    for upstream outages.
+  </p>
+
+  <h2 id="invalid-oauth-html">"Invalid OAuth error response: Unexpected token '&lt;'"</h2>
+  <p>
+    This error means the OAuth discovery or token endpoint returned HTML instead of JSON — typically
+    a Cloudflare error page (404, 502, or 520) rather than the gateway's response.
+  </p>
+  <h3>Causes</h3>
+  <ul>
+    <li>The gateway is being deployed (brief downtime during container restart)</li>
+    <li>A vendor MCP container is down and Cloudflare is returning its default error page</li>
+    <li>DNS or routing misconfiguration</li>
+  </ul>
+  <h3>Fix</h3>
+  <ol>
+    <li>Wait 1–2 minutes and try again (deployments typically complete within 60 seconds)</li>
+    <li>Check <a href="https://mcp.wyretechnology.com/health" target="_blank" rel="noopener noreferrer"><code>/health</code></a> — if it returns <code>{`{"status":"ok"}`}</code>, the gateway is running</li>
+    <li>Check <a href="https://mcp.wyretechnology.com/health/vendors" target="_blank" rel="noopener noreferrer"><code>/health/vendors</code></a> to see if a specific vendor is down</li>
+    <li>If the issue persists, restart Claude Desktop and try again</li>
+  </ol>
+
+  <hr class="my-8" />
+
+  <h2 id="connection-refused">"Connection refused" on OAuth callback</h2>
+  <p>
+    During OAuth, <code>mcp-remote</code> opens a temporary local HTTP server (e.g., <code>localhost:26873</code>)
+    to receive the OAuth callback. If too many OAuth flows run simultaneously, the listener can time out
+    before the browser redirects back — resulting in "connection refused" on the callback URL.
+  </p>
+  <h3>Causes</h3>
+  <ul>
+    <li><strong>Multiple per-vendor entries</strong> — each vendor triggers its own OAuth flow on startup; with 5+ vendors, the listeners race and time out</li>
+    <li>The browser took too long to complete the OAuth flow (manual login, 2FA, etc.)</li>
+    <li>A firewall or antivirus is blocking localhost connections</li>
+  </ul>
+  <h3>Fix</h3>
+  <ol>
+    <li>
+      <strong>Use the unified endpoint</strong> — replace all per-vendor <code>mcp-remote</code> entries with a single entry pointing
+      to <code>https://mcp.wyretechnology.com/v1/mcp</code>. This means one OAuth flow instead of many.
+      See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway setup guide</a>.
+    </li>
+    <li>If using per-vendor endpoints, add them one at a time — connect one vendor, restart Claude Desktop, then add the next</li>
+    <li>Kill any stale <code>mcp-remote</code> processes: <code>pkill -f mcp-remote</code></li>
+    <li>Restart Claude Desktop</li>
+  </ol>
+
+  <hr class="my-8" />
+
+  <h2 id="failed-to-reconnect">"Failed to reconnect" / stale sessions</h2>
+  <p>
+    After a gateway deployment or container restart, existing MCP sessions become invalid. The
+    <code>mcp-remote</code> bridge may show "failed to reconnect" errors or hang indefinitely.
+  </p>
+  <h3>Fix</h3>
+  <ol>
+    <li>Kill all <code>mcp-remote</code> processes:
+      <pre><code>pkill -f mcp-remote</code></pre>
+    </li>
+    <li>Restart Claude Desktop (or restart Claude Code's MCP connection with <code>/mcp</code>)</li>
+    <li>The client will establish a fresh session with the gateway on the next request</li>
+  </ol>
+  <p class="text-sm text-[var(--muted)] mt-2">
+    This is expected after deployments. The gateway deploys new revisions with zero-downtime traffic switching,
+    but <code>mcp-remote</code>'s persistent connections don't automatically reconnect to the new revision.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="vendor-down">Vendor shows DOWN on /health/vendors</h2>
+  <p>
+    The <a href="https://mcp.wyretechnology.com/health/vendors" target="_blank" rel="noopener noreferrer"><code>/health/vendors</code></a>
+    endpoint monitors all vendor MCP containers. If a vendor shows <code>"status": "down"</code>,
+    the underlying vendor container is unreachable.
+  </p>
+  <h3>Causes</h3>
+  <ul>
+    <li>The vendor's MCP container is restarting after a deployment</li>
+    <li>The vendor's upstream API is experiencing an outage</li>
+    <li>A container crashed and is being restarted by the orchestrator</li>
+  </ul>
+  <h3>Fix</h3>
+  <ol>
+    <li>Wait 2–5 minutes — containers typically auto-recover</li>
+    <li>Check the <code>consecutiveFailures</code> count in the health response — if it's climbing, the issue is ongoing</li>
+    <li>Other vendors on the unified endpoint continue to work normally — only the affected vendor's tools will be unavailable</li>
+  </ol>
+
+  <hr class="my-8" />
+
+  <h2 id="autotask-timeout">Autotask tools time out but other vendors work</h2>
+  <p>
+    If Autotask-specific tool calls hang for 30 seconds and then fail, but <code>initialize</code> and
+    <code>tools/list</code> succeed, this is almost certainly an <strong>IP allowlist issue</strong>
+    in the Autotask API user configuration.
+  </p>
+  <h3>Why</h3>
+  <p>
+    Autotask/Kaseya silently drops requests from IPs not in the API user's allowlist —
+    you get a 30-second timeout, not a 403 or error message.
+    The <code>initialize</code> and <code>tools/list</code> calls succeed because they don't
+    hit the Autotask API (they're handled by the MCP server itself).
+    Only <code>tools/call</code> actually reaches the Autotask REST API, where the IP check happens.
+  </p>
+  <h3>Fix</h3>
+  <ol>
+    <li>Find the gateway's egress IP (ask your administrator or check the health endpoint headers)</li>
+    <li>In Autotask: <strong>Admin → API Users → (your API user) → Security → Allowed IPs</strong></li>
+    <li>Add the gateway's egress IP to the allowlist</li>
+    <li>If running self-hosted, the egress IP is your container environment's outbound IP — not the ingress/static IP</li>
+  </ol>
+  <p class="text-sm text-[var(--muted)] mt-2">
+    <strong>Tip:</strong> If you're using Azure Container Apps, the egress IP is found via
+    <code>az containerapp show --query "properties.outboundIpAddresses"</code> — this is different from
+    the environment's <code>staticIp</code> (which is for inbound traffic only).
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="tools-not-appearing">Connected vendor's tools don't appear</h2>
+  <p>
+    If you've added credentials for a vendor but its tools don't show up in Claude:
+  </p>
+  <ol>
+    <li>Verify your credentials are saved at <a href="https://mcp.wyretechnology.com" target="_blank" rel="noopener noreferrer">mcp.wyretechnology.com</a> — log in and check the credentials page</li>
+    <li>Restart Claude Desktop or re-establish the MCP connection in Claude Code (<code>/mcp</code>)</li>
+    <li>The unified endpoint only lists tools for vendors where you have valid credentials — if credentials are expired or invalid, that vendor is silently skipped</li>
+    <li>If using org/team credentials, ensure you have the correct role and the vendor's tools are in your team's allowlist</li>
+  </ol>
+</DocsLayout>

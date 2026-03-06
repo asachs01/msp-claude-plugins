@@ -3,16 +3,33 @@ import DocsLayout from '@/layouts/DocsLayout.astro';
 import InstallCommand from '@/components/InstallCommand.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
-const claudeCodeExample = `// .mcp.json (in your project root)
+
+const claudeCodeUnified = `// .mcp.json (in your project root)
 {
   "mcpServers": {
-    "autotask": { "url": "https://mcp.wyretechnology.com/v1/autotask/mcp" },
-    "datto-rmm": { "url": "https://mcp.wyretechnology.com/v1/datto-rmm/mcp" },
-    "syncro": { "url": "https://mcp.wyretechnology.com/v1/syncro/mcp" }
+    "mcp-gateway": { "url": "https://mcp.wyretechnology.com/v1/mcp" }
   }
 }`;
 
-const claudeDesktopExample = `// claude_desktop_config.json
+const claudeDesktopUnified = `// claude_desktop_config.json
+{
+  "mcpServers": {
+    "mcp-gateway": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/mcp"]
+    }
+  }
+}`;
+
+const claudeCodePerVendor = `// .mcp.json — per-vendor (legacy)
+{
+  "mcpServers": {
+    "autotask": { "url": "https://mcp.wyretechnology.com/v1/autotask/mcp" },
+    "datto-rmm": { "url": "https://mcp.wyretechnology.com/v1/datto-rmm/mcp" }
+  }
+}`;
+
+const claudeDesktopPerVendor = `// claude_desktop_config.json — per-vendor (legacy)
 {
   "mcpServers": {
     "autotask": {
@@ -22,10 +39,6 @@ const claudeDesktopExample = `// claude_desktop_config.json
     "datto-rmm": {
       "command": "npx",
       "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/datto-rmm/mcp"]
-    },
-    "syncro": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/syncro/mcp"]
     }
   }
 }`;
@@ -36,49 +49,61 @@ const claudeDesktopExample = `// claude_desktop_config.json
 
   <p class="lead text-lg text-[var(--muted)] mb-8">
     Connect Claude to all MSP tools through a single hosted gateway at
-    <code>mcp.wyretechnology.com</code>. No Docker, no config files — just add a URL and authenticate.
+    <code>mcp.wyretechnology.com</code>. No Docker, no config files — just add one URL and authenticate.
   </p>
 
   <h2>How It Works</h2>
   <ol>
-    <li>Add the gateway URL as an MCP server in Claude Code or Claude Desktop (see configuration below)</li>
-    <li>Claude initiates an OAuth 2.1 + PKCE flow — a browser window opens</li>
-    <li>Log in or sign up, then enter your vendor API credentials (API keys, secrets, etc.)</li>
+    <li>Add the unified gateway URL as an MCP server in Claude Code or Claude Desktop (see below)</li>
+    <li>Claude initiates a single OAuth 2.1 + PKCE flow — a browser window opens</li>
+    <li>Log in or sign up, then connect your vendor API credentials via the web UI</li>
     <li>The gateway validates your credentials, then encrypts and stores them (AES-256-GCM)</li>
-    <li>All subsequent requests are proxied through the gateway with automatic credential injection</li>
+    <li>All vendors are available through the single connection — tool names are prefixed with the vendor (e.g., <code>autotask__list_tickets</code>)</li>
   </ol>
 
   <h2 id="supported-vendors">Supported Vendors</h2>
+  <p>
+    All vendors below are available through the unified endpoint at
+    <code>https://mcp.wyretechnology.com/v1/mcp</code>. You only need to connect the vendors
+    you use — the gateway automatically discovers which vendors you have credentials for.
+  </p>
   <table>
-    <thead><tr><th>Vendor</th><th>Gateway URL</th></tr></thead>
+    <thead><tr><th>Vendor</th><th>Tool Prefix</th></tr></thead>
     <tbody>
-      <tr><td>Autotask PSA</td><td><code>https://mcp.wyretechnology.com/v1/autotask/mcp</code></td></tr>
-      <tr><td>Datto RMM</td><td><code>https://mcp.wyretechnology.com/v1/datto-rmm/mcp</code></td></tr>
-      <tr><td>IT Glue</td><td><code>https://mcp.wyretechnology.com/v1/itglue/mcp</code></td></tr>
-      <tr><td>Syncro MSP</td><td><code>https://mcp.wyretechnology.com/v1/syncro/mcp</code></td></tr>
-      <tr><td>Atera</td><td><code>https://mcp.wyretechnology.com/v1/atera/mcp</code></td></tr>
-      <tr><td>SuperOps.ai</td><td><code>https://mcp.wyretechnology.com/v1/superops/mcp</code></td></tr>
-      <tr><td>HaloPSA</td><td><code>https://mcp.wyretechnology.com/v1/halopsa/mcp</code></td></tr>
-      <tr><td>ConnectWise PSA</td><td><code>https://mcp.wyretechnology.com/v1/connectwise-psa/mcp</code></td></tr>
-      <tr><td>ConnectWise Automate</td><td><code>https://mcp.wyretechnology.com/v1/connectwise-automate/mcp</code></td></tr>
-      <tr><td>NinjaOne</td><td><code>https://mcp.wyretechnology.com/v1/ninjaone/mcp</code></td></tr>
-      <tr><td>Liongard</td><td><code>https://mcp.wyretechnology.com/v1/liongard/mcp</code></td></tr>
-      <tr><td>SalesBuildr</td><td><code>https://mcp.wyretechnology.com/v1/salesbuildr/mcp</code></td></tr>
+      <tr><td>Autotask PSA</td><td><code>autotask__</code></td></tr>
+      <tr><td>Datto RMM</td><td><code>datto-rmm__</code></td></tr>
+      <tr><td>IT Glue</td><td><code>itglue__</code></td></tr>
+      <tr><td>Syncro MSP</td><td><code>syncro__</code></td></tr>
+      <tr><td>Atera</td><td><code>atera__</code></td></tr>
+      <tr><td>SuperOps.ai</td><td><code>superops__</code></td></tr>
+      <tr><td>HaloPSA</td><td><code>halopsa__</code></td></tr>
+      <tr><td>ConnectWise PSA</td><td><code>connectwise-psa__</code></td></tr>
+      <tr><td>ConnectWise Automate</td><td><code>connectwise-automate__</code></td></tr>
+      <tr><td>NinjaOne</td><td><code>ninjaone__</code></td></tr>
+      <tr><td>Liongard</td><td><code>liongard__</code></td></tr>
+      <tr><td>SalesBuildr</td><td><code>salesbuildr__</code></td></tr>
+      <tr><td>Pax8</td><td><code>pax8__</code></td></tr>
+      <tr><td>SentinelOne</td><td><code>sentinelone__</code></td></tr>
+      <tr><td>Huntress</td><td><code>huntress__</code></td></tr>
+      <tr><td>Rewst</td><td><code>rewst__</code></td></tr>
+      <tr><td>RocketCyber</td><td><code>rocketcyber__</code></td></tr>
+      <tr><td>Blumira</td><td><code>blumira__</code></td></tr>
+      <tr><td>Microsoft 365</td><td><code>m365__</code></td></tr>
     </tbody>
   </table>
 
   <h2>Claude Code (CLI)</h2>
   <p>Claude Code supports remote MCP servers natively. Add a <code>.mcp.json</code> to your project root:</p>
-  <pre><code class="language-json" set:text={claudeCodeExample} /></pre>
+  <pre><code class="language-json" set:text={claudeCodeUnified} /></pre>
   <p class="text-sm text-[var(--muted)] mt-2">
-    On first use, Claude Code will open a browser for OAuth authentication. After that, the connection is automatic.
+    On first use, Claude Code will open a browser for OAuth authentication. After that, all connected vendors are available automatically.
   </p>
 
   <h2>Claude Desktop</h2>
 
   <p>
     Claude Desktop setup has two parts: <strong>installing the plugin</strong> (skills, commands, and
-    domain knowledge) and <strong>adding MCP servers</strong> (the actual API connections to your tools).
+    domain knowledge) and <strong>adding the MCP server</strong> (the API connection to the gateway).
   </p>
 
   <h3>Step 1: Install the Plugin via Cowork</h3>
@@ -105,22 +130,19 @@ const claudeDesktopExample = `// claude_desktop_config.json
     This installs all plugin skills, commands, and MSP domain knowledge into Claude Desktop.
   </p>
 
-  <h3>Step 2: Add MCP Servers for Your Tools</h3>
+  <h3>Step 2: Add the MCP Gateway Server</h3>
   <p>
-    The plugin provides skills and commands, but to actually connect to your MSP tools you need
-    to add each vendor's MCP server to your <code>claude_desktop_config.json</code>. Each tool
-    requires its own entry — add only the ones you use.
-  </p>
-  <p>
-    Claude Desktop uses stdio-based transports, so remote HTTP servers require the
+    Add a single entry to your <code>claude_desktop_config.json</code> that connects to all vendors at once.
+    Claude Desktop uses stdio-based transports, so the remote gateway requires the
     <a href="https://www.npmjs.com/package/mcp-remote" target="_blank" rel="noopener noreferrer"><code>mcp-remote</code></a>
-    bridge. Add an entry for each tool you want to connect:
+    bridge:
   </p>
-  <pre><code class="language-json" set:text={claudeDesktopExample} /></pre>
+  <pre><code class="language-json" set:text={claudeDesktopUnified} /></pre>
 
   <p class="mt-4">
-    <strong>Add one entry per tool.</strong> Only include the vendors you actually use. See the
-    <a href="#supported-vendors">Supported Vendors</a> table above for the full list of gateway URLs.
+    That's it — one entry for all vendors. On first use, a browser will open for OAuth authentication.
+    After that, add your vendor credentials via the gateway web UI at
+    <a href="https://mcp.wyretechnology.com" target="_blank" rel="noopener noreferrer">mcp.wyretechnology.com</a>.
   </p>
 
   <h4>Config File Location</h4>
@@ -139,16 +161,31 @@ const claudeDesktopExample = `// claude_desktop_config.json
 
   <h3>Alternative: Connectors UI (Pro/Team/Enterprise)</h3>
   <p>
-    Claude Pro, Team, and Enterprise users can skip the config file and add remote MCP servers
+    Claude Pro, Team, and Enterprise users can skip the config file and add the gateway
     directly through the Connectors UI:
   </p>
   <ol>
     <li>Open <strong>Settings → Connectors</strong> in Claude Desktop</li>
     <li>Click <strong>Add Connector</strong></li>
-    <li>Enter the gateway URL for your vendor (e.g., <code>https://mcp.wyretechnology.com/v1/autotask/mcp</code>)</li>
+    <li>Enter the unified gateway URL: <code>https://mcp.wyretechnology.com/v1/mcp</code></li>
     <li>Complete the OAuth authentication flow when prompted</li>
-    <li>Repeat for each additional tool you want to connect</li>
   </ol>
+
+  <h2 id="per-vendor-legacy">Per-Vendor Endpoints (Legacy)</h2>
+  <p>
+    The per-vendor endpoints (<code>/v1/{'{vendor}'}/mcp</code>) are still available but <strong>deprecated</strong>.
+    They require a separate OAuth flow and config entry for each vendor, which can cause connection
+    timeouts when multiple flows run simultaneously. We recommend migrating to the unified endpoint above.
+  </p>
+  <details>
+    <summary class="cursor-pointer font-medium text-[var(--muted)] hover:text-[var(--text)]">Show per-vendor configuration examples</summary>
+    <div class="mt-4">
+      <h4>Claude Code (per-vendor)</h4>
+      <pre><code class="language-json" set:text={claudeCodePerVendor} /></pre>
+      <h4 class="mt-4">Claude Desktop (per-vendor)</h4>
+      <pre><code class="language-json" set:text={claudeDesktopPerVendor} /></pre>
+    </div>
+  </details>
 
   <h2>Security</h2>
   <ul>
