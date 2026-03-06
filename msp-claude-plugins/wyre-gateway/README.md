@@ -41,7 +41,7 @@ Once connected, the vendor's tools are immediately available through the gateway
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `WYRE_GATEWAY_URL` | No | `https://mcp.wyretechnology.com/mcp` | Gateway MCP endpoint URL |
+| `WYRE_GATEWAY_URL` | No | `https://mcp.wyretechnology.com/v1/mcp` | Gateway MCP endpoint URL |
 
 ## Installation
 
@@ -113,7 +113,7 @@ If your Wyre account belongs to a team or organization, vendor connections are s
 
 ### OAuth prompt doesn't appear
 
-1. Ensure `WYRE_GATEWAY_URL` is set correctly (default: `https://mcp.wyretechnology.com/mcp`)
+1. Ensure `WYRE_GATEWAY_URL` is set correctly (default: `https://mcp.wyretechnology.com/v1/mcp`)
 2. Try disconnecting and reconnecting the plugin
 
 ### No tools available after connecting
