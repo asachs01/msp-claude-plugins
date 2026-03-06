@@ -876,7 +876,7 @@ export const mcpServers: McpServer[] = [
     dockerAvailable: true,
     mcpbAvailable: false,
     rateLimit: '60 requests per minute'
-  }
+  },
   {
     id: 'blumira',
     name: 'Blumira MCP',
