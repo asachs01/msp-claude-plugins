@@ -1,7 +1,7 @@
 {
   "name": "sentinelone",
   "version": "0.1.0",
-  "description": "Claude plugins for SentinelOne - Purple AI, alerts, vulnerabilities, misconfigurations, asset inventory, and threat hunting",
+  "description": "Claude plugins for SentinelOne XDR - threat detection, incident response, and endpoint agent management via the Purple AI MCP server",
   "author": {
     "name": "MSP Claude Plugins Community"
   },
