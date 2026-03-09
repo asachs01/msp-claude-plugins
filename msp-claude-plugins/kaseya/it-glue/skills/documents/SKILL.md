@@ -141,7 +141,7 @@ x-api-key: YOUR_API_KEY
 }
 ```
 
-### Update Document
+### Update Document Metadata
 
 ```http
 PATCH /documents/789
@@ -154,17 +154,168 @@ x-api-key: YOUR_API_KEY
   "data": {
     "type": "documents",
     "attributes": {
-      "content": "<h1>Updated Content</h1><p>New procedure steps...</p>"
+      "name": "Updated Document Title"
     }
   }
 }
 ```
+
+> **Important:** `PATCH /documents/:id` with a `content` attribute does **not** work for multi-section documents. Use the Document Sections API below instead.
 
 ### Delete Document
 
 ```http
 DELETE /documents/789
 x-api-key: YOUR_API_KEY
+```
+
+## Document Sections API
+
+Use the sections API to read and edit the content of multi-section documents. This is the correct approach for modifying document body content — `PATCH /documents/:id` with a `content` attribute silently fails on multi-section documents.
+
+### Section Types
+
+| Type | Description |
+|------|-------------|
+| `Document::Heading` | Heading element (renders as `<h2>`, etc.) |
+| `Document::Text` | Rich HTML text block |
+
+### List Sections
+
+```http
+GET /documents/789/relationships/sections
+x-api-key: YOUR_API_KEY
+Content-Type: application/vnd.api+json
+```
+
+Response:
+
+```json
+{
+  "data": [
+    {
+      "id": "1001",
+      "type": "document-sections",
+      "attributes": {
+        "content": "<h2>Overview</h2>",
+        "section-type": "Document::Heading",
+        "position": 1
+      }
+    },
+    {
+      "id": "1002",
+      "type": "document-sections",
+      "attributes": {
+        "content": "<p>This procedure covers...</p>",
+        "section-type": "Document::Text",
+        "position": 2
+      }
+    }
+  ]
+}
+```
+
+### Create Section
+
+```http
+POST /documents/789/relationships/sections
+Content-Type: application/vnd.api+json
+x-api-key: YOUR_API_KEY
+```
+
+```json
+{
+  "data": {
+    "type": "document-sections",
+    "attributes": {
+      "section-type": "Document::Text",
+      "content": "<p>New section content here.</p>"
+    }
+  }
+}
+```
+
+### Update Section
+
+```http
+PATCH /documents/789/relationships/sections/1002
+Content-Type: application/vnd.api+json
+x-api-key: YOUR_API_KEY
+```
+
+```json
+{
+  "data": {
+    "type": "document-sections",
+    "attributes": {
+      "content": "<p>Updated HTML content.</p>"
+    }
+  }
+}
+```
+
+### Delete Section
+
+```http
+DELETE /documents/789/relationships/sections/1002
+x-api-key: YOUR_API_KEY
+```
+
+### Publish Document
+
+After editing sections, publish the document to make changes visible. Use **PATCH** — POST returns 404.
+
+```http
+PATCH /documents/789/publish
+x-api-key: YOUR_API_KEY
+```
+
+No request body is required. A successful response is HTTP 200 with the updated document.
+
+### Full Workflow: Restructure a Document
+
+```javascript
+async function restructureDocument(docId, newSections) {
+  // 1. List existing sections
+  const existing = await fetch(
+    `${baseUrl}/documents/${docId}/relationships/sections`,
+    { headers: { 'x-api-key': apiKey } }
+  ).then(r => r.json());
+
+  // 2. Delete all existing sections
+  for (const section of existing.data) {
+    await fetch(
+      `${baseUrl}/documents/${docId}/relationships/sections/${section.id}`,
+      { method: 'DELETE', headers: { 'x-api-key': apiKey } }
+    );
+  }
+
+  // 3. Create new sections in order
+  for (const section of newSections) {
+    await fetch(
+      `${baseUrl}/documents/${docId}/relationships/sections`,
+      {
+        method: 'POST',
+        headers: { 'x-api-key': apiKey, 'Content-Type': 'application/vnd.api+json' },
+        body: JSON.stringify({
+          data: {
+            type: 'document-sections',
+            attributes: {
+              'section-type': section.type,  // 'Document::Heading' or 'Document::Text'
+              content: section.content
+            }
+          }
+        })
+      }
+    );
+  }
+
+  // 4. Publish to make changes visible (must use PATCH, not POST)
+  await fetch(
+    `${baseUrl}/documents/${docId}/publish`,
+    { method: 'PATCH', headers: { 'x-api-key': apiKey } }
+  );
+}
 ```
 
 ### Search Documents
@@ -505,6 +656,7 @@ async function cloneDocumentToOrg(templateDocId, targetOrgId, newName) {
 | 400 | Organization required | Include organization-id |
 | 401 | Invalid API key | Check IT_GLUE_API_KEY |
 | 404 | Document not found | Verify document ID |
+| 404 | POST /publish returns 404 | Use **PATCH** not POST for publish |
 | 422 | Invalid folder | Query valid folder IDs |
 
 ### Validation Errors
