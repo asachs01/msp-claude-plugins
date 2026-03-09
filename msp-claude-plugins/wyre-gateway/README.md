@@ -45,10 +45,33 @@ Once connected, the vendor's tools are immediately available through the gateway
 
 ## Installation
 
-1. Install this plugin in Claude Code
-2. Claude.ai will prompt for OAuth authentication when first connecting
-3. Connect your vendors at `https://mcp.wyretechnology.com/connect/{vendor}`
-4. All connected vendor tools appear automatically
+### Claude Code (CLI)
+
+```bash
+claude mcp add --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp
+```
+
+Claude Code will open a browser for OAuth authentication on first use. No API keys or headers needed.
+
+To install for all projects instead of just the current one:
+
+```bash
+claude mcp add --transport http --scope user msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp
+```
+
+### Claude.ai (web)
+
+Go to **Settings → Connectors** and add a custom connector pointing to:
+
+```
+https://mcp.wyretechnology.com/v1/mcp
+```
+
+### After installing
+
+1. Complete OAuth authentication when prompted
+2. Connect your vendors at `https://mcp.wyretechnology.com/connect/{vendor}`
+3. All connected vendor tools appear automatically
 
 No API keys or headers are needed — authentication is handled via OAuth Bearer token automatically.
 
