@@ -14,7 +14,7 @@ Then restart Claude Code. That's it.
 
 ## What you get
 
-Nineteen vendor-specific plugins with domain knowledge for PSA, RMM, documentation, security, accounting, CRM, and productivity tools:
+Twenty-three vendor-specific plugins with domain knowledge for PSA, RMM, documentation, security, accounting, CRM, and productivity tools:
 
 | Plugin | Description |
 |--------|-------------|
@@ -37,6 +37,10 @@ Nineteen vendor-specific plugins with domain knowledge for PSA, RMM, documentati
 | **QuickBooks Online** | Accounting - customers, invoices, expenses, payments, reports |
 | **Microsoft 365** | M365 admin - users, mailboxes, Teams, OneDrive, licensing, security |
 | **Rootly** | Incident management - incidents, alerts, on-call, AI analysis, postmortems |
+| **Checkpoint Avanan** | Email security - quarantine, threats, policies, incidents, Smart Banners |
+| **Proofpoint** | Email protection - TAP, quarantine, threat intel, forensics, URL defense |
+| **KnowBe4** | Security awareness - phishing simulation, training campaigns, user risk |
+| **Sherweb** | Cloud marketplace - distributor billing, customers, subscriptions |
 
 Plus shared skills for MSP terminology, ticket triage, cross-vendor incident correlation, and billing reconciliation.
 
@@ -63,6 +67,10 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 | **QuickBooks Online** | 🔨 Beta | [qbo-mcp](https://github.com/wyre-technology/qbo-mcp) |
 | **Microsoft 365** | 🔨 Beta | [ms-365-mcp-server](https://github.com/softeria/ms-365-mcp-server) (Softeria) |
 | **Rootly** | 🔨 Beta | [Rootly Hosted](https://mcp.rootly.com) (official) |
+| **Checkpoint Avanan** | 🚧 Alpha | [avanan-mcp](https://github.com/wyre-technology/avanan-mcp) |
+| **Proofpoint** | 🚧 Alpha | [proofpoint-mcp](https://github.com/wyre-technology/proofpoint-mcp) |
+| **KnowBe4** | 🚧 Alpha | [knowbe4-mcp](https://github.com/wyre-technology/knowbe4-mcp) |
+| **Sherweb** | 🚧 Alpha | [sherweb-mcp](https://github.com/wyre-technology/sherweb-mcp) |
 
 > Maturity levels: ✅ **Production** — used in real MSP environments with comprehensive coverage. 🔨 **Beta** — functional with core features, feedback welcome. 🚧 **Alpha** — early implementation, expect gaps.
 
@@ -72,7 +80,7 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 
 ### Hosted Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 19 vendors available immediately.
+Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 23 vendors available immediately.
 
 [Get Started Free](https://mcp.wyretechnology.com/waitlist)
 
@@ -150,6 +158,10 @@ Each plugin uses environment variables for authentication. See the plugin's READ
 - [QuickBooks Online](msp-claude-plugins/quickbooks/quickbooks-online/README.md) — OAuth 2.0
 - [Microsoft 365](msp-claude-plugins/m365/m365/README.md) — OAuth 2.0 (multi-tenant Entra ID)
 - [Rootly](msp-claude-plugins/rootly/rootly/README.md) — API token (Bearer)
+- [Checkpoint Avanan](msp-claude-plugins/email-security/checkpoint-avanan/README.md) — OAuth 2.0 client credentials
+- [Proofpoint](msp-claude-plugins/email-security/proofpoint/README.md) — HTTP Basic (service principal + secret)
+- [KnowBe4](msp-claude-plugins/email-security/knowbe4/README.md) — Bearer API key (multi-region)
+- [Sherweb](msp-claude-plugins/sherweb/sherweb/README.md) — OAuth 2.0 + subscription key
 
 ---
 

@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Checkpoint Avanan plugin (email-security): 5 skills + 5 commands for quarantine, threats, policies, incidents, API patterns
+- Proofpoint plugin (email-security): 7 skills + 6 commands for TAP, quarantine, threat intel, forensics, people/VAP, URL defense, API patterns
+- KnowBe4 plugin (email-security): 5 skills + 5 commands for phishing simulation, training, users, reporting, API patterns
+- Sherweb plugin (marketplace): 4 skills + 4 commands for billing, customers, subscriptions, API patterns
+- New `email-security` plugin category in marketplace.json
+
 #### Kaseya Autotask Plugin (`kaseya/autotask/`) - v0.2.0
 - **Expenses Skill** - Expense report and expense item management, approval workflow (New/Submitted/Approved/Paid/Rejected/InReview), billable vs reimbursable tracking, picklist discovery for categories and payment types
 - **Quotes Skill** - Quote creation and line item management, product/service/service bundle linking, discount structures (unit, line, percentage), optional items, opportunity integration
