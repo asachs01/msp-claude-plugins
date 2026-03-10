@@ -1,0 +1,212 @@
+---
+description: >
+  Use this skill when working with Proofpoint people-centric security - Very Attacked
+  People (VAP) reports, top clickers, user risk scoring, attack index, and user-level
+  threat analytics. Covers identifying high-risk users, measuring user susceptibility,
+  and implementing targeted security controls for the most attacked people.
+triggers:
+  - proofpoint people
+  - very attacked people
+  - vap report
+  - proofpoint vap
+  - top clickers
+  - user risk
+  - attack index
+  - proofpoint user risk
+  - high risk users
+  - most attacked users
+  - user threat profile
+  - people-centric security
+  - proofpoint risk score
+---
+
+# Proofpoint People-Centric Security
+
+## Overview
+
+Proofpoint People-Centric Security provides user-level threat analytics that identify which individuals in your organization are most targeted by attacks and most susceptible to clicking on threats. This data enables MSPs to implement targeted security controls, prioritize security awareness training, and apply adaptive authentication policies for the highest-risk users.
+
+The core concept is that people - not infrastructure - are the primary target of modern email attacks. By understanding who is targeted and who clicks, you can focus security resources where they have the most impact.
+
+## Key Concepts
+
+### Very Attacked People (VAP)
+
+VAPs are users who receive a disproportionately high volume of sophisticated attacks. VAP status is determined by:
+- **Attack volume** - Total number of threats targeting the user
+- **Attack sophistication** - Complexity and novelty of attacks
+- **Attack diversity** - Variety of threat actors and campaigns targeting the user
+
+VAPs are typically executives, finance personnel, IT administrators, and people with external-facing email addresses.
+
+### Attack Index
+
+The Attack Index is a composite score (0-1000+) that quantifies the severity of threats targeting a user. It factors in:
+
+| Component | Weight | Description |
+|-----------|--------|-------------|
+| Volume | Medium | Number of threats received |
+| Sophistication | High | How advanced the attacks are |
+| Actor reputation | High | Whether known threat actors are involved |
+| Threat type mix | Medium | Diversity of attack types (phish, malware, BEC) |
+
+Higher Attack Index = more severe threats targeting the user.
+
+### Click Susceptibility
+
+| Metric | Description | Range |
+|--------|-------------|-------|
+| `clickRate` | Percentage of threats the user clicked on | 0-100% |
+| `clickCount` | Total number of malicious clicks | Integer |
+| `uniqueThreatsClicked` | Distinct threats clicked | Integer |
+| `lastClickTime` | Most recent click on a threat | Datetime |
+
+### User Risk Categories
+
+| Category | Attack Index | Click Rate | Action |
+|----------|-------------|------------|--------|
+| **Very High Risk** | > 500 | > 10% | Isolate browsing, MFA everywhere, priority training |
+| **High Risk** | 200-500 | 5-10% | Enhanced email filtering, additional MFA |
+| **Medium Risk** | 50-200 | 2-5% | Standard controls, regular training |
+| **Low Risk** | < 50 | < 2% | Baseline controls |
+
+## Field Reference
+
+### VAP Report Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `identity` | object | User identity details |
+| `identity.emails` | string[] | User email addresses |
+| `identity.name` | string | User display name |
+| `identity.department` | string | User department |
+| `identity.title` | string | User job title |
+| `identity.vip` | boolean | Whether the user is flagged as VIP |
+| `attackIndex` | int | Composite attack severity score |
+| `threatStatistics` | object | Breakdown of threats by type |
+| `threatStatistics.totalThreats` | int | Total threats received |
+| `threatStatistics.malwareCount` | int | Malware threats received |
+| `threatStatistics.phishCount` | int | Phishing threats received |
+| `threatStatistics.impostorCount` | int | BEC/impostor threats received |
+| `families` | string[] | Threat families targeting this user |
+| `topCampaigns` | object[] | Most significant campaigns targeting this user |
+
+### Top Clickers Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `identity` | object | User identity details |
+| `clickStatistics` | object | Click activity breakdown |
+| `clickStatistics.clickCount` | int | Total malicious clicks |
+| `clickStatistics.permitCount` | int | Clicks that were permitted |
+| `clickStatistics.blockCount` | int | Clicks that were blocked |
+| `clickStatistics.clickRate` | float | Click-through rate on threats |
+| `clickStatistics.uniqueThreats` | int | Distinct threats clicked |
+| `clickStatistics.lastClick` | datetime | Most recent click time |
+| `clickStatistics.classifications` | object | Breakdown by malware, phish |
+
+### User Risk Profile Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `email` | string | User email address |
+| `riskScore` | int | Overall risk score (0-1000) |
+| `attackIndex` | int | Attack severity targeting this user |
+| `clickRate` | float | Historical click-through rate |
+| `riskCategory` | string | `very_high`, `high`, `medium`, `low` |
+| `vulnerabilityFactors` | string[] | Contributing risk factors |
+| `recommendedActions` | string[] | Suggested remediation steps |
+| `trainingStatus` | object | Security awareness training completion |
+
+## MCP Tools
+
+| Tool | Description | Key Parameters |
+|------|-------------|----------------|
+| `proofpoint_people_get_vap` | Get Very Attacked People report | `window` (14, 30, 90 days), `size` (top N) |
+| `proofpoint_people_get_top_clickers` | Get users who click most on threats | `window` (14, 30, 90 days), `size` (top N) |
+| `proofpoint_people_get_user_risk` | Get risk profile for a specific user | `email` |
+| `proofpoint_people_get_attack_index` | Get attack index rankings | `window`, `department`, `size` |
+| `proofpoint_people_list_vip` | List users flagged as VIP | - |
+| `proofpoint_people_set_vip` | Flag a user as VIP for enhanced protection | `email`, `vip` (true/false) |
+
+## Common Workflows
+
+### Generate VAP Report
+
+1. Call `proofpoint_people_get_vap` with `window=30` and `size=20`
+2. Review the top 20 most attacked users
+3. Cross-reference with organizational role - are they executives, finance, IT?
+4. For each VAP, check their click rate using `proofpoint_people_get_user_risk`
+5. Prioritize users who are both heavily targeted and have high click rates
+6. Recommend additional controls for the highest-risk users
+
+### Identify Training Candidates
+
+1. Call `proofpoint_people_get_top_clickers` with `window=90` and `size=50`
+2. Identify users with the highest click rates
+3. Check if they have completed recent security awareness training
+4. Enroll high-clickers in targeted phishing simulation campaigns
+5. Follow up after training to measure improvement
+
+### Executive Risk Assessment
+
+1. Call `proofpoint_people_list_vip` to get all flagged VIP users
+2. For each VIP, call `proofpoint_people_get_user_risk`
+3. Assess Attack Index and click susceptibility
+4. Recommend enhanced controls: browser isolation, advanced MFA, dedicated monitoring
+5. Present risk summary to leadership
+
+### Department Risk Comparison
+
+1. Call `proofpoint_people_get_attack_index` with `department=Finance`
+2. Repeat for other departments: IT, Executive, HR, Sales
+3. Compare average attack index across departments
+4. Identify which departments are most targeted
+5. Allocate security resources proportionally
+
+### New User Baseline
+
+1. After a new user is onboarded, wait 30 days
+2. Call `proofpoint_people_get_user_risk` with the user's email
+3. Establish baseline risk score and attack index
+4. If the user is immediately targeted (high attack index), investigate why
+5. Ensure appropriate training has been completed
+
+## Error Handling
+
+### Common API Errors
+
+| Code | Message | Resolution |
+|------|---------|------------|
+| 400 | Invalid window | Use 14, 30, or 90 for the window parameter |
+| 400 | Invalid size | Size must be between 1 and 1000 |
+| 401 | Authentication failed | Verify service principal and secret |
+| 403 | People API not enabled | Ensure your license includes People-Centric Security |
+| 404 | User not found | The email address may not exist in Proofpoint |
+| 429 | Rate limit exceeded | Implement backoff |
+
+### No VAP Data
+
+- New organizations may not have enough data for VAP reports (requires 14+ days)
+- Very small organizations may not have enough volume for meaningful rankings
+- Check that email flow is routing through Proofpoint correctly
+
+## Best Practices
+
+1. **Review VAP reports monthly** - Attack patterns shift; update your high-risk user list regularly
+2. **Combine attack index with click rate** - A user who is heavily attacked AND clicks frequently is highest priority
+3. **Flag executives as VIP** - Ensure C-suite and board members have the VIP flag for enhanced protection
+4. **Use department data for budgeting** - Show leadership which departments need the most security investment
+5. **Track click rates over time** - Measure the effectiveness of security awareness training
+6. **Implement adaptive controls** - Apply stricter policies (browser isolation, MFA step-up) for high-risk users
+7. **Don't blame users** - Use click data to improve training, not to punish users
+8. **Correlate with HR data** - Cross-reference VAP data with job function to understand targeting patterns
+9. **Automate VIP management** - Sync VIP flags with your HR system for executives and key personnel
+10. **Report to leadership quarterly** - Present people risk metrics alongside infrastructure security metrics
+
+## Related Skills
+
+- [Proofpoint TAP](../tap/SKILL.md) - Threat events and click tracking
+- [Proofpoint Threat Intelligence](../threat-intel/SKILL.md) - Campaigns targeting your users
+- [Proofpoint URL Defense](../url-defense/SKILL.md) - URL rewriting protects clickers
+- [Proofpoint API Patterns](../api-patterns/SKILL.md) - Authentication and rate limits

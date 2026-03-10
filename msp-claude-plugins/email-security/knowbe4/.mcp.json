@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "knowbe4": {
+      "type": "http",
+      "url": "${KNOWBE4_MCP_URL}",
+      "headers": {
+        "X-KnowBe4-API-Key": "${KNOWBE4_API_KEY}"
+      }
+    }
+  }
+}
