@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "sherweb": {
+      "type": "http",
+      "url": "${SHERWEB_MCP_URL}",
+      "headers": {
+        "X-Sherweb-Client-Id": "${SHERWEB_CLIENT_ID}",
+        "X-Sherweb-Client-Secret": "${SHERWEB_CLIENT_SECRET}",
+        "X-Sherweb-Subscription-Key": "${SHERWEB_SUBSCRIPTION_KEY}"
+      }
+    }
+  }
+}
