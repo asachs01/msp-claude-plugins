@@ -10,8 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 #### Kaseya Autotask Plugin (`kaseya/autotask/`) - v0.2.0
-- **Expenses Skill** - Expense report and expense item management covering creation, search, billability rules, receipt tracking, payment types, and expense categories
-- Maps to MCP tools: `autotask_get_expense_report`, `autotask_search_expense_reports`, `autotask_create_expense_report`, `autotask_create_expense_item`
+- **Expenses Skill** - Expense report and expense item management, approval workflow (New/Submitted/Approved/Paid/Rejected/InReview), billable vs reimbursable tracking, picklist discovery for categories and payment types
+- **Quotes Skill** - Quote creation and line item management, product/service/service bundle linking, discount structures (unit, line, percentage), optional items, opportunity integration
+- **Tool Discovery Skill** - Progressive discovery pattern for lazy-loaded MCP connections, meta-tool usage (list_categories, list_category_tools, execute_tool), intelligent router for natural language tool lookup
+- **expenses command** - Create expense reports, add expense items, search by status/submitter, get report details
+- **create-quote command** - Build quotes with catalog items, company/contact resolution, pricing and discount application
 
 ### Changed
 

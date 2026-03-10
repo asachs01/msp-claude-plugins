@@ -1,252 +1,288 @@
 ---
 description: >
   Use this skill when working with Autotask expense reports and expense items -
-  creating expense reports, adding line items, searching and retrieving expenses,
-  tracking reimbursements, and managing expense categories. Covers expense report
-  lifecycle, expense item fields, billability, receipt tracking, and payment types.
-  Essential for MSP teams managing travel, subscriptions, and operational costs.
+  creating expense reports, adding line items, searching reports by status or
+  submitter, tracking reimbursable vs billable expenses, and managing expense
+  approval workflows. Covers expense categories, payment types, receipt tracking,
+  and company billing for MSP operational expenses.
 triggers:
   - autotask expense
   - expense report
   - expense item
-  - create expense
-  - add expense
   - reimbursement
-  - receipt tracking
-  - expense category
+  - mileage
   - travel expense
-  - subscription expense
+  - receipt
   - expense approval
-  - expense submission
+  - billable expense
+  - expense category
+  - create expense
+  - submit expense
 ---
 
-# Autotask Expense Management
+# Autotask Expense Report Management
 
 ## Overview
 
-Expense reports and expense items track non-labor costs in Autotask. Expense reports are containers that group individual expense line items for submission and approval. Each item represents a specific cost (subscriptions, travel, supplies, etc.) with category, amount, receipt status, and billability. This skill covers the full expense lifecycle from creation through approval.
+Expense reports track out-of-pocket costs incurred by technicians and staff during service delivery. Unlike time entries (which track labor hours), expense reports capture material costs like mileage, meals, equipment purchases, and travel expenses. Each report contains one or more expense items, and follows an approval workflow before reimbursement or client billing.
 
-## Entity Relationship
+## Key Concepts
+
+### Expense Report vs Expense Item
+
+| Entity | Purpose | Relationship |
+|--------|---------|-------------|
+| **Expense Report** | Container/header for a group of expenses | Parent - groups items by period or purpose |
+| **Expense Item** | Individual expense line item | Child - belongs to exactly one report |
+
+### Approval Status Codes
+
+| Status ID | Name | Description |
+|-----------|------|-------------|
+| **1** | New | Report created, not yet submitted |
+| **2** | Submitted | Sent for manager approval |
+| **3** | Approved | Manager approved, ready for processing |
+| **4** | Paid | Reimbursement processed |
+| **5** | Rejected | Manager rejected, needs correction |
+| **6** | InReview | Under review by approver |
+
+### Approval Workflow
 
 ```
-Expense Report (container)
-├── Expense Item 1 (line item)
-├── Expense Item 2 (line item)
-└── Expense Item N (line item)
+NEW (1) ──────────> SUBMITTED (2) ──────────> IN REVIEW (6)
+                                                   │
+                                       ┌───────────┴───────────┐
+                                       ▼                       ▼
+                                 APPROVED (3)            REJECTED (5)
+                                       │                       │
+                                       ▼                       ▼
+                                   PAID (4)              Back to NEW
 ```
 
-- An **Expense Report** groups items for a submission period (typically a week)
-- **Expense Items** are individual costs attached to a report
-- Items reference a company (or 0 for internal expenses)
+## Field Reference
 
-## Available MCP Tools
-
-| Tool | Description |
-|------|-------------|
-| `autotask_get_expense_report` | Get a specific expense report by ID |
-| `autotask_search_expense_reports` | Search expense reports with filters |
-| `autotask_create_expense_report` | Create a new expense report |
-| `autotask_create_expense_item` | Add a line item to an existing report |
-
-## Expense Report Fields
+### Expense Report Fields
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | int | System | Auto-generated unique identifier |
-| `name` | string | Yes | Report name (e.g., "Week ending 2026-01-05") |
+| `name` | string | No | Report name (e.g., "Feb 2026 Travel") |
 | `description` | string | No | Report description |
-| `submitterID` | int | Yes | Resource ID of the person submitting |
-| `weekEndingDate` | string | No | Week ending date (YYYY-MM-DD) |
-| `submitDate` | date | System | Date report was submitted |
-| `approvedDate` | date | System | Date report was approved |
-| `status` | int | System | Current approval status |
-| `totalAmount` | decimal | System | Calculated sum of all items |
+| `submitterId` | int | Yes | Resource ID of the person submitting |
+| `weekEndingDate` | date | No | Week ending date (YYYY-MM-DD) |
+| `status` | int | System | Current approval status (1-6) |
 
-## Expense Item Fields
-
-### Core Fields
+### Expense Item Fields
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `id` | int | System | Auto-generated unique identifier |
-| `expenseReportID` | int | Yes | Parent expense report ID |
+| `expenseReportId` | int | Yes | Parent expense report ID |
 | `description` | string | Yes | Line item description |
-| `expenseDate` | string | Yes | Date of expense (YYYY-MM-DD) |
+| `expenseDate` | date | Yes | Date expense was incurred (YYYY-MM-DD) |
 | `expenseCategory` | int | Yes | Expense category picklist ID |
-| `expenseCurrencyExpenseAmount` | decimal | Yes | Amount in expense currency |
+| `amount` | decimal | Yes | Expense amount |
+| `companyId` | int | No | Associated company ID (0 for internal) |
+| `paymentType` | int | No | Payment type picklist ID |
+| `isBillableToCompany` | boolean | No | Whether billable to client |
+| `isReimbursable` | boolean | No | Whether reimbursable to employee |
+| `haveReceipt` | boolean | No | Whether receipt is attached |
 
-### Optional Fields
+### Expense Categories (Common)
 
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `companyID` | int | 0 | Associated company (0 = internal) |
-| `haveReceipt` | boolean | false | Whether a receipt is attached |
-| `isBillableToCompany` | boolean | false | Whether billable to the company |
-| `isReimbursable` | boolean | true | Whether reimbursable to submitter |
-| `paymentType` | int | 10 | Payment type picklist ID |
-
-## Common Expense Categories
-
-Expense categories are picklist values that vary by Autotask instance. Use `autotask_get_field_info` with entity type `ExpenseItem` and field name `expenseCategory` to retrieve available categories. Common examples:
+Use `autotask_get_field_info` with entity `ExpenseItem` to get the full picklist for your instance. Common categories include:
 
 | Category | Typical Use |
-|----------|------------|
-| Software/Subscriptions | SaaS tools, licenses |
-| Travel - Mileage | Driving to client sites |
-| Travel - Airfare | Flights |
-| Travel - Lodging | Hotels |
-| Meals & Entertainment | Client dinners, team meals |
-| Office Supplies | Hardware, peripherals |
-| Training & Certification | Courses, exam fees |
-| Telecommunications | Phone, internet |
+|----------|-------------|
+| Mileage | Driving to client sites |
+| Meals | Client meetings, travel meals |
+| Lodging | Overnight travel |
+| Airfare | Flight costs |
+| Parking/Tolls | On-site parking fees |
+| Equipment | Small equipment purchases |
+| Supplies | Office or project supplies |
+| Other | Miscellaneous expenses |
 
-## Payment Types
+### Payment Types (Common)
 
-Payment types are picklist values. Common IDs:
+| Type | Description |
+|------|-------------|
+| Cash | Out-of-pocket cash payment |
+| Personal Credit Card | Employee's own card |
+| Company Credit Card | Corporate card (usually not reimbursable) |
+| Check | Payment by check |
 
-| ID | Type | Description |
-|----|------|-------------|
-| 10 | Credit Card | Company or personal credit card |
-| 11 | Cash | Cash payment |
-| 12 | Check | Check payment |
-| 13 | Other | Other payment method |
+## MCP Tool Reference
 
-> **Note:** Payment type IDs vary by Autotask instance. Use `autotask_get_field_info` with entity `ExpenseItem` and field `paymentType` to get your instance's values.
+### Create an Expense Report
 
-## API Patterns
-
-### Creating an Expense Report
-
-```json
-{
-  "name": "Week ending 2026-01-05",
-  "description": "January week 1 expenses",
+```
+Tool: autotask_create_expense_report
+Args: {
   "submitterId": 29744150,
-  "weekEndingDate": "2026-01-05"
+  "name": "Feb 2026 Client Travel",
+  "description": "Travel expenses for on-site visits",
+  "weekEndingDate": "2026-02-28"
 }
 ```
 
-### Adding an Expense Item
+**Notes:**
+- `submitterId` is the only required field
+- `name` defaults to auto-generated if omitted
+- `weekEndingDate` helps organize reports by period
 
-```json
-{
-  "expenseReportId": 21,
-  "description": "Azure subscription - Production environment",
-  "expenseDate": "2026-01-02",
-  "expenseCategory": 29683500,
-  "amount": 999.99,
-  "companyId": 174,
-  "haveReceipt": true,
+### Add an Expense Item
+
+```
+Tool: autotask_create_expense_item
+Args: {
+  "expenseReportId": 12345,
+  "description": "Mileage to Contoso Ltd - server migration",
+  "expenseDate": "2026-02-15",
+  "expenseCategory": 1,
+  "amount": 45.50,
+  "companyId": 67890,
   "isBillableToCompany": true,
-  "isReimbursable": false,
-  "paymentType": 10
+  "isReimbursable": true,
+  "haveReceipt": false
 }
 ```
 
-### Searching Expense Reports
+**Required fields:** `expenseReportId`, `description`, `expenseDate`, `expenseCategory`, `amount`
 
-```json
-{
+### Search Expense Reports
+
+```
+Tool: autotask_search_expense_reports
+Args: {
   "submitterId": 29744150,
-  "status": 0,
+  "status": 1,
   "pageSize": 25
 }
 ```
 
-### Full Workflow Example
+**Filters:**
+- `submitterId` - Filter by who submitted
+- `status` - Filter by approval status (1=New, 2=Submitted, 3=Approved, 4=Paid, 5=Rejected, 6=InReview)
+- `pageSize` - Results per page (default 25, max 100)
+
+### Get an Expense Report
 
 ```
-1. Create expense report
-   └─ autotask_create_expense_report
-      { name: "Week ending 2026-01-05", submitterId: 29744150 }
-      → Returns reportId: 21
-
-2. Add line items
-   └─ autotask_create_expense_item
-      { expenseReportId: 21, description: "Azure sub", ... }
-   └─ autotask_create_expense_item
-      { expenseReportId: 21, description: "Client lunch", ... }
-
-3. Verify report
-   └─ autotask_get_expense_report
-      { reportId: 21 }
+Tool: autotask_get_expense_report
+Args: { "reportId": 12345 }
 ```
 
-## Billability Rules
+## Common Workflows
 
-| Scenario | Billable? | Reimbursable? | Example |
-|----------|-----------|---------------|---------|
-| Client-specific cost | Yes | No | Software license for client project |
-| Internal tool | No | No | Company SaaS subscription |
-| Employee travel for client | Yes | Yes | Mileage to client site |
-| Employee travel internal | No | Yes | Mileage to training |
-| Company credit card | Varies | No | Already paid by company |
-| Personal card for client | Yes | Yes | Out-of-pocket for client |
+### Submit Expenses for a Client Visit
 
-### Decision Logic
-
+1. **Create the report:**
 ```
-Is this expense for a specific client?
-├── Yes → isBillableToCompany: true, set companyID
-│         Was it paid out of pocket?
-│         ├── Yes → isReimbursable: true
-│         └── No  → isReimbursable: false
-└── No  → isBillableToCompany: false, companyID: 0
-          Was it paid out of pocket?
-          ├── Yes → isReimbursable: true
-          └── No  → isReimbursable: false
+autotask_create_expense_report: {
+  "submitterId": <your_resource_id>,
+  "name": "Client Visit - Contoso Ltd",
+  "weekEndingDate": "2026-02-28"
+}
 ```
 
-## Business Rules
+2. **Add mileage:**
+```
+autotask_create_expense_item: {
+  "expenseReportId": <report_id>,
+  "description": "Round trip to Contoso - 45 miles @ $0.67/mi",
+  "expenseDate": "2026-02-15",
+  "expenseCategory": <mileage_category_id>,
+  "amount": 30.15,
+  "companyId": <contoso_company_id>,
+  "isBillableToCompany": true,
+  "isReimbursable": true
+}
+```
 
-### Receipt Requirements
+3. **Add parking:**
+```
+autotask_create_expense_item: {
+  "expenseReportId": <report_id>,
+  "description": "Parking at Contoso office",
+  "expenseDate": "2026-02-15",
+  "expenseCategory": <parking_category_id>,
+  "amount": 12.00,
+  "companyId": <contoso_company_id>,
+  "isBillableToCompany": true,
+  "isReimbursable": true,
+  "haveReceipt": true
+}
+```
 
-| Amount Threshold | Receipt Required | Policy |
-|-----------------|------------------|--------|
-| < $25 | Optional | Low-value transactions |
-| $25 - $75 | Recommended | Standard business practice |
-| > $75 | Required | Audit compliance |
-| Any billable | Required | Client invoicing support |
+### Review Pending Expense Reports
 
-### Date Validation
+```
+autotask_search_expense_reports: { "status": 2 }
+```
 
-- `expenseDate` must be in YYYY-MM-DD format
-- Date should fall within the expense report's period
-- Future dates may be rejected depending on Autotask configuration
-- Backdating beyond 90 days may require manager override
+Returns all submitted reports awaiting approval.
 
-### Amount Validation
+### Track Employee Expenses
 
-- Amount must be positive
-- Use the expense currency amount field (`expenseCurrencyExpenseAmount` in the API)
-- Currency conversion is handled by Autotask if multi-currency is enabled
+```
+autotask_search_expense_reports: {
+  "submitterId": 29744150,
+  "status": 1
+}
+```
+
+Returns draft reports for a specific employee.
+
+## Billable vs Reimbursable
+
+| Scenario | Billable | Reimbursable | Example |
+|----------|----------|-------------|---------|
+| Client site mileage | Yes | Yes | Driving to customer office |
+| Company card purchase | Yes | No | Equipment on company card |
+| Internal travel | No | Yes | Conference attendance |
+| Company event | No | No | Team lunch on company card |
+
+**Key distinction:**
+- **Billable** (`isBillableToCompany`) = Charge to the client's account
+- **Reimbursable** (`isReimbursable`) = Pay back the employee
+
+## Discovering Picklist Values
+
+To find valid expense category and payment type IDs for your instance:
+
+```
+Tool: autotask_get_field_info
+Args: { "entity": "ExpenseItem", "field": "expenseCategory" }
+```
+
+```
+Tool: autotask_get_field_info
+Args: { "entity": "ExpenseItem", "field": "paymentType" }
+```
 
 ## Error Handling
 
-### Common Errors
-
 | Error | Cause | Resolution |
 |-------|-------|------------|
-| Invalid expenseReportID | Report doesn't exist | Verify report ID with search |
-| Missing required fields | Incomplete item data | Include all required fields |
-| Invalid expenseCategory | Category ID not found | Use `autotask_get_field_info` to get valid IDs |
-| Report already submitted | Can't add to submitted report | Create new report or reopen |
-| Invalid date format | Wrong date string | Use YYYY-MM-DD format |
+| Invalid expenseCategory | Wrong picklist ID | Use `autotask_get_field_info` to get valid IDs |
+| Invalid paymentType | Wrong picklist ID | Use `autotask_get_field_info` to get valid IDs |
+| ExpenseReportId required | Missing parent report | Create a report first, then add items |
+| Invalid submitterId | Resource not found | Verify with `autotask_search_resources` |
+| Cannot modify approved report | Report already approved | Only NEW/REJECTED reports can be edited |
 
 ## Best Practices
 
-1. **Name reports consistently** - Use "Week ending YYYY-MM-DD" for weekly reports
-2. **Attach receipts** - Set `haveReceipt: true` when receipt is available
-3. **Categorize accurately** - Use correct expense categories for reporting
-4. **Set billability upfront** - Determine client billability at creation time
-5. **Group by period** - One report per week or per trip
-6. **Include descriptions** - Descriptive line items speed up approval
-7. **Link to companies** - Associate client expenses with the correct `companyID`
-8. **Verify before submission** - Review all items before submitting the report
+1. **Name reports descriptively** - Include period and purpose (e.g., "Mar 2026 - Contoso Migration")
+2. **One report per period** - Group by week or month for easier approval
+3. **Always set companyId** - Even for internal expenses, set to 0 so billing is clear
+4. **Mark receipts accurately** - `haveReceipt` helps auditing; attach receipts in Autotask UI
+5. **Use billable flags** - Set `isBillableToCompany` for client-recoverable costs
+6. **Discover picklists first** - Use `autotask_get_field_info` before creating items to get valid category/payment IDs
+7. **Submit promptly** - Don't let expense reports age; submit weekly
 
 ## Related Skills
 
 - [Autotask Time Entries](../time-entries/SKILL.md) - Time tracking and billing
-- [Autotask Contracts](../contracts/SKILL.md) - Service agreements and billing terms
-- [Autotask Projects](../projects/SKILL.md) - Project cost tracking
+- [Autotask Contracts](../contracts/SKILL.md) - Service agreements and billing rules
 - [Autotask API Patterns](../api-patterns/SKILL.md) - Query builder and authentication
+- [Autotask CRM](../crm/SKILL.md) - Company and contact management
