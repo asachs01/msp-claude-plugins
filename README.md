@@ -86,9 +86,24 @@ Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools 
 
 ### Self-Hosted
 
-Run MCP servers yourself for full control. Each server is available as an npm package, Docker image, or MCPB bundle for Claude Desktop.
+Run MCP servers yourself for full control. Each server is available as a Docker image or npm package.
 
-See the [Getting Started guide](https://mcp.wyretechnology.com/getting-started/) for installation instructions.
+**By default, plugins connect to the hosted gateway** (`mcp.wyretechnology.com`). If you self-host, override the URL in each plugin's `.mcp.json` to point to your local gateway or individual MCP server:
+
+```jsonc
+// Default (hosted gateway):
+{ "url": "https://mcp.wyretechnology.com/v1/autotask/mcp" }
+
+// Self-hosted gateway:
+{ "url": "http://localhost:8080/v1/autotask/mcp" }
+
+// Direct to individual MCP server (no gateway):
+{ "url": "http://localhost:3001/mcp" }
+```
+
+The `.mcp.json` file lives inside each plugin directory (e.g., `msp-claude-plugins/kaseya/autotask/.mcp.json`). After installing a plugin, edit this file to change the URL. Auth headers (API keys, tokens) are always set via environment variables regardless of deployment mode.
+
+See the [Getting Started guide](https://mcp.wyretechnology.com/getting-started/) for full self-hosting instructions including Docker Compose setup.
 
 ---
 

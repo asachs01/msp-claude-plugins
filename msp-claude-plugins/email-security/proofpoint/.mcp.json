@@ -2,7 +2,7 @@
   "mcpServers": {
     "proofpoint": {
       "type": "http",
-      "url": "${PROOFPOINT_MCP_URL}",
+      "url": "https://mcp.wyretechnology.com/v1/proofpoint/mcp",
       "headers": {
         "X-Proofpoint-Principal": "${PROOFPOINT_SERVICE_PRINCIPAL}",
         "X-Proofpoint-Secret": "${PROOFPOINT_SERVICE_SECRET}"

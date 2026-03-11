@@ -2,7 +2,7 @@
   "mcpServers": {
     "syncro": {
       "type": "http",
-      "url": "${SYNCRO_MCP_URL}",
+      "url": "https://mcp.wyretechnology.com/v1/syncro/mcp",
       "headers": {
         "X-Syncro-API-Key": "${SYNCRO_API_KEY}",
         "X-Syncro-Subdomain": "${SYNCRO_SUBDOMAIN}"

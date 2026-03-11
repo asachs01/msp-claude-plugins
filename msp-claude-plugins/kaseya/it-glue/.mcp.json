@@ -2,7 +2,7 @@
   "mcpServers": {
     "itglue": {
       "type": "http",
-      "url": "${ITGLUE_MCP_URL}",
+      "url": "https://mcp.wyretechnology.com/v1/itglue/mcp",
       "headers": {
         "X-ITGlue-API-Key": "${ITGLUE_API_KEY}",
         "X-ITGlue-Region": "${ITGLUE_REGION}"

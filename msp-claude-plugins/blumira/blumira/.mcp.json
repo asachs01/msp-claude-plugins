@@ -2,7 +2,7 @@
   "mcpServers": {
     "blumira": {
       "type": "http",
-      "url": "${BLUMIRA_MCP_URL}",
+      "url": "https://mcp.wyretechnology.com/v1/blumira/mcp",
       "headers": {
         "X-Blumira-JWT-Token": "${BLUMIRA_JWT_TOKEN}"
       }

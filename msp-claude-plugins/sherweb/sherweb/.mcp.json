@@ -2,7 +2,7 @@
   "mcpServers": {
     "sherweb": {
       "type": "http",
-      "url": "${SHERWEB_MCP_URL}",
+      "url": "https://mcp.wyretechnology.com/v1/sherweb/mcp",
       "headers": {
         "X-Sherweb-Client-Id": "${SHERWEB_CLIENT_ID}",
         "X-Sherweb-Client-Secret": "${SHERWEB_CLIENT_SECRET}",
