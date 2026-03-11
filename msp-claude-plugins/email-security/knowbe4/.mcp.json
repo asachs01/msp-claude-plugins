@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "knowbe4": {
+      "type": "http",
+      "url": "https://mcp.wyretechnology.com/v1/knowbe4/mcp",
+      "headers": {
+        "X-KnowBe4-API-Key": "${KNOWBE4_API_KEY}"
+      }
+    }
+  }
+}

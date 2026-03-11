@@ -2,7 +2,7 @@
   "mcpServers": {
     "huntress": {
       "type": "http",
-      "url": "${HUNTRESS_MCP_URL}",
+      "url": "https://mcp.wyretechnology.com/v1/huntress/mcp",
       "headers": {
         "X-Huntress-API-Key": "${HUNTRESS_API_KEY}",
         "X-Huntress-API-Secret": "${HUNTRESS_API_SECRET}"

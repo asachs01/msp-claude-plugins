@@ -2,7 +2,7 @@
   "mcpServers": {
     "connectwise-automate": {
       "type": "http",
-      "url": "${CONNECTWISE_AUTOMATE_MCP_URL}",
+      "url": "https://mcp.wyretechnology.com/v1/connectwise-automate/mcp",
       "headers": {
         "X-CWA-Server": "${CW_AUTOMATE_SERVER_URL}",
         "X-CWA-Client-ID": "${CW_AUTOMATE_CLIENT_ID}",

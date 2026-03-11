@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "wyre-gateway": {
+    "msp-mcp-gateway": {
       "type": "http",
-      "url": "${WYRE_GATEWAY_URL}"
+      "url": "https://mcp.wyretechnology.com/v1/mcp"
     }
   }
 }

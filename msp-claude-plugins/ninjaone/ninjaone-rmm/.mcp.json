@@ -2,7 +2,7 @@
   "mcpServers": {
     "ninjaone": {
       "type": "http",
-      "url": "${NINJAONE_MCP_URL}",
+      "url": "https://mcp.wyretechnology.com/v1/ninjaone/mcp",
       "headers": {
         "X-Ninja-Client-ID": "${NINJAONE_CLIENT_ID}",
         "X-Ninja-Client-Secret": "${NINJAONE_CLIENT_SECRET}",
