@@ -120,11 +120,17 @@ curl "https://webservices5.autotask.net/atservicesrest/v1.0/zoneInformation?user
 
 | Skill | Description |
 |-------|-------------|
-| `tickets` | Service ticket management and workflows |
+| `tickets` | Service ticket management - create, update, search, notes, SLAs |
 | `crm` | Company and contact management |
 | `projects` | Project and task management |
 | `contracts` | Service agreement and billing |
-| `api-patterns` | Common Autotask API patterns |
+| `time-entries` | Time tracking, approval workflows, billing |
+| `expenses` | Expense reports, line items, approval workflows |
+| `quotes` | Quote builder - create quotes with line items, discounts, pricing |
+| `product-catalog` | Products, services, and service bundles |
+| `configuration-items` | Asset/device management and inventory |
+| `tool-discovery` | Progressive tool discovery and intent-based routing |
+| `api-patterns` | Common Autotask API patterns and authentication |
 
 ## Available Commands
 
