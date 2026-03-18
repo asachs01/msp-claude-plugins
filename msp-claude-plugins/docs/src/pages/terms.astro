@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout
+  title="Terms of Service - Wyre Technology"
+  description="Terms of Service for the Wyre Technology MCP Gateway and MSP Claude Plugins."
+>
+  <Header />
+
+  <main class="flex-1 py-16">
+    <div class="container max-w-3xl">
+      <h1 class="text-3xl font-bold mb-2">Terms of Service</h1>
+      <p class="text-[var(--muted)] mb-10">Last updated: March 18, 2026</p>
+
+      <div class="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-[var(--text)]">
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">1. Acceptance of Terms</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            By accessing or using the Wyre Technology MCP Gateway and related services ("Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">2. Description of Service</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            The Service provides a hosted proxy that connects Claude (Anthropic's AI assistant) to third-party MSP platforms including but not limited to Autotask, Datto RMM, IT Glue, HaloPSA, and NinjaOne. The Service stores encrypted API credentials on your behalf and proxies requests between Claude and those platforms.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">3. Your Responsibilities</h2>
+          <ul class="text-[var(--muted)] leading-relaxed space-y-2 list-disc pl-5">
+            <li>You are responsible for maintaining the confidentiality of your account credentials.</li>
+            <li>You must have the right and authority to submit any API keys or credentials you provide to the Service.</li>
+            <li>You must comply with the terms of service of any third-party platforms you connect through the Service.</li>
+            <li>You must not use the Service for any unlawful purpose or in violation of any regulations applicable to you.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">4. API Credentials and Data</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            Credentials you submit are encrypted at rest using AES-256 encryption and are only decrypted in memory to fulfill proxied requests. We do not sell, share, or use your credentials for any purpose other than fulfilling your requests. You may delete your credentials and account at any time.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">5. Acceptable Use</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            You agree not to:
+          </p>
+          <ul class="text-[var(--muted)] leading-relaxed space-y-2 list-disc pl-5 mt-2">
+            <li>Attempt to reverse engineer, bypass, or interfere with the Service's security mechanisms.</li>
+            <li>Use the Service to transmit malicious code or engage in any activity that disrupts or damages the Service.</li>
+            <li>Use the Service in a way that violates the terms of Anthropic's usage policies for Claude.</li>
+            <li>Resell or sublicense access to the Service without prior written consent.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">6. Service Availability</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            We aim to provide reliable service but do not guarantee uninterrupted availability. The Service is provided on an "as is" and "as available" basis. We reserve the right to modify, suspend, or discontinue the Service at any time with reasonable notice where possible.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">7. Limitation of Liability</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            To the maximum extent permitted by law, Wyre Technology shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Service. Our total liability to you for any claim shall not exceed the amount you paid for the Service in the three months preceding the claim.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">8. Termination</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            Either party may terminate the agreement at any time. Upon termination, your access to the Service will cease and your stored credentials will be deleted within 30 days. You may request immediate deletion by contacting us.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">9. Changes to Terms</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            We may update these Terms from time to time. We will notify users of material changes via email or a notice on the Service. Continued use after changes take effect constitutes acceptance of the revised Terms.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold mb-3">10. Contact</h2>
+          <p class="text-[var(--muted)] leading-relaxed">
+            Questions about these Terms? Reach us at <a href="https://discord.gg/cCPtPaFw8e" class="text-accent hover:underline">Discord</a> or by replying to any email from us.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
