@@ -18,7 +18,7 @@ Nineteen vendor-specific plugins with domain knowledge for PSA, RMM, documentati
 
 | Plugin | Description |
 |--------|-------------|
-| **Autotask PSA** | Kaseya Autotask PSA - tickets, CRM, projects, contracts, billing |
+| **Autotask PSA** | Kaseya Autotask PSA - tickets, service calls, CRM, projects, contracts, billing |
 | **Datto RMM** | Datto remote monitoring - devices, alerts, jobs, patches |
 | **IT Glue** | IT documentation - organizations, assets, passwords, flexible assets |
 | **Hudu** | IT documentation - companies, assets, articles, passwords, websites |
