@@ -1,11 +1,10 @@
 name: Auto-add to Project Board
 
 on:
-  issues
-:
-    types: [aopened]
+  issues:
+    types: [opened]
   pull_request:
-    types: [aopened]
+    types: [opened]
 
 jobs:
   add-to-project:
