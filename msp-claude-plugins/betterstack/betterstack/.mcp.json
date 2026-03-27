@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "betterstack": {
+      "type": "http",
+      "url": "https://mcp.wyretechnology.com/v1/betterstack/mcp",
+      "headers": {
+        "Authorization": "Bearer ${BETTERSTACK_API_TOKEN}"
+      }
+    }
+  }
+}

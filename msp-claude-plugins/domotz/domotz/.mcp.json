@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "domotz": {
+      "type": "http",
+      "url": "https://mcp.wyretechnology.com/v1/domotz/mcp",
+      "headers": {
+        "X-Domotz-API-Key": "${DOMOTZ_API_KEY}",
+        "X-Domotz-Region": "${DOMOTZ_REGION}"
+      }
+    }
+  }
+}

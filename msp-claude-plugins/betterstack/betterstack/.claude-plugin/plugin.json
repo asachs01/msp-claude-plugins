@@ -1,0 +1,11 @@
+{
+  "name": "betterstack",
+  "version": "0.1.0",
+  "description": "Claude plugins for Better Stack - uptime monitoring, incident management, status pages, on-call schedules, and log management (Logtail) for MSPs",
+  "author": {
+    "name": "MSP Claude Plugins Community"
+  },
+  "homepage": "https://github.com/wyre-technology/msp-claude-plugins",
+  "repository": "https://github.com/wyre-technology/msp-claude-plugins",
+  "license": "Apache-2.0"
+}

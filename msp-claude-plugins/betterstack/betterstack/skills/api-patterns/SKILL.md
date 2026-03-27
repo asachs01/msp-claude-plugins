@@ -1,48 +1,57 @@
 ---
 description: >
-  Use this skill when working with BetterStack MCP tools - authentication,
-  hosted MCP connection details, complete tool reference across 8 categories
-  (monitoring, on-call, incidents, status pages, telemetry, dashboards, error
-  tracking), cursor-based pagination, tool filtering headers, and rate limits.
-  BetterStack covers Uptime and Telemetry products in a single MCP server.
+  Use this skill when working with the Better Stack MCP tools --
+  available tools, authentication via Bearer token, API structure,
+  cursor-based pagination, rate limiting, error handling,
+  and best practices. Better Stack covers Uptime, Telemetry (Logtail),
+  and Error Tracking products in a single MCP server.
 triggers:
   - betterstack api
-  - betterstack mcp
-  - betterstack token
   - betterstack authentication
-  - betterstack tools
-  - betterstack connection
   - betterstack pagination
   - betterstack rate limit
+  - betterstack mcp
+  - betterstack tools
+  - betterstack request
+  - betterstack error
+  - betterstack connection
+  - betterstack token
   - betterstack credentials
-  - betterstack uptime api
-  - betterstack telemetry api
+  - better stack api
 ---
 
-# BetterStack MCP Tools & API Patterns
+# Better Stack MCP Tools & API Patterns
 
 ## Overview
 
-BetterStack provides an official hosted MCP server at `mcp.betterstack.com` covering three products in one server: **Uptime** (monitors, on-call, incidents, status pages), **Telemetry** (logs, metrics, ClickHouse SQL, dashboards), and **Error Tracking** (exceptions, releases). When accessed through the MCP Gateway, the Bearer token is injected automatically.
+Better Stack provides an official hosted MCP server at `mcp.betterstack.com` covering three products in one server: **Uptime** (monitors, on-call, incidents, status pages), **Telemetry** (logs, metrics, ClickHouse SQL, dashboards), and **Error Tracking** (exceptions, releases). When accessed through the MCP Gateway, the Bearer token is injected automatically.
 
-The server supports tool allowlist/blocklist filtering via gateway-injected headers — useful for restricting tenant access to specific product areas.
+## Connection & Authentication
 
-## Authentication
+### Bearer Token Auth
 
-### Header Format
+Better Stack authenticates using an API token passed as a Bearer token:
 
-```
-Authorization: Bearer <api-token>
-```
+| Header | Description |
+|--------|-------------|
+| `Authorization` | `Bearer <your-api-token>` |
 
 ### Token Types
 
 | Token Type | Scope | Where to Generate |
 |------------|-------|-------------------|
-| **Global API Token** | All products, all teams | Better Stack → API tokens → Global API tokens |
-| **Uptime API Token** | Uptime product only, team-scoped | Better Stack → API tokens → (select team) → Uptime API tokens |
+| **Global API Token** | All products, all teams | Better Stack > API tokens > Global API tokens |
+| **Uptime API Token** | Uptime product only, team-scoped | Better Stack > API tokens > (select team) > Uptime API tokens |
 
 Use the **Global API Token** for full MCP access across Uptime, Telemetry, and Error Tracking.
+
+**Environment Variables:**
+
+```bash
+export BETTERSTACK_API_TOKEN="your-api-token"
+```
+
+> **IMPORTANT:** Never hardcode credentials. Always use environment variables.
 
 ### How the Gateway Injects Credentials
 
@@ -52,20 +61,9 @@ The MCP Gateway stores your token as an org credential and automatically forward
 Authorization: Bearer <stored-api-token>
 ```
 
-## Tool Filtering (Gateway Feature)
+## Available MCP Tools
 
-BetterStack's MCP server supports per-request tool filtering via custom headers. The gateway can inject these to restrict access per tenant:
-
-```
-X-MCP-Tools-Only: list_monitors,get_monitor,list_incidents
-X-MCP-Tools-Except: create_monitor,delete_monitor,update_monitor
-```
-
-This is useful for giving read-only access to certain teams without building separate credentials.
-
-## Complete MCP Tool Reference (8 categories)
-
-### Monitoring Tools
+### Monitoring
 
 | Tool | Description |
 |------|-------------|
@@ -91,7 +89,7 @@ This is useful for giving read-only access to certain teams without building sep
 
 | Tool | Description |
 |------|-------------|
-| `list_incidents` | List incidents with status and severity filters |
+| `list_incidents` | List incidents with status filters |
 | `get_incident` | Get incident details |
 | `create_incident` | Create a manual incident |
 | `acknowledge_incident` | Acknowledge an active incident |
@@ -119,7 +117,7 @@ This is useful for giving read-only access to certain teams without building sep
 | `list_status_page_sections` | List sections on a status page |
 | `create_status_page_incident` | Post an incident update to status page |
 
-### Query Execution (Telemetry)
+### Query Execution (Telemetry / Logtail)
 
 | Tool | Description |
 |------|-------------|
@@ -147,7 +145,7 @@ This is useful for giving read-only access to certain teams without building sep
 
 ## Pagination
 
-BetterStack uses cursor-based pagination:
+Better Stack uses cursor-based pagination:
 
 | Parameter | Description |
 |-----------|-------------|
@@ -156,30 +154,60 @@ BetterStack uses cursor-based pagination:
 
 **Pattern:**
 1. Call tool with `per_page=50`
-2. Check `pagination.next` in response — if present, it contains the cursor URL
+2. Check `pagination.next` in response -- if present, it contains the cursor URL
 3. Extract the `page[after]` cursor and pass to the next call
 4. Continue until `pagination.next` is null
 
+## Rate Limiting
+
+Better Stack enforces API rate limits per token.
+
+- HTTP 429 responses indicate rate limit exceeded
+- Back off 30 seconds; retry with exponential backoff
+- Batch operations where possible
+- Use filters to reduce result set sizes
+
 ## Error Handling
 
-| HTTP Code | Cause | Resolution |
-|-----------|-------|------------|
-| 401 | Invalid token | Verify token; check it's a Global or Uptime API token |
-| 403 | Token lacks permissions | Global token needed for Telemetry/Error Tracking |
-| 404 | Resource not found | Verify ID with a list call |
-| 422 | Validation error | Check required fields in the request |
-| 429 | Rate limited | Back off 30 seconds; retry |
-| 503 | BetterStack maintenance | Check status.betterstack.com |
+### Common Error Codes
+
+| Code | Meaning | Resolution |
+|------|---------|------------|
+| 401 | Unauthorized | Verify token; check it's a Global or Uptime API token |
+| 403 | Forbidden | Global token needed for Telemetry/Error Tracking |
+| 404 | Not Found | Verify ID with a list call |
+| 422 | Unprocessable Entity | Check required fields in the request |
+| 429 | Rate Limited | Back off 30 seconds; retry |
+| 503 | Service Unavailable | Check status.betterstack.com |
+
+### Error Response Format
+
+```json
+{
+  "errors": [
+    {
+      "status": "422",
+      "title": "Unprocessable Entity",
+      "detail": "URL is not a valid URL"
+    }
+  ]
+}
+```
 
 ## Best Practices
 
-1. **Use Global API Token** — Required for Telemetry and Error Tracking tools; Uptime-only tokens return 403 on those endpoints
-2. **Use `X-MCP-Tools-Only` header** — Restrict tenants to only the tools they need
-3. **Paginate large monitor lists** — Large accounts can have hundreds of monitors
-4. **Prefer ClickHouse SQL for log analysis** — `execute_query` is more powerful than browsing the UI for log patterns
-5. **Pause monitors during maintenance** — Prevents false-positive incident creation and on-call pages
+- Use **Global API Token** for full MCP access across all products
+- Paginate large monitor lists -- large accounts can have hundreds of monitors
+- Prefer ClickHouse SQL (`execute_query`) for log analysis over browsing
+- Pause monitors during maintenance to prevent false-positive incidents
+- Cache monitor and status page metadata to reduce API calls
+- Handle rate limits gracefully with exponential backoff
+- Log API errors with request context for debugging
 
 ## Related Skills
 
-- [Uptime Monitoring](../uptime/SKILL.md) — Monitors, heartbeats, incidents, status pages
-- [On-Call Management](../oncall/SKILL.md) — Schedules, escalation, incident workflows
+- [monitors](../monitors/SKILL.md) - Uptime monitor management
+- [incidents](../incidents/SKILL.md) - Incident lifecycle management
+- [status-pages](../status-pages/SKILL.md) - Status page management
+- [oncall](../oncall/SKILL.md) - On-call schedules and escalations
+- [logging](../logging/SKILL.md) - Log management via Logtail
