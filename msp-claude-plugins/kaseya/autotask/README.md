@@ -7,6 +7,7 @@ Claude Code plugin for Kaseya Autotask PSA integration.
 This plugin provides Claude with deep knowledge of Autotask PSA, enabling:
 
 - **Ticket Management** - Create, search, update, and manage service tickets
+- **Service Calls** - Schedule and manage service calls, link tickets, assign technicians
 - **CRM Operations** - Company and contact management
 - **Project Management** - Project creation, task tracking, resource assignment
 - **Contract Management** - Service agreements, billing, renewals
@@ -120,11 +121,18 @@ curl "https://webservices5.autotask.net/atservicesrest/v1.0/zoneInformation?user
 
 | Skill | Description |
 |-------|-------------|
-| `tickets` | Service ticket management and workflows |
+| `tickets` | Service ticket management - create, update, search, notes, SLAs |
+| `service-calls` | Service call scheduling, ticket linking, and technician assignment |
 | `crm` | Company and contact management |
 | `projects` | Project and task management |
 | `contracts` | Service agreement and billing |
-| `api-patterns` | Common Autotask API patterns |
+| `time-entries` | Time tracking, approval workflows, billing |
+| `expenses` | Expense reports, line items, approval workflows |
+| `quotes` | Quote builder - create quotes with line items, discounts, pricing |
+| `product-catalog` | Products, services, and service bundles |
+| `configuration-items` | Asset/device management and inventory |
+| `tool-discovery` | Progressive tool discovery and intent-based routing |
+| `api-patterns` | Common Autotask API patterns and authentication |
 
 ## Available Commands
 

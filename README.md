@@ -14,11 +14,11 @@ Then restart Claude Code. That's it.
 
 ## What you get
 
-Twenty-three vendor-specific plugins with domain knowledge for PSA, RMM, documentation, security, accounting, CRM, and productivity tools:
+Thirty-three vendor-specific plugins with domain knowledge for PSA, RMM, documentation, security, accounting, CRM, and productivity tools:
 
 | Plugin | Description |
 |--------|-------------|
-| **Autotask PSA** | Kaseya Autotask PSA - tickets, CRM, projects, contracts, billing |
+| **Autotask PSA** | Kaseya Autotask PSA - tickets, service calls, CRM, projects, contracts, billing |
 | **Datto RMM** | Datto remote monitoring - devices, alerts, jobs, patches |
 | **IT Glue** | IT documentation - organizations, assets, passwords, flexible assets |
 | **Hudu** | IT documentation - companies, assets, articles, passwords, websites |
@@ -28,7 +28,7 @@ Twenty-three vendor-specific plugins with domain knowledge for PSA, RMM, documen
 | **SuperOps.ai** | Modern PSA/RMM with GraphQL - tickets, assets, clients, runbooks |
 | **HaloPSA** | Enterprise PSA with OAuth - tickets, clients, assets, contracts |
 | **Liongard** | Configuration monitoring - environments, inspections, systems, detections, alerts |
-| **ConnectWise PSA** | Industry-leading PSA - tickets, companies, contacts, projects, time |
+| **ConnectWise Manage** | Industry-leading PSA - tickets, companies, contacts, projects, time (cloud and self-hosted) |
 | **ConnectWise Automate** | Enterprise RMM - computers, clients, scripts, monitors, alerts |
 | **NinjaOne** | NinjaOne RMM - devices, organizations, alerts, ticketing |
 | **SalesBuildr** | Sales CRM - contacts, companies, opportunities, quotes |
@@ -37,10 +37,20 @@ Twenty-three vendor-specific plugins with domain knowledge for PSA, RMM, documen
 | **QuickBooks Online** | Accounting - customers, invoices, expenses, payments, reports |
 | **Microsoft 365** | M365 admin - users, mailboxes, Teams, OneDrive, licensing, security |
 | **Rootly** | Incident management - incidents, alerts, on-call, AI analysis, postmortems |
-| **Checkpoint Avanan** | Email security - quarantine, threats, policies, incidents, Smart Banners |
-| **Proofpoint** | Email protection - TAP, quarantine, threat intel, forensics, URL defense |
-| **KnowBe4** | Security awareness - phishing simulation, training campaigns, user risk |
-| **Sherweb** | Cloud marketplace - distributor billing, customers, subscriptions |
+| **Huntress** | Managed threat detection and response - agents, incidents, reports |
+| **Blumira** | Cloud SIEM - detections, findings, alerts, automated response |
+| **SentinelOne** | XDR platform - endpoints, threats, incidents, Purple AI integration |
+| **Abnormal Security** | AI-native email security - threats, cases, abuse mailbox |
+| **Avanan** | Check Point Harmony Email & Collaboration - email security, DLP |
+| **Ironscales** | AI-powered anti-phishing - incidents, simulations, threat intel |
+| **Mimecast** | Email security - message tracking, threat protection, compliance |
+| **SpamTitan** | Email security by TitanHQ - spam filtering, quarantine, policies |
+| **Proofpoint** | Targeted Attack Protection - threat intel, campaigns, forensics |
+| **KnowBe4** | Security awareness training - phishing simulations, PhishER, training |
+| **HubSpot** | CRM platform - contacts, companies, deals, tickets, marketing |
+| **PandaDoc** | Document automation - proposals, quotes, e-signatures, templates |
+| **BetterStack** | Uptime monitoring and on-call - monitors, incidents, heartbeats |
+| **PagerDuty** | Incident management and on-call - incidents, services, escalations |
 
 Plus shared skills for MSP terminology, ticket triage, cross-vendor incident correlation, and billing reconciliation.
 
@@ -58,7 +68,7 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 | **SuperOps.ai** | 🔨 Beta | [superops-mcp](https://github.com/wyre-technology/superops-mcp) |
 | **HaloPSA** | 🔨 Beta | [halopsa-mcp](https://github.com/wyre-technology/halopsa-mcp) |
 | **Liongard** | ✅ Production | [liongard-mcp](https://github.com/wyre-technology/liongard-mcp) |
-| **ConnectWise PSA** | 🔨 Beta | [connectwise-manage-mcp](https://github.com/wyre-technology/connectwise-manage-mcp) |
+| **ConnectWise Manage** | 🔨 Beta | [connectwise-manage-mcp](https://github.com/wyre-technology/connectwise-manage-mcp) |
 | **ConnectWise Automate** | 🔨 Beta | [connectwise-automate-mcp](https://github.com/wyre-technology/connectwise-automate-mcp) |
 | **NinjaOne** | 🔨 Beta | [ninjaone-mcp](https://github.com/wyre-technology/ninjaone-mcp) |
 | **SalesBuildr** | 🚧 Alpha | [salesbuildr-mcp](https://github.com/wyre-technology/salesbuildr-mcp) |
@@ -67,10 +77,20 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 | **QuickBooks Online** | 🔨 Beta | [qbo-mcp](https://github.com/wyre-technology/qbo-mcp) |
 | **Microsoft 365** | 🔨 Beta | [ms-365-mcp-server](https://github.com/softeria/ms-365-mcp-server) (Softeria) |
 | **Rootly** | 🔨 Beta | [Rootly Hosted](https://mcp.rootly.com) (official) |
-| **Checkpoint Avanan** | 🚧 Alpha | [avanan-mcp](https://github.com/wyre-technology/avanan-mcp) |
-| **Proofpoint** | 🚧 Alpha | [proofpoint-mcp](https://github.com/wyre-technology/proofpoint-mcp) |
-| **KnowBe4** | 🚧 Alpha | [knowbe4-mcp](https://github.com/wyre-technology/knowbe4-mcp) |
-| **Sherweb** | 🚧 Alpha | [sherweb-mcp](https://github.com/wyre-technology/sherweb-mcp) |
+| **Huntress** | 🔨 Beta | [huntress-mcp](https://github.com/wyre-technology/huntress-mcp) |
+| **Blumira** | 🔨 Beta | [blumira-mcp](https://github.com/wyre-technology/blumira-mcp) |
+| **SentinelOne** | 🔨 Beta | [sentinelone-mcp](https://github.com/wyre-technology/sentinelone-mcp) |
+| **Abnormal Security** | 🔨 Beta | [abnormal-mcp](https://github.com/wyre-technology/abnormal-mcp) |
+| **Avanan** | 🔨 Beta | [avanan-mcp](https://github.com/wyre-technology/avanan-mcp) |
+| **Ironscales** | 🔨 Beta | [ironscales-mcp](https://github.com/wyre-technology/ironscales-mcp) |
+| **Mimecast** | 🔨 Beta | [mimecast-mcp](https://github.com/wyre-technology/mimecast-mcp) |
+| **SpamTitan** | 🔨 Beta | [spamtitan-mcp](https://github.com/wyre-technology/spamtitan-mcp) |
+| **Proofpoint** | 🔨 Beta | [proofpoint-mcp](https://github.com/wyre-technology/proofpoint-mcp) |
+| **KnowBe4** | 🔨 Beta | [knowbe4-mcp](https://github.com/wyre-technology/knowbe4-mcp) |
+| **HubSpot** | 🔨 Beta | [hubspot-mcp](https://github.com/wyre-technology/hubspot-mcp) |
+| **PandaDoc** | 🔨 Beta | [pandadoc-mcp](https://github.com/wyre-technology/pandadoc-mcp) |
+| **BetterStack** | 🔨 Beta | [betterstack-mcp](https://github.com/wyre-technology/betterstack-mcp) |
+| **PagerDuty** | 🔨 Beta | [pagerduty-mcp](https://github.com/wyre-technology/pagerduty-mcp) |
 
 > Maturity levels: ✅ **Production** — used in real MSP environments with comprehensive coverage. 🔨 **Beta** — functional with core features, feedback welcome. 🚧 **Alpha** — early implementation, expect gaps.
 
@@ -80,30 +100,15 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 
 ### Hosted Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 23 vendors available immediately.
+Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 33 vendors available immediately.
 
 [Get Started Free](https://mcp.wyretechnology.com/waitlist)
 
 ### Self-Hosted
 
-Run MCP servers yourself for full control. Each server is available as a Docker image or npm package.
+Run MCP servers yourself for full control. Each server is available as an npm package, Docker image, or MCPB bundle for Claude Desktop.
 
-**By default, plugins connect to the hosted gateway** (`mcp.wyretechnology.com`). If you self-host, override the URL in each plugin's `.mcp.json` to point to your local gateway or individual MCP server:
-
-```jsonc
-// Default (hosted gateway):
-{ "url": "https://mcp.wyretechnology.com/v1/autotask/mcp" }
-
-// Self-hosted gateway:
-{ "url": "http://localhost:8080/v1/autotask/mcp" }
-
-// Direct to individual MCP server (no gateway):
-{ "url": "http://localhost:3001/mcp" }
-```
-
-The `.mcp.json` file lives inside each plugin directory (e.g., `msp-claude-plugins/kaseya/autotask/.mcp.json`). After installing a plugin, edit this file to change the URL. Auth headers (API keys, tokens) are always set via environment variables regardless of deployment mode.
-
-See the [Getting Started guide](https://mcp.wyretechnology.com/getting-started/) for full self-hosting instructions including Docker Compose setup.
+See the [Getting Started guide](https://mcp.wyretechnology.com/getting-started/) for installation instructions.
 
 ---
 
@@ -164,7 +169,7 @@ Each plugin uses environment variables for authentication. See the plugin's READ
 - [SuperOps.ai](msp-claude-plugins/superops/superops-ai/README.md) — Bearer token
 - [HaloPSA](msp-claude-plugins/halopsa/halopsa/README.md) — OAuth 2.0 client credentials
 - [Liongard](msp-claude-plugins/liongard/liongard/README.md) — Access Key ID + Secret (X-ROAR-API-KEY)
-- [ConnectWise PSA](msp-claude-plugins/connectwise/manage/README.md) — Public/private key + client ID
+- [ConnectWise Manage](msp-claude-plugins/connectwise/manage/README.md) — Public/private key + client ID
 - [ConnectWise Automate](msp-claude-plugins/connectwise/automate/README.md) — Integrator credentials
 - [NinjaOne](msp-claude-plugins/ninjaone/ninjaone-rmm/README.md) — OAuth 2.0 client credentials
 - [SalesBuildr](msp-claude-plugins/salesbuildr/salesbuildr/README.md) — API key
@@ -173,10 +178,6 @@ Each plugin uses environment variables for authentication. See the plugin's READ
 - [QuickBooks Online](msp-claude-plugins/quickbooks/quickbooks-online/README.md) — OAuth 2.0
 - [Microsoft 365](msp-claude-plugins/m365/m365/README.md) — OAuth 2.0 (multi-tenant Entra ID)
 - [Rootly](msp-claude-plugins/rootly/rootly/README.md) — API token (Bearer)
-- [Checkpoint Avanan](msp-claude-plugins/email-security/checkpoint-avanan/README.md) — OAuth 2.0 client credentials
-- [Proofpoint](msp-claude-plugins/email-security/proofpoint/README.md) — HTTP Basic (service principal + secret)
-- [KnowBe4](msp-claude-plugins/email-security/knowbe4/README.md) — Bearer API key (multi-region)
-- [Sherweb](msp-claude-plugins/sherweb/sherweb/README.md) — OAuth 2.0 + subscription key
 
 ---
 

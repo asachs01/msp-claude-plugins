@@ -286,6 +286,86 @@ function calculateTicketMetrics(tickets) {
 }
 ```
 
+## MCP Tool Reference
+
+### Create a Ticket
+
+```
+Tool: autotask_create_ticket
+Args: {
+  "companyID": 12345,
+  "title": "Unable to access email - multiple users affected",
+  "description": "Sales team (5 users) reporting Outlook showing disconnected since 9am.",
+  "queueID": 8,
+  "priority": 3,
+  "status": 1,
+  "contactID": 67890
+}
+```
+
+**Required:** `companyID`, `title`, `status`, `priority`, `queueID`
+
+### Update a Ticket
+
+```
+Tool: autotask_update_ticket
+Args: {
+  "ticketId": 54321,
+  "status": 2,
+  "assignedResourceID": 29744150,
+  "assignedResourceRoleID": 29683459
+}
+```
+
+**Only fields provided will be changed.** Common update scenarios:
+
+| Scenario | Fields to Set |
+|----------|--------------|
+| Assign technician | `assignedResourceID` + `assignedResourceRoleID` (both required together) |
+| Change status | `status` (see status codes above) |
+| Complete ticket | `status: 5` (resolution via ticket note) |
+| Escalate | `status: 14` |
+| Update priority | `priority` |
+| Change due date | `dueDateTime` (ISO 8601 format) |
+| Reassign contact | `contactID` |
+
+### Search Tickets
+
+```
+Tool: autotask_search_tickets
+Args: {
+  "companyId": 12345,
+  "status": 1,
+  "assignedResourceId": 29744150,
+  "searchTerm": "email",
+  "pageSize": 25
+}
+```
+
+**Filters:** `companyId`, `status`, `priority`, `queueId`, `assignedResourceId`, `searchTerm`, `pageSize`
+
+### Get Ticket Details
+
+```
+Tool: autotask_get_ticket_details
+Args: { "ticketId": 54321 }
+```
+
+### Add a Ticket Note
+
+```
+Tool: autotask_create_ticket_note
+Args: {
+  "ticketId": 54321,
+  "title": "Status Update",
+  "description": "Identified root cause as KB5034441 update. Applying fix.",
+  "noteType": 1,
+  "publish": 0
+}
+```
+
+`noteType`: 1=Internal, 2=External. `publish`: 0=No, 1=Yes (visible to client portal).
+
 ## API Patterns
 
 ### Creating a Ticket with Business Validation
