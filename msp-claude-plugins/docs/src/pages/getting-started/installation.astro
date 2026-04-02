@@ -10,24 +10,51 @@ import InstallCommand from '@/components/InstallCommand.astro';
     Multiple ways to install MSP Claude Plugins, from one-command install to manual setup.
   </p>
 
-  <h2>Option 1: Gateway MCP Server (Recommended)</h2>
+  <h2>Option 1: Quick Install (Recommended)</h2>
 
   <p>
-    The simplest way to get started. Add the MSP MCP Gateway as a single MCP server — it
-    exposes all your connected vendor tools through one authenticated endpoint. No per-vendor
-    API keys needed.
+    One command to set up the MSP MCP Gateway. The installer auto-detects Claude Code and
+    Claude Desktop, backs up existing config, and appends only the gateway entry.
   </p>
 
-  <pre><code class="language-bash">claude mcp add --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp</code></pre>
+  <h3>macOS / Linux</h3>
+
+  <pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/scripts/install-gateway.sh | bash</code></pre>
+
+  <h3>Windows (PowerShell)</h3>
+
+  <pre><code class="language-powershell">irm https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/scripts/install-gateway.ps1 | iex</code></pre>
 
   <p>
-    Claude Code will open a browser for OAuth authentication on first use. Then connect your
+    The installer will open a browser for OAuth authentication on first use. Then connect your
     vendors at <a href="https://mcp.wyretechnology.com">mcp.wyretechnology.com</a>.
   </p>
 
-  <p>To install for all projects (user-level) instead of just the current one:</p>
+  <p>
+    <strong>What the installer does:</strong>
+  </p>
+  <ul>
+    <li>Detects Claude Code CLI and/or Claude Desktop</li>
+    <li>Backs up existing configuration files before any changes</li>
+    <li>Appends only the <code>msp-mcp-gateway</code> entry — all other settings are preserved</li>
+    <li>Skips clients that already have the gateway configured</li>
+  </ul>
 
-  <pre><code class="language-bash">claude mcp add --transport http --scope user msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp</code></pre>
+  <p>
+    To install at user-level scope (all projects) instead of project-level:
+  </p>
+
+  <pre><code class="language-bash">SCOPE=user curl -fsSL https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/scripts/install-gateway.sh | bash</code></pre>
+
+  <h3>Manual Alternative</h3>
+
+  <p>If you prefer to add the gateway manually:</p>
+
+  <pre><code class="language-bash"># Claude Code
+claude mcp add --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp
+
+# Claude Code (user-level, all projects)
+claude mcp add --transport http --scope user msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp</code></pre>
 
   <h2>Option 2: Marketplace Install (Skills &amp; Commands)</h2>
 
