@@ -100,7 +100,27 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 
 ### Hosted Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude Desktop with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 33 vendors available immediately.
+Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 33 vendors available immediately.
+
+**Claude Code (CLI):**
+
+```bash
+claude mcp add --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp
+```
+
+**Claude Desktop (macOS / Linux):**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/wyre-gateway/install.sh | bash
+```
+
+**Claude Desktop (Windows):**
+
+```powershell
+irm https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/wyre-gateway/install.ps1 | iex
+```
+
+The installer scripts preserve your existing config, create a backup, and only append the gateway entry.
 
 [Get Started Free](https://mcp.wyretechnology.com/waitlist)
 
