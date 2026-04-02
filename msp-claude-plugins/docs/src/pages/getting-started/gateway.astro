@@ -131,8 +131,27 @@ const claudeDesktopPerVendor = `// claude_desktop_config.json — per-vendor (le
   </p>
 
   <h3>Step 2: Add the MCP Gateway Server</h3>
+
+  <h4>Quick Install (Recommended)</h4>
   <p>
-    Add a single entry to your <code>claude_desktop_config.json</code> that connects to all vendors at once.
+    Run one command to automatically configure Claude Desktop. The installer preserves your existing config,
+    creates a backup, and only appends the gateway entry.
+  </p>
+
+  <p><strong>macOS / Linux:</strong></p>
+  <pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/wyre-gateway/install.sh | bash</code></pre>
+
+  <p class="mt-4"><strong>Windows (PowerShell):</strong></p>
+  <pre><code class="language-powershell">irm https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/wyre-gateway/install.ps1 | iex</code></pre>
+
+  <p class="text-sm text-[var(--muted)] mt-2">
+    The installer also detects Claude Code CLI and configures it automatically. A backup of your
+    existing <code>claude_desktop_config.json</code> is saved to <code>.bak</code> before any changes.
+  </p>
+
+  <h4>Manual Configuration</h4>
+  <p>
+    Alternatively, add a single entry to your <code>claude_desktop_config.json</code> that connects to all vendors at once.
     Claude Desktop uses stdio-based transports, so the remote gateway requires the
     <a href="https://www.npmjs.com/package/mcp-remote" target="_blank" rel="noopener noreferrer"><code>mcp-remote</code></a>
     bridge:
