@@ -1,0 +1,76 @@
+{
+  "projectName": "msp-claude-plugins",
+  "projectOwner": "wyre-technology",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["README.md"],
+  "imageSize": 80,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "asachs01",
+      "name": "Aaron Sachs",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4321940",
+      "profile": "https://github.com/asachs01",
+      "contributions": ["code", "maintenance", "infra", "doc"]
+    },
+    {
+      "login": "shaank0",
+      "name": "shaank0",
+      "avatar_url": "https://avatars.githubusercontent.com/shaank0",
+      "profile": "https://github.com/shaank0",
+      "contributions": ["code"]
+    },
+    {
+      "login": "OmB9",
+      "name": "Om Bhavsar",
+      "avatar_url": "https://avatars.githubusercontent.com/OmB9",
+      "profile": "https://github.com/OmB9",
+      "contributions": ["code"]
+    },
+    {
+      "login": "vespo92",
+      "name": "Vinnie Esposito",
+      "avatar_url": "https://avatars.githubusercontent.com/vespo92",
+      "profile": "https://github.com/vespo92",
+      "contributions": ["code"]
+    },
+    {
+      "login": "mschaepers",
+      "name": "Mauricio Schaepers",
+      "avatar_url": "https://avatars.githubusercontent.com/mschaepers",
+      "profile": "https://github.com/mschaepers",
+      "contributions": ["code", "bug"]
+    },
+    {
+      "login": "ezwep",
+      "name": "ezwep",
+      "avatar_url": "https://avatars.githubusercontent.com/ezwep",
+      "profile": "https://github.com/ezwep",
+      "contributions": ["ideas", "bug"]
+    },
+    {
+      "login": "f1-chris",
+      "name": "Chris Cooper",
+      "avatar_url": "https://avatars.githubusercontent.com/f1-chris",
+      "profile": "https://github.com/f1-chris",
+      "contributions": ["bug"]
+    },
+    {
+      "login": "andrewday-sp",
+      "name": "andrewday-sp",
+      "avatar_url": "https://avatars.githubusercontent.com/andrewday-sp",
+      "profile": "https://github.com/andrewday-sp",
+      "contributions": ["bug"]
+    },
+    {
+      "login": "bionemesis",
+      "name": "bionemesis",
+      "avatar_url": "https://avatars.githubusercontent.com/bionemesis",
+      "profile": "https://github.com/bionemesis",
+      "contributions": ["ideas"]
+    }
+  ],
+  "contributorsPerLine": 7
+}

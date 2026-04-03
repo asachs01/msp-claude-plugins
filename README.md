@@ -196,6 +196,32 @@ MSP focused on AI enablement.
 - **Want to contribute?** See [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Using this in your MSP?** We'd love to hear about it — drop us a note in Discussions
 
+## Contributors
+
+Thanks to these wonderful people who have contributed to the MSP Claude Plugins ecosystem:
+
+<!-- ALL-CONTRIBUTORS-LIST:START -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/asachs01"><img src="https://avatars.githubusercontent.com/u/4321940?s=80" width="80px;" alt="Aaron Sachs"/><br /><sub><b>Aaron Sachs</b></sub></a><br /><a href="#code" title="Code">💻</a> <a href="#maintenance" title="Maintenance">🚧</a> <a href="#infra" title="Infrastructure">🚇</a> <a href="#doc" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/shaank0"><img src="https://avatars.githubusercontent.com/shaank0?s=80" width="80px;" alt="shaank0"/><br /><sub><b>shaank0</b></sub></a><br /><a href="#code" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/OmB9"><img src="https://avatars.githubusercontent.com/OmB9?s=80" width="80px;" alt="Om Bhavsar"/><br /><sub><b>Om Bhavsar</b></sub></a><br /><a href="#code" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/vespo92"><img src="https://avatars.githubusercontent.com/vespo92?s=80" width="80px;" alt="Vinnie Esposito"/><br /><sub><b>Vinnie Esposito</b></sub></a><br /><a href="#code" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mschaepers"><img src="https://avatars.githubusercontent.com/mschaepers?s=80" width="80px;" alt="Mauricio Schaepers"/><br /><sub><b>Mauricio Schaepers</b></sub></a><br /><a href="#code" title="Code">💻</a> <a href="#bug" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ezwep"><img src="https://avatars.githubusercontent.com/ezwep?s=80" width="80px;" alt="ezwep"/><br /><sub><b>ezwep</b></sub></a><br /><a href="#ideas" title="Ideas">🤔</a> <a href="#bug" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/f1-chris"><img src="https://avatars.githubusercontent.com/f1-chris?s=80" width="80px;" alt="Chris Cooper"/><br /><sub><b>Chris Cooper</b></sub></a><br /><a href="#bug" title="Bug reports">🐛</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/andrewday-sp"><img src="https://avatars.githubusercontent.com/andrewday-sp?s=80" width="80px;" alt="andrewday-sp"/><br /><sub><b>andrewday-sp</b></sub></a><br /><a href="#bug" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/bionemesis"><img src="https://avatars.githubusercontent.com/bionemesis?s=80" width="80px;" alt="bionemesis"/><br /><sub><b>bionemesis</b></sub></a><br /><a href="#ideas" title="Ideas">🤔</a></td>
+    </tr>
+  </tbody>
+</table>
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [All Contributors](https://allcontributors.org) specification. Contributions of any kind welcome!
+
 ## License
 
 Apache 2.0 — see [LICENSE](LICENSE).
