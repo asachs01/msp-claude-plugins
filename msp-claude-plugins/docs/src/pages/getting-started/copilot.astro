@@ -1,0 +1,291 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Microsoft Copilot Integration">
+  <h1>Connecting Microsoft Copilot to MCP Servers</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Use your MSP MCP servers from Microsoft Copilot &mdash; via Copilot Studio or M365 Declarative Agents.
+  </p>
+
+  <div class="not-prose my-6 p-4 rounded-lg border-2 border-[var(--warning,#f59e0b)] bg-[color-mix(in_srgb,var(--warning,#f59e0b)_8%,transparent)]">
+    <p class="font-semibold mb-2">Important: Copilot alone cannot connect to MCP servers</p>
+    <p class="text-sm text-[var(--muted)]">
+      Microsoft Copilot (the chat assistant in Teams, Outlook, Edge, and Windows) does <strong>not</strong>
+      natively support connecting to MCP servers. You need one of the two integration paths below:
+      <strong>Copilot Studio</strong> (custom agents) or <strong>M365 Declarative Agents</strong>
+      (via the Agents Toolkit). There is no way to point vanilla Copilot at an MCP endpoint directly.
+    </p>
+  </div>
+
+  <h2>Overview</h2>
+
+  <p>
+    Microsoft Copilot supports the Model Context Protocol (MCP) across two integration surfaces:
+  </p>
+
+  <ul>
+    <li>
+      <strong>Copilot Studio</strong> &mdash; build custom agents that call your MCP server&apos;s tools at runtime.
+      Best for: teams that already use Power Platform and want low-code agent building.
+    </li>
+    <li>
+      <strong>M365 Copilot Declarative Agents</strong> &mdash; extend Microsoft 365 Copilot with MCP-backed
+      capabilities surfaced directly in Teams, Outlook, and M365 Chat.
+      Best for: developer teams that want deep M365 integration via VS Code.
+    </li>
+  </ul>
+
+  <h2>Prerequisites (Both Paths)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Requirement</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>MCP Server</td>
+        <td>Must support <strong>Streamable HTTP transport</strong>. SSE transport was deprecated by Microsoft in August 2025 and is no longer supported.</td>
+      </tr>
+      <tr>
+        <td>Authentication</td>
+        <td>API Key, OAuth 2.0 (static), or OAuth 2.0 (dynamic discovery / DCR)</td>
+      </tr>
+      <tr>
+        <td>Server URL</td>
+        <td>Publicly accessible HTTPS endpoint</td>
+      </tr>
+      <tr>
+        <td>Licensing</td>
+        <td>M365 Business/Enterprise + Copilot add-on (path-dependent &mdash; see below)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="not-prose my-4 p-3 rounded-lg bg-[var(--bg-hover)]">
+    <p class="text-sm">
+      <strong>Transport note:</strong> If your MCP server uses SSE transport, it must be updated to
+      Streamable HTTP before connecting to Copilot Studio. The WYRE MCP Gateway at
+      <code>mcp.wyretechnology.com</code> already supports Streamable HTTP &mdash; no changes needed.
+    </p>
+  </div>
+
+  <hr class="my-8" />
+
+  <h2>Path 1: Copilot Studio Custom Agents</h2>
+
+  <h3>What It Does</h3>
+
+  <p>
+    Copilot Studio agents can call your MCP server&apos;s tools in response to user prompts. Tools
+    are auto-discovered &mdash; name, description, inputs, and outputs are inherited directly from
+    your server manifest. As your server evolves, Copilot Studio reflects changes automatically.
+  </p>
+
+  <h3>Licensing Requirements</h3>
+
+  <ul>
+    <li>Microsoft 365 Business or Enterprise (any tier)</li>
+    <li>Copilot Studio license (standalone or via M365 Copilot bundle)</li>
+    <li><strong>Generative Orchestration</strong> must be enabled on the agent (required for MCP)</li>
+  </ul>
+
+  <h3>Step-by-Step Configuration</h3>
+
+  <h4>1. Open your agent in Copilot Studio</h4>
+  <ul>
+    <li>Navigate to <a href="https://copilotstudio.microsoft.com">copilotstudio.microsoft.com</a></li>
+    <li>Select or create your agent</li>
+  </ul>
+
+  <h4>2. Enable Generative Orchestration</h4>
+  <ul>
+    <li>In agent <strong>Settings</strong> &rarr; select <strong>Generative</strong> as the orchestration mode</li>
+    <li>Save</li>
+  </ul>
+
+  <h4>3. Add your MCP server</h4>
+  <ul>
+    <li>Go to <strong>Tools &rarr; Add a tool &rarr; New tool &rarr; Model Context Protocol</strong></li>
+    <li>The MCP onboarding wizard opens</li>
+  </ul>
+
+  <h4>4. Fill in server details</h4>
+  <ul>
+    <li><strong>Server name:</strong> A descriptive name (used by the orchestrator to identify the server)</li>
+    <li><strong>Server description:</strong> Clear, concise description of what the server does &mdash; the agent uses this to decide when to invoke it</li>
+    <li><strong>Server URL:</strong> Your Streamable HTTP endpoint (e.g., <code>https://mcp.wyretechnology.com/v1/mcp</code>)</li>
+  </ul>
+
+  <h4>5. Configure authentication</h4>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Auth Type</th>
+        <th>When to Use</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>None</td><td>Internal/trusted environments only</td></tr>
+      <tr><td>API Key</td><td>Simple key-based auth</td></tr>
+      <tr><td>OAuth 2.0 (static)</td><td>Standard OAuth with manual client ID/secret</td></tr>
+      <tr><td>OAuth 2.0 (dynamic discovery)</td><td>Server supports DCR &mdash; simplest OAuth setup</td></tr>
+    </tbody>
+  </table>
+
+  <h4>6. Create and connect</h4>
+  <ul>
+    <li>Select <strong>Create</strong> &mdash; Copilot Studio provisions the connector</li>
+    <li>Verify tool listing appears under your MCP server settings</li>
+    <li>Test by prompting the agent to use a known tool</li>
+  </ul>
+
+  <h3>Governance &amp; Security</h3>
+
+  <ul>
+    <li>MCP servers in Copilot Studio use <strong>Power Platform connector infrastructure</strong></li>
+    <li>Supports Virtual Network integration and Data Loss Prevention (DLP) policies</li>
+    <li>Tool invocations are traceable via the Activity Map in Copilot Studio</li>
+  </ul>
+
+  <hr class="my-8" />
+
+  <h2>Path 2: M365 Copilot Declarative Agents</h2>
+
+  <h3>What It Does</h3>
+
+  <p>
+    Declarative agents extend M365 Copilot (Teams, Outlook, M365 Chat) with custom
+    capabilities backed by your MCP server. Users interact through natural language in their
+    existing M365 surfaces &mdash; no separate app or interface required.
+  </p>
+
+  <h3>Licensing Requirements</h3>
+
+  <ul>
+    <li><strong>Full Microsoft 365 Copilot license</strong> (required for each user)</li>
+    <li>Microsoft 365 Agents Toolkit (VS Code extension)</li>
+    <li>Custom App Upload enabled on the tenant</li>
+    <li>Copilot Access enabled on the tenant</li>
+  </ul>
+
+  <h3>Step-by-Step Configuration</h3>
+
+  <h4>1. Install prerequisites</h4>
+  <ul>
+    <li>VS Code + <strong>Microsoft 365 Agents Toolkit</strong> extension</li>
+    <li>Sign in to M365 account with Custom App Upload + Copilot Access enabled</li>
+  </ul>
+
+  <h4>2. Scaffold the declarative agent</h4>
+  <ul>
+    <li>In VS Code &rarr; Agents Toolkit &rarr; <strong>Create a New Declarative Agent</strong></li>
+    <li>This generates the project structure and manifest files</li>
+  </ul>
+
+  <h4>3. Add your MCP server as an action</h4>
+  <ul>
+    <li>In the toolkit: <strong>Add Action &rarr; Start with an MCP server</strong></li>
+    <li>Enter your MCP server URL (e.g., <code>https://mcp.wyretechnology.com/v1/mcp</code>)</li>
+    <li>The toolkit reads the server schema, generates function definitions, and wires up auth automatically</li>
+  </ul>
+
+  <h4>4. Configure OAuth (if required)</h4>
+  <p>For OAuth-protected MCP servers:</p>
+  <ul>
+    <li>Register an OAuth App with your identity provider</li>
+    <li>Set the callback URL to: <code>https://teams.microsoft.com/api/platform/v1.0/oAuthRedirect</code></li>
+    <li>Copy Client ID and secret into the toolkit when prompted during Provision</li>
+  </ul>
+
+  <h4>5. Provision and test</h4>
+  <ul>
+    <li>Run <strong>Provision</strong> in the Agents Toolkit lifecycle pane</li>
+    <li>Browse to <a href="https://m365.cloud.microsoft/chat">m365.cloud.microsoft/chat</a></li>
+    <li>Find your agent in the <strong>Agents</strong> sidebar (listed as <code>[name] dev</code> during development)</li>
+    <li>Prompt it to use a tool from your MCP server</li>
+  </ul>
+
+  <h4>6. Distribute</h4>
+  <ul>
+    <li>Sideload to your org via admin upload</li>
+    <li>Or submit to the Copilot store via Partner Center for broader distribution</li>
+  </ul>
+
+  <hr class="my-8" />
+
+  <h2>What About Plain Copilot?</h2>
+
+  <p>
+    A common question: &ldquo;Can I just connect Copilot to my MCP server without Studio or Declarative Agents?&rdquo;
+  </p>
+
+  <p>
+    <strong>No.</strong> Microsoft Copilot (the built-in assistant in Teams, Outlook, Edge, Bing, and Windows)
+    does not have a mechanism to connect directly to external MCP servers. It is a closed system that only
+    accesses Microsoft Graph data and pre-built connectors.
+  </p>
+
+  <p>
+    To use MCP tools from within Copilot, you <em>must</em> use one of the two paths above:
+  </p>
+
+  <ul>
+    <li><strong>Copilot Studio</strong> &mdash; if you want a custom agent with low-code configuration</li>
+    <li><strong>Declarative Agents</strong> &mdash; if you want to extend M365 Copilot directly with developer tooling</li>
+  </ul>
+
+  <p>
+    Both approaches result in MCP tools being available within the Copilot experience, but
+    the integration layer (Studio or Agents Toolkit) is required.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2>Troubleshooting</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Issue</th>
+        <th>Resolution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>MCP tools not appearing</td>
+        <td>Verify Generative Orchestration is enabled; confirm Streamable HTTP transport</td>
+      </tr>
+      <tr>
+        <td>Auth failures</td>
+        <td>Double-check redirect URI matches exactly; verify scopes</td>
+      </tr>
+      <tr>
+        <td>Tools stale/outdated</td>
+        <td>Copilot Studio auto-syncs; force refresh via MCP server settings page</td>
+      </tr>
+      <tr>
+        <td>Declarative agent not visible</td>
+        <td>Confirm Custom App Upload and Copilot Access are enabled in admin center</td>
+      </tr>
+      <tr>
+        <td>SSE connection errors</td>
+        <td>Migrate to Streamable HTTP &mdash; SSE was deprecated August 2025</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Additional Resources</h2>
+
+  <ul>
+    <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-overview">Copilot Studio MCP Docs</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-existing-server">Connect to Existing MCP Server</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/build-declarative-agents-mcp">Build Declarative Agents with MCP</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/microsoft-365-copilot/agents-toolkit">M365 Agents Toolkit</a></li>
+  </ul>
+</DocsLayout>
