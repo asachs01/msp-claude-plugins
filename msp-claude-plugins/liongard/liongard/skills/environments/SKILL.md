@@ -1,9 +1,11 @@
 ---
+name: "Liongard Environments"
 description: >
   Use this skill when working with Liongard environments (customer organizations),
   environment groups, or related entities. Covers environment CRUD operations,
   counting, grouping, related entities, and common MSP workflows for managing
   customer organizations in Liongard.
+when_to_use: "When working with Liongard environments (customer organizations), environment groups, or related entities"
 triggers:
   - liongard environment
   - liongard customer

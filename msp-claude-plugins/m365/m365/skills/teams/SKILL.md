@@ -1,9 +1,11 @@
 ---
+name: "Microsoft 365 Teams"
 description: >
   Use this skill when working with Microsoft Teams - listing teams and channels,
   managing team membership, finding meetings, checking Teams usage, or
   troubleshooting Teams access issues. Covers MSP support tasks for Teams-heavy
   customer environments.
+when_to_use: "When listing teams and channels, managing team membership, finding meetings, checking Teams usage, or troubleshooting Teams access issues"
 triggers:
   - microsoft teams
   - m365 teams

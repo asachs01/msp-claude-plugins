@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Automate Alerts"
 description: >
   Use this skill when working with ConnectWise Automate alerts - listing active
   alerts, acknowledging alerts, viewing alert history, and creating tickets from
   alerts. Covers alert sources (monitors, scripts, events), alert severity levels,
   alert lifecycle management, and ticket integration.
+when_to_use: "When listing active alerts, acknowledging alerts, viewing alert history, and creating tickets from alerts"
 triggers:
   - automate alert
   - automate notification

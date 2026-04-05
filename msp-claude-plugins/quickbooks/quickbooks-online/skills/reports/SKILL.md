@@ -1,4 +1,5 @@
 ---
+name: "QuickBooks Online Reports"
 description: >
   Use this skill when working with QuickBooks Online reports -
   generating Profit & Loss, Balance Sheet, Accounts Receivable Aging,
@@ -6,6 +7,7 @@ description: >
   Covers report parameters, date ranges, column customization, and
   MSP-specific financial analysis patterns like client profitability
   and aged receivables for collections.
+when_to_use: "When generating Profit & Loss, Balance Sheet, Accounts Receivable Aging, Accounts Payable Aging, General Ledger, and other financial reports"
 triggers:
   - quickbooks report
   - qbo report

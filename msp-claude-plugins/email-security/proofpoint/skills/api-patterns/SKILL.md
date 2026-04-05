@@ -1,9 +1,11 @@
 ---
+name: "Proofpoint API Patterns"
 description: >
   Use this skill when working with the Proofpoint API - authentication using HTTP
   Basic Auth with service principal and secret, base URLs, rate limits, pagination,
   error codes, and common integration patterns. Covers TAP SIEM API, quarantine API,
   people API, and URL Defense API authentication and usage patterns.
+when_to_use: "When working with authentication using HTTP Basic Auth with service principal and secret, base URLs, rate limits, pagination, error codes"
 triggers:
   - proofpoint api
   - proofpoint authentication

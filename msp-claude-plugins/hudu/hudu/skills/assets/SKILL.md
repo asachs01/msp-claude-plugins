@@ -1,9 +1,11 @@
 ---
+name: "Hudu Assets"
 description: >
   Use this skill when working with Hudu assets and asset layouts - servers,
   workstations, network devices, and other documented items. Covers asset
   CRUD, asset layout templates, custom fields, archiving, linking assets
   to companies, and search/filter patterns.
+when_to_use: "When working with servers, workstations, network devices, and other documented items in Hudu assets and asset layouts"
 triggers:
   - hudu asset
   - hudu configuration

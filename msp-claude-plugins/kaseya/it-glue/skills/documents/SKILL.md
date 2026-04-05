@@ -1,9 +1,11 @@
 ---
+name: "IT Glue Documents"
 description: >
   Use this skill when working with IT Glue documents - creating, organizing,
   and managing documentation. Covers document folders, embedded passwords,
   related items, version tracking, and documentation best practices for
   comprehensive client documentation management.
+when_to_use: "When creating, organizing, and managing documentation"
 triggers:
   - it glue document
   - documentation

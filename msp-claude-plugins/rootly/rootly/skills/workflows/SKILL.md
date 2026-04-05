@@ -1,8 +1,10 @@
 ---
+name: "Rootly Workflows"
 description: >
   Use this skill when working with Rootly workflows -- creating automated
   incident response workflows, configuring triggers, actions, conditions,
   and managing workflow lifecycle.
+when_to_use: "When creating automated incident response workflows, configuring triggers, actions, conditions, and managing workflow lifecycle"
 triggers:
   - rootly workflow
   - automated workflow

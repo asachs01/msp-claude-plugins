@@ -1,9 +1,11 @@
 ---
+name: "Domotz API Patterns"
 description: >
   Use this skill when working with the Domotz MCP tools --
   available tools, authentication via API key, API structure,
   pagination, rate limiting, region selection, error handling,
   and best practices.
+when_to_use: "When working with available tools, authentication via API key, API structure, pagination, rate limiting, region selection, error handling"
 triggers:
   - domotz api
   - domotz authentication

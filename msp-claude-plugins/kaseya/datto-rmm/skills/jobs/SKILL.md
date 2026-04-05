@@ -1,9 +1,11 @@
 ---
+name: "Datto RMM Jobs"
 description: >
   Use this skill when working with Datto RMM jobs - running quick jobs,
   scheduling jobs, monitoring job status, and viewing results. Covers
   component scripts, job variables, execution status, stdout/stderr output,
   and job management workflows.
+when_to_use: "When running quick jobs, scheduling jobs, monitoring job status, and viewing results"
 triggers:
   - datto job
   - rmm job

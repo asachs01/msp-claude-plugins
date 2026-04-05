@@ -1,9 +1,11 @@
 ---
+name: "KnowBe4 API Patterns"
 description: >
   Use this skill when working with the KnowBe4 REST API - Bearer token authentication,
   multi-region base URLs, pagination, rate limiting, error handling, and common
   request patterns. Covers all KnowBe4 API regions (US, EU, CA, UK, DE),
   authentication headers, response formats, and retry strategies.
+when_to_use: "When working with bearer token authentication, multi-region base URLs, pagination, rate limiting, error handling, and common request patterns in the KnowBe4 REST API"
 triggers:
   - knowbe4 api
   - knowbe4 authentication

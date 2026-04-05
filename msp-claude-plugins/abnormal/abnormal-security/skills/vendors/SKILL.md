@@ -1,4 +1,5 @@
 ---
+name: "Abnormal Security Vendors"
 description: >
   Use this skill when working with Abnormal Security VendorBase vendor
   risk assessment - vendor risk scores, compromised vendor detection,
@@ -6,6 +7,7 @@ description: >
   Covers vendor risk levels, risk factors, compromised vendor workflows,
   and vendor-related threat investigation. Essential for MSP security
   analysts monitoring third-party vendor risk via Abnormal Security.
+when_to_use: "When working with vendor risk scores, compromised vendor detection, vendor domain analysis"
 triggers:
   - abnormal vendor
   - vendor risk

@@ -1,10 +1,12 @@
 ---
+name: "Autotask Service Calls"
 description: >
   Use this skill when working with Autotask Service Calls - creating, scheduling,
   updating, or completing service calls linked to tickets. Covers service call fields,
   status codes, linking tickets to service calls, and managing technician (resource)
   assignments on service call tickets.
   Essential for MSP technicians scheduling on-site visits and planned work.
+when_to_use: "When creating, scheduling, updating, or completing service calls linked to tickets"
 triggers:
   - autotask service call
   - service call

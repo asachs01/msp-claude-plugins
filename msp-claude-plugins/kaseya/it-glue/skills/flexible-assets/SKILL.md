@@ -1,9 +1,11 @@
 ---
+name: "IT Glue Flexible Assets"
 description: >
   Use this skill when working with IT Glue flexible assets - custom asset types
   for structured documentation. Covers flexible asset types, field definitions,
   creating and managing instances, cross-linking with other resources, and
   building custom documentation schemas for MSP needs.
+when_to_use: "When working with custom asset types for structured documentation in IT Glue flexible assets"
 triggers:
   - it glue flexible asset
   - custom asset

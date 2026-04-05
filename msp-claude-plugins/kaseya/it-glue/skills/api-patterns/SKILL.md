@@ -1,9 +1,11 @@
 ---
+name: "IT Glue API Patterns"
 description: >
   Use this skill when working with the IT Glue API - authentication,
   JSON:API structure, filtering, sorting, pagination, rate limiting,
   sideloading with includes, and error handling. Covers regional endpoints,
   x-api-key authentication, and best practices for API integration.
+when_to_use: "When working with authentication, JSON:API structure, filtering, sorting, pagination, rate limiting, sideloading with includes, and error handling in the IT Glue API"
 triggers:
   - it glue api
   - it glue query

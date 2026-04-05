@@ -1,10 +1,12 @@
 ---
+name: "Hudu Passwords"
 description: >
   Use this skill when working with Hudu passwords (asset passwords) -
   secure credential storage, retrieval, folders, and access patterns.
   Covers security best practices, audit logging, password retrieval,
   and proper handling of sensitive credentials. The API endpoint is
   /api/v1/asset_passwords despite the UI calling them "Passwords."
+when_to_use: "When working with secure credential storage, retrieval, folders, and access patterns in Hudu passwords (asset passwords)"
 triggers:
   - hudu password
   - hudu credential

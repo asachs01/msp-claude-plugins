@@ -1,8 +1,10 @@
 ---
+name: "Better Stack Status Pages"
 description: >
   Use this skill when working with Better Stack status pages --
   managing status pages, adding resources/components, posting
   maintenance windows, and communicating service status to end users.
+when_to_use: "When managing status pages, adding resources/components, posting maintenance windows, and communicating service status to end users"
 triggers:
   - betterstack status page
   - status page

@@ -1,8 +1,10 @@
 ---
+name: "Domotz Eyes"
 description: >
   Use this skill when working with Domotz Eyes -- TCP and HTTP
   sensors, custom monitoring checks, synthetic tests, latency
   tracking, and service availability monitoring.
+when_to_use: "When working with TCP and HTTP sensors, custom monitoring checks, synthetic tests, latency tracking, and service availability monitoring in Domotz Eyes"
 triggers:
   - domotz eyes
   - domotz sensor

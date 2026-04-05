@@ -1,9 +1,11 @@
 ---
+name: "Sherweb Subscriptions"
 description: >
   Use this skill when working with Sherweb subscriptions - viewing
   subscriptions, changing quantities, license management, subscription
   lifecycle, and quantity change workflows. Covers subscription states,
   seat adjustments, and provisioning status.
+when_to_use: "When viewing subscriptions, changing quantities, license management, subscription lifecycle, and quantity change workflows"
 triggers:
   - sherweb subscription
   - sherweb license

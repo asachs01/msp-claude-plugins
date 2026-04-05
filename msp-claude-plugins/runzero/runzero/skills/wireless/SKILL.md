@@ -1,8 +1,10 @@
 ---
+name: "runZero Wireless"
 description: >
   Use this skill when working with RunZero wireless network discovery —
   listing discovered wireless networks, identifying rogue access points,
   analyzing wireless security configurations, and auditing SSIDs.
+when_to_use: "When listing discovered wireless networks, identifying rogue access points, analyzing wireless security configurations, and auditing SSIDs"
 triggers:
   - runzero wireless
   - wireless network

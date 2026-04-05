@@ -1,8 +1,10 @@
 ---
+name: "Rootly Postmortems"
 description: >
   Use this skill when working with Rootly postmortems -- creating retrospectives,
   managing action items, applying templates, and conducting blameless reviews
   after incidents are resolved.
+when_to_use: "When creating retrospectives, managing action items, applying templates, and conducting blameless reviews after incidents are resolved"
 triggers:
   - rootly postmortem
   - retrospective

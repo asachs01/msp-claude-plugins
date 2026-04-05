@@ -1,4 +1,5 @@
 ---
+name: "Abnormal Security Messages"
 description: >
   Use this skill when working with Abnormal Security message analysis -
   email headers, attachments, sender reputation, delivery context,
@@ -6,6 +7,7 @@ description: >
   Covers message retrieval, header inspection, and contextual analysis
   for incident investigation. Essential for MSP security analysts
   performing deep message analysis in Abnormal Security.
+when_to_use: "When working with email headers, attachments, sender reputation, delivery context, authentication results (SPF/DKIM/DMARC)"
 triggers:
   - abnormal message
   - message analysis

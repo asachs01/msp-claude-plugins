@@ -1,9 +1,11 @@
 ---
+name: "QuickBooks Online Customers"
 description: >
   Use this skill when working with QuickBooks Online customers (clients) -
   creating, searching, updating, and managing MSP client records.
   Covers customer fields, sub-customers, billing addresses, payment terms,
   balance tracking, and cross-referencing with PSA platforms.
+when_to_use: "When creating, searching, updating, and managing MSP client records"
 triggers:
   - quickbooks customer
   - qbo customer

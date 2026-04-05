@@ -1,4 +1,5 @@
 ---
+name: "Abnormal Security Account Takeover"
 description: >
   Use this skill when working with Abnormal Security account takeover (ATO)
   detection - suspicious sign-ins, impossible travel, compromised accounts,
@@ -6,6 +7,7 @@ description: >
   takeover cases, investigation workflows, and remediation actions.
   Essential for MSP security analysts investigating compromised accounts
   detected by Abnormal Security.
+when_to_use: "When working with suspicious sign-ins, impossible travel, compromised accounts, mailbox rule changes"
 triggers:
   - account takeover
   - abnormal ato

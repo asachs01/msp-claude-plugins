@@ -1,8 +1,10 @@
 ---
+name: "Better Stack Logging"
 description: >
   Use this skill when working with Better Stack log management (Logtail) --
   querying logs, managing log sources, structured log search,
   log-based alerting, and log analysis workflows.
+when_to_use: "When querying logs, managing log sources, structured log search, log-based alerting, and log analysis workflows"
 triggers:
   - betterstack logs
   - logtail

@@ -1,7 +1,9 @@
 ---
+name: "Abnormal Cases"
 description: >
   Use this skill when working with Abnormal Security cases — active security
   cases, abuse reports (user-reported phishing), and case management workflows.
+when_to_use: "When working with active security cases, abuse reports (user-reported phishing), and case management workflows in Abnormal Security cases"
 triggers:
   - abnormal cases
   - abuse reports

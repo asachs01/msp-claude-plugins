@@ -1,10 +1,12 @@
 ---
+name: "Proofpoint TAP"
 description: >
   Use this skill when working with Proofpoint Targeted Attack Protection (TAP) -
   retrieving threat events, click tracking, message delivery and blocking data,
   SIEM integration feeds, and threat type analysis. Covers URL threats, attachment
   threats, message-level threats, permitted and blocked clicks, and campaign
   correlation. Essential for MSP security analysts monitoring email threat activity.
+when_to_use: "When retrieving threat events, click tracking, message delivery and blocking data, SIEM integration feeds, and threat type analysis"
 triggers:
   - proofpoint tap
   - targeted attack protection

@@ -1,10 +1,12 @@
 ---
+name: "Autotask Tickets"
 description: >
   Use this skill when working with Autotask tickets - creating, updating,
   searching, or managing service desk operations. Covers ticket fields,
   queues, statuses, priorities, SLAs, escalation rules, and workflow automations.
   Includes business logic for validation, SLA calculations, and metrics.
   Essential for MSP technicians handling service delivery through Autotask PSA.
+when_to_use: "When creating, updating, searching, or managing service desk operations"
 triggers:
   - autotask ticket
   - service ticket

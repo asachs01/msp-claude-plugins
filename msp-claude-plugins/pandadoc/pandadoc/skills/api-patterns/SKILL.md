@@ -1,9 +1,11 @@
 ---
+name: "PandaDoc API Patterns"
 description: >
   Use this skill when working with PandaDoc MCP tools - available tools,
   API key authentication, the hosted MCP server connection, documentation
   search, code generation assistance, rate limiting, error handling,
   and best practices for the PandaDoc API.
+when_to_use: "When working with available tools, API key authentication, the hosted MCP server connection, documentation search, code generation assistance, rate limiting, error handling"
 triggers:
   - pandadoc api
   - pandadoc query

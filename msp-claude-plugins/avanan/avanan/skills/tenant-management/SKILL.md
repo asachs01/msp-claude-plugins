@@ -1,9 +1,11 @@
 ---
+name: "Avanan Tenant Management"
 description: >
   Use this skill when managing Check Point Avanan tenants as an MSP —
   listing and querying customer tenants via the Smart API, scoping operations
   to specific tenants, and managing whitelist and blacklist exceptions for
   senders, domains, and URLs.
+when_to_use: "When managing Check Point Avanan tenants as an MSP — listing and querying customer tenants via the Smart API, scoping operations to specific tenants"
 triggers:
   - avanan tenant
   - avanan msp

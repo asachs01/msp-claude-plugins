@@ -1,9 +1,11 @@
 ---
+name: "Proofpoint People"
 description: >
   Use this skill when working with Proofpoint people-centric security - Very Attacked
   People (VAP) reports, top clickers, user risk scoring, attack index, and user-level
   threat analytics. Covers identifying high-risk users, measuring user susceptibility,
   and implementing targeted security controls for the most attacked people.
+when_to_use: "When working with centric security - Very Attacked People (VAP) reports, top clickers, user risk scoring, attack index, and user-level threat analytics in Proofpoint people"
 triggers:
   - proofpoint people
   - very attacked people

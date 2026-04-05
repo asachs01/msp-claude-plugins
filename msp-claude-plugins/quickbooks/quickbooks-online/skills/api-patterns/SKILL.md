@@ -1,10 +1,12 @@
 ---
+name: "QuickBooks Online API Patterns"
 description: >
   Use this skill when working with the QuickBooks Online API - OAuth2
   authentication, REST structure, Intuit query language, pagination,
   rate limiting, error handling, minor version headers, and best
   practices. Covers base URL patterns, sandbox vs production, and
   the Fault error object format.
+when_to_use: "When working with OAuth2 authentication, REST structure, Intuit query language, pagination, rate limiting, error handling, minor version headers"
 triggers:
   - quickbooks api
   - qbo api

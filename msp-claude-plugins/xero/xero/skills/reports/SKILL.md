@@ -1,9 +1,11 @@
 ---
+name: "Xero Reports"
 description: >
   Use this skill when working with Xero financial reports - Profit and Loss,
   Balance Sheet, Aged Receivables, Aged Payables, Trial Balance, and other
   management reports. Covers report parameters, date ranges, tracking
   categories, and interpreting results for MSP financial operations.
+when_to_use: "When working with profit and Loss, Balance Sheet, Aged Receivables, Aged Payables, Trial Balance, and other management reports in Xero financial reports"
 triggers:
   - xero report
   - xero profit and loss

@@ -1,9 +1,11 @@
 ---
+name: "Pax8 Companies"
 description: >
   Use this skill when working with Pax8 companies (MSP clients) -
   searching, retrieving, and managing client records in the
   Pax8 marketplace. Covers company fields, contact management, billing
   settings, and cross-referencing with subscriptions and orders.
+when_to_use: "When searching, retrieving, and managing client records in the Pax8 marketplace"
 triggers:
   - pax8 company
   - pax8 client

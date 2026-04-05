@@ -1,9 +1,11 @@
 ---
+name: "Hudu API Patterns"
 description: >
   Use this skill when working with the Hudu API - authentication,
   REST structure, filtering, pagination, rate limiting, error handling,
   and best practices. Covers x-api-key authentication, base URL patterns,
   API naming differences (UI vs API), and API key permission levels.
+when_to_use: "When working with authentication, REST structure, filtering, pagination, rate limiting, error handling, and best practices in the Hudu API"
 triggers:
   - hudu api
   - hudu query

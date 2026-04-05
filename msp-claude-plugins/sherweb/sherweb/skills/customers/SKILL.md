@@ -1,10 +1,12 @@
 ---
+name: "Sherweb Customers"
 description: >
   Use this skill when working with Sherweb customers - listing customers,
   retrieving customer details, accounts receivable, and understanding the
   distributor > service provider > customer hierarchy. Covers customer
   lifecycle, customer fields, and cross-referencing with subscriptions
   and billing data.
+when_to_use: "When listing customers, retrieving customer details, accounts receivable, and understanding the distributor > service provider > customer hierarchy"
 triggers:
   - sherweb customer
   - sherweb client

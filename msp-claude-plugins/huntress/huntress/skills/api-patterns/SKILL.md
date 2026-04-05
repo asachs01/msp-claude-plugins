@@ -1,9 +1,11 @@
 ---
+name: "Huntress API Patterns"
 description: >
   Use this skill when working with the Huntress MCP tools —
   available tools, authentication via HTTP Basic Auth, API structure,
   pagination with page tokens, rate limiting (60 req/min), error handling,
   and best practices.
+when_to_use: "When working with available tools, authentication via HTTP Basic Auth, API structure, pagination with page tokens, rate limiting (60 req/min), error handling"
 triggers:
   - huntress api
   - huntress authentication

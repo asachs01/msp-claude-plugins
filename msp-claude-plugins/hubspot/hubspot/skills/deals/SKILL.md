@@ -1,9 +1,11 @@
 ---
+name: "HubSpot Deals"
 description: >
   Use this skill when working with HubSpot deals - searching, creating,
   updating, and managing deal records and pipelines in HubSpot CRM.
   Covers deal fields, pipeline stages, forecasting, revenue tracking,
   and associating deals with contacts and companies.
+when_to_use: "When searching, creating, updating, and managing deal records and pipelines in HubSpot CRM"
 triggers:
   - hubspot deal
   - hubspot pipeline

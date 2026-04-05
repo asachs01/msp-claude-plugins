@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Manage Projects"
 description: >
   Use this skill when working with ConnectWise PSA projects - creating, updating,
   managing project phases, templates, and resource allocation. Covers project
   lifecycle, budgeting, billing methods, and project tickets. Essential for MSPs
   delivering project-based services through ConnectWise PSA.
+when_to_use: "When creating, updating, managing project phases, templates, and resource allocation"
 triggers:
   - connectwise project
   - project management

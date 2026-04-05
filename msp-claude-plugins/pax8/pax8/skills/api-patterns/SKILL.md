@@ -1,9 +1,11 @@
 ---
+name: "Pax8 API Patterns"
 description: >
   Use this skill when working with the Pax8 MCP tools - available tools,
   parameters, pagination, sorting, filtering, rate limiting, error
   handling, and best practices. Covers the official hosted MCP server
   connection and all 15 Pax8 MCP tools.
+when_to_use: "When working with available tools, parameters, pagination, sorting, filtering, rate limiting, error handling, and best practices in the Pax8 MCP tools"
 triggers:
   - pax8 api
   - pax8 query

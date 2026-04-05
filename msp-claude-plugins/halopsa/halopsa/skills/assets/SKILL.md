@@ -1,9 +1,11 @@
 ---
+name: "HaloPSA Assets"
 description: >
   Use this skill when working with HaloPSA assets - tracking devices, managing
   configuration items, hardware lifecycle, and asset relationships. Covers
   asset fields, types, statuses, links to clients/sites, and RMM integration.
   Essential for MSP asset management and CMDB operations.
+when_to_use: "When tracking devices, managing configuration items, hardware lifecycle, and asset relationships"
 triggers:
   - halopsa asset
   - halo asset

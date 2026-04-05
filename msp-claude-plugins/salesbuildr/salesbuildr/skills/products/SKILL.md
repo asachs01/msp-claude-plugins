@@ -1,8 +1,10 @@
 ---
+name: "SalesBuildr Products"
 description: >
   Use this skill when searching for products in the Salesbuildr catalog,
   looking up pricing, or browsing by category. Products are items that
   can be added to quotes as line items.
+when_to_use: "When searching for products in the Salesbuildr catalog, looking up pricing, or browsing by category"
 triggers:
   - salesbuildr product
   - salesbuildr products

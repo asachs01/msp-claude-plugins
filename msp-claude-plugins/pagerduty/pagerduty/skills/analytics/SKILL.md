@@ -1,8 +1,10 @@
 ---
+name: "PagerDuty Analytics"
 description: >
   Use this skill when working with PagerDuty analytics -- incident analytics,
   MTTA and MTTR metrics, service-level performance, team workload reporting,
   and operational maturity assessment.
+when_to_use: "When working with incident analytics, MTTA and MTTR metrics, service-level performance, team workload reporting, and operational maturity assessment in PagerDuty analytics"
 triggers:
   - pagerduty analytics
   - mtta

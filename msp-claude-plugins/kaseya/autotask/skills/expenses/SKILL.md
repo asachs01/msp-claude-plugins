@@ -1,10 +1,12 @@
 ---
+name: "Autotask Expenses"
 description: >
   Use this skill when working with Autotask expense reports and expense items -
   creating expense reports, adding line items, searching reports by status or
   submitter, tracking reimbursable vs billable expenses, and managing expense
   approval workflows. Covers expense categories, payment types, receipt tracking,
   and company billing for MSP operational expenses.
+when_to_use: "When creating expense reports, adding line items, searching reports by status or submitter, tracking reimbursable vs billable expenses, and managing expense approval workflows"
 triggers:
   - autotask expense
   - expense report

@@ -1,9 +1,11 @@
 ---
+name: "SuperOps Runbooks"
 description: >
   Use this skill when working with SuperOps.ai runbooks and scripts - listing,
   executing, monitoring, and managing automated scripts on assets. Covers script
   types, execution parameters, scheduling, and result handling.
   Essential for MSP automation through SuperOps.ai RMM.
+when_to_use: "When listing, executing, monitoring, and managing automated scripts on assets"
 triggers:
   - superops runbook
   - superops script

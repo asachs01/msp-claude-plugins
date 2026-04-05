@@ -1,8 +1,10 @@
 ---
+name: "Blumira Resolutions"
 description: >
   Use this skill when resolving Blumira findings, choosing the correct
   resolution type, or understanding resolution workflows and their impact
   on security metrics.
+when_to_use: "When resolving Blumira findings, choosing the correct resolution type, or understanding resolution workflows and their impact on security metrics"
 triggers:
   - resolution type
   - resolve finding

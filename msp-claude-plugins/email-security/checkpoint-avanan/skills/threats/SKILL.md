@@ -1,4 +1,5 @@
 ---
+name: "Checkpoint Avanan Threats"
 description: >
   Use this skill when working with Checkpoint Harmony Email threat detection
   and analysis - phishing, malware, BEC, account takeover, IOC extraction,
@@ -6,6 +7,7 @@ description: >
   engines, indicator analysis, and threat intelligence workflows.
   Essential for MSP security analysts investigating email-borne threats
   detected by Checkpoint Harmony Email & Collaboration (Avanan).
+when_to_use: "When phishing, malware, BEC, account takeover, IOC extraction, threat timelines, and severity assessment"
 triggers:
   - checkpoint threat
   - avanan threat

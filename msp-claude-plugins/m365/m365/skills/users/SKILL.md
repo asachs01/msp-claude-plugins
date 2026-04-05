@@ -1,9 +1,11 @@
 ---
+name: "Microsoft 365 Users"
 description: >
   Use this skill when working with Microsoft 365 users - listing, searching,
   creating, disabling, or checking user properties. Covers account status,
   MFA enrollment, license assignment, group membership, and manager hierarchy.
   Essential for MSP technicians handling M365 user administration.
+when_to_use: "When listing, searching, creating, disabling, or checking user properties"
 triggers:
   - m365 user
   - microsoft 365 user

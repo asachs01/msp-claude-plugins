@@ -1,8 +1,10 @@
 ---
+name: "NinjaOne Tickets"
 description: >
   Use this skill when working with NinjaOne tickets - creating, updating,
   searching, and managing ticketing operations. NinjaOne's built-in ticketing
   integrates with device monitoring for streamlined MSP workflows.
+when_to_use: "When creating, updating, searching, and managing ticketing operations. NinjaOne's built-in ticketing integrates with device monitoring for streamlined MSP workflows"
 triggers:
   - ninjaone ticket
   - ninjarmm ticket

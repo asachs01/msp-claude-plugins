@@ -1,9 +1,11 @@
 ---
+name: "RocketCyber Agents"
 description: >
   Use this skill when working with RocketCyber agents (RocketAgent) - deployment,
   communication status, health monitoring, and troubleshooting. Covers agent
   installation, online/offline status, agent-to-account mapping, platform support,
   and connectivity diagnostics.
+when_to_use: "When working with deployment, communication status, health monitoring, and troubleshooting in RocketCyber agents (RocketAgent)"
 triggers:
   - rocketcyber agent
   - rocketagent

@@ -1,9 +1,11 @@
 ---
+name: "SuperOps Clients"
 description: >
   Use this skill when working with SuperOps.ai clients - creating, updating,
   searching, and managing client accounts. Covers client fields, sites,
   contacts, custom fields, and client lifecycle management.
   Essential for MSP account management through SuperOps.ai PSA.
+when_to_use: "When creating, updating, searching, and managing client accounts"
 triggers:
   - superops client
   - client management

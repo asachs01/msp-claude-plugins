@@ -1,10 +1,12 @@
 ---
+name: "Pax8 Subscriptions"
 description: >
   Use this skill when working with Pax8 subscriptions - checking license
   status, reviewing seat counts, filtering by company or product,
   tracking subscription states, reviewing change history, and optimizing
   license usage across MSP clients. Covers the full subscription
   lifecycle including all subscription states and quantity management.
+when_to_use: "When checking license status, reviewing seat counts, filtering by company or product, tracking subscription states, reviewing change history"
 triggers:
   - pax8 subscription
   - pax8 license

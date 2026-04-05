@@ -1,8 +1,10 @@
 ---
+name: "SpamTitan Lists"
 description: >
   Use this skill when managing SpamTitan sender allowlists and blocklists —
   adding trusted senders to prevent false positives, blocking unwanted senders
   and domains, and reviewing existing list entries.
+when_to_use: "When managing SpamTitan sender allowlists and blocklists — adding trusted senders to prevent false positives, blocking unwanted senders and domains"
 triggers:
   - allowlist
   - blocklist

@@ -1,8 +1,10 @@
 ---
+name: "Syncro API Patterns"
 description: >
   Use this skill when working with the Syncro MSP API - authentication,
   pagination, rate limiting, and error handling. Covers API key setup,
   request patterns, response handling, and best practices for API integration.
+when_to_use: "When working with authentication, pagination, rate limiting, and error handling in the Syncro MSP API"
 triggers:
   - syncro api
   - syncro authentication

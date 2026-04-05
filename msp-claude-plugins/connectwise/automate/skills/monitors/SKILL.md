@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Automate Monitors"
 description: >
   Use this skill when working with ConnectWise Automate monitors - configuring
   thresholds, creating templates, and assigning to computers. Covers monitor types
   (internal, remote, SNMP), alert thresholds, monitor templates, assignment methods,
   and monitor status evaluation.
+when_to_use: "When configuring thresholds, creating templates, and assigning to computers"
 triggers:
   - automate monitor
   - automate monitoring

@@ -1,9 +1,11 @@
 ---
+name: "Liongard Systems"
 description: >
   Use this skill when working with Liongard systems, system details,
   dataprints for JMESPath evaluation, or asset inventory. Covers
   discovered systems from inspections, system detail data, dataprint
   extraction, and identity/device profiles.
+when_to_use: "When working with Liongard systems, system details, dataprints for JMESPath evaluation, or asset inventory"
 triggers:
   - liongard system
   - liongard device

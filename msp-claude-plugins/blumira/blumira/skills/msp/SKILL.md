@@ -1,8 +1,10 @@
 ---
+name: "Blumira MSP"
 description: >
   Use this skill when working with Blumira MSP (Managed Service Provider)
   multi-tenant operations, including managing multiple client accounts,
   cross-account finding queries, and per-account device/user management.
+when_to_use: "When working with tenant operations, including managing multiple client accounts, cross-account finding queries"
 triggers:
   - blumira msp
   - multi-tenant

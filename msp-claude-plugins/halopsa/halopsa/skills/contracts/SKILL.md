@@ -1,9 +1,11 @@
 ---
+name: "HaloPSA Contracts"
 description: >
   Use this skill when working with HaloPSA contracts - managing service agreements,
   recurring billing, prepaid hours, and contract renewals. Covers contract types,
   billing periods, recurring items, SLA associations, and financial workflows.
   Essential for MSP account managers handling service agreements in HaloPSA.
+when_to_use: "When managing service agreements, recurring billing, prepaid hours, and contract renewals"
 triggers:
   - halopsa contract
   - halo contract

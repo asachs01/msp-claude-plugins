@@ -1,10 +1,12 @@
 ---
+name: "SentinelOne API Patterns"
 description: >
   Use this skill when working with the SentinelOne Purple MCP tools -
   available tools, connection setup, uvx-based installation, Service User
   token authentication, transport modes, dual API architecture (GraphQL
   and REST), rate limits, error handling, and best practices. Covers all
   23 Purple MCP tools organized by domain.
+when_to_use: "When working with available tools, connection setup, uvx-based installation, Service User token authentication, transport modes, dual API architecture (GraphQL and REST)"
 triggers:
   - sentinelone api
   - sentinelone query

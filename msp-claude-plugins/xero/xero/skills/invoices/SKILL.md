@@ -1,9 +1,11 @@
 ---
+name: "Xero Invoices"
 description: >
   Use this skill when working with Xero invoices - creating, searching,
   updating, voiding, and managing sales invoices (ACCREC) and supplier
   bills (ACCPAY). Covers invoice lifecycle, line items, tax handling,
   recurring managed services billing, and MSP invoice workflows.
+when_to_use: "When creating, searching, updating, voiding, and managing sales invoices (ACCREC) and supplier bills (ACCPAY)"
 triggers:
   - xero invoice
   - xero bill

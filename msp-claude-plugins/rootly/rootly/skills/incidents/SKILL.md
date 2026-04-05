@@ -1,10 +1,12 @@
 ---
+name: "Rootly Incidents"
 description: >
   Use this skill when working with Rootly incidents - creating, searching,
   triaging, updating, and resolving incidents. Covers the incident lifecycle,
   severity levels, status transitions, AI-powered analysis tools
   (find_related_incidents, suggest_solutions), action items, alert attachment,
   and cross-vendor PSA ticket correlation workflows.
+when_to_use: "When creating, searching, triaging, updating, and resolving incidents"
 triggers:
   - rootly incident
   - rootly outage

@@ -1,9 +1,11 @@
 ---
+name: "HaloPSA Clients"
 description: >
   Use this skill when working with HaloPSA clients - creating, updating,
   searching, or managing customer relationships. Covers client fields,
   sites/locations, contacts, client types, and onboarding workflows.
   Essential for MSP account managers handling CRM in HaloPSA.
+when_to_use: "When creating, updating, searching, or managing customer relationships"
 triggers:
   - halopsa client
   - halo client

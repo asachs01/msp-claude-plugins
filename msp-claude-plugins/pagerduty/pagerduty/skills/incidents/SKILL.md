@@ -1,10 +1,12 @@
 ---
+name: "PagerDuty Incidents"
 description: >
   Use this skill when working with PagerDuty incidents - listing, triaging,
   creating, updating, resolving, and investigating incidents. Covers incident
   lifecycle (triggered/acknowledged/resolved), urgency levels, alert grouping,
   incident notes, log entries, past incidents pattern matching, and
   cross-vendor PSA ticket correlation workflows for MSPs.
+when_to_use: "When listing, triaging, creating, updating, resolving, and investigating incidents"
 triggers:
   - pagerduty incident
   - pagerduty outage

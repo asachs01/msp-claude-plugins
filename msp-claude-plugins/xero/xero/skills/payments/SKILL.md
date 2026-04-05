@@ -1,9 +1,11 @@
 ---
+name: "Xero Payments"
 description: >
   Use this skill when working with Xero payments - recording payments,
   tracking outstanding balances, payment allocation, overpayments,
   prepayments, and batch payment operations. Covers payment workflows
   for MSP client billing, vendor payments, and reconciliation.
+when_to_use: "When recording payments, tracking outstanding balances, payment allocation, overpayments, prepayments, and batch payment operations"
 triggers:
   - xero payment
   - xero pay

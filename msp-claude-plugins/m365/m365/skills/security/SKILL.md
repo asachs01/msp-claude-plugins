@@ -1,9 +1,11 @@
 ---
+name: "Microsoft 365 Security"
 description: >
   Use this skill for Microsoft 365 security posture checks - MFA enrollment
   status, conditional access policies, risky sign-ins, suspicious inbox rules,
   compromised account indicators, and security audit tasks. Critical for MSPs
   performing security reviews or investigating suspected account compromises.
+when_to_use: "When working with Microsoft 365 security posture checks - MFA enrollment status, conditional access policies, risky sign-ins, suspicious inbox rules"
 triggers:
   - m365 security
   - m365 mfa

@@ -1,9 +1,11 @@
 ---
+name: "Microsoft 365 Mailboxes"
 description: >
   Use this skill when working with Microsoft 365 mailboxes - reading email,
   searching messages, managing shared mailboxes, setting out-of-office replies,
   checking mailbox size, or diagnosing mail flow issues. Covers Exchange Online
   via Microsoft Graph for MSP technicians supporting customer email environments.
+when_to_use: "When reading email, searching messages, managing shared mailboxes, setting out-of-office replies, checking mailbox size, or diagnosing mail flow issues"
 triggers:
   - m365 email
   - m365 mailbox

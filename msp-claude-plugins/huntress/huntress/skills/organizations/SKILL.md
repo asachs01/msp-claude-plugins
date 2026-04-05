@@ -1,8 +1,10 @@
 ---
+name: "Huntress Organizations"
 description: >
   Use this skill when managing Huntress organizations — creating, listing,
   updating, deleting organizations, and managing client org structure for
   MSP multi-tenancy.
+when_to_use: "When managing Huntress organizations — creating, listing, updating, deleting organizations, and managing client org structure for MSP multi-tenancy"
 triggers:
   - huntress organization
   - huntress org

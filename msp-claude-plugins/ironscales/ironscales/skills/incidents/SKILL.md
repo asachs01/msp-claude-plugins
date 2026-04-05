@@ -1,8 +1,10 @@
 ---
+name: "IRONSCALES Incidents"
 description: >
   Use this skill when working with Ironscales phishing incidents — listing and
   triaging incidents, classifying emails as phishing/spam/legitimate, taking
   remediation actions, managing sender allowlists, and viewing company statistics.
+when_to_use: "When listing and triaging incidents, classifying emails as phishing/spam/legitimate, taking remediation actions, managing sender allowlists, and viewing company statistics"
 triggers:
   - ironscales incident
   - phishing incident

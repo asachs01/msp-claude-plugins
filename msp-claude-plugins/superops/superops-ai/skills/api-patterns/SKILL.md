@@ -1,9 +1,11 @@
 ---
+name: "SuperOps API Patterns"
 description: >
   Use this skill when working with the SuperOps.ai GraphQL API - authentication,
   query building, mutations, pagination, rate limiting, and error handling.
   Covers Bearer token auth, cursor pagination, variable usage, and best practices
   for GraphQL integration with SuperOps.ai.
+when_to_use: "When working with authentication, query building, mutations, pagination, rate limiting, and error handling in the SuperOps.ai GraphQL API"
 triggers:
   - superops api
   - superops graphql

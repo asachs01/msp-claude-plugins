@@ -1,8 +1,10 @@
 ---
+name: "Domotz Agents"
 description: >
   Use this skill when managing Domotz agents (collectors), sites,
   and network probes -- listing agents, checking agent health,
   viewing site details, and monitoring collector connectivity.
+when_to_use: "When managing Domotz agents (collectors), sites, and network probes -- listing agents, checking agent health, viewing site details, and monitoring collector connectivity"
 triggers:
   - domotz agent
   - domotz collector

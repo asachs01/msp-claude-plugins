@@ -1,9 +1,11 @@
 ---
+name: "Xero Contacts"
 description: >
   Use this skill when working with Xero contacts (customers/suppliers) -
   creating, searching, updating, and managing client organizations.
   Covers contact fields, contact groups, MSP client management,
   billing address handling, and cross-referencing with PSA systems.
+when_to_use: "When creating, searching, updating, and managing client organizations"
 triggers:
   - xero contact
   - xero customer

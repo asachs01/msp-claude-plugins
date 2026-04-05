@@ -1,8 +1,10 @@
 ---
+name: "Abnormal Threats"
 description: >
   Use this skill when investigating Abnormal Security threats — BEC, phishing,
   account takeover, threat lifecycle management, message analysis within threat
   cases, and triggering or checking remediation status.
+when_to_use: "When investigating Abnormal Security threats — BEC, phishing, account takeover, threat lifecycle management, message analysis within threat cases"
 triggers:
   - abnormal threat
   - abnormal case

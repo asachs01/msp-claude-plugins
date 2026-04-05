@@ -1,9 +1,11 @@
 ---
+name: "Datto RMM Variables"
 description: >
   Use this skill when working with Datto RMM variables - account-level and
   site-level variables for storing configuration data. Covers variable
   CRUD operations, using variables in jobs/scripts, naming conventions,
   and variable management patterns.
+when_to_use: "When working with account-level and site-level variables for storing configuration data in Datto RMM variables"
 triggers:
   - datto variable
   - rmm variable

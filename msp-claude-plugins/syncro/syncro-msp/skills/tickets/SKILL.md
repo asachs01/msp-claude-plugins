@@ -1,10 +1,12 @@
 ---
+name: "Syncro Tickets"
 description: >
   Use this skill when working with Syncro MSP tickets - creating, updating,
   searching, or managing service desk operations. Covers ticket fields,
   statuses, priorities, problem types, timer operations, and workflow automations.
   Includes business logic for validation, time tracking, and reporting.
   Essential for MSP technicians handling service delivery through Syncro.
+when_to_use: "When creating, updating, searching, or managing service desk operations"
 triggers:
   - syncro ticket
   - service ticket syncro

@@ -1,9 +1,11 @@
 ---
+name: "Proofpoint Forensics"
 description: >
   Use this skill when working with Proofpoint forensics and threat response -
   auto-pull, search and destroy, message trace, evidence collection, and
   remediation workflows. Covers post-delivery remediation, message investigation,
   and incident response procedures for email-borne threats.
+when_to_use: "When working with auto-pull, search and destroy, message trace, evidence collection, and remediation workflows in Proofpoint forensics and threat response"
 triggers:
   - proofpoint forensics
   - proofpoint search and destroy

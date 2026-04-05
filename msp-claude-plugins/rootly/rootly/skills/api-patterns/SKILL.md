@@ -1,9 +1,11 @@
 ---
+name: "Rootly API Patterns"
 description: >
   Use this skill when working with Rootly MCP tools - authentication setup,
   complete tool reference, JSON:API pagination, request patterns, rate limits,
   and error handling. Covers all 25 MCP tools organized by category, token
   types (Global vs Team), and how the gateway injects credentials.
+when_to_use: "When working with authentication setup, complete tool reference, JSON:API pagination, request patterns, rate limits, and error handling in Rootly MCP tools"
 triggers:
   - rootly api
   - rootly mcp

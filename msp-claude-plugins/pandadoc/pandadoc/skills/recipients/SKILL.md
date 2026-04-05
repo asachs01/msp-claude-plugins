@@ -1,10 +1,12 @@
 ---
+name: "PandaDoc Recipients"
 description: >
   Use this skill when working with PandaDoc recipients and signatures -
   adding recipients to documents, setting signing order, tracking who
   has signed, managing multi-party agreements, and understanding
   recipient roles. Covers e-signature workflows, completion tracking,
   and multi-signer scenarios common in MSP contracts.
+when_to_use: "When adding recipients to documents, setting signing order, tracking who has signed, managing multi-party agreements, and understanding recipient roles"
 triggers:
   - pandadoc recipient
   - pandadoc signer

@@ -1,8 +1,10 @@
 ---
+name: "SpamTitan Quarantine"
 description: >
   Use this skill when managing the SpamTitan quarantine queue — listing held
   messages, releasing legitimate emails, deleting spam, reviewing email flow
   statistics, and performing bulk quarantine operations.
+when_to_use: "When managing the SpamTitan quarantine queue — listing held messages, releasing legitimate emails, deleting spam, reviewing email flow statistics"
 triggers:
   - quarantine
   - held email

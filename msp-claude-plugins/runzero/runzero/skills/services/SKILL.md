@@ -1,8 +1,10 @@
 ---
+name: "runZero Services"
 description: >
   Use this skill when working with RunZero services — listing discovered
   services, filtering by port or protocol, identifying vulnerabilities,
   and auditing exposed services across sites.
+when_to_use: "When listing discovered services, filtering by port or protocol, identifying vulnerabilities, and auditing exposed services across sites"
 triggers:
   - runzero service
   - discovered service

@@ -1,9 +1,11 @@
 ---
+name: "HubSpot Companies"
 description: >
   Use this skill when working with HubSpot companies - searching, creating,
   updating, and auditing company records in HubSpot CRM. Covers company
   fields, industry classification, lifecycle stages, domain matching,
   and cross-referencing with contacts, deals, and tickets.
+when_to_use: "When searching, creating, updating, and auditing company records in HubSpot CRM"
 triggers:
   - hubspot company
   - hubspot organization

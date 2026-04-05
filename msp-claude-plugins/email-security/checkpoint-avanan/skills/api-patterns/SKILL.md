@@ -1,4 +1,5 @@
 ---
+name: "Checkpoint Avanan API Patterns"
 description: >
   Use this skill when working with the Checkpoint Harmony Email API -
   OAuth2 client credentials authentication, base URLs, rate limiting,
@@ -6,6 +7,7 @@ description: >
   management, request/response formats, and integration best practices.
   Essential for developers and MSP administrators integrating with the
   Checkpoint Harmony Email & Collaboration (Avanan) API.
+when_to_use: "When working with OAuth2 client credentials authentication, base URLs, rate limiting, pagination, error handling, and common API patterns in the Checkpoint Harmony Email API"
 triggers:
   - checkpoint api
   - avanan api

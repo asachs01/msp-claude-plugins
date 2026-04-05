@@ -1,10 +1,12 @@
 ---
+name: "Autotask Time Entries"
 description: >
   Use this skill when working with Autotask time entries - logging work hours,
   billing calculations, approval workflows, utilization tracking, and budget
   validation. Covers time entry fields, billing rates, approval statuses,
   contract limits, and integration with tickets and projects.
   Essential for MSP technicians tracking billable and non-billable work.
+when_to_use: "When logging work hours, billing calculations, approval workflows, utilization tracking, and budget validation"
 triggers:
   - autotask time entry
   - log time

@@ -1,9 +1,11 @@
 ---
+name: "Autotask API Patterns"
 description: >
   Use this skill when working with the Autotask REST API - authentication,
   query building, pagination, includes, rate limiting, and error handling.
   Covers all 14 query operators, zone detection, header authentication,
   retry strategies, and best practices for API integration.
+when_to_use: "When working with authentication, query building, pagination, includes, rate limiting, and error handling in the Autotask REST API"
 triggers:
   - autotask api
   - autotask query

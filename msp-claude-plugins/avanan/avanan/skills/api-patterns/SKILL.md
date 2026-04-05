@@ -1,9 +1,11 @@
 ---
+name: "Avanan API Patterns"
 description: >
   Use this skill when working with the Check Point Avanan MCP tools —
   client credentials authentication flow, Bearer token management, region
   selection (us/eu/ap), the Smart API for MSP multi-tenant access, and
   general API patterns, pagination, and error handling.
+when_to_use: "When working with client credentials authentication flow, Bearer token management, region selection (us/eu/ap), the Smart API for MSP multi-tenant access, and general API patterns"
 triggers:
   - avanan
   - harmony email

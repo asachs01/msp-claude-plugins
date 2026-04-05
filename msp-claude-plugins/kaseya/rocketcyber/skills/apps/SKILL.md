@@ -1,9 +1,11 @@
 ---
+name: "RocketCyber Apps"
 description: >
   Use this skill when working with RocketCyber application inventory - detecting,
   categorizing, and monitoring applications across managed endpoints. Covers
   application discovery, approved vs unapproved applications, app-level threat
   detection, and software compliance reporting.
+when_to_use: "When detecting, categorizing, and monitoring applications across managed endpoints"
 triggers:
   - rocketcyber app
   - rocketcyber application

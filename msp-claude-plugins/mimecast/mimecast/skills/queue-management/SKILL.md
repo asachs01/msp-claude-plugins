@@ -1,7 +1,9 @@
 ---
+name: "Mimecast Queue Management"
 description: >
   Use this skill when checking Mimecast email delivery queue status —
   identifying stuck messages, delivery delays, and backlog conditions.
+when_to_use: "When checking Mimecast email delivery queue status — identifying stuck messages, delivery delays, and backlog conditions"
 triggers:
   - mimecast queue
   - email queue

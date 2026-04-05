@@ -1,8 +1,10 @@
 ---
+name: "Mimecast API Patterns"
 description: >
   Use this skill when working with Mimecast MCP tools — available tools,
   OAuth 2.0 client credentials authentication, regional API endpoints,
   pagination, rate limiting, and error handling.
+when_to_use: "When working with available tools, OAuth 2.0 client credentials authentication, regional API endpoints, pagination, rate limiting, and error handling in Mimecast MCP tools"
 triggers:
   - mimecast
   - mimecast api

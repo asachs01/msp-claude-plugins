@@ -1,9 +1,11 @@
 ---
+name: "Atera Agents"
 description: >
   Use this skill when working with Atera RMM agents - listing, searching,
   monitoring, or executing commands on managed devices. Covers agent
   information, online/offline status, PowerShell execution, and agent lifecycle.
   Essential for MSP technicians managing endpoints through Atera RMM.
+when_to_use: "When listing, searching, monitoring, or executing commands on managed devices"
 triggers:
   - atera agent
   - rmm agent

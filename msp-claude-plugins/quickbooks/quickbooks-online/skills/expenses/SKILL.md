@@ -1,10 +1,12 @@
 ---
+name: "QuickBooks Online Expenses"
 description: >
   Use this skill when working with QuickBooks Online expenses and purchases -
   creating, searching, and managing expense records, bills, and vendor payments.
   Covers the Purchase entity (checks, credit cards, cash), Bill entity for
   accounts payable, per-client cost tracking, vendor management, and MSP
   expense categorization for profitability analysis.
+when_to_use: "When creating, searching, and managing expense records, bills, and vendor payments"
 triggers:
   - quickbooks expense
   - qbo expense

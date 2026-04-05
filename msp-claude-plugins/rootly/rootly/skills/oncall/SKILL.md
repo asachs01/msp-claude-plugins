@@ -1,10 +1,12 @@
 ---
+name: "Rootly On-Call"
 description: >
   Use this skill when working with Rootly on-call management - viewing shift
   metrics, generating handoff summaries, reviewing shift incidents, detecting
   on-call health risk, and understanding schedule coverage. Covers the
   get_oncall_handoff_summary, get_oncall_shift_metrics, get_shift_incidents,
   and check_oncall_health_risk MCP tools.
+when_to_use: "When working with call management - viewing shift metrics, generating handoff summaries, reviewing shift incidents, detecting on-call health risk"
 triggers:
   - rootly oncall
   - rootly on-call

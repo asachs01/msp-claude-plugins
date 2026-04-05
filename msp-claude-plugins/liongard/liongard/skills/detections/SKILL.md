@@ -1,9 +1,11 @@
 ---
+name: "Liongard Detections"
 description: >
   Use this skill when working with Liongard detections, change monitoring,
   alerts, metrics, or timeline events. Covers automated change detection,
   anomaly alerts, alert rules, custom metrics, metric evaluation, and
   timeline audit trails for compliance and monitoring workflows.
+when_to_use: "When working with Liongard detections, change monitoring, alerts, metrics, or timeline events"
 triggers:
   - liongard detection
   - liongard change

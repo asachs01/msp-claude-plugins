@@ -1,9 +1,11 @@
 ---
+name: "Liongard Overview"
 description: >
   Use this skill when Claude needs context about the Liongard platform,
   terminology, capabilities, authentication patterns, or API structure.
   Covers environments, agents, inspectors, launchpoints, systems, detections,
   and common MSP workflows for automated IT documentation.
+when_to_use: "When claude needs context about the Liongard platform, terminology, capabilities, authentication patterns, or API structure"
 triggers:
   - liongard
   - liongard overview

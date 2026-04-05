@@ -1,7 +1,9 @@
 ---
+name: "Huntress Signals"
 description: >
   Use this skill when working with Huntress security signals — monitoring,
   listing, filtering, and investigating signals across managed endpoints.
+when_to_use: "When monitoring, listing, filtering, and investigating signals across managed endpoints"
 triggers:
   - huntress signal
   - security signal

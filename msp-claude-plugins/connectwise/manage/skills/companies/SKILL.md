@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Manage Companies"
 description: >
   Use this skill when working with ConnectWise PSA companies - creating, updating,
   searching, or managing company/account records. Covers company types, statuses,
   sites/locations, custom fields, and company relationships. Essential for MSP
   account management and CRM operations in ConnectWise PSA.
+when_to_use: "When creating, updating, searching, or managing company/account records"
 triggers:
   - connectwise company
   - connectwise account

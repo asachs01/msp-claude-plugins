@@ -1,4 +1,5 @@
 ---
+name: "SentinelOne Threat Hunting"
 description: >
   Use this skill when working with SentinelOne PowerQuery and the
   Singularity Data Lake - executing threat hunting queries, understanding
@@ -6,6 +7,7 @@ description: >
   results. Covers the powerquery, get_timestamp_range, and
   iso_to_unix_timestamp tools, query syntax reference, common hunting
   scenarios, and integration with Purple AI for query generation.
+when_to_use: "When executing threat hunting queries, understanding PowerQuery pipeline syntax, managing time ranges, and analyzing query results"
 triggers:
   - sentinelone powerquery
   - sentinelone data lake

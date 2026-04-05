@@ -1,4 +1,5 @@
 ---
+name: "Checkpoint Avanan Incidents"
 description: >
   Use this skill when working with Checkpoint Harmony Email security incidents -
   incident lifecycle, status transitions, investigation workflows, notes and
@@ -6,6 +7,7 @@ description: >
   escalation, and closure workflows for email security events.
   Essential for MSP security analysts managing incident response across
   customer tenants in Checkpoint Harmony Email & Collaboration (Avanan).
+when_to_use: "When working with incident lifecycle, status transitions, investigation workflows, notes and evidence collection"
 triggers:
   - checkpoint incident
   - avanan incident

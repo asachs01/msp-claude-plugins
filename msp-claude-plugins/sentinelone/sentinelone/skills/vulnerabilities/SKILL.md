@@ -1,4 +1,5 @@
 ---
+name: "SentinelOne Vulnerabilities"
 description: >
   Use this skill when working with SentinelOne XSPM vulnerabilities -
   tracking CVEs, reviewing EPSS scores, assessing exploit maturity,
@@ -6,6 +7,7 @@ description: >
   vulnerability reports across MSP client environments. Covers all
   vulnerability tools, status values, severity levels, and remediation
   workflows.
+when_to_use: "When tracking CVEs, reviewing EPSS scores, assessing exploit maturity, managing vulnerability status, prioritizing patches"
 triggers:
   - sentinelone vulnerability
   - sentinelone cve

@@ -1,9 +1,11 @@
 ---
+name: "IT Glue Passwords"
 description: >
   Use this skill when working with IT Glue passwords - secure credential storage,
   password categories, folders, embedded passwords, and access patterns. Covers
   security best practices, audit logging, password retrieval, and proper handling
   of sensitive credentials in documentation.
+when_to_use: "When working with secure credential storage, password categories, folders, embedded passwords, and access patterns in IT Glue passwords"
 triggers:
   - it glue password
   - credential lookup

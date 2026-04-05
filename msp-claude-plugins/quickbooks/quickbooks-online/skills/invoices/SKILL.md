@@ -1,10 +1,12 @@
 ---
+name: "QuickBooks Online Invoices"
 description: >
   Use this skill when working with QuickBooks Online invoices -
   creating, sending, voiding, and managing invoices for MSP clients.
   Covers line items, service items, recurring invoices, payment terms,
   email delivery, invoice numbering, and MSP billing patterns like
   monthly managed services and project-based billing.
+when_to_use: "When creating, sending, voiding, and managing invoices for MSP clients"
 triggers:
   - quickbooks invoice
   - qbo invoice

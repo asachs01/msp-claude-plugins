@@ -1,10 +1,12 @@
 ---
+name: "Pax8 Products"
 description: >
   Use this skill when working with the Pax8 product catalog - searching
   for cloud software, browsing vendors, checking pricing, reviewing
   provisioning details, and finding the right SKU for a client need.
   Covers Microsoft 365, Azure, security tools, backup products, and
   the full Pax8 marketplace catalog.
+when_to_use: "When searching for cloud software, browsing vendors, checking pricing, reviewing provisioning details, and finding the right SKU for a client need"
 triggers:
   - pax8 product
   - pax8 catalog

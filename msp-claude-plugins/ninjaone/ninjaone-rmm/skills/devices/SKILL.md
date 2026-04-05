@@ -1,8 +1,10 @@
 ---
+name: "NinjaOne Devices"
 description: >
   Use this skill when working with NinjaOne devices - listing, searching, managing
   services, viewing inventory, scheduling maintenance, and monitoring device health.
   Covers Windows, Mac, and Linux endpoints managed by NinjaRMM agents.
+when_to_use: "When listing, searching, managing services, viewing inventory, scheduling maintenance, and monitoring device health"
 triggers:
   - ninjaone device
   - ninjarmm device

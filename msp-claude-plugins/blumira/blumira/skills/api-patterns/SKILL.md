@@ -1,8 +1,10 @@
 ---
+name: "Blumira API Patterns"
 description: >
   Use this skill when working with Blumira API authentication, understanding
   the dual path structure (org vs MSP), constructing filtered queries, handling
   pagination, or troubleshooting API errors.
+when_to_use: "When working with Blumira API authentication, understanding the dual path structure (org vs MSP), constructing filtered queries, handling pagination, or troubleshooting API errors"
 triggers:
   - blumira api
   - blumira auth

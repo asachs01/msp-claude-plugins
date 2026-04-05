@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Automate Scripts"
 description: >
   Use this skill when working with ConnectWise Automate scripts - listing,
   executing, passing parameters, and retrieving results. Covers script types
   (PowerShell, batch, VBScript), script folders, script execution on computers,
   parameter handling, execution history, and result retrieval.
+when_to_use: "When listing, executing, passing parameters, and retrieving results"
 triggers:
   - automate script
   - automate powershell

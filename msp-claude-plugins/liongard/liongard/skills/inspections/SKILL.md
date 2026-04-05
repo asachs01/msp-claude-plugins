@@ -1,9 +1,11 @@
 ---
+name: "Liongard Inspections"
 description: >
   Use this skill when working with Liongard inspectors, launchpoints,
   inspection scheduling, or triggering inspections on demand. Covers
   inspector templates, launchpoint configuration, cron schedules,
   running inspections, and troubleshooting failed runs.
+when_to_use: "When working with Liongard inspectors, launchpoints, inspection scheduling, or triggering inspections on demand"
 triggers:
   - liongard inspection
   - liongard inspector

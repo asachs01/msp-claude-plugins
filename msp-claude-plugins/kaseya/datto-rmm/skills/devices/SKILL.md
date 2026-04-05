@@ -1,9 +1,11 @@
 ---
+name: "Datto RMM Devices"
 description: >
   Use this skill when working with Datto RMM devices - listing, searching,
   managing, and monitoring endpoints. Covers device identifiers (UID, hostname, MAC),
   device types (workstation, server, ESXi, network), statuses, user-defined fields (UDF1-30),
   warranty information, and device operations.
+when_to_use: "When listing, searching, managing, and monitoring endpoints"
 triggers:
   - datto device
   - rmm device

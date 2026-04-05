@@ -1,8 +1,10 @@
 ---
+name: "Proofpoint MSP Management"
 description: >
   Use this skill when managing Proofpoint Essentials organizations as an MSP —
   listing organizations, retrieving per-org email statistics, and understanding
   the MSP multi-tenant model in Proofpoint Essentials.
+when_to_use: "When managing Proofpoint Essentials organizations as an MSP — listing organizations, retrieving per-org email statistics"
 triggers:
   - proofpoint msp
   - proofpoint organizations

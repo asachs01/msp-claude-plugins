@@ -1,8 +1,10 @@
 ---
+name: "Mimecast Message Tracking"
 description: >
   Use this skill when tracking or tracing Mimecast email messages —
   searching by sender/recipient/subject, retrieving message metadata,
   placing messages on hold, or releasing held messages.
+when_to_use: "When tracking or tracing Mimecast email messages — searching by sender/recipient/subject, retrieving message metadata, placing messages on hold, or releasing held messages"
 triggers:
   - mimecast message trace
   - mimecast track email

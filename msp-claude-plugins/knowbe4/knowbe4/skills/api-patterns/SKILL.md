@@ -1,8 +1,10 @@
 ---
+name: "KnowBe4 API Patterns"
 description: >
   Use this skill when working with the KnowBe4 MCP tools —
   available tools, authentication via API key header, region selection (us/eu),
   API structure, pagination, rate limiting, error handling, and best practices.
+when_to_use: "When working with available tools, authentication via API key header, region selection (us/eu), API structure, pagination, rate limiting, error handling"
 triggers:
   - knowbe4
   - knowbe4 api

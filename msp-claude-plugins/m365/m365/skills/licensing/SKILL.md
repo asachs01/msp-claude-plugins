@@ -1,9 +1,11 @@
 ---
+name: "Microsoft 365 Licensing"
 description: >
   Use this skill when managing Microsoft 365 licenses - checking available seats,
   assigning or removing licenses, auditing license usage, finding unused licenses,
   or planning license optimization for a customer tenant. Covers SKUs, service
   plans, and license cost efficiency for MSP account management.
+when_to_use: "When managing Microsoft 365 licenses - checking available seats, assigning or removing licenses, auditing license usage, finding unused licenses"
 triggers:
   - m365 license
   - microsoft 365 license

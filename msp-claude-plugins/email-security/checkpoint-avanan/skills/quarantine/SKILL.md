@@ -1,10 +1,12 @@
 ---
+name: "Checkpoint Avanan Quarantine"
 description: >
   Use this skill when working with Checkpoint Harmony Email quarantine -
   listing, searching, releasing, deleting quarantined emails. Covers quarantine
   reasons, release workflows, bulk operations, and quarantine policies.
   Essential for MSP security analysts managing email quarantine across
   customer tenants in Checkpoint Harmony Email & Collaboration (Avanan).
+when_to_use: "When listing, searching, releasing, deleting quarantined emails"
 triggers:
   - checkpoint quarantine
   - avanan quarantine

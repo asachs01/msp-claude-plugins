@@ -1,9 +1,11 @@
 ---
+name: "Sherweb API Patterns"
 description: >
   Use this skill when working with the Sherweb API and MCP tools -
   OAuth 2.0 client credentials authentication, token management, API
   endpoints, subscription key header, rate limits, error codes, scopes,
   Accept-Language support, and best practices.
+when_to_use: "When working with OAuth 2.0 client credentials authentication, token management, API endpoints, subscription key header, rate limits, error codes, scopes, Accept-Language support"
 triggers:
   - sherweb api
   - sherweb authentication

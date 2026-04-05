@@ -1,9 +1,11 @@
 ---
+name: "Atera API Patterns"
 description: >
   Use this skill when working with the Atera REST API - authentication,
   pagination, rate limiting, and error handling. Covers X-API-KEY header
   authentication, OData-style pagination, 700 requests/minute rate limits,
   and best practices for API integration.
+when_to_use: "When working with authentication, pagination, rate limiting, and error handling in the Atera REST API"
 triggers:
   - atera api
   - atera authentication

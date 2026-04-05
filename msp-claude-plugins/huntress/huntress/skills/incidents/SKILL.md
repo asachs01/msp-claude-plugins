@@ -1,8 +1,10 @@
 ---
+name: "Huntress Incidents"
 description: >
   Use this skill when working with Huntress incidents — listing, triaging,
   investigating, resolving incidents, and managing remediations including
   bulk approve and reject workflows.
+when_to_use: "When listing, triaging, investigating, resolving incidents, and managing remediations including bulk approve and reject workflows"
 triggers:
   - huntress incident
   - incident triage

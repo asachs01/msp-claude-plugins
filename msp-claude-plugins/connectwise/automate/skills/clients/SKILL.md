@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Automate Clients"
 description: >
   Use this skill when working with ConnectWise Automate clients - creating,
   reading, updating, and deleting client organizations. Covers client identifiers,
   locations, client-level settings, groups, extra data fields (EDFs), and
   client hierarchy management.
+when_to_use: "When creating, reading, updating, and deleting client organizations"
 triggers:
   - automate client
   - automate customer

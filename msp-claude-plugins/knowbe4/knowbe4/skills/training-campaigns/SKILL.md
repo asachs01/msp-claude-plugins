@@ -1,8 +1,10 @@
 ---
+name: "KnowBe4 Training Campaigns"
 description: >
   Use this skill when working with KnowBe4 phishing simulation campaigns,
   security awareness training enrollment, user risk scores, and campaign
   reporting for MSP client security posture assessment.
+when_to_use: "When working with KnowBe4 phishing simulation campaigns, security awareness training enrollment, user risk scores, and campaign reporting for MSP client security posture assessment"
 triggers:
   - security awareness
   - phishing simulation

@@ -1,9 +1,11 @@
 ---
+name: "HubSpot API Patterns"
 description: >
   Use this skill when working with the HubSpot MCP tools - available tools,
   OAuth 2.0 + PKCE authentication, scopes, Streamable HTTP transport,
   rate limiting, error handling, and best practices. Covers the official
   remote MCP server connection and all HubSpot CRM MCP tools.
+when_to_use: "When working with available tools, OAuth 2.0 + PKCE authentication, scopes, Streamable HTTP transport, rate limiting, error handling, and best practices in the HubSpot MCP tools"
 triggers:
   - hubspot api
   - hubspot query

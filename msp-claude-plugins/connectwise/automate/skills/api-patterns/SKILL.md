@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Automate API Patterns"
 description: >
   Use this skill when working with the ConnectWise Automate REST API - authentication
   methods, token management, pagination, filtering with OData syntax, rate limiting,
   and error handling. Covers both integrator and user authentication, request patterns,
   and best practices for API integration.
+when_to_use: "When working with authentication methods, token management, pagination, filtering with OData syntax, rate limiting, and error handling in the ConnectWise Automate REST API"
 triggers:
   - automate api
   - automate authentication

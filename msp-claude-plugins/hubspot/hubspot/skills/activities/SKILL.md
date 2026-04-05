@@ -1,9 +1,11 @@
 ---
+name: "HubSpot Activities"
 description: >
   Use this skill when working with HubSpot activities - creating tasks,
   logging notes, managing associations between CRM objects, and tracking
   engagement history. Covers task creation, note logging, association
   types, and linking contacts, companies, deals, and tickets together.
+when_to_use: "When creating tasks, logging notes, managing associations between CRM objects, and tracking engagement history"
 triggers:
   - hubspot task
   - hubspot note

@@ -1,10 +1,12 @@
 ---
+name: "Better Stack API Patterns"
 description: >
   Use this skill when working with the Better Stack MCP tools --
   available tools, authentication via Bearer token, API structure,
   cursor-based pagination, rate limiting, error handling,
   and best practices. Better Stack covers Uptime, Telemetry (Logtail),
   and Error Tracking products in a single MCP server.
+when_to_use: "When working with available tools, authentication via Bearer token, API structure, cursor-based pagination, rate limiting, error handling"
 triggers:
   - betterstack api
   - betterstack authentication

@@ -1,9 +1,11 @@
 ---
+name: "Xero API Patterns"
 description: >
   Use this skill when working with the Xero API - OAuth2 authentication,
   REST structure, filtering, pagination, rate limiting, error handling,
   and best practices. Covers Custom Connection OAuth2 flow, tenant ID headers,
   date formats, and batch operation patterns.
+when_to_use: "When working with OAuth2 authentication, REST structure, filtering, pagination, rate limiting, error handling, and best practices in the Xero API"
 triggers:
   - xero api
   - xero query

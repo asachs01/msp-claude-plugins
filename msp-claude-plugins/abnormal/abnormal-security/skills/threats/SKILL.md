@@ -1,4 +1,5 @@
 ---
+name: "Abnormal Security Threats"
 description: >
   Use this skill when working with Abnormal Security threat detection
   and analysis - BEC, phishing, malware, socially-engineered attacks,
@@ -6,6 +7,7 @@ description: >
   vectors, severity assessment, remediation actions, and investigation
   workflows. Essential for MSP security analysts investigating email-borne
   threats detected by Abnormal Security's AI-powered behavioral engine.
+when_to_use: "When working with BEC, phishing, malware, socially-engineered attacks, spam, graymail, and credential theft in Abnormal Security threat detection and analysis"
 triggers:
   - abnormal threat
   - abnormal security threat

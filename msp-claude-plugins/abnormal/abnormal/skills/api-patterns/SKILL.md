@@ -1,8 +1,10 @@
 ---
+name: "Abnormal API Patterns"
 description: >
   Use this skill when working with Abnormal Security MCP tools — available
   tools, Bearer token authentication, API structure, pagination, rate
   limiting, and error handling.
+when_to_use: "When working with available tools, Bearer token authentication, API structure, pagination, rate limiting, and error handling in Abnormal Security MCP tools"
 triggers:
   - abnormal security
   - abnormal api

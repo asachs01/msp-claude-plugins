@@ -1,9 +1,11 @@
 ---
+name: "Datto RMM Sites"
 description: >
   Use this skill when working with Datto RMM sites - listing, managing,
   and configuring client locations. Covers site structure, site settings,
   proxy configuration, site-level variables, device assignment, and
   site-scoped operations.
+when_to_use: "When listing, managing, and configuring client locations"
 triggers:
   - datto site
   - rmm site

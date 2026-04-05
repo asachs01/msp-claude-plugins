@@ -1,9 +1,11 @@
 ---
+name: "Microsoft 365 Files"
 description: >
   Use this skill when working with Microsoft 365 files - OneDrive personal storage,
   SharePoint document libraries, file sharing permissions, storage quotas, or
   searching across a user's files. Covers OneDrive and SharePoint via Microsoft
   Graph for MSP technicians handling file access issues.
+when_to_use: "When working with oneDrive personal storage, SharePoint document libraries, file sharing permissions, storage quotas, or searching across a user's files in Microsoft 365 files"
 triggers:
   - onedrive
   - m365 files

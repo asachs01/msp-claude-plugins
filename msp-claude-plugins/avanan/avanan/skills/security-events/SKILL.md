@@ -1,9 +1,11 @@
 ---
+name: "Avanan Security Events"
 description: >
   Use this skill when working with Check Point Avanan security events —
   searching events, getting event details, understanding event types
   (malware, phishing, DLP, spam), performing actions (quarantine, release,
   mark safe), and searching secured email entities.
+when_to_use: "When searching events, getting event details, understanding event types (malware, phishing, DLP, spam), performing actions (quarantine, release, mark safe)"
 triggers:
   - avanan event
   - harmony event

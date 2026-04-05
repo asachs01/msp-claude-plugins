@@ -1,8 +1,10 @@
 ---
+name: "Better Stack Incidents"
 description: >
   Use this skill when working with Better Stack incidents --
   listing, triaging, acknowledging, and resolving incidents
   triggered by uptime monitors or manual reports.
+when_to_use: "When listing, triaging, acknowledging, and resolving incidents triggered by uptime monitors or manual reports"
 triggers:
   - betterstack incident
   - incident triage

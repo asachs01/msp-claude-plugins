@@ -1,10 +1,12 @@
 ---
+name: "SuperOps Tickets"
 description: >
   Use this skill when working with SuperOps.ai tickets - creating, updating,
   searching, or managing service desk operations. Covers ticket fields,
   statuses, priorities, assignments, notes, time entries, and workflow automations.
   Includes business logic for validation and common MSP workflows.
   Essential for MSP technicians handling service delivery through SuperOps.ai PSA.
+when_to_use: "When creating, updating, searching, or managing service desk operations"
 triggers:
   - superops ticket
   - service ticket superops

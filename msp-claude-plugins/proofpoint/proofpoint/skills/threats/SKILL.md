@@ -1,8 +1,10 @@
 ---
+name: "Proofpoint Threats"
 description: >
   Use this skill when working with Proofpoint TAP threat intelligence —
   querying SIEM click events (permitted and blocked URLs), SIEM message events,
   campaign data, threat forensics, and understanding the TAP threat model.
+when_to_use: "When querying SIEM click events (permitted and blocked URLs), SIEM message events, campaign data, threat forensics, and understanding the TAP threat model"
 triggers:
   - proofpoint threat
   - TAP threat

@@ -1,9 +1,11 @@
 ---
+name: "Datto RMM API Patterns"
 description: >
   Use this skill when working with the Datto RMM API - authentication, OAuth 2.0 flow,
   platform selection, pagination, rate limiting, and error handling. Covers all 6 platforms
   (Pinotage, Merlot, Concord, Vidal, Zinfandel, Syrah), token lifecycle, timestamp handling,
   and best practices for API integration.
+when_to_use: "When working with authentication, OAuth 2.0 flow, platform selection, pagination, rate limiting, and error handling in the Datto RMM API"
 triggers:
   - datto api
   - rmm api

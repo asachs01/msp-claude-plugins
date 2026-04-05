@@ -1,10 +1,12 @@
 ---
+name: "SentinelOne Inventory"
 description: >
   Use this skill when working with SentinelOne unified asset inventory -
   endpoints, cloud resources, identities, and network-discovered devices.
   Covers inventory tools, surface types, REST API with offset-based
   pagination, filter types, asset fields, and inventory audit workflows
   for MSP client environments.
+when_to_use: "When working with endpoints, cloud resources, identities, and network-discovered devices in SentinelOne unified asset inventory"
 triggers:
   - sentinelone inventory
   - sentinelone asset

@@ -1,9 +1,11 @@
 ---
+name: "HubSpot Contacts"
 description: >
   Use this skill when working with HubSpot contacts - searching, creating,
   updating, and managing contact records in HubSpot CRM. Covers contact
   fields, lifecycle stages, lead status, search patterns, and associating
   contacts with companies and deals.
+when_to_use: "When searching, creating, updating, and managing contact records in HubSpot CRM"
 triggers:
   - hubspot contact
   - hubspot lead

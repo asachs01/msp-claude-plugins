@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Manage API Patterns"
 description: >
   Use this skill when working with the ConnectWise PSA REST API - authentication
   using public/private keys and clientId, pagination with page/pageSize, conditions
   query syntax, rate limiting (60/min), and error handling. Covers all common
   API patterns for ConnectWise PSA integration.
+when_to_use: "When working with authentication using public/private keys and clientId, pagination with page/pageSize, conditions query syntax, rate limiting (60/min)"
 triggers:
   - connectwise api
   - connectwise authentication

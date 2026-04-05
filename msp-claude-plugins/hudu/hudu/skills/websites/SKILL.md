@@ -1,9 +1,11 @@
 ---
+name: "Hudu Websites"
 description: >
   Use this skill when working with Hudu website records - website monitoring,
   SSL/TLS tracking, email security (DMARC, DKIM, SPF), DNS records, and
   linking websites to companies. Covers website CRUD, monitoring fields,
   and email security verification patterns.
+when_to_use: "When working with website monitoring, SSL/TLS tracking, email security (DMARC, DKIM, SPF), DNS records, and linking websites to companies in Hudu website records"
 triggers:
   - hudu website
   - website monitoring

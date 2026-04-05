@@ -1,9 +1,11 @@
 ---
+name: "Autotask Contracts"
 description: >
   Use this skill when working with Autotask contracts and service agreements -
   recurring services, block hours, time & materials, and contract billing.
   Essential for MSP account managers handling service agreements, renewals,
   and billing in Autotask PSA.
+when_to_use: "When recurring services, block hours, time & materials, and contract billing"
 triggers:
   - autotask contract
   - service agreement

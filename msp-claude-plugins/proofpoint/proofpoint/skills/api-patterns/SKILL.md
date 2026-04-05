@@ -1,9 +1,11 @@
 ---
+name: "Proofpoint API Patterns"
 description: >
   Use this skill when working with the Proofpoint MCP tools —
   authentication via HTTP Basic Auth (service principal + secret),
   the distinction between TAP and Essentials APIs, region selection,
   pagination, rate limiting, and error handling.
+when_to_use: "When working with authentication via HTTP Basic Auth (service principal + secret), the distinction between TAP and Essentials APIs, region selection, pagination, rate limiting"
 triggers:
   - proofpoint
   - TAP

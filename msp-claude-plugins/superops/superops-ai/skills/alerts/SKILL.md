@@ -1,9 +1,11 @@
 ---
+name: "SuperOps Alerts"
 description: >
   Use this skill when working with SuperOps.ai alerts - listing, filtering,
   acknowledging, and resolving alerts from monitored assets. Covers alert
   types, severity levels, status management, and automated alert workflows.
   Essential for MSP technicians handling RMM monitoring through SuperOps.ai.
+when_to_use: "When listing, filtering, acknowledging, and resolving alerts from monitored assets"
 triggers:
   - superops alert
   - alert management

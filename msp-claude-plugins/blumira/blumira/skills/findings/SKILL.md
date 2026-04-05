@@ -1,8 +1,10 @@
 ---
+name: "Blumira Findings"
 description: >
   Use this skill when working with Blumira findings (security alerts/detections),
   including listing, filtering, investigating, resolving, assigning, and commenting
   on findings.
+when_to_use: "When working with Blumira findings (security alerts/detections), including listing, filtering, investigating, resolving, assigning, and commenting on findings"
 triggers:
   - blumira finding
   - blumira alert

@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Manage Time Entries"
 description: >
   Use this skill when working with ConnectWise PSA time entries - creating,
   updating, searching, or managing time tracking. Covers billable vs non-billable
   time, work types, work roles, time approval, and time sheet operations.
   Essential for MSPs tracking technician time and billing in ConnectWise PSA.
+when_to_use: "When creating, updating, searching, or managing time tracking"
 triggers:
   - connectwise time entry
   - time tracking connectwise

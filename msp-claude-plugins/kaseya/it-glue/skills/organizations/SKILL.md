@@ -1,9 +1,11 @@
 ---
+name: "IT Glue Organizations"
 description: >
   Use this skill when working with IT Glue organizations (companies/clients) -
   creating, searching, updating, and managing client documentation. Covers
   organization types, statuses, parent/child relationships, PSA sync, quick
   notes, and related resources like configurations, contacts, and passwords.
+when_to_use: "When creating, searching, updating, and managing client documentation"
 triggers:
   - it glue organization
   - it glue company

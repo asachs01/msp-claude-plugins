@@ -1,10 +1,12 @@
 ---
+name: "Pax8 Invoices"
 description: >
   Use this skill when working with Pax8 invoices and billing - retrieving
   invoices, analyzing billing data, reconciling costs with client charges,
   reviewing usage summaries, and understanding the MSP billing cycle.
   Covers invoice retrieval, usage-based billing, and billing
   reconciliation workflows.
+when_to_use: "When retrieving invoices, analyzing billing data, reconciling costs with client charges, reviewing usage summaries, and understanding the MSP billing cycle"
 triggers:
   - pax8 invoice
   - pax8 billing

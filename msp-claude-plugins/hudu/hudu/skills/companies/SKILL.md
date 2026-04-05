@@ -1,9 +1,11 @@
 ---
+name: "Hudu Companies"
 description: >
   Use this skill when working with Hudu companies (clients/organizations) -
   creating, searching, updating, archiving, and managing client documentation.
   Covers company fields, PSA integration matching, parent/child relationships,
   and related resources like assets, passwords, and articles.
+when_to_use: "When creating, searching, updating, archiving, and managing client documentation"
 triggers:
   - hudu company
   - hudu client

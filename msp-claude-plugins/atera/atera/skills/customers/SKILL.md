@@ -1,9 +1,11 @@
 ---
+name: "Atera Customers"
 description: >
   Use this skill when working with Atera customers and contacts - creating,
   updating, searching, or managing customer records. Covers customer information,
   contact management, custom fields, and customer lifecycle operations.
   Essential for MSP account management through Atera.
+when_to_use: "When creating, updating, searching, or managing customer records"
 triggers:
   - atera customer
   - atera client

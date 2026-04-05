@@ -1,8 +1,10 @@
 ---
+name: "Domotz Network"
 description: >
   Use this skill when working with Domotz network operations --
   network scanning, SNMP polling, port monitoring, speed tests,
   and network topology discovery.
+when_to_use: "When working with network scanning, SNMP polling, port monitoring, speed tests, and network topology discovery in Domotz network operations"
 triggers:
   - domotz network
   - network scan

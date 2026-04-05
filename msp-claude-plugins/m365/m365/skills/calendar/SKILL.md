@@ -1,9 +1,11 @@
 ---
+name: "Microsoft 365 Calendar"
 description: >
   Use this skill when working with Microsoft 365 calendars - viewing events,
   finding free/busy times, creating meetings, managing room bookings, or
   checking a user's schedule. Covers Exchange calendar via Microsoft Graph
   for MSP support of customer scheduling needs.
+when_to_use: "When viewing events, finding free/busy times, creating meetings, managing room bookings, or checking a user's schedule"
 triggers:
   - m365 calendar
   - outlook calendar

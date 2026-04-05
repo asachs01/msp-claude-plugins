@@ -1,10 +1,12 @@
 ---
+name: "Autotask Configuration Items"
 description: >
   Use this skill when working with Autotask Configuration Items (CIs) - asset
   management, inventory tracking, warranty monitoring, lifecycle management,
   and relationship mapping. Covers CI types, categories, DNS records, SSL
   certificates, related items, notes, and contract billing associations.
   Essential for MSP asset documentation and infrastructure tracking.
+when_to_use: "When working with asset management, inventory tracking, warranty monitoring, lifecycle management, and relationship mapping in Autotask Configuration Items (CIs)"
 triggers:
   - autotask configuration item
   - autotask asset

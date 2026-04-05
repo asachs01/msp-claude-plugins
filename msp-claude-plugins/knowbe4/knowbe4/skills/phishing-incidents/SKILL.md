@@ -1,8 +1,10 @@
 ---
+name: "KnowBe4 Phishing Incidents"
 description: >
   Use this skill when working with PhishER reported phishing messages — listing,
   triaging, classifying, investigating suspicious emails, and performing mass
   remediation with bulk actions across the PhishER queue.
+when_to_use: "When listing, triaging, classifying, investigating suspicious emails, and performing mass remediation with bulk actions across the PhishER queue"
 triggers:
   - phishing
   - phisher incident

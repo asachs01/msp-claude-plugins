@@ -1,10 +1,12 @@
 ---
+name: "PandaDoc Templates"
 description: >
   Use this skill when working with PandaDoc templates - browsing the
   template library, finding the right template for a document type,
   understanding template fields and tokens, and using templates to
   create new documents. Covers MSP-specific templates for MSAs, SOWs,
   proposals, quotes, and contracts.
+when_to_use: "When browsing the template library, finding the right template for a document type, understanding template fields and tokens, and using templates to create new documents"
 triggers:
   - pandadoc template
   - pandadoc blueprint

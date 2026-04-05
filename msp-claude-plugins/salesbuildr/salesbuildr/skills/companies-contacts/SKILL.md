@@ -1,8 +1,10 @@
 ---
+name: "SalesBuildr Companies & Contacts"
 description: >
   Use this skill when searching for companies or contacts in Salesbuildr,
   looking up customer information, or creating new contacts. Covers company
   search, contact filtering by company, and contact creation with required fields.
+when_to_use: "When searching for companies or contacts in Salesbuildr, looking up customer information, or creating new contacts"
 triggers:
   - salesbuildr company
   - salesbuildr companies

@@ -1,9 +1,11 @@
 ---
+name: "Xero Accounts"
 description: >
   Use this skill when working with Xero chart of accounts - navigating
   account codes, creating accounts, understanding account types and classes,
   tax settings, and mapping MSP revenue and expense categories to the
   general ledger.
+when_to_use: "When navigating account codes, creating accounts, understanding account types and classes, tax settings, and mapping MSP revenue and expense categories to the general ledger"
 triggers:
   - xero account
   - xero chart of accounts

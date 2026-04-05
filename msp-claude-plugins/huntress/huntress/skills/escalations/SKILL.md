@@ -1,7 +1,9 @@
 ---
+name: "Huntress Escalations"
 description: >
   Use this skill when working with Huntress escalations — listing,
   reviewing, and resolving escalations from the Huntress SOC team.
+when_to_use: "When listing, reviewing, and resolving escalations from the Huntress SOC team"
 triggers:
   - huntress escalation
   - escalation review

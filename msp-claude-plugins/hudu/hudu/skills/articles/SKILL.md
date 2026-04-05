@@ -1,9 +1,11 @@
 ---
+name: "Hudu Articles"
 description: >
   Use this skill when working with Hudu articles (knowledge base) -
   creating, searching, updating, and managing documentation articles.
   Covers article folders, drafts, sharing, content format (HTML),
   versioning, and search patterns for comprehensive knowledge management.
+when_to_use: "When creating, searching, updating, and managing documentation articles"
 triggers:
   - hudu article
   - hudu knowledge base

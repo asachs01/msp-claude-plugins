@@ -1,10 +1,12 @@
 ---
+name: "PagerDuty API Patterns"
 description: >
   Use this skill when working with PagerDuty MCP tools - authentication setup,
   complete 66-tool reference, REST API pagination, token format (Token token=),
   rate limits, error handling, and hosted MCP connection details. Covers all
   13 tool categories: incidents, on-call, schedules, escalation policies,
   services, event orchestrations, status pages, teams, users, and more.
+when_to_use: "When working with authentication setup, complete 66-tool reference, REST API pagination, token format (Token token=), rate limits, error handling"
 triggers:
   - pagerduty api
   - pagerduty mcp

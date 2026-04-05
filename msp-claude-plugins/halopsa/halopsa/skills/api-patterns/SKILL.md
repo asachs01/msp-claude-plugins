@@ -1,9 +1,11 @@
 ---
+name: "HaloPSA API Patterns"
 description: >
   Use this skill when working with the HaloPSA REST API - OAuth 2.0 Client Credentials
   authentication, tenant-aware URLs, query building, pagination, rate limiting, and
   error handling. Covers token acquisition, request patterns, retry strategies, and
   best practices for HaloPSA API integration.
+when_to_use: "When working with OAuth 2.0 Client Credentials authentication, tenant-aware URLs, query building, pagination, rate limiting, and error handling in the HaloPSA REST API"
 triggers:
   - halopsa api
   - halopsa authentication

@@ -1,9 +1,11 @@
 ---
+name: "Datto RMM Alerts"
 description: >
   Use this skill when working with Datto RMM alerts - viewing, resolving,
   and managing monitoring alerts. Covers all 25+ alert context types including
   antivirus_ctx, eventlog_ctx, perf_disk_usage_ctx, ransomware_ctx, and more.
   Includes alert priorities, resolution workflows, and context-specific handling.
+when_to_use: "When viewing, resolving, and managing monitoring alerts"
 triggers:
   - datto alert
   - rmm alert

@@ -1,4 +1,5 @@
 ---
+name: "Abnormal Security API Patterns"
 description: >
   Use this skill when working with the Abnormal Security REST API -
   Bearer token authentication, base URLs, rate limiting, pagination,
@@ -6,6 +7,7 @@ description: >
   token management, request/response formats, and integration best practices.
   Essential for developers and MSP administrators integrating with the
   Abnormal Security API.
+when_to_use: "When working with bearer token authentication, base URLs, rate limiting, pagination, OData filtering, error handling, and common API patterns in the Abnormal Security REST API"
 triggers:
   - abnormal api
   - abnormal authentication

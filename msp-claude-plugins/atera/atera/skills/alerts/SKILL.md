@@ -1,9 +1,11 @@
 ---
+name: "Atera Alerts"
 description: >
   Use this skill when working with Atera alerts - viewing, acknowledging,
   resolving, or managing alerts from monitored devices. Covers alert types,
   severity levels, alert sources, and alert-to-ticket conversion.
   Essential for MSP monitoring operations through Atera.
+when_to_use: "When viewing, acknowledging, resolving, or managing alerts from monitored devices"
 triggers:
   - atera alert
   - rmm alert

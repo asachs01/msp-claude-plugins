@@ -1,10 +1,12 @@
 ---
+name: "SentinelOne Misconfigurations"
 description: >
   Use this skill when working with SentinelOne XSPM misconfigurations -
   cloud security posture management across AWS, Azure, GCP, Kubernetes,
   identity, and infrastructure-as-code. Covers misconfiguration detection,
   compliance standards, MITRE ATT&CK mappings, remediation steps,
   evidence details, and posture review workflows for MSP clients.
+when_to_use: "When working with cloud security posture management across AWS, Azure, GCP, Kubernetes, identity, and infrastructure-as-code in SentinelOne XSPM misconfigurations"
 triggers:
   - sentinelone misconfiguration
   - sentinelone posture

@@ -1,9 +1,11 @@
 ---
+name: "IT Glue Configurations"
 description: >
   Use this skill when working with IT Glue configurations (assets) - servers,
   workstations, network devices, and other infrastructure. Covers configuration
   types, statuses, network interfaces, related items, asset tracking, warranty
   management, and PSA integration for comprehensive asset documentation.
+when_to_use: "When working with servers, workstations, network devices, and other infrastructure in IT Glue configurations (assets)"
 triggers:
   - it glue configuration
   - it glue asset

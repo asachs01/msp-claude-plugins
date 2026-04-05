@@ -1,9 +1,11 @@
 ---
+name: "Better Stack On-Call"
 description: >
   Use this skill when working with Better Stack on-call schedules --
   on-call calendars, escalation/notification policies, rotation management,
   understanding who is currently on-call, and responding to active incidents
   via the on-call flow.
+when_to_use: "When working with call schedules -- on-call calendars, escalation/notification policies, rotation management, understanding who is currently on-call"
 triggers:
   - betterstack on-call
   - betterstack oncall

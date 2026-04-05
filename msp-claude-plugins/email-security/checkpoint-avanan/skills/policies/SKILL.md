@@ -1,4 +1,5 @@
 ---
+name: "Checkpoint Avanan Policies"
 description: >
   Use this skill when working with Checkpoint Harmony Email security policies -
   DLP policies, anti-phishing rules, anti-malware settings, quarantine policies,
@@ -6,6 +7,7 @@ description: >
   workflows, policy effects, and policy tuning best practices.
   Essential for MSP administrators managing email security policies across
   customer tenants in Checkpoint Harmony Email & Collaboration (Avanan).
+when_to_use: "When working with DLP policies, anti-phishing rules, anti-malware settings, quarantine policies, allow/block lists"
 triggers:
   - checkpoint policy
   - avanan policy

@@ -1,9 +1,11 @@
 ---
+name: "IT Glue Contacts"
 description: >
   Use this skill when working with IT Glue contacts - managing client contacts,
   contact types, locations, and communication details. Covers contact creation,
   organization relationships, contact notes, PSA sync, and lookup patterns for
   effective client communication management.
+when_to_use: "When managing client contacts, contact types, locations, and communication details"
 triggers:
   - it glue contact
   - client contact

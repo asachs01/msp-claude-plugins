@@ -1,9 +1,11 @@
 ---
+name: "ConnectWise Automate Computers"
 description: >
   Use this skill when working with ConnectWise Automate computers/endpoints - listing,
   searching, managing, and monitoring devices. Covers computer identifiers (ComputerID,
   Name, MAC), computer statuses (online/offline), hardware/software inventory, patch
   status, antivirus status, and remote management operations.
+when_to_use: "When listing, searching, managing, and monitoring devices"
 triggers:
   - automate computer
   - automate endpoint

@@ -1,8 +1,10 @@
 ---
+name: "Huntress Agents"
 description: >
   Use this skill when managing Huntress endpoint agents — listing agents,
   filtering by organization or platform, checking agent health and status,
   and investigating specific agent details.
+when_to_use: "When managing Huntress endpoint agents — listing agents, filtering by organization or platform, checking agent health and status, and investigating specific agent details"
 triggers:
   - huntress agent
   - huntress endpoint

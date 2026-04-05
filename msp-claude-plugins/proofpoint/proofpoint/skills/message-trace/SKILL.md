@@ -1,8 +1,10 @@
 ---
+name: "Proofpoint Message Trace"
 description: >
   Use this skill when tracing email messages through Proofpoint Essentials —
   searching by sender, recipient, subject, date range, and understanding
   message disposition (delivered, blocked, quarantined, deferred).
+when_to_use: "When tracing email messages through Proofpoint Essentials — searching by sender, recipient, subject, date range, and understanding message disposition (delivered, blocked"
 triggers:
   - proofpoint trace
   - message trace

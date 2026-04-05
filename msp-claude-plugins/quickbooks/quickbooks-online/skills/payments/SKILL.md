@@ -1,10 +1,12 @@
 ---
+name: "QuickBooks Online Payments"
 description: >
   Use this skill when working with QuickBooks Online payments -
   recording customer payments, applying payments to invoices,
   handling overpayments, refunds, credit memos, and payment
   reconciliation. Covers payment methods, deposit tracking,
   unapplied payments, and MSP payment collection workflows.
+when_to_use: "When recording customer payments, applying payments to invoices, handling overpayments, refunds, credit memos, and payment reconciliation"
 triggers:
   - quickbooks payment
   - qbo payment

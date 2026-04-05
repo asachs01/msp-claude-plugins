@@ -1,9 +1,11 @@
 ---
+name: "Syncro Customers"
 description: >
   Use this skill when working with Syncro MSP customers - creating, updating,
   searching, or managing customer records. Covers customer fields, contacts,
   sites/locations, and customer-related operations. Essential for MSP client
   management and onboarding through Syncro.
+when_to_use: "When creating, updating, searching, or managing customer records"
 triggers:
   - syncro customer
   - syncro client
