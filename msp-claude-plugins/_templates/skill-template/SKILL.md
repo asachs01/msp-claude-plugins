@@ -1,4 +1,6 @@
 ---
+name: "[Vendor] [Topic]"
+when_to_use: "When [specific action or scenario that should trigger this skill]"
 description: >
   Use this skill when [describe the trigger conditions - what user requests
   or contexts should activate this skill]. Include specific scenarios and
