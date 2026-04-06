@@ -1,0 +1,10 @@
+{
+  "name": "shared-skills",
+  "version": "1.0.0",
+  "description": "Vendor-agnostic MSP skills — terminology, ticket triage, incident correlation, and billing reconciliation",
+  "author": {
+    "name": "MSP Claude Plugins Community"
+  },
+  "homepage": "https://github.com/wyre-technology/msp-claude-plugins",
+  "keywords": ["msp", "terminology", "triage", "shared", "incident-correlation", "billing"]
+}

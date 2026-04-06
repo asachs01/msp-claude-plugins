@@ -10,7 +10,7 @@ arguments:
     required: false
     default: "products"
   - name: active-only
-    description: Only show active items (default: true)
+    description: "Only show active items (default: true)"
     required: false
     default: "true"
   - name: category
