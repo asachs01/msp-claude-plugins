@@ -96,14 +96,6 @@
       "tags": ["halopsa", "psa", "tickets", "oauth", "msp"]
     },
     {
-      "name": "hubspot",
-      "source": "./msp-claude-plugins/hubspot/hubspot",
-      "description": "HubSpot CRM - contacts, companies, deals, tickets, activities, and associations",
-      "version": "0.1.0",
-      "category": "crm",
-      "tags": ["hubspot", "crm", "sales", "marketing", "msp"]
-    },
-    {
       "name": "hudu",
       "source": "./msp-claude-plugins/hudu/hudu",
       "description": "Hudu IT documentation - companies, assets, articles, passwords, websites",
@@ -270,14 +262,6 @@
       "version": "1.0.0",
       "category": "psa-rmm",
       "tags": ["syncro", "psa", "rmm", "tickets", "msp"]
-    },
-    {
-      "name": "xero",
-      "source": "./msp-claude-plugins/xero/xero",
-      "description": "Xero accounting - contacts, invoices, payments, accounts, reports",
-      "version": "1.0.0",
-      "category": "accounting",
-      "tags": ["xero", "accounting", "invoices", "payments", "msp"]
     }
   ]
 }
