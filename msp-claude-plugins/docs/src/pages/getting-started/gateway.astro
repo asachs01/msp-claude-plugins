@@ -178,17 +178,24 @@ const claudeDesktopPerVendor = `// claude_desktop_config.json — per-vendor (le
     If the file doesn't exist yet, create it with the JSON content above. Restart Claude Desktop after editing.
   </p>
 
-  <h3>Alternative: Connectors UI (Pro/Team/Enterprise)</h3>
+  <h3>Claude.ai (Web) — Connectors UI</h3>
   <p>
-    Claude Pro, Team, and Enterprise users can skip the config file and add the gateway
-    directly through the Connectors UI:
+    Claude Pro, Team, and Enterprise users can connect the gateway directly from
+    <a href="https://claude.ai">claude.ai</a> — no config files or CLI needed:
   </p>
   <ol>
-    <li>Open <strong>Settings → Connectors</strong> in Claude Desktop</li>
-    <li>Click <strong>Add Connector</strong></li>
-    <li>Enter the unified gateway URL: <code>https://mcp.wyretechnology.com/v1/mcp</code></li>
-    <li>Complete the OAuth authentication flow when prompted</li>
+    <li>Click <strong>Customize</strong> in the left sidebar</li>
+    <li>Click <strong>Connectors</strong></li>
+    <li>Click the <strong>+</strong> button, then <strong>Add custom connector</strong></li>
+    <li>Enter a name (e.g. <code>MCP Gateway</code>)</li>
+    <li>Enter the Remote MCP server URL: <code>https://mcp.wyretechnology.com/v1/mcp</code></li>
+    <li>Click <strong>Add</strong></li>
+    <li>Complete the OAuth login flow when prompted</li>
   </ol>
+  <p class="text-sm text-[var(--muted)] mt-2">
+    After setup, all your connected vendors are available immediately in any conversation.
+    The same flow also works in <strong>Claude Desktop</strong> via Settings → Connectors → Add Connector.
+  </p>
 
   <h2 id="per-vendor-legacy">Per-Vendor Endpoints (Legacy)</h2>
   <p>
