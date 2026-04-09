@@ -13,7 +13,11 @@ export default {
           light: '#171717',
           dark: '#ededed'
         },
-        accent: '#2563eb',
+        accent: {
+          DEFAULT: '#00C9DB',
+          hover: '#00b5c6'
+        },
+        highlight: '#EDE947',
         success: '#16a34a',
         border: {
           light: '#e5e5e5',
@@ -21,8 +25,9 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        mono: ['JetBrains Mono', 'SF Mono', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+        sans: ['Nunito Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        heading: ['Oswald', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'SF Mono', 'Menlo', 'Monaco', 'Consolas', 'monospace']
       }
     }
   },

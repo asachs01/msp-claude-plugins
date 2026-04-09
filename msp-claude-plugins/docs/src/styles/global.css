@@ -6,7 +6,9 @@
   :root {
     --background: #fafafa;
     --text: #171717;
-    --accent: #2563eb;
+    --accent: #00C9DB;
+    --accent-hover: #00b5c6;
+    --highlight: #EDE947;
     --success: #16a34a;
     --border: #e5e5e5;
     --muted: #737373;
@@ -20,8 +22,12 @@
   }
 
   html {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Nunito Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', system-ui, sans-serif;
   }
 
   body {
@@ -29,7 +35,7 @@
   }
 
   code, pre {
-    font-family: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
+    font-family: 'IBM Plex Mono', 'SF Mono', Menlo, Monaco, Consolas, monospace;
   }
 }
 
@@ -43,7 +49,7 @@
   }
 
   .btn-primary {
-    @apply bg-accent text-white hover:bg-blue-700;
+    @apply bg-accent text-white hover:bg-accent-hover;
   }
 
   .btn-secondary {
@@ -75,7 +81,7 @@
   }
 
   .sidebar-link-active {
-    @apply bg-blue-50 dark:bg-blue-900/20 text-accent font-medium;
+    @apply bg-cyan-50 dark:bg-cyan-900/20 text-accent font-medium;
   }
 
   .prose {
@@ -208,7 +214,7 @@ html.dark .astro-code {
 /* Pagefind styles */
 .pagefind-ui {
   --pagefind-ui-scale: 1;
-  --pagefind-ui-primary: #2563eb;
+  --pagefind-ui-primary: #00C9DB;
   --pagefind-ui-text: var(--text);
   --pagefind-ui-background: var(--background);
   --pagefind-ui-border: var(--border);
