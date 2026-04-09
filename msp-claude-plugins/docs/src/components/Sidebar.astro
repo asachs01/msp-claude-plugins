@@ -17,21 +17,30 @@ const pluginCategoryLabels: Record<string, string> = {
   psa: 'PSA',
   documentation: 'IT Documentation',
   security: 'Security',
+  'email-security': 'Email Security',
+  monitoring: 'Monitoring',
+  network: 'Network',
+  'incident-management': 'Incident Management',
+  crm: 'CRM',
+  marketplace: 'Marketplace',
   sales: 'Sales & Distribution',
   accounting: 'Accounting & Finance',
   productivity: 'Productivity',
 };
 
-const pluginCategoryOrder = ['rmm', 'psa', 'documentation', 'security', 'sales', 'accounting', 'productivity'] as const;
+const pluginCategoryOrder = ['psa', 'rmm', 'documentation', 'security', 'email-security', 'monitoring', 'network', 'incident-management', 'crm', 'marketplace', 'sales', 'accounting', 'productivity'] as const;
 
 const mcpCategoryLabels: Record<string, string> = {
   rmm: 'RMM',
   psa: 'PSA',
   documentation: 'IT Documentation',
   security: 'Security',
+  accounting: 'Accounting & Finance',
+  network: 'Network',
+  sales: 'Sales & Distribution',
 };
 
-const mcpCategoryOrder = ['rmm', 'psa', 'documentation', 'security'] as const;
+const mcpCategoryOrder = ['psa', 'rmm', 'documentation', 'security', 'accounting', 'network', 'sales'] as const;
 
 const sidebarItems: SidebarItem[] = [
   {
