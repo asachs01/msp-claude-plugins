@@ -7,7 +7,13 @@ const psaPlugins = getPluginsByCategory('psa');
 const rmmPlugins = getPluginsByCategory('rmm');
 const docPlugins = getPluginsByCategory('documentation');
 const securityPlugins = getPluginsByCategory('security');
+const emailSecurityPlugins = getPluginsByCategory('email-security');
+const monitoringPlugins = getPluginsByCategory('monitoring');
+const networkPlugins = getPluginsByCategory('network');
+const incidentPlugins = getPluginsByCategory('incident-management');
 const salesPlugins = getPluginsByCategory('sales');
+const crmPlugins = getPluginsByCategory('crm');
+const marketplacePlugins = getPluginsByCategory('marketplace');
 const accountingPlugins = getPluginsByCategory('accounting');
 const productivityPlugins = getPluginsByCategory('productivity');
 ---
@@ -52,10 +58,60 @@ const productivityPlugins = getPluginsByCategory('productivity');
 
   <h2>Security ({securityPlugins.length})</h2>
 
-  <p>Security and SOC plugins for incident management, threat detection, and compliance.</p>
+  <p>Security and SOC plugins for threat detection, endpoint protection, and compliance.</p>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
     {securityPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>Email Security ({emailSecurityPlugins.length})</h2>
+
+  <p>Email security plugins for phishing detection, spam filtering, and security awareness training.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {emailSecurityPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>Monitoring ({monitoringPlugins.length})</h2>
+
+  <p>Uptime monitoring, logging, and observability plugins for infrastructure and services.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {monitoringPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>Network ({networkPlugins.length})</h2>
+
+  <p>Network monitoring, SNMP discovery, and device management plugins.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {networkPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>Incident Management ({incidentPlugins.length})</h2>
+
+  <p>Incident response, on-call scheduling, and postmortem management plugins.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {incidentPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>CRM ({crmPlugins.length})</h2>
+
+  <p>Customer relationship management plugins for contacts, deals, and sales pipelines.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {crmPlugins.map(plugin => (
       <PluginCard plugin={plugin} />
     ))}
   </div>
@@ -76,6 +132,16 @@ const productivityPlugins = getPluginsByCategory('productivity');
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
     {accountingPlugins.map(plugin => (
+      <PluginCard plugin={plugin} />
+    ))}
+  </div>
+
+  <h2>Marketplace ({marketplacePlugins.length})</h2>
+
+  <p>Cloud marketplace and distribution plugins for licensing, subscriptions, and procurement.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6">
+    {marketplacePlugins.map(plugin => (
       <PluginCard plugin={plugin} />
     ))}
   </div>
@@ -111,7 +177,7 @@ const productivityPlugins = getPluginsByCategory('productivity');
         <tr>
           <td><a href={`${import.meta.env.BASE_URL}plugins/${plugin.id}/`}>{plugin.name}</a></td>
           <td>{plugin.vendor}</td>
-          <td>{{psa: 'PSA', rmm: 'RMM', documentation: 'IT Documentation', security: 'Security', sales: 'Sales & Distribution', accounting: 'Accounting & Finance', productivity: 'Productivity'}[plugin.category]}</td>
+          <td>{{psa: 'PSA', rmm: 'RMM', documentation: 'IT Documentation', security: 'Security', 'email-security': 'Email Security', monitoring: 'Monitoring', network: 'Network', 'incident-management': 'Incident Management', crm: 'CRM', sales: 'Sales & Distribution', marketplace: 'Marketplace', accounting: 'Accounting & Finance', productivity: 'Productivity'}[plugin.category]}</td>
           <td>{plugin.skills.length}</td>
           <td>{plugin.commands.length}</td>
         </tr>

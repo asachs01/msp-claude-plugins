@@ -488,45 +488,6 @@ export const plugins: Plugin[] = [
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   },
   {
-    id: 'hubspot',
-    name: 'HubSpot CRM',
-    vendor: 'HubSpot',
-    description: 'HubSpot CRM - contacts, companies, deals, tickets, activities, and associations',
-    category: 'crm',
-    maturity: 'production',
-    features: [
-      'Activity Logging',
-      'Company Management',
-      'Contact Management',
-      'Deal & Pipeline Tracking',
-      'Ticket Management'
-    ],
-    skills: [
-      { name: 'activities', description: 'Use this skill when working with HubSpot activities - creating tasks, logging notes, managing associations between CRM objects, and tracking engagement history.' },
-      { name: 'companies', description: 'Use this skill when working with HubSpot companies - searching, creating, updating, and auditing company records in HubSpot CRM.' },
-      { name: 'contacts', description: 'Use this skill when working with HubSpot contacts - searching, creating, updating, and managing contact records in HubSpot CRM.' },
-      { name: 'deals', description: 'Use this skill when working with HubSpot deals - searching, creating, updating, and managing deal records and pipelines in HubSpot CRM.' },
-      { name: 'tickets', description: 'Use this skill when working with HubSpot tickets - creating, searching, updating, and managing support tickets in HubSpot CRM.' },
-      { name: 'api-patterns', description: 'Use this skill when working with the HubSpot MCP tools - available tools, OAuth 2.' }
-    ],
-    commands: [
-      { name: '/create-deal', description: 'Create a new deal in HubSpot with company association' },
-      { name: '/log-activity', description: 'Log a note or create a task on a HubSpot contact, company, or deal' },
-      { name: '/lookup-company', description: 'Find a HubSpot company by name or domain and show associated contacts and deals' },
-      { name: '/pipeline-summary', description: 'Summarize the HubSpot deal pipeline - deals per stage, total value, and expected close dates' },
-      { name: '/search-contacts', description: 'Search HubSpot contacts by name, email, or company' },
-      { name: '/search-deals', description: 'Search HubSpot deals by name, stage, or company' }
-    ],
-    apiInfo: {
-      baseUrl: '',
-      auth: '',
-      rateLimit: '',
-      docsUrl: ''
-    },
-    path: 'hubspot/hubspot',
-    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
-  },
-  {
     id: 'hudu',
     name: 'Hudu',
     vendor: 'Hudu',
@@ -1286,43 +1247,6 @@ export const plugins: Plugin[] = [
       docsUrl: ''
     },
     path: 'syncro/syncro-msp',
-    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
-  },
-  {
-    id: 'xero',
-    name: 'Xero',
-    vendor: 'Xero',
-    description: 'Xero accounting - contacts, invoices, payments, accounts, reports',
-    category: 'accounting',
-    maturity: 'production',
-    features: [
-      'Account Hierarchy',
-      'Contact Management',
-      'Invoice Management',
-      'Payment Tracking',
-      'Financial Reporting'
-    ],
-    skills: [
-      { name: 'accounts', description: 'Use this skill when working with Xero chart of accounts - navigating account codes, creating accounts, understanding account types and classes, tax settings, and mapping MSP revenue and expense categories to the general ledger.' },
-      { name: 'contacts', description: 'Use this skill when working with Xero contacts (customers/suppliers) - creating, searching, updating, and managing client organizations.' },
-      { name: 'invoices', description: 'Use this skill when working with Xero invoices - creating, searching, updating, voiding, and managing sales invoices (ACCREC) and supplier bills (ACCPAY).' },
-      { name: 'payments', description: 'Use this skill when working with Xero payments - recording payments, tracking outstanding balances, payment allocation, overpayments, prepayments, and batch payment operations.' },
-      { name: 'reports', description: 'Use this skill when working with Xero financial reports - Profit and Loss, Balance Sheet, Aged Receivables, Aged Payables, Trial Balance, and other management reports.' },
-      { name: 'api-patterns', description: 'Use this skill when working with the Xero API - OAuth2 authentication, REST structure, filtering, pagination, rate limiting, error handling, and best practices.' }
-    ],
-    commands: [
-      { name: '/create-invoice', description: 'Create a sales invoice for a managed services client in Xero' },
-      { name: '/payment-status', description: 'Check payment status and outstanding balances for a client in Xero' },
-      { name: '/reconciliation-summary', description: 'Verify all MSP clients have been billed for the current period and summarize reconciliation status' },
-      { name: '/search-contacts', description: 'Find a contact in Xero by name, email, or account number' }
-    ],
-    apiInfo: {
-      baseUrl: '',
-      auth: '',
-      rateLimit: '',
-      docsUrl: ''
-    },
-    path: 'xero/xero',
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   }
 ];

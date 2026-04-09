@@ -1,66 +1,60 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import InstallCommand from '@/components/InstallCommand.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <DocsLayout title="Installation">
   <h1>Installation</h1>
 
   <p class="lead text-lg text-[var(--muted)] mb-8">
-    Multiple ways to install MSP Claude Plugins, from one-command install to manual setup.
+    Choose the setup path that fits your workflow. Most users only need the MCP Gateway &mdash;
+    plugins and skills are delivered automatically through it.
   </p>
 
-  <h2>Option 1: Quick Install (Recommended)</h2>
+  <h2>Option 1: MCP Gateway (Recommended)</h2>
 
   <p>
-    One command to set up the MSP MCP Gateway. The installer auto-detects Claude Code and
-    Claude Desktop, backs up existing config, and appends only the gateway entry.
-  </p>
-
-  <h3>macOS / Linux</h3>
-
-  <pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/scripts/install-gateway.sh | bash</code></pre>
-
-  <h3>Windows (PowerShell)</h3>
-
-  <pre><code class="language-powershell">irm https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/scripts/install-gateway.ps1 | iex</code></pre>
-
-  <p>
-    The installer will open a browser for OAuth authentication on first use. Then connect your
-    vendors at <a href="https://mcp.wyretechnology.com">mcp.wyretechnology.com</a>.
+    If you set up the <a href={`${baseUrl}getting-started/gateway/`}>MCP Gateway</a>, you are
+    already done. The gateway provides all vendor tools (tickets, devices, alerts, etc.) through
+    a single connection &mdash; there is nothing extra to install. Skills and commands from the
+    plugin catalog are included automatically.
   </p>
 
   <p>
-    <strong>What the installer does:</strong>
-  </p>
-  <ul>
-    <li>Detects Claude Code CLI and/or Claude Desktop</li>
-    <li>Backs up existing configuration files before any changes</li>
-    <li>Appends only the <code>msp-mcp-gateway</code> entry — all other settings are preserved</li>
-    <li>Skips clients that already have the gateway configured</li>
-  </ul>
-
-  <p>
-    To install at user-level scope (all projects) instead of project-level:
+    See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway setup guide</a> for Claude Code,
+    Claude Desktop, and Claude.ai configuration instructions.
   </p>
 
-  <pre><code class="language-bash">SCOPE=user curl -fsSL https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/scripts/install-gateway.sh | bash</code></pre>
-
-  <h3>Manual Alternative</h3>
-
-  <p>If you prefer to add the gateway manually:</p>
-
-  <pre><code class="language-bash"># Claude Code
-claude mcp add --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp
-
-# Claude Code (user-level, all projects)
-claude mcp add --transport http --scope user msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp</code></pre>
-
-  <h2>Option 2: Marketplace Install (Skills &amp; Commands)</h2>
+  <h2>Option 2: Claude.ai Connectors (No CLI Needed)</h2>
 
   <p>
-    Install the skills and slash commands for one or all vendors. These add context, workflows,
-    and commands to Claude — install alongside the gateway or standalone.
+    Claude Pro, Team, and Enterprise users can add plugins directly from
+    <a href="https://claude.ai">claude.ai</a> without any command-line tools:
+  </p>
+
+  <ol>
+    <li>Open <a href="https://claude.ai">claude.ai</a> and click <strong>Customize</strong> in the left sidebar</li>
+    <li>Click <strong>Connectors</strong></li>
+    <li>Click the <strong>+</strong> button, then <strong>Add custom connector</strong></li>
+    <li>Enter a name (e.g. <code>MSP Gateway</code>)</li>
+    <li>Enter the Remote MCP server URL: <code>https://mcp.wyretechnology.com/v1/mcp</code></li>
+    <li>Click <strong>Add</strong></li>
+    <li>Complete the OAuth login flow when prompted</li>
+  </ol>
+
+  <p class="text-sm text-[var(--muted)] mt-2">
+    After setup, all your connected vendors are available immediately in any conversation.
+    The same flow works in <strong>Claude Desktop</strong> via Settings &rarr; Connectors &rarr; Add Connector.
+  </p>
+
+  <h2>Option 3: Plugin Marketplace (Skills &amp; Commands Only)</h2>
+
+  <p>
+    If you want the plugin skills and slash commands <em>without</em> the gateway
+    (for example, to use with local MCP servers or just for the domain knowledge),
+    you can install them from the Cowork marketplace.
   </p>
 
   <h3>Install All Plugins</h3>
@@ -109,19 +103,18 @@ claude mcp add --transport http --scope user msp-mcp-gateway https://mcp.wyretec
       <tr><td><code>sentinelone</code></td><td>SentinelOne</td><td>SentinelOne</td><td>Security</td></tr>
       <tr><td><code>huntress</code></td><td>Huntress</td><td>Huntress</td><td>Security</td></tr>
       <tr><td><code>blumira</code></td><td>Blumira</td><td>Blumira</td><td>Security</td></tr>
-      <tr><td><code>knowbe4</code></td><td>KnowBe4</td><td>KnowBe4</td><td>Security Awareness</td></tr>
-      <tr><td><code>spamtitan</code></td><td>SpamTitan</td><td>TitanHQ</td><td>Security</td></tr>
-      <tr><td><code>m365</code></td><td>Microsoft 365</td><td>Microsoft</td><td>Collaboration</td></tr>
+      <tr><td><code>knowbe4</code></td><td>KnowBe4</td><td>KnowBe4</td><td>Email Security</td></tr>
+      <tr><td><code>spamtitan</code></td><td>SpamTitan</td><td>TitanHQ</td><td>Email Security</td></tr>
+      <tr><td><code>m365</code></td><td>Microsoft 365</td><td>Microsoft</td><td>Productivity</td></tr>
       <tr><td><code>pax8</code></td><td>Pax8</td><td>Pax8</td><td>Marketplace</td></tr>
-      <tr><td><code>hubspot</code></td><td>HubSpot</td><td>HubSpot</td><td>CRM</td></tr>
-      <tr><td><code>pandadoc</code></td><td>PandaDoc</td><td>PandaDoc</td><td>Documents</td></tr>
-      <tr><td><code>quickbooks-online</code></td><td>QuickBooks Online</td><td>Intuit</td><td>Finance</td></tr>
-      <tr><td><code>xero</code></td><td>Xero</td><td>Xero</td><td>Finance</td></tr>
-      <tr><td><code>salesbuildr</code></td><td>Salesbuildr</td><td>Salesbuildr</td><td>Quoting</td></tr>
+      <tr><td><code>pandadoc</code></td><td>PandaDoc</td><td>PandaDoc</td><td>Sales</td></tr>
+      <tr><td><code>quickbooks-online</code></td><td>QuickBooks Online</td><td>Intuit</td><td>Accounting</td></tr>
+      <tr><td><code>xero</code></td><td>Xero</td><td>Xero</td><td>Accounting</td></tr>
+      <tr><td><code>salesbuildr</code></td><td>Salesbuildr</td><td>Salesbuildr</td><td>CRM</td></tr>
     </tbody>
   </table>
 
-  <h2>Manual Installation (Advanced)</h2>
+  <h2>Option 4: Manual Installation (Advanced)</h2>
 
   <p>
     For developers who want to contribute or modify plugins, you can install manually:
@@ -186,9 +179,9 @@ claude plugin add .</code></pre>
     then re-run the add command.
   </p>
 
-  <h3>API authentication errors (individual plugins)</h3>
+  <h3>API authentication errors (standalone plugins)</h3>
   <p>
-    Each standalone plugin requires API credentials set as environment variables. Check the
-    specific plugin documentation for required variables.
+    When running plugins without the gateway, each plugin requires vendor API credentials
+    set as environment variables. Check the specific plugin documentation for required variables.
   </p>
 </DocsLayout>
