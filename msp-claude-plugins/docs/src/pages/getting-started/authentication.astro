@@ -1,0 +1,124 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+
+<DocsLayout
+  title="Authentication"
+  description="Sign in to MCP Gateway with Microsoft Entra ID or Auth0"
+>
+  <h1>Authentication</h1>
+  <p class="text-lg text-[var(--muted)] mb-8">
+    MCP Gateway supports Microsoft Entra ID (Azure AD) and Auth0 for user authentication.
+    Most MSPs use Microsoft — here's how to get set up.
+  </p>
+
+  <h2 id="sign-in">Signing In</h2>
+  <p>
+    When you visit <a href="https://mcp.wyretechnology.com/settings">mcp.wyretechnology.com/settings</a>,
+    you'll be prompted to sign in. If both Microsoft and Auth0 are enabled, you'll see a chooser page.
+    Otherwise you'll be redirected to your organization's identity provider automatically.
+  </p>
+
+  <h2 id="microsoft">Microsoft Entra ID (Recommended for MSPs)</h2>
+  <p>
+    Most MSPs already use Microsoft 365. Signing in with your Microsoft work account is the fastest
+    path — no separate credentials to manage.
+  </p>
+
+  <h3>For Individual Users</h3>
+  <p>
+    If your organization's Azure AD tenant has already been onboarded (see below), just:
+  </p>
+  <ol>
+    <li>Go to <a href="https://mcp.wyretechnology.com/auth/microsoft/login">mcp.wyretechnology.com</a></li>
+    <li>Click <strong>Sign in with Microsoft</strong></li>
+    <li>Sign in with your work Microsoft account</li>
+    <li>You're in — head to <strong>Connections</strong> to add your first vendor</li>
+  </ol>
+
+  <h3 id="admin-consent">For Azure AD Admins (Tenant Onboarding)</h3>
+  <p>
+    Before users from your organization can sign in, an Azure AD administrator needs to grant
+    a one-time <strong>admin consent</strong>. This authorizes the MCP Gateway app registration
+    in your tenant so your users can authenticate.
+  </p>
+
+  <div class="bg-[var(--card)] border border-[var(--border)] rounded-lg p-6 my-6">
+    <h4 class="mt-0 mb-3 text-base font-semibold">What admin consent does</h4>
+    <ul class="mb-0">
+      <li>Allows users in your tenant to sign in to MCP Gateway with their Microsoft accounts</li>
+      <li>Grants <code>openid</code>, <code>profile</code>, and <code>email</code> scopes only — we read your name and email, nothing else</li>
+      <li>Does <strong>not</strong> grant access to your Microsoft 365 data, mailboxes, or files</li>
+      <li>Can be revoked at any time from your Entra ID portal under <strong>Enterprise Applications</strong></li>
+    </ul>
+  </div>
+
+  <h4>Steps</h4>
+  <ol>
+    <li>
+      WYRE will send you an admin consent link (or you can use the direct URL below).
+      The link looks like:
+      <pre><code>https://mcp.wyretechnology.com/auth/admin-consent?customer_name=Your+Company</code></pre>
+    </li>
+    <li>
+      Click the link — you'll be redirected to Microsoft's standard admin consent dialog.
+    </li>
+    <li>
+      Review the requested permissions (<code>openid</code>, <code>profile</code>, <code>email</code>)
+      and click <strong>Accept</strong>.
+    </li>
+    <li>
+      You'll be redirected back to MCP Gateway with a confirmation. Your tenant is now onboarded.
+    </li>
+    <li>
+      Share the gateway URL with your team — they can now sign in with their Microsoft accounts.
+    </li>
+  </ol>
+
+  <div class="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800/30 rounded-lg p-4 my-6">
+    <p class="mb-0 text-sm">
+      <strong>Note:</strong> Only a Global Administrator or Privileged Role Administrator
+      in your Azure AD tenant can grant admin consent. If you're not an admin, forward the
+      consent link to your IT team.
+    </p>
+  </div>
+
+  <h3>Revoking Access</h3>
+  <p>
+    To revoke MCP Gateway's access to your tenant:
+  </p>
+  <ol>
+    <li>Sign in to the <a href="https://entra.microsoft.com" target="_blank" rel="noopener">Microsoft Entra admin center</a></li>
+    <li>Navigate to <strong>Enterprise Applications</strong></li>
+    <li>Find "MCP Gateway" in the list</li>
+    <li>Click <strong>Properties</strong> → <strong>Delete</strong></li>
+  </ol>
+
+  <h2 id="auth0">Auth0</h2>
+  <p>
+    Auth0 is also supported as an identity provider. If your organization doesn't use Microsoft 365,
+    you can sign in with Auth0 using email/password or social login (Google, GitHub, etc.).
+  </p>
+  <p>
+    No admin setup required — just sign in at
+    <a href="https://mcp.wyretechnology.com/auth/login">mcp.wyretechnology.com</a>
+    and create your account.
+  </p>
+
+  <h2 id="mcp-auth">MCP Client Authentication (OAuth 2.1)</h2>
+  <p>
+    The authentication described above is for the <strong>gateway web portal</strong> (managing
+    connections, teams, and settings). MCP clients like Claude Desktop and Claude Code use a
+    separate <strong>OAuth 2.1 + PKCE</strong> flow that happens automatically when you add
+    the gateway URL as a connector.
+  </p>
+  <p>
+    You don't need to configure anything — when Claude connects to
+    <code>https://mcp.wyretechnology.com/v1/mcp</code>, it will open a browser window for you
+    to sign in and authorize the connection. See the
+    <a href={`${baseUrl}getting-started/gateway/`}>Gateway Setup</a> page for details.
+  </p>
+
+</DocsLayout>
