@@ -412,13 +412,26 @@ Content-Type: application/json
 }
 ```
 
-**Billable time by resource:**
+**Time entries logged today:**
+```json
+{
+  "filter": [
+    {"field": "dateWorked", "op": "gte", "value": "2026-04-13"},
+    {"field": "dateWorked", "op": "lt", "value": "2026-04-14"}
+  ]
+}
+```
+
+> **Warning:** Using only today's date returns **zero results**. You MUST use a range: `gte` today AND `lt` tomorrow. See the api-patterns skill for the full explanation.
+
+**Billable time by resource (date range):**
 ```json
 {
   "filter": [
     {"field": "resourceID", "op": "eq", "value": 29744150},
     {"field": "isBillable", "op": "eq", "value": true},
-    {"field": "dateWorked", "op": "gte", "value": "2024-02-01"}
+    {"field": "dateWorked", "op": "gte", "value": "2024-02-01"},
+    {"field": "dateWorked", "op": "lt", "value": "2024-03-01"}
   ]
 }
 ```

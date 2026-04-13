@@ -415,6 +415,18 @@ Content-Type: application/json
 }
 ```
 
+**Tickets created today (CORRECT — must use gte + lt range):**
+```json
+{
+  "filter": [
+    {"field": "createDate", "op": "gte", "value": "2026-04-13T00:00:00Z"},
+    {"field": "createDate", "op": "lt", "value": "2026-04-14T00:00:00Z"}
+  ]
+}
+```
+
+> **Warning:** Using only today's date returns **zero results**. You MUST use a range: `gte` today AND `lt` tomorrow. See the api-patterns skill for the full explanation and dynamic date computation.
+
 **Tickets by date range:**
 ```json
 {

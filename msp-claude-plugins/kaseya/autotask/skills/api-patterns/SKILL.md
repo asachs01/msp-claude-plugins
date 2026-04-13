@@ -104,6 +104,42 @@ The Autotask API supports 14 query operators:
 | `isNotNull` | Is not null | `{"field": "dueDateTime", "op": "isNotNull"}` |
 | `between` | Between range | `{"field": "createDate", "op": "between", "value": ["2024-01-01", "2024-01-31"]}` |
 
+### Date Filtering: "Today" Queries
+
+**CRITICAL:** To filter for records from "today", you must use a **range** — `gte` today's date AND `lt` tomorrow's date. Using only today's date (e.g. `eq` or a single filter on today) returns **zero results**. "Today" in Autotask means: created on or after today's midnight, but before tomorrow's midnight.
+
+**Correct — "tickets created today":**
+```json
+{
+  "filter": [
+    {"field": "createDate", "op": "gte", "value": "2026-04-13T00:00:00Z"},
+    {"field": "createDate", "op": "lt", "value": "2026-04-14T00:00:00Z"}
+  ]
+}
+```
+
+**Wrong — returns NO results:**
+```json
+{
+  "filter": [
+    {"field": "createDate", "op": "eq", "value": "2026-04-13"}
+  ]
+}
+```
+
+Always compute "tomorrow" dynamically. For example:
+```javascript
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+const todayISO = today.toISOString(); // "2026-04-13T00:00:00.000Z"
+const tomorrowISO = tomorrow.toISOString(); // "2026-04-14T00:00:00.000Z"
+```
+
+This pattern applies to **all datetime fields** (`createDate`, `lastActivityDate`, `dueDateTime`, `startDateTime`, `endDateTime`, `dateWorked`, etc.) across all entities — not just tickets.
+
 ### Query Structure
 
 ```http
