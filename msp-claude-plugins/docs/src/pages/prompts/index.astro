@@ -7,11 +7,15 @@ import { mcpServers } from '@/data/mcp-servers';
 const baseUrl = import.meta.env.BASE_URL;
 
 const roleIcons: Record<string, string> = {
-  account: '🤝',
-  finance:  '💰',
-  sales:    '📈',
-  support:  '🎧',
-  noc:      '🖥️',
+  account:       '🤝',
+  finance:       '💰',
+  sales:         '📈',
+  support:       '🎧',
+  noc:           '🖥️',
+  incident:      '🚨',
+  security:      '🔐',
+  documentation: '📋',
+  bizops:        '📊',
 };
 
 function getPluginLabel(id: string): string {
