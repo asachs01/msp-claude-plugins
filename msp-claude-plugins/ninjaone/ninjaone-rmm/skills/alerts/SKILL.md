@@ -13,6 +13,10 @@ triggers:
   - dismiss alert ninja
   - clear alert ninja
   - critical alert ninja
+  - bulk dismiss alerts ninja
+  - alert summary ninja
+  - ninjaone alert count
+  - alerts by severity ninja
 ---
 
 # NinjaOne Alert Management
@@ -47,6 +51,30 @@ Authorization: Bearer {token}
 ```
 
 Dismisses an alert by its unique identifier. The underlying condition may still exist if not resolved.
+
+### Reset All Alerts (Bulk Dismiss)
+
+Tool: `ninjaone_alerts_reset_all`
+
+Dismisses all alerts for a specific device or organization. Use with care — this cannot be undone.
+
+Key parameters:
+- `device_id` — Reset all alerts for a single device
+- `organization_id` — Reset all alerts for an entire organization
+- `severity` — Optionally limit to a specific severity level: `CRITICAL`, `MAJOR`, `MINOR`, or `NONE`
+
+At least one of `device_id` or `organization_id` must be provided. Typically used after scheduled maintenance windows to clear expected alerts.
+
+### Get Alert Summary
+
+Tool: `ninjaone_alerts_summary`
+
+Returns a count of active alerts grouped by severity and/or organization.
+
+Key parameter:
+- `group_by` — How to group counts: `"severity"` (default), `"organization"`, or `"both"`
+
+Useful for dashboards and morning briefings to understand the overall alert posture at a glance without retrieving individual alerts.
 
 ## Alert Structure
 
