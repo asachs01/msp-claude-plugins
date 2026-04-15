@@ -1,4 +1,6 @@
 ---
+name: pipeline-health-reporter
+
 description: >
   Use this agent when an MSP sales manager or leadership needs to analyze pipeline health, deal
   velocity, stage conversion rates, or forecast accuracy in HubSpot. Trigger for: pipeline health,

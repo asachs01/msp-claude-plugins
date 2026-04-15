@@ -1,4 +1,6 @@
 ---
+name: qbr-prep-agent
+
 description: >
   Use this agent when an MSP account manager or vCIO needs to prepare a complete Quarterly
   Business Review data package for a client. Trigger for: QBR prep, quarterly business review,

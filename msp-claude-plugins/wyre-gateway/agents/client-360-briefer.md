@@ -1,4 +1,6 @@
 ---
+name: client-360-briefer
+
 description: >
   Use this agent when an MSP technician, account manager, or vCIO needs a complete, synthesized
   briefing on a client before a call, meeting, or QBR. Trigger for: pre-call brief, client

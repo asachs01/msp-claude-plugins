@@ -1,4 +1,6 @@
 ---
+name: billing-reconciler
+
 description: >
   Use this agent when an MSP needs to reconcile billing in QuickBooks Online — matching invoices to
   contracts, identifying unbilled work, flagging overdue accounts, or auditing revenue recognition.

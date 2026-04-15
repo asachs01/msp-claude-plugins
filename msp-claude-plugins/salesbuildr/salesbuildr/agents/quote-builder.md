@@ -1,4 +1,6 @@
 ---
+name: quote-builder
+
 description: >
   Use this agent when an MSP sales team member needs to build, review, or standardize quotes in
   Salesbuildr. Trigger for: build a quote, create proposal, review quote pricing, validate line

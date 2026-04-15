@@ -1,4 +1,6 @@
 ---
+name: quarantine-release-reviewer
+
 description: >
   Use this agent when an MSP technician or client needs to systematically review the SpamTitan
   quarantine queue for false positives, release legitimate messages, identify patterns of

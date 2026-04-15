@@ -1,4 +1,6 @@
 ---
+name: security-posture-scorer
+
 description: >
   Use this agent when an MSP needs a comprehensive, scored security health assessment for a
   specific client — acting as a vCISO-style health check by aggregating data across all connected

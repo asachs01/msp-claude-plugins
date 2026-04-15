@@ -1,4 +1,6 @@
 ---
+name: compliance-drift-reporter
+
 description: >
   Use this agent when an MSP needs to generate compliance baseline drift reports, produce evidence
   for compliance frameworks, or identify coverage gaps where inspectors have not checked in.

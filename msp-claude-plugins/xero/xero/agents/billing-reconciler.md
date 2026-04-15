@@ -1,4 +1,6 @@
 ---
+name: billing-reconciler
+
 description: >
   Use this agent when an MSP needs to reconcile billing in Xero — matching invoices to contracts,
   tracking outstanding receivables, identifying billing discrepancies, or reviewing cash flow.

@@ -1,4 +1,6 @@
 ---
+name: cash-flow-analyzer
+
 description: >
   Use this agent when an MSP needs to analyze cash flow position in Xero — tracking accounts
   receivable aging trends, forecasting upcoming payables vs. expected inflows, identifying months

@@ -1,4 +1,6 @@
 ---
+name: documentation-auditor
+
 description: >
   Use this agent when an MSP needs to audit documentation completeness and freshness across their
   IT Glue client portfolio. Trigger for: documentation audit, stale configurations, missing runbooks,

@@ -1,4 +1,6 @@
 ---
+name: client-relationship-manager
+
 description: >
   Use this agent when an MSP account manager or vCIO needs to review account health across the
   client portfolio in HubSpot. Trigger for: account health review, renewals at risk, stalled deals,

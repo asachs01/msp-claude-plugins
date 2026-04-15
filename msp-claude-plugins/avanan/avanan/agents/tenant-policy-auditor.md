@@ -1,4 +1,6 @@
 ---
+name: tenant-policy-auditor
+
 description: >
   Use this agent when an MSP needs to audit email security policy completeness and correctness across
   Avanan (Check Point Harmony Email & Collaboration) managed tenants — verifying anti-phishing

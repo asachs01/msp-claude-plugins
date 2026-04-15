@@ -1,4 +1,6 @@
 ---
+name: identity-auditor
+
 description: >
   Use this agent when an MSP needs to perform a comprehensive Microsoft 365 tenant security audit.
   Trigger for: M365 security audit, MFA gaps, risky users, license waste, over-privileged accounts,

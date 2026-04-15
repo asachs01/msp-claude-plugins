@@ -1,4 +1,6 @@
 ---
+name: contract-tracker
+
 description: >
   Use this agent when an MSP sales coordinator or account manager needs to track the status of
   pending proposals and contracts in PandaDoc. Trigger for: pending signatures, expiring contracts,

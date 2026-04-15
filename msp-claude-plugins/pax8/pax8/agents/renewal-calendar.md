@@ -1,4 +1,6 @@
 ---
+name: renewal-calendar
+
 description: >
   Use this agent when an MSP needs a proactive view of upcoming Pax8 subscription renewals across
   all clients, wants to flag month-to-month subscriptions that should move to annual, or needs to

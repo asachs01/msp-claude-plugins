@@ -1,4 +1,6 @@
 ---
+name: renewal-risk-analyzer
+
 description: >
   Use this agent when an MSP account manager, sales leader, or operations manager wants to
   identify clients at risk of not renewing before the renewal conversation happens. Trigger for:

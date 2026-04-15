@@ -1,4 +1,6 @@
 ---
+name: threat-correlation-analyst
+
 description: >
   Use this agent when an MSP needs to correlate RocketCyber SOC detections with broader security
   context from across the Kaseya ecosystem — cross-referencing incidents with Datto RMM device

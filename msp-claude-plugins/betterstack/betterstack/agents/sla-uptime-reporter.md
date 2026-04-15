@@ -1,4 +1,6 @@
 ---
+name: sla-uptime-reporter
+
 description: >
   Use this agent when an MSP needs to generate SLA-focused uptime reports for clients, calculate
   SLA achievement percentages, identify chronic underperforming monitors, or produce client-facing

@@ -1,4 +1,6 @@
 ---
+name: onboarding-completeness-checker
+
 description: >
   Use this agent when an MSP needs to validate that a newly onboarded client has been fully set
   up across all MSP tools and systems before transitioning to steady-state support. Trigger for:

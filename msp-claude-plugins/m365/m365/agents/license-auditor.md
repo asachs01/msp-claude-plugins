@@ -1,4 +1,6 @@
 ---
+name: license-auditor
+
 description: >
   Use this agent when an MSP needs to audit Microsoft 365 license costs and find savings
   opportunities across a client tenant. Trigger for: M365 license cost, unused M365 licenses,

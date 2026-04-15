@@ -1,4 +1,6 @@
 ---
+name: asset-documentation-linker
+
 description: >
   Use this agent when an MSP needs to find and fix broken or missing linkages between IT Glue
   objects — configurations without passwords, devices without runbooks, organizations without

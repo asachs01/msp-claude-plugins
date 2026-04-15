@@ -1,4 +1,6 @@
 ---
+name: documentation-auditor
+
 description: >
   Use this agent when an MSP technician or vCIO needs to find and fix documentation debt in Hudu.
   Trigger for: stale documentation, missing runbooks, undocumented assets, documentation audit,

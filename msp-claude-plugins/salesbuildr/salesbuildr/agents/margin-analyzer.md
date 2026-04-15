@@ -1,4 +1,6 @@
 ---
+name: margin-analyzer
+
 description: >
   Use this agent when an MSP sales manager or finance lead needs to analyze quote margin health
   across recent quotes in Salesbuildr. Trigger for: quote margin, margin analysis Salesbuildr,

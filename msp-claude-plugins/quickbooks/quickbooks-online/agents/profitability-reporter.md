@@ -1,4 +1,6 @@
 ---
+name: profitability-reporter
+
 description: >
   Use this agent when an MSP needs to analyze per-client or per-service-line profitability in
   QuickBooks Online — calculating gross margin by client, identifying the most and least profitable

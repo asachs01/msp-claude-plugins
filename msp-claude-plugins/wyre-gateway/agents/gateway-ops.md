@@ -1,4 +1,6 @@
 ---
+name: gateway-ops
+
 description: >
   Use this agent when an MSP administrator needs to review gateway activity, audit tool usage
   across the team, investigate suspicious access patterns, check permission configurations, or

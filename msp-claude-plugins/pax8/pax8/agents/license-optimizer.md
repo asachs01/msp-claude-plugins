@@ -1,4 +1,6 @@
 ---
+name: license-optimizer
+
 description: >
   Use this agent when an MSP needs to analyze license utilization across their Pax8 marketplace
   subscriptions, identify unused or over-provisioned seats, optimize costs, or plan renewals.

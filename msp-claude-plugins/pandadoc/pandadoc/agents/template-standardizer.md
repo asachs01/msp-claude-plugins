@@ -1,4 +1,6 @@
 ---
+name: template-standardizer
+
 description: >
   Use this agent when an MSP needs to audit and standardize their PandaDoc proposal and contract
   templates — checking for outdated pricing, missing legal clauses, inconsistent formatting, and

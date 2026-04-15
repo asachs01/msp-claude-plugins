@@ -1,4 +1,6 @@
 ---
+name: runbook-freshness-auditor
+
 description: >
   Use this agent when an MSP needs to audit the currency and coverage of runbooks and SOPs in
   Hudu. Trigger for: runbook review, SOP audit, procedure currency, outdated runbooks, runbook

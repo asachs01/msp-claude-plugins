@@ -1,4 +1,6 @@
 ---
+name: change-detective
+
 description: >
   Use this agent when an MSP needs to detect unauthorized or unexpected configuration changes,
   audit compliance drift, or surface undocumented systems across their client environments.
