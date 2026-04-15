@@ -1,6 +1,6 @@
 {
   "name": "kaseya-rocketcyber",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Claude plugins for RocketCyber managed SOC - incidents, agents, accounts, threat detection",
   "author": {
     "name": "MSP Claude Plugins Community"
