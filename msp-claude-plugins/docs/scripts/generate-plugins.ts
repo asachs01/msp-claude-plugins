@@ -160,12 +160,6 @@ interface SkillEntry {
   description: string;
 }
 
-// ── Agent scanner ──────────────────────────────────────────────────────
-interface AgentEntry {
-  name: string;
-  description: string;
-}
-
 function scanSkills(pluginDir: string): SkillEntry[] {
   const skillsDir = path.join(pluginDir, 'skills');
   if (!fs.existsSync(skillsDir)) return [];
@@ -181,11 +175,15 @@ function scanSkills(pluginDir: string): SkillEntry[] {
     const content = fs.readFileSync(skillMd, 'utf-8');
     let description = extractFrontmatterField(content, 'description');
 
-    // Truncate to first sentence for brevity
+    // Truncate to first sentence for brevity. Require the sentence-ending punctuation
+    // to be followed by whitespace + a capital letter (or end of string) so we don't
+    // cut inside abbreviations like "OAuth 2.0", "vs.", "i.e.", etc.
     if (description.length > 120) {
-      const firstSentence = description.match(/^[^.!?]+[.!?]/);
+      const firstSentence = description.match(/^.+?[.!?](?=\s+[A-Z]|\s*$)/);
       if (firstSentence) {
         description = firstSentence[0];
+      } else {
+        description = description.slice(0, 150).replace(/\s+\S*$/, '') + '...';
       }
     }
 
@@ -202,6 +200,12 @@ function scanSkills(pluginDir: string): SkillEntry[] {
   return skills;
 }
 
+// ── Agent scanner ──────────────────────────────────────────────────────
+interface AgentEntry {
+  name: string;
+  description: string;
+}
+
 function scanAgents(pluginDir: string): AgentEntry[] {
   const agentsDir = path.join(pluginDir, 'agents');
   if (!fs.existsSync(agentsDir)) return [];
@@ -214,11 +218,15 @@ function scanAgents(pluginDir: string): AgentEntry[] {
     const name = extractFrontmatterField(content, 'name') || file.replace(/\.md$/, '');
     let description = extractFrontmatterField(content, 'description');
 
-    // Truncate to first sentence for brevity
+    // Truncate to first sentence for brevity. Require the sentence-ending punctuation
+    // to be followed by whitespace + a capital letter (or end of string) so we don't
+    // cut inside abbreviations like "OAuth 2.0", "vs.", "i.e.", etc.
     if (description.length > 120) {
-      const firstSentence = description.match(/^[^.!?]+[.!?]/);
+      const firstSentence = description.match(/^.+?[.!?](?=\s+[A-Z]|\s*$)/);
       if (firstSentence) {
         description = firstSentence[0];
+      } else {
+        description = description.slice(0, 150).replace(/\s+\S*$/, '') + '...';
       }
     }
 

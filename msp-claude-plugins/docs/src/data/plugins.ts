@@ -382,7 +382,7 @@ export const plugins: Plugin[] = [
       { name: 'api-patterns', description: 'Use this skill when working with the ConnectWise PSA REST API - authentication using public/private keys and clientId, pagination with page/pageSize, conditions query syntax, rate limiting (60/min), and error handling.' }
     ],
     agents: [
-      { name: 'project-tracker', description: 'Use this agent when an MSP project manager, service manager, or operations lead needs a review of all open projects in ConnectWise Manage — checking milestone deadlines, budget vs.' },
+      { name: 'project-tracker', description: 'Use this agent when an MSP project manager, service manager, or operations lead needs a review of all open projects in ConnectWise Manage — checking milestone deadlines, budget vs. actuals, overdue phases, and projects at risk of scope creep or delivery failure.' },
       { name: 'service-desk-ops', description: 'Use this agent when an MSP dispatcher, service manager, or team lead needs to review the current state of the ConnectWise Manage service desk.' }
     ],
     commands: [
@@ -428,7 +428,7 @@ export const plugins: Plugin[] = [
       { name: 'jobs', description: 'Use this skill when working with Datto RMM jobs - running quick jobs, scheduling jobs, monitoring job status, and viewing results.' },
       { name: 'sites', description: 'Use this skill when working with Datto RMM sites - listing, managing, and configuring client locations.' },
       { name: 'variables', description: 'Use this skill when working with Datto RMM variables - account-level and site-level variables for storing configuration data.' },
-      { name: 'api-patterns', description: 'Use this skill when working with the Datto RMM API - authentication, OAuth 2.' }
+      { name: 'api-patterns', description: 'Use this skill when working with the Datto RMM API - authentication, OAuth 2.0 flow, platform selection, pagination, rate limiting, and error handling.' }
     ],
     agents: [
       { name: 'backup-health-monitor', description: 'Use this agent when an MSP needs to audit backup and BC/DR health across their Datto RMM managed client portfolio — not a general fleet health check, but a focused review of backup job success rates, last successful backups per device, retention policy compliance, offsite replication status, and restore test records.' },
@@ -510,7 +510,7 @@ export const plugins: Plugin[] = [
       { name: 'contracts', description: 'Use this skill when working with HaloPSA contracts - managing service agreements, recurring billing, prepaid hours, and contract renewals.' },
       { name: 'invoices', description: 'Use this skill when working with HaloPSA invoices — listing invoices by client or date range, filtering by payment and send status, and retrieving individual invoice details.' },
       { name: 'tickets', description: 'Use this skill when working with HaloPSA tickets - creating, updating, searching, or managing service desk operations.' },
-      { name: 'api-patterns', description: 'Use this skill when working with the HaloPSA REST API - OAuth 2.' }
+      { name: 'api-patterns', description: 'Use this skill when working with the HaloPSA REST API - OAuth 2.0 Client Credentials authentication, tenant-aware URLs, query building, pagination, rate limiting, and error handling.' }
     ],
     agents: [
       { name: 'service-desk-ops', description: 'Use this agent when an MSP dispatcher, team lead, or service manager needs to triage and manage the HaloPSA ticket queue.' },
@@ -1257,7 +1257,7 @@ export const plugins: Plugin[] = [
       { name: 'billing', description: 'Use this skill when working with Sherweb distributor billing - payable charges, billing periods, charge types, pricing breakdown, deductions, fees, taxes, invoices, and MSP margin calculations.' },
       { name: 'customers', description: 'Use this skill when working with Sherweb customers - listing customers, retrieving customer details, accounts receivable, and understanding the distributor > service provider > customer hierarchy.' },
       { name: 'subscriptions', description: 'Use this skill when working with Sherweb subscriptions - viewing subscriptions, changing quantities, license management, subscription lifecycle, and quantity change workflows.' },
-      { name: 'api-patterns', description: 'Use this skill when working with the Sherweb API and MCP tools - OAuth 2.' }
+      { name: 'api-patterns', description: 'Use this skill when working with the Sherweb API and MCP tools - OAuth 2.0 client credentials authentication, token management, API endpoints, subscription key header, rate limits, error codes, scopes, Accept-Language support, and best practices.' }
     ],
     agents: [],
     commands: [
