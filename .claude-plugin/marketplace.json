@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "msp-claude-plugins",
   "description": "Community-driven Claude Code plugins for Managed Service Providers. Integrates with PSA, RMM, and documentation tools.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "owner": {
     "name": "Aaron Sachs"
   },
@@ -11,257 +11,445 @@
       "name": "abnormal-security",
       "source": "./msp-claude-plugins/abnormal/abnormal-security",
       "description": "Abnormal Security - AI-powered email security, phishing detection, account takeover prevention",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "email-security",
-      "tags": ["abnormal", "email-security", "phishing", "msp"]
+      "tags": [
+        "abnormal",
+        "email-security",
+        "phishing",
+        "msp"
+      ]
     },
     {
       "name": "atera",
       "source": "./msp-claude-plugins/atera/atera",
       "description": "Atera - tickets, agents, customers, alerts, SNMP/HTTP monitors",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "psa-rmm",
-      "tags": ["atera", "rmm", "psa", "monitoring", "msp"]
+      "tags": [
+        "atera",
+        "rmm",
+        "psa",
+        "monitoring",
+        "msp"
+      ]
     },
     {
       "name": "autotask",
       "source": "./msp-claude-plugins/kaseya/autotask",
       "description": "Kaseya Autotask PSA - tickets, CRM, projects, contracts, billing",
-      "version": "1.0.0",
+      "version": "0.4.0",
       "category": "psa",
-      "tags": ["kaseya", "autotask", "psa", "tickets", "msp"]
+      "tags": [
+        "kaseya",
+        "autotask",
+        "psa",
+        "tickets",
+        "msp"
+      ]
     },
     {
       "name": "betterstack",
       "source": "./msp-claude-plugins/betterstack/betterstack",
       "description": "Better Stack - uptime monitoring, logging, incident management",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "monitoring",
-      "tags": ["betterstack", "uptime", "monitoring", "logging", "msp"]
+      "tags": [
+        "betterstack",
+        "uptime",
+        "monitoring",
+        "logging",
+        "msp"
+      ]
     },
     {
       "name": "blumira",
       "source": "./msp-claude-plugins/blumira/blumira",
       "description": "Blumira - SIEM findings management, device inventory, MSP multi-tenant operations, and security posture analysis",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "category": "security",
-      "tags": ["blumira", "siem", "security", "detection", "msp"]
+      "tags": [
+        "blumira",
+        "siem",
+        "security",
+        "detection",
+        "msp"
+      ]
     },
     {
       "name": "checkpoint-avanan",
       "source": "./msp-claude-plugins/email-security/checkpoint-avanan",
       "description": "Checkpoint Harmony Email & Collaboration (Avanan) - quarantine, threats, policies, incidents, Smart Banners",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "email-security",
-      "tags": ["checkpoint", "avanan", "email-security", "anti-phishing", "msp"]
+      "tags": [
+        "checkpoint",
+        "avanan",
+        "email-security",
+        "anti-phishing",
+        "msp"
+      ]
     },
     {
       "name": "connectwise-automate",
       "source": "./msp-claude-plugins/connectwise/automate",
       "description": "ConnectWise Automate - computers, clients, scripts, monitors, alerts",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "rmm",
-      "tags": ["connectwise", "automate", "rmm", "msp"]
+      "tags": [
+        "connectwise",
+        "automate",
+        "rmm",
+        "msp"
+      ]
     },
     {
       "name": "connectwise-psa",
       "source": "./msp-claude-plugins/connectwise/manage",
       "description": "ConnectWise PSA - tickets, companies, contacts, projects, time",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "psa",
-      "tags": ["connectwise", "psa", "tickets", "msp"]
+      "tags": [
+        "connectwise",
+        "psa",
+        "tickets",
+        "msp"
+      ]
     },
     {
       "name": "datto-rmm",
       "source": "./msp-claude-plugins/kaseya/datto-rmm",
       "description": "Datto RMM - devices, alerts, jobs, patches, monitoring",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "rmm",
-      "tags": ["kaseya", "datto", "rmm", "monitoring", "msp"]
+      "tags": [
+        "kaseya",
+        "datto",
+        "rmm",
+        "monitoring",
+        "msp"
+      ]
     },
     {
       "name": "domotz",
       "source": "./msp-claude-plugins/domotz/domotz",
       "description": "Domotz - network monitoring, SNMP discovery, device management",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "network",
-      "tags": ["domotz", "network", "monitoring", "snmp", "msp"]
+      "tags": [
+        "domotz",
+        "network",
+        "monitoring",
+        "snmp",
+        "msp"
+      ]
     },
     {
       "name": "halopsa",
       "source": "./msp-claude-plugins/halopsa/halopsa",
       "description": "HaloPSA - tickets, clients, assets, contracts (OAuth 2.0)",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "psa",
-      "tags": ["halopsa", "psa", "tickets", "oauth", "msp"]
+      "tags": [
+        "halopsa",
+        "psa",
+        "tickets",
+        "oauth",
+        "msp"
+      ]
     },
     {
       "name": "hudu",
       "source": "./msp-claude-plugins/hudu/hudu",
       "description": "Hudu IT documentation - companies, assets, articles, passwords, websites",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "documentation",
-      "tags": ["hudu", "documentation", "assets", "passwords", "msp"]
+      "tags": [
+        "hudu",
+        "documentation",
+        "assets",
+        "passwords",
+        "msp"
+      ]
     },
     {
       "name": "huntress",
       "source": "./msp-claude-plugins/huntress/huntress",
       "description": "Huntress - managed threat detection, incident response, endpoint agent management, escalations, and billing reports",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "category": "security",
-      "tags": ["huntress", "edr", "security", "incidents", "msp"]
+      "tags": [
+        "huntress",
+        "edr",
+        "security",
+        "incidents",
+        "msp"
+      ]
     },
     {
       "name": "it-glue",
       "source": "./msp-claude-plugins/kaseya/it-glue",
       "description": "IT Glue - organizations, assets, passwords, flexible assets",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "documentation",
-      "tags": ["kaseya", "it-glue", "documentation", "passwords", "msp"]
+      "tags": [
+        "kaseya",
+        "it-glue",
+        "documentation",
+        "passwords",
+        "msp"
+      ]
     },
     {
       "name": "knowbe4",
       "source": "./msp-claude-plugins/email-security/knowbe4",
       "description": "KnowBe4 - phishing simulation, security awareness training, user risk management",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "email-security",
-      "tags": ["knowbe4", "security-awareness", "phishing", "training", "msp"]
+      "tags": [
+        "knowbe4",
+        "security-awareness",
+        "phishing",
+        "training",
+        "msp"
+      ]
     },
     {
       "name": "liongard",
       "source": "./msp-claude-plugins/liongard/liongard",
       "description": "Liongard - environments, inspections, systems, detections, alerts, configuration monitoring",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "rmm",
-      "tags": ["liongard", "rmm", "monitoring", "inspections", "msp"]
+      "tags": [
+        "liongard",
+        "rmm",
+        "monitoring",
+        "inspections",
+        "msp"
+      ]
     },
     {
       "name": "m365",
       "source": "./msp-claude-plugins/m365/m365",
       "description": "Microsoft 365 - users, mailboxes, Teams, OneDrive, licensing, and security posture",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "productivity",
-      "tags": ["microsoft", "m365", "office365", "azure-ad", "msp"]
+      "tags": [
+        "microsoft",
+        "m365",
+        "office365",
+        "azure-ad",
+        "msp"
+      ]
     },
     {
       "name": "ninjaone-rmm",
       "source": "./msp-claude-plugins/ninjaone/ninjaone-rmm",
       "description": "NinjaOne (NinjaRMM) - devices, organizations, alerts, tickets",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "rmm",
-      "tags": ["ninjaone", "ninjarmm", "rmm", "monitoring", "msp"]
+      "tags": [
+        "ninjaone",
+        "ninjarmm",
+        "rmm",
+        "monitoring",
+        "msp"
+      ]
     },
     {
       "name": "pagerduty",
       "source": "./msp-claude-plugins/pagerduty/pagerduty",
       "description": "PagerDuty - incident management, on-call scheduling, alerting",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "incident-management",
-      "tags": ["pagerduty", "incidents", "alerting", "oncall", "msp"]
+      "tags": [
+        "pagerduty",
+        "incidents",
+        "alerting",
+        "oncall",
+        "msp"
+      ]
     },
     {
       "name": "pandadoc",
       "source": "./msp-claude-plugins/pandadoc/pandadoc",
       "description": "PandaDoc - documents, templates, e-signatures, and proposal management",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "sales",
-      "tags": ["pandadoc", "documents", "proposals", "esign", "msp"]
+      "tags": [
+        "pandadoc",
+        "documents",
+        "proposals",
+        "esign",
+        "msp"
+      ]
     },
     {
       "name": "pax8",
       "source": "./msp-claude-plugins/pax8/pax8",
       "description": "Pax8 cloud marketplace - companies, products, subscriptions, orders, invoices",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "marketplace",
-      "tags": ["pax8", "marketplace", "subscriptions", "cloud", "msp"]
+      "tags": [
+        "pax8",
+        "marketplace",
+        "subscriptions",
+        "cloud",
+        "msp"
+      ]
     },
     {
       "name": "proofpoint",
       "source": "./msp-claude-plugins/email-security/proofpoint",
       "description": "Proofpoint Email Protection - TAP, quarantine, threat intel, forensics, URL defense, VAP reports",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "email-security",
-      "tags": ["proofpoint", "email-security", "tap", "threat-intel", "msp"]
+      "tags": [
+        "proofpoint",
+        "email-security",
+        "tap",
+        "threat-intel",
+        "msp"
+      ]
     },
     {
       "name": "quickbooks-online",
       "source": "./msp-claude-plugins/quickbooks/quickbooks-online",
       "description": "QuickBooks Online - customers, invoices, expenses, payments, reports",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "accounting",
-      "tags": ["quickbooks", "accounting", "invoices", "expenses", "msp"]
+      "tags": [
+        "quickbooks",
+        "accounting",
+        "invoices",
+        "expenses",
+        "msp"
+      ]
     },
     {
       "name": "rocketcyber",
       "source": "./msp-claude-plugins/kaseya/rocketcyber",
       "description": "RocketCyber managed SOC - incidents, agents, events, threat detection",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "security",
-      "tags": ["kaseya", "rocketcyber", "soc", "security", "msp"]
+      "tags": [
+        "kaseya",
+        "rocketcyber",
+        "soc",
+        "security",
+        "msp"
+      ]
     },
     {
       "name": "rootly",
       "source": "./msp-claude-plugins/rootly/rootly",
       "description": "Rootly - incident management, postmortems, SRE automation",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "incident-management",
-      "tags": ["rootly", "incidents", "postmortem", "sre", "msp"]
+      "tags": [
+        "rootly",
+        "incidents",
+        "postmortem",
+        "sre",
+        "msp"
+      ]
     },
     {
       "name": "runzero",
       "source": "./msp-claude-plugins/runzero/runzero",
       "description": "runZero - asset discovery, network scanning, inventory management",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "security",
-      "tags": ["runzero", "asset-discovery", "network", "scanning", "msp"]
+      "tags": [
+        "runzero",
+        "asset-discovery",
+        "network",
+        "scanning",
+        "msp"
+      ]
     },
     {
       "name": "salesbuildr",
       "source": "./msp-claude-plugins/salesbuildr/salesbuildr",
       "description": "SalesBuildr CRM - contacts, companies, opportunities, quotes",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "crm",
-      "tags": ["salesbuildr", "crm", "sales", "quotes", "msp"]
+      "tags": [
+        "salesbuildr",
+        "crm",
+        "sales",
+        "quotes",
+        "msp"
+      ]
     },
     {
       "name": "sentinelone",
       "source": "./msp-claude-plugins/sentinelone/sentinelone",
       "description": "SentinelOne XDR - threat detection, incident response, and endpoint agent management via the Purple AI MCP server",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "security",
-      "tags": ["sentinelone", "edr", "security", "threat-hunting", "msp"]
+      "tags": [
+        "sentinelone",
+        "edr",
+        "security",
+        "threat-hunting",
+        "msp"
+      ]
     },
     {
       "name": "shared-skills",
       "source": "./msp-claude-plugins/shared",
       "description": "Vendor-agnostic MSP skills - terminology and ticket triage",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "knowledge",
-      "tags": ["msp", "terminology", "triage", "shared"]
+      "tags": [
+        "msp",
+        "terminology",
+        "triage",
+        "shared"
+      ]
     },
     {
       "name": "sherweb",
       "source": "./msp-claude-plugins/sherweb/sherweb",
       "description": "Sherweb Partner API - distributor billing, service provider management, customer subscriptions",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "marketplace",
-      "tags": ["sherweb", "marketplace", "billing", "subscriptions", "msp"]
+      "tags": [
+        "sherweb",
+        "marketplace",
+        "billing",
+        "subscriptions",
+        "msp"
+      ]
     },
     {
       "name": "superops",
       "source": "./msp-claude-plugins/superops/superops-ai",
       "description": "SuperOps.ai - tickets, assets, clients, runbooks (GraphQL)",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "psa-rmm",
-      "tags": ["superops", "psa", "rmm", "graphql", "msp"]
+      "tags": [
+        "superops",
+        "psa",
+        "rmm",
+        "graphql",
+        "msp"
+      ]
     },
     {
       "name": "syncro",
       "source": "./msp-claude-plugins/syncro/syncro-msp",
       "description": "Syncro MSP - tickets, customers, assets, invoicing",
-      "version": "1.0.0",
+      "version": "0.2.0",
       "category": "psa-rmm",
-      "tags": ["syncro", "psa", "rmm", "tickets", "msp"]
+      "tags": [
+        "syncro",
+        "psa",
+        "rmm",
+        "tickets",
+        "msp"
+      ]
     }
   ]
 }
