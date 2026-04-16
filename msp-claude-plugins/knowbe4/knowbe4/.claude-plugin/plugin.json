@@ -1,6 +1,6 @@
 {
   "name": "knowbe4",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Claude plugins for KnowBe4 \u2014 PhishER phishing incident triage, mass remediation, phishing simulation campaigns, training completion tracking, and user risk scoring for MSPs",
   "author": {
     "name": "MSP Claude Plugins Community"
