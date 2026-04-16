@@ -20,7 +20,7 @@ const baseUrl = import.meta.env.BASE_URL;
   </p>
 
   <table>
-    <thead><tr><th>Feature</th><th>Community</th><th>Pro</th></tr></thead>
+    <thead><tr><th>Feature</th><th>Free</th><th>Pro</th></tr></thead>
     <tbody>
       <tr><td>Personal vendor connections</td><td>3 max</td><td>Unlimited</td></tr>
       <tr><td>Team (shared) credentials</td><td>&mdash;</td><td>Unlimited</td></tr>
@@ -32,17 +32,10 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <h2>Getting Started</h2>
 
-  <p>
-    The gateway is currently in <strong>invite-only alpha</strong>. To get access:
-  </p>
-
   <ol>
-    <li>Visit <a href="https://mcp.wyretechnology.com/waitlist">mcp.wyretechnology.com/waitlist</a> and sign up for early access, or use an invite code if you already have one.</li>
-    <li>Once approved, sign in at <a href="https://mcp.wyretechnology.com/auth/login">mcp.wyretechnology.com/auth/login</a> using your work email.</li>
+    <li>Sign in at <a href="https://mcp.wyretechnology.com/auth/login">mcp.wyretechnology.com/auth/login</a> using your work email.</li>
     <li>You&apos;ll land on the <strong>Settings</strong> dashboard where you can create a team and connect vendors.</li>
   </ol>
-
-  <img src={`${baseUrl}images/gateway/waitlist.png`} alt="MCP Gateway waitlist page with invite code sign-in link" style="border-radius:8px;border:1px solid #2a2a2a;margin:24px 0;" />
 
   <h2>Step 1: Create a Team</h2>
 
@@ -59,8 +52,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <p>
     Teams created with a valid invite code are automatically upgraded to the <strong>Pro</strong> plan.
-    Without a code, your team starts on the Community plan. You can upgrade later by entering
-    an invite code in the settings.
+    Without a code, your team starts on the Free plan. You can upgrade later from Settings.
   </p>
 
   <img src={`${baseUrl}images/gateway/settings-dashboard.png`} alt="Settings dashboard showing team section, personal connections, and team connections" style="border-radius:8px;border:1px solid #2a2a2a;margin:24px 0;" />
@@ -158,37 +150,40 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <pre><code class="language-json">{`{
   "mcpServers": {
-    "autotask": { "url": "https://mcp.wyretechnology.com/v1/autotask/mcp" },
-    "datto-rmm": { "url": "https://mcp.wyretechnology.com/v1/datto-rmm/mcp" },
-    "itglue": { "url": "https://mcp.wyretechnology.com/v1/itglue/mcp" }
+    "msp-mcp-gateway": {
+      "type": "http",
+      "url": "https://mcp.wyretechnology.com/v1/mcp"
+    }
   }
 }`}</code></pre>
 
   <p>
-    On first use, Claude Code opens a browser for OAuth authentication. After that,
-    connections are automatic. The gateway injects your stored credentials (personal or team)
-    into each proxied request.
+    The unified <code>/v1/mcp</code> endpoint serves all connected vendors through a single
+    URL. On first use, Claude Code opens a browser for OAuth authentication. After that,
+    connections are automatic. Tool names are prefixed with the vendor slug (e.g.
+    <code>autotask__search_tickets</code>, <code>itglue__search_organizations</code>).
   </p>
 
   <h3>Claude Desktop</h3>
 
   <p>
-    Claude Desktop requires the <code>mcp-remote</code> bridge for remote MCP servers.
-    Add to your <code>claude_desktop_config.json</code>:
+    Claude Desktop supports remote MCP servers natively. Add via
+    <strong>Settings &rarr; Connectors</strong>, or add to your
+    <code>claude_desktop_config.json</code>:
   </p>
 
   <pre><code class="language-json">{`{
   "mcpServers": {
-    "autotask": {
+    "msp-mcp-gateway": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/autotask/mcp"]
+      "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/mcp"]
     }
   }
 }`}</code></pre>
 
   <p class="text-sm text-[var(--muted)] mt-2">
-    <strong>Requires Node.js 18+.</strong> Claude Pro/Team/Enterprise users can alternatively
-    add remote servers via <strong>Settings &rarr; Connectors</strong> without the bridge.
+    <strong>Note:</strong> Claude Pro/Team/Enterprise users can add remote servers directly
+    via <strong>Settings &rarr; Connectors</strong> without the <code>mcp-remote</code> bridge.
   </p>
 
   <h2>How Authentication Works</h2>
@@ -207,8 +202,8 @@ const baseUrl = import.meta.env.BASE_URL;
   </ol>
 
   <p>
-    Sessions use signed cookies with refresh token rotation. Vendor credentials are
-    never exposed to Claude or transmitted outside the gateway.
+    MCP requests are authenticated with JWT Bearer tokens issued during the OAuth flow.
+    Vendor credentials are never exposed to Claude or transmitted outside the gateway.
   </p>
 
   <h2>Credential Resolution Order</h2>
@@ -219,7 +214,8 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <ol>
     <li><strong>Personal credentials</strong> &mdash; if you have individual credentials stored for that vendor, those are used</li>
-    <li><strong>Team credentials</strong> &mdash; if no personal credentials exist, the gateway falls back to your team&apos;s shared credentials</li>
+    <li><strong>Team credentials</strong> &mdash; if no personal credentials exist and you belong to exactly one team with credentials for that vendor</li>
+    <li><strong>Org-level credentials</strong> &mdash; shared across the entire organization as a final fallback</li>
   </ol>
 
   <p>
