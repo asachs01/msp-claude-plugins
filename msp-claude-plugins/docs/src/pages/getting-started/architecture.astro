@@ -11,7 +11,7 @@ import DocsLayout from '@/layouts/DocsLayout.astro';
 
   <h2>Three-Layer Design</h2>
 
-  <pre style="background: var(--code-bg, #1e1e2e); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
+  <pre style="background: var(--code-bg, #1e1e2e); color: var(--code-text, #cdd6f4); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
 ┌──────────────────────────────────────┐
 │  Claude Code / Claude Desktop        │
 │  + Plugins (skills, commands, prompts)│
@@ -37,7 +37,7 @@ import DocsLayout from '@/layouts/DocsLayout.astro';
 
   <h3>Pattern 1: Local (Claude Code + stdio)</h3>
 
-  <pre style="background: var(--code-bg, #1e1e2e); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
+  <pre style="background: var(--code-bg, #1e1e2e); color: var(--code-text, #cdd6f4); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
 Claude Code / Desktop
     ↓ stdio
 MCP Server (npx / mcpb)
@@ -52,7 +52,7 @@ Vendor API (Autotask, Datto, etc.)</pre>
 
   <h3>Pattern 2: Docker Self-Hosted</h3>
 
-  <pre style="background: var(--code-bg, #1e1e2e); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
+  <pre style="background: var(--code-bg, #1e1e2e); color: var(--code-text, #cdd6f4); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
 Claude Code / Desktop
     ↓ HTTP (SSE transport)
 MCP Server Container (ghcr.io)
@@ -67,7 +67,7 @@ Vendor API</pre>
 
   <h3>Pattern 3: MCP Gateway (mcp.wyretechnology.com)</h3>
 
-  <pre style="background: var(--code-bg, #1e1e2e); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
+  <pre style="background: var(--code-bg, #1e1e2e); color: var(--code-text, #cdd6f4); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.6;">
 Claude Code / Desktop
     ↓ HTTPS + OAuth 2.1/PKCE
 ┌─────────────────────────────────┐
