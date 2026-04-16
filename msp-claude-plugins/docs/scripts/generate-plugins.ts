@@ -160,6 +160,12 @@ interface SkillEntry {
   description: string;
 }
 
+// ── Agent scanner ──────────────────────────────────────────────────────
+interface AgentEntry {
+  name: string;
+  description: string;
+}
+
 function scanSkills(pluginDir: string): SkillEntry[] {
   const skillsDir = path.join(pluginDir, 'skills');
   if (!fs.existsSync(skillsDir)) return [];
@@ -194,6 +200,33 @@ function scanSkills(pluginDir: string): SkillEntry[] {
   });
 
   return skills;
+}
+
+function scanAgents(pluginDir: string): AgentEntry[] {
+  const agentsDir = path.join(pluginDir, 'agents');
+  if (!fs.existsSync(agentsDir)) return [];
+
+  const files = fs.readdirSync(agentsDir).filter(f => f.endsWith('.md'));
+  const agents: AgentEntry[] = [];
+
+  for (const file of files) {
+    const content = fs.readFileSync(path.join(agentsDir, file), 'utf-8');
+    const name = extractFrontmatterField(content, 'name') || file.replace(/\.md$/, '');
+    let description = extractFrontmatterField(content, 'description');
+
+    // Truncate to first sentence for brevity
+    if (description.length > 120) {
+      const firstSentence = description.match(/^[^.!?]+[.!?]/);
+      if (firstSentence) {
+        description = firstSentence[0];
+      }
+    }
+
+    agents.push({ name, description: description || `${humanize(file.replace(/\.md$/, ''))} agent` });
+  }
+
+  agents.sort((a, b) => a.name.localeCompare(b.name));
+  return agents;
 }
 
 // ── Command scanner ────────────────────────────────────────────────────
@@ -362,8 +395,9 @@ function main(): void {
       pluginJson = JSON.parse(fs.readFileSync(pluginJsonPath, 'utf-8'));
     }
 
-    // Scan skills and commands
+    // Scan skills, agents, and commands
     const skills = scanSkills(pluginDir);
+    const agents = scanAgents(pluginDir);
     const commands = scanCommands(pluginDir);
     const apiInfo = scanApiInfo(pluginDir);
 
@@ -383,6 +417,11 @@ function main(): void {
     // Format skills array
     const skillsStr = skills.length > 0
       ? `[\n${skills.map(s => `      { name: '${s.name}', description: ${quote(s.description)} }`).join(',\n')}\n    ]`
+      : '[]';
+
+    // Format agents array
+    const agentsStr = agents.length > 0
+      ? `[\n${agents.map(a => `      { name: '${a.name}', description: ${quote(a.description)} }`).join(',\n')}\n    ]`
       : '[]';
 
     // Format commands array
@@ -412,6 +451,7 @@ function main(): void {
     maturity: '${maturity}',
     features: ${featuresStr},
     skills: ${skillsStr},
+    agents: ${agentsStr},
     commands: ${commandsStr},
     apiInfo: ${apiInfoStr},
     path: '${escapeQuotes(pluginPath)}',
@@ -435,6 +475,7 @@ export interface Plugin {
   maturity: 'production' | 'beta' | 'alpha';
   features: string[];
   skills: Skill[];
+  agents: Agent[];
   commands: Command[];
   apiInfo: ApiInfo;
   path: string;
@@ -447,6 +488,11 @@ export interface Plugin {
 }
 
 export interface Skill {
+  name: string;
+  description: string;
+}
+
+export interface Agent {
   name: string;
   description: string;
 }

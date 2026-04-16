@@ -9,6 +9,7 @@ export interface Plugin {
   maturity: 'production' | 'beta' | 'alpha';
   features: string[];
   skills: Skill[];
+  agents: Agent[];
   commands: Command[];
   apiInfo: ApiInfo;
   path: string;
@@ -21,6 +22,11 @@ export interface Plugin {
 }
 
 export interface Skill {
+  name: string;
+  description: string;
+}
+
+export interface Agent {
   name: string;
   description: string;
 }
@@ -60,6 +66,7 @@ export const plugins: Plugin[] = [
       { name: 'vendors', description: 'Use this skill when working with Abnormal Security VendorBase vendor risk assessment - vendor risk scores, compromised vendor detection, vendor domain analysis, and supply chain email threat monitoring.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Abnormal Security REST API - Bearer token authentication, base URLs, rate limiting, pagination, OData filtering, error handling, and common API patterns.' }
     ],
+    agents: [],
     commands: [
       { name: '/account-audit', description: 'Audit for account takeover indicators and suspicious sign-ins in Abnormal Security' },
       { name: '/case-review', description: 'Review and triage abuse mailbox cases in Abnormal Security' },
@@ -98,6 +105,10 @@ export const plugins: Plugin[] = [
       { name: 'tickets', description: 'Use this skill when working with Atera tickets - creating, updating, searching, or managing service desk operations.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Atera REST API - authentication, pagination, rate limiting, and error handling.' }
     ],
+    agents: [
+      { name: 'customer-health-scorer', description: 'Use this agent when an MSP account manager, service manager, or owner needs to score and rank client health across the Atera portfolio — not live operations management, but a structured assessment of each client based on device health trends, ticket velocity, recurring issues, patch compliance, and alert frequency.' },
+      { name: 'msp-ops-assistant', description: 'Use this agent when an MSP needs combined RMM and PSA operations assistance through Atera — triaging alerts, managing the ticket queue, checking device health, and identifying patterns across the client base.' }
+    ],
     commands: [
       { name: '/create-monitor', description: 'Create a threshold-based monitor for an Atera agent' },
       { name: '/create-ticket', description: 'Create a new service ticket in Atera' },
@@ -127,30 +138,40 @@ export const plugins: Plugin[] = [
     category: 'psa',
     maturity: 'production',
     features: [
+      'Billing',
       'Configuration Items',
       'Contract Management',
       'CRM Operations',
       'Expense Management',
+      'Picklists',
       'Product Catalog',
       'Project Management',
       'Quote Generation',
       'Service Calls',
+      'Ticket Notes Attachments',
       'Ticket Management',
       'Time Entry Tracking'
     ],
     skills: [
+      { name: 'billing', description: 'Use this skill when working with Autotask billing — retrieving billing items, checking approval levels, and searching invoices.' },
       { name: 'configuration-items', description: 'Use this skill when working with Autotask Configuration Items (CIs) - asset management, inventory tracking, warranty monitoring, lifecycle management, and relationship mapping.' },
       { name: 'contracts', description: 'Use this skill when working with Autotask contracts and service agreements - recurring services, block hours, time & materials, and contract billing.' },
       { name: 'crm', description: 'Use this skill when working with Autotask CRM - companies, contacts, sites/locations, and opportunities.' },
       { name: 'expenses', description: 'Use this skill when working with Autotask expense reports and expense items - creating expense reports, adding line items, searching reports by status or submitter, tracking reimbursable vs billable expenses, and managing expense approval workflows.' },
+      { name: 'picklists', description: 'Use this skill when working with Autotask picklist and reference data — listing queues, ticket statuses, ticket priorities, and phases.' },
       { name: 'product-catalog', description: 'Use this skill when working with Autotask product catalog operations - searching products, checking pricing, managing inventory, and understanding the relationship between products, services, bundles, and price lists.' },
       { name: 'projects', description: 'Use this skill when working with Autotask projects - creating projects, managing tasks, phases, milestones, and resource assignments.' },
       { name: 'quotes', description: 'Use this skill when working with Autotask quotes and quote line items - creating quotes for customers, adding products/services/bundles as line items, managing pricing and discounts, linking quotes to opportunities, and building proposals.' },
       { name: 'service-calls', description: 'Use this skill when working with Autotask Service Calls - creating, scheduling, updating, or completing service calls linked to tickets.' },
+      { name: 'ticket-notes-attachments', description: 'Use this skill when working with Autotask ticket notes, ticket attachments, and ticket charges — retrieving individual notes, downloading attachments, managing labor charges on tickets.' },
       { name: 'tickets', description: 'Use this skill when working with Autotask tickets - creating, updating, searching, or managing service desk operations.' },
       { name: 'time-entries', description: 'Use this skill when working with Autotask time entries - logging work hours, billing calculations, approval workflows, utilization tracking, and budget validation.' },
       { name: 'tool-discovery', description: 'Use this skill when Autotask MCP tools aren\'t loading, when you can\'t find the right Autotask tool to call, or when working with a lazy-loaded MCP connection where only meta-tools are available.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Autotask REST API - authentication, query building, pagination, includes, rate limiting, and error handling.' }
+    ],
+    agents: [
+      { name: 'contract-renewal-tracker', description: 'Use this agent when an MSP account manager, service manager, or operations lead needs to track and manage contract renewals in Autotask PSA — surfacing expiring contracts, identifying auto-renewal gaps, tracking MRR/ARR trends, and flagging clients who are still receiving service on expired contracts.' },
+      { name: 'ticket-dispatcher', description: 'Use this agent when an MSP dispatcher or service manager needs to intelligently manage the Autotask PSA ticket queue — reviewing priorities, suggesting technician assignments, monitoring SLA compliance, and driving dispatch decisions.' }
     ],
     commands: [
       { name: '/add-note', description: 'Add a note or comment to an existing Autotask ticket' },
@@ -200,6 +221,10 @@ export const plugins: Plugin[] = [
       { name: 'status-pages', description: 'Use this skill when working with Better Stack status pages -- managing status pages, adding resources/components, posting maintenance windows, and communicating service status to end users.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Better Stack MCP tools -- available tools, authentication via Bearer token, API structure, cursor-based pagination, rate limiting, error handling, and best practices.' }
     ],
+    agents: [
+      { name: 'sla-uptime-reporter', description: 'Use this agent when an MSP needs to generate SLA-focused uptime reports for clients, calculate SLA achievement percentages, identify chronic underperforming monitors, or produce client-facing availability summaries.' },
+      { name: 'uptime-incident-responder', description: 'Use this agent when an MSP needs to respond to a BetterStack uptime incident, investigate monitor failures, coordinate on-call response, or produce an incident report.' }
+    ],
     commands: [
       { name: '/create-monitor', description: 'Create a new Better Stack uptime monitor' },
       { name: '/incident-triage', description: 'Triage current Better Stack incidents' },
@@ -238,6 +263,10 @@ export const plugins: Plugin[] = [
       { name: 'users', description: 'Use this skill when listing or looking up Blumira users, finding user IDs for finding assignment, or auditing user access.' },
       { name: 'api-patterns', description: 'Use this skill when working with Blumira API authentication, understanding the dual path structure (org vs MSP), constructing filtered queries, handling pagination, or troubleshooting API errors.' }
     ],
+    agents: [
+      { name: 'compliance-reporter', description: 'Use this agent when generating compliance-oriented security reports from Blumira SIEM data — not for live incident investigation, but for producing evidence packages, coverage gap assessments, and log source health summaries for frameworks like SOC 2, HIPAA, and CIS.' },
+      { name: 'siem-investigator', description: 'Use this agent when investigating Blumira SIEM alerts and findings, tracing attack chains across data sources, resolving detections, auditing security posture across MSP client accounts, or producing threat investigation reports.' }
+    ],
     commands: [
       { name: '/agent-inventory', description: 'List all devices and agents across the organization with status and health information' },
       { name: '/finding-triage', description: 'Triage open Blumira findings by severity, presenting a prioritized list for review' },
@@ -275,6 +304,7 @@ export const plugins: Plugin[] = [
       { name: 'threats', description: 'Use this skill when working with Checkpoint Harmony Email threat detection and analysis - phishing, malware, BEC, account takeover, IOC extraction, threat timelines, and severity assessment.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Checkpoint Harmony Email API - OAuth2 client credentials authentication, base URLs, rate limiting, pagination, error handling, and common API patterns.' }
     ],
+    agents: [],
     commands: [
       { name: '/check-threat', description: 'Get detailed threat analysis including IOCs and timeline from Checkpoint Harmony Email' },
       { name: '/manage-policy', description: 'View or toggle email security policies in Checkpoint Harmony Email' },
@@ -313,6 +343,9 @@ export const plugins: Plugin[] = [
       { name: 'scripts', description: 'Use this skill when working with ConnectWise Automate scripts - listing, executing, passing parameters, and retrieving results.' },
       { name: 'api-patterns', description: 'Use this skill when working with the ConnectWise Automate REST API - authentication methods, token management, pagination, filtering with OData syntax, rate limiting, and error handling.' }
     ],
+    agents: [
+      { name: 'automation-health-checker', description: 'Use this agent when an MSP technician or engineer needs to audit the health of their ConnectWise Automate RMM environment.' }
+    ],
     commands: [
       { name: '/list-computers', description: 'List computers in ConnectWise Automate with optional filters' },
       { name: '/run-script', description: 'Execute a script on an endpoint in ConnectWise Automate' }
@@ -347,6 +380,10 @@ export const plugins: Plugin[] = [
       { name: 'tickets', description: 'Use this skill when working with ConnectWise PSA tickets - creating, updating, searching, or managing service desk operations.' },
       { name: 'time-entries', description: 'Use this skill when working with ConnectWise PSA time entries - creating, updating, searching, or managing time tracking.' },
       { name: 'api-patterns', description: 'Use this skill when working with the ConnectWise PSA REST API - authentication using public/private keys and clientId, pagination with page/pageSize, conditions query syntax, rate limiting (60/min), and error handling.' }
+    ],
+    agents: [
+      { name: 'project-tracker', description: 'Use this agent when an MSP project manager, service manager, or operations lead needs a review of all open projects in ConnectWise Manage — checking milestone deadlines, budget vs.' },
+      { name: 'service-desk-ops', description: 'Use this agent when an MSP dispatcher, service manager, or team lead needs to review the current state of the ConnectWise Manage service desk.' }
     ],
     commands: [
       { name: '/add-note', description: 'Add an internal or external note to a ConnectWise PSA ticket' },
@@ -393,6 +430,10 @@ export const plugins: Plugin[] = [
       { name: 'variables', description: 'Use this skill when working with Datto RMM variables - account-level and site-level variables for storing configuration data.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Datto RMM API - authentication, OAuth 2.' }
     ],
+    agents: [
+      { name: 'backup-health-monitor', description: 'Use this agent when an MSP needs to audit backup and BC/DR health across their Datto RMM managed client portfolio — not a general fleet health check, but a focused review of backup job success rates, last successful backups per device, retention policy compliance, offsite replication status, and restore test records.' },
+      { name: 'rmm-health-auditor', description: 'Use this agent when an MSP needs a comprehensive health audit of their Datto RMM managed device fleet.' }
+    ],
     commands: [
       { name: '/device-lookup', description: 'Find a device in Datto RMM by hostname, IP address, or MAC address' },
       { name: '/resolve-alert', description: 'Resolve an open alert in Datto RMM' },
@@ -430,6 +471,7 @@ export const plugins: Plugin[] = [
       { name: 'network', description: 'Use this skill when working with Domotz network operations -- network scanning, SNMP polling, port monitoring, speed tests, and network topology discovery.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Domotz MCP tools -- available tools, authentication via API key, API structure, pagination, rate limiting, region selection, error handling, and best practices.' }
     ],
+    agents: [],
     commands: [
       { name: '/alert-status', description: 'Check current Domotz alerts across all agents' },
       { name: '/device-inventory', description: 'List all devices at a Domotz-monitored site' },
@@ -454,17 +496,25 @@ export const plugins: Plugin[] = [
     category: 'psa',
     maturity: 'production',
     features: [
+      'Agent Monitoring',
       'Asset Management',
       'Client Operations',
       'Contract Management',
+      'Invoice Management',
       'Ticket Management'
     ],
     skills: [
+      { name: 'agents', description: 'Use this skill when working with HaloPSA agents (technicians) and teams — listing technicians, retrieving agent details, and listing team structures.' },
       { name: 'assets', description: 'Use this skill when working with HaloPSA assets - tracking devices, managing configuration items, hardware lifecycle, and asset relationships.' },
       { name: 'clients', description: 'Use this skill when working with HaloPSA clients - creating, updating, searching, or managing customer relationships.' },
       { name: 'contracts', description: 'Use this skill when working with HaloPSA contracts - managing service agreements, recurring billing, prepaid hours, and contract renewals.' },
+      { name: 'invoices', description: 'Use this skill when working with HaloPSA invoices — listing invoices by client or date range, filtering by payment and send status, and retrieving individual invoice details.' },
       { name: 'tickets', description: 'Use this skill when working with HaloPSA tickets - creating, updating, searching, or managing service desk operations.' },
       { name: 'api-patterns', description: 'Use this skill when working with the HaloPSA REST API - OAuth 2.' }
+    ],
+    agents: [
+      { name: 'service-desk-ops', description: 'Use this agent when an MSP dispatcher, team lead, or service manager needs to triage and manage the HaloPSA ticket queue.' },
+      { name: 'sla-performance-reporter', description: 'Use this agent when an MSP service manager, operations lead, or account manager needs SLA compliance reporting and trend analysis in HaloPSA — not live ticket triage, but retrospective reporting on how well the team has met SLA commitments by client, by technician, and by ticket category.' }
     ],
     commands: [
       { name: '/add-action', description: 'Add an action (note, update, or response) to an existing HaloPSA ticket' },
@@ -509,6 +559,10 @@ export const plugins: Plugin[] = [
       { name: 'websites', description: 'Use this skill when working with Hudu website records - website monitoring, SSL/TLS tracking, email security (DMARC, DKIM, SPF), DNS records, and linking websites to companies.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Hudu API - authentication, REST structure, filtering, pagination, rate limiting, error handling, and best practices.' }
     ],
+    agents: [
+      { name: 'documentation-auditor', description: 'Use this agent when an MSP technician or vCIO needs to find and fix documentation debt in Hudu.' },
+      { name: 'runbook-freshness-auditor', description: 'Use this agent when an MSP needs to audit the currency and coverage of runbooks and SOPs in Hudu.' }
+    ],
     commands: [
       { name: '/find-company', description: 'Find a company in Hudu by name' },
       { name: '/get-password', description: 'Retrieve a password from Hudu (with security logging)' },
@@ -547,6 +601,10 @@ export const plugins: Plugin[] = [
       { name: 'organizations', description: 'Use this skill when managing Huntress organizations — creating, listing, updating, deleting organizations, and managing client org structure for MSP multi-tenancy.' },
       { name: 'signals', description: 'Use this skill when working with Huntress security signals — monitoring, listing, filtering, and investigating signals across managed endpoints.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Huntress MCP tools — available tools, authentication via HTTP Basic Auth, API structure, pagination with page tokens, rate limiting (60 req/min), error handling, and best practices.' }
+    ],
+    agents: [
+      { name: 'client-onboarding-validator', description: 'Use this agent when validating a newly onboarded client in Huntress — checking that agents are deployed and reporting, confirming SOC coverage is active, identifying any endpoints missing agents, and surfacing initial detections that fired during or after deployment.' },
+      { name: 'incident-responder', description: 'Use this agent when triaging Huntress incidents, reviewing SOC escalations, approving or rejecting endpoint remediations, investigating security signals, or managing the Huntress agent fleet across MSP client organizations.' }
     ],
     commands: [
       { name: '/agent-inventory', description: 'List and filter Huntress agents across organizations' },
@@ -589,6 +647,10 @@ export const plugins: Plugin[] = [
       { name: 'passwords', description: 'Use this skill when working with IT Glue passwords - secure credential storage, password categories, folders, embedded passwords, and access patterns.' },
       { name: 'api-patterns', description: 'Use this skill when working with the IT Glue API - authentication, JSON:API structure, filtering, sorting, pagination, rate limiting, sideloading with includes, and error handling.' }
     ],
+    agents: [
+      { name: 'asset-documentation-linker', description: 'Use this agent when an MSP needs to find and fix broken or missing linkages between IT Glue objects — configurations without passwords, devices without runbooks, organizations without network diagrams, contacts unlinked from assets.' },
+      { name: 'documentation-auditor', description: 'Use this agent when an MSP needs to audit documentation completeness and freshness across their IT Glue client portfolio.' }
+    ],
     commands: [
       { name: '/edit-doc-sections', description: 'Read, edit, and restructure sections of an IT Glue document' },
       { name: '/find-organization', description: 'Find an organization in IT Glue by name' },
@@ -625,6 +687,7 @@ export const plugins: Plugin[] = [
       { name: 'users', description: 'Use this skill when working with KnowBe4 users and groups - user lifecycle management, group creation and membership, risk scores, risk score history, user event tracking, and user status management.' },
       { name: 'api-patterns', description: 'Use this skill when working with the KnowBe4 REST API - Bearer token authentication, multi-region base URLs, pagination, rate limiting, error handling, and common request patterns.' }
     ],
+    agents: [],
     commands: [
       { name: '/campaign-summary', description: 'Get summary of recent phishing and training campaigns from KnowBe4' },
       { name: '/group-report', description: 'Get security awareness metrics for a KnowBe4 group' },
@@ -660,6 +723,10 @@ export const plugins: Plugin[] = [
       { name: 'inspections', description: 'Use this skill when working with Liongard inspectors, launchpoints, inspection scheduling, or triggering inspections on demand.' },
       { name: 'overview', description: 'Use this skill when Claude needs context about the Liongard platform, terminology, capabilities, authentication patterns, or API structure.' },
       { name: 'systems', description: 'Use this skill when working with Liongard systems, system details, dataprints for JMESPath evaluation, or asset inventory.' }
+    ],
+    agents: [
+      { name: 'change-detective', description: 'Use this agent when an MSP needs to detect unauthorized or unexpected configuration changes, audit compliance drift, or surface undocumented systems across their client environments.' },
+      { name: 'compliance-drift-reporter', description: 'Use this agent when an MSP needs to generate compliance baseline drift reports, produce evidence for compliance frameworks, or identify coverage gaps where inspectors have not checked in.' }
     ],
     commands: [
       { name: '/liongard-environment-summary', description: 'Generate a detailed summary of a Liongard environment' },
@@ -700,6 +767,10 @@ export const plugins: Plugin[] = [
       { name: 'users', description: 'Use this skill when working with Microsoft 365 users - listing, searching, creating, disabling, or checking user properties.' },
       { name: 'api-patterns', description: 'Use this skill for Microsoft Graph API fundamentals - authentication patterns, OData query operators, pagination, throttling/retry, batch requests, and delta queries.' }
     ],
+    agents: [
+      { name: 'identity-auditor', description: 'Use this agent when an MSP needs to perform a comprehensive Microsoft 365 tenant security audit.' },
+      { name: 'license-auditor', description: 'Use this agent when an MSP needs to audit Microsoft 365 license costs and find savings opportunities across a client tenant.' }
+    ],
     commands: [
       { name: '/check-mfa-status', description: 'Audit MFA enrollment across all M365 users, highlighting accounts with no MFA' },
       { name: '/get-user', description: 'Look up a Microsoft 365 user by name or email, showing account status, licenses, MFA, and last sign-in' },
@@ -734,6 +805,10 @@ export const plugins: Plugin[] = [
       { name: 'organizations', description: 'Use this skill when working with NinjaOne organizations - creating, listing, managing locations, and configuring policies.' },
       { name: 'tickets', description: 'Use this skill when working with NinjaOne tickets - creating, updating, searching, and managing ticketing operations.' },
       { name: 'api-patterns', description: 'Use this skill for NinjaOne API authentication, pagination, rate limiting, and error handling patterns.' }
+    ],
+    agents: [
+      { name: 'device-health-auditor', description: 'Use this agent when an MSP needs a comprehensive device health audit across their NinjaOne-managed organization portfolio.' },
+      { name: 'patch-compliance-reporter', description: 'Use this agent when an MSP needs dedicated patch compliance reporting across their NinjaOne-managed portfolio — not a general health check, but a focused analysis of OS patch levels, third-party application versions, missing critical patches, devices pending reboot, and patch policy exceptions.' }
     ],
     commands: [
       { name: '/create-ticket', description: 'Create a new ticket in NinjaOne' },
@@ -772,6 +847,10 @@ export const plugins: Plugin[] = [
       { name: 'services', description: 'Use this skill when working with PagerDuty services -- service catalog, service configuration, integrations, dependencies, maintenance windows, and service health monitoring.' },
       { name: 'api-patterns', description: 'Use this skill when working with PagerDuty MCP tools - authentication setup, complete 66-tool reference, REST API pagination, token format (Token token=), rate limits, error handling, and hosted MCP connection details.' }
     ],
+    agents: [
+      { name: 'incident-commander', description: 'Use this agent when an MSP engineer, SRE, or incident manager needs to command an active incident or review the state of open PagerDuty incidents.' },
+      { name: 'on-call-scheduler', description: 'Use this agent when an MSP operations lead, SRE manager, or engineering manager needs to review and manage PagerDuty on-call schedules — not incident response, but the health of the schedule system itself: coverage gaps, upcoming holidays without coverage, overloaded individuals, escalation policy misconfigurations, and rotation balance.' }
+    ],
     commands: [
       { name: '/create-incident', description: 'Create a new PagerDuty incident on a service' },
       { name: '/escalate-incident', description: 'Escalate a PagerDuty incident to the next level in the escalation policy' },
@@ -807,6 +886,10 @@ export const plugins: Plugin[] = [
       { name: 'recipients', description: 'Use this skill when working with PandaDoc recipients and signatures - adding recipients to documents, setting signing order, tracking who has signed, managing multi-party agreements, and understanding recipient roles.' },
       { name: 'templates', description: 'Use this skill when working with PandaDoc templates - browsing the template library, finding the right template for a document type, understanding template fields and tokens, and using templates to create new documents.' },
       { name: 'api-patterns', description: 'Use this skill when working with PandaDoc MCP tools - available tools, API key authentication, the hosted MCP server connection, documentation search, code generation assistance, rate limiting, error handling, and best practices for the PandaDoc API.' }
+    ],
+    agents: [
+      { name: 'contract-tracker', description: 'Use this agent when an MSP sales coordinator or account manager needs to track the status of pending proposals and contracts in PandaDoc.' },
+      { name: 'template-standardizer', description: 'Use this agent when an MSP needs to audit and standardize their PandaDoc proposal and contract templates — checking for outdated pricing, missing legal clauses, inconsistent formatting, and stale service descriptions.' }
     ],
     commands: [
       { name: '/create-document', description: 'Create a new PandaDoc document from a template with recipients and content' },
@@ -845,6 +928,10 @@ export const plugins: Plugin[] = [
       { name: 'products', description: 'Use this skill when working with the Pax8 product catalog - searching for cloud software, browsing vendors, checking pricing, reviewing provisioning details, and finding the right SKU for a client need.' },
       { name: 'subscriptions', description: 'Use this skill when working with Pax8 subscriptions - checking license status, reviewing seat counts, filtering by company or product, tracking subscription states, reviewing change history, and optimizing license usage across MSP clients.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Pax8 MCP tools - available tools, parameters, pagination, sorting, filtering, rate limiting, error handling, and best practices.' }
+    ],
+    agents: [
+      { name: 'license-optimizer', description: 'Use this agent when an MSP needs to analyze license utilization across their Pax8 marketplace subscriptions, identify unused or over-provisioned seats, optimize costs, or plan renewals.' },
+      { name: 'renewal-calendar', description: 'Use this agent when an MSP needs a proactive view of upcoming Pax8 subscription renewals across all clients, wants to flag month-to-month subscriptions that should move to annual, or needs to identify annual renewals that require a seat count review before they lock in.' }
     ],
     commands: [
       { name: '/create-order', description: 'Place an order for a product subscription in Pax8' },
@@ -885,6 +972,7 @@ export const plugins: Plugin[] = [
       { name: 'url-defense', description: 'Use this skill when working with Proofpoint URL Defense - URL rewriting, URL decoding, real-time URL analysis, click-time protection, and URL investigation.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Proofpoint API - authentication using HTTP Basic Auth with service principal and secret, base URLs, rate limits, pagination, error codes, and common integration patterns.' }
     ],
+    agents: [],
     commands: [
       { name: '/check-threats', description: 'View recent TAP threat events including blocked messages, delivered threats, and click activity' },
       { name: '/decode-url', description: 'Decode a Proofpoint URL Defense rewritten URL back to the original URL' },
@@ -924,6 +1012,10 @@ export const plugins: Plugin[] = [
       { name: 'reports', description: 'Use this skill when working with QuickBooks Online reports - generating Profit & Loss, Balance Sheet, Accounts Receivable Aging, Accounts Payable Aging, General Ledger, and other financial reports.' },
       { name: 'api-patterns', description: 'Use this skill when working with the QuickBooks Online API - OAuth2 authentication, REST structure, Intuit query language, pagination, rate limiting, error handling, minor version headers, and best practices.' }
     ],
+    agents: [
+      { name: 'billing-reconciler', description: 'Use this agent when an MSP needs to reconcile billing in QuickBooks Online — matching invoices to contracts, identifying unbilled work, flagging overdue accounts, or auditing revenue recognition.' },
+      { name: 'profitability-reporter', description: 'Use this agent when an MSP needs to analyze per-client or per-service-line profitability in QuickBooks Online — calculating gross margin by client, identifying the most and least profitable accounts, tracking profitability trends over time, or surfacing service lines where costs are eroding margin.' }
+    ],
     commands: [
       { name: '/create-invoice', description: 'Create an invoice for a client\'s managed services in QuickBooks Online' },
       { name: '/expense-summary', description: 'Summarize expenses by client, vendor, or date range in QuickBooks Online' },
@@ -958,6 +1050,10 @@ export const plugins: Plugin[] = [
       { name: 'apps', description: 'Use this skill when working with RocketCyber application inventory - detecting, categorizing, and monitoring applications across managed endpoints.' },
       { name: 'incidents', description: 'Use this skill when working with RocketCyber security incidents - searching, triaging, investigating, and resolving incidents.' },
       { name: 'api-patterns', description: 'Use this skill when working with the RocketCyber API - authentication, Bearer token flow, base URL selection, pagination, rate limiting, error handling, and account hierarchy.' }
+    ],
+    agents: [
+      { name: 'soc-alert-investigator', description: 'Use this agent when an MSP needs to investigate and triage RocketCyber SOC alerts and security incidents across their client portfolio.' },
+      { name: 'threat-correlation-analyst', description: 'Use this agent when an MSP needs to correlate RocketCyber SOC detections with broader security context from across the Kaseya ecosystem — cross-referencing incidents with Datto RMM device data, IT Glue documentation, and Autotask ticket history to build richer threat narratives and identify whether incidents are isolated or part of a broader pattern.' }
     ],
     commands: [
       { name: '/account-summary', description: 'Get a security posture summary for a RocketCyber customer account' },
@@ -995,6 +1091,10 @@ export const plugins: Plugin[] = [
       { name: 'services', description: 'Use this skill when working with the Rootly service catalog -- listing services, managing dependencies, ownership, service health, and understanding how services relate to incidents and alerts.' },
       { name: 'workflows', description: 'Use this skill when working with Rootly workflows -- creating automated incident response workflows, configuring triggers, actions, conditions, and managing workflow lifecycle.' },
       { name: 'api-patterns', description: 'Use this skill when working with Rootly MCP tools - authentication setup, complete tool reference, JSON:API pagination, request patterns, rate limits, and error handling.' }
+    ],
+    agents: [
+      { name: 'incident-commander', description: 'Use this agent when an MSP engineer, SRE, or incident manager needs to command an active Rootly incident or review open incidents.' },
+      { name: 'post-mortem-writer', description: 'Use this agent when an MSP engineer, SRE, or incident manager needs to generate a structured post-incident review (PIR) for a resolved Rootly incident — not live incident command, but a thorough retrospective document covering what happened, why it happened, the full impact timeline, contributing factors, and the concrete action items the team is committing to fix.' }
     ],
     commands: [
       { name: '/action-items', description: 'List outstanding action items from Rootly postmortems and incidents' },
@@ -1034,6 +1134,7 @@ export const plugins: Plugin[] = [
       { name: 'wireless', description: 'Use this skill when working with RunZero wireless network discovery — listing discovered wireless networks, identifying rogue access points, analyzing wireless security configurations, and auditing SSIDs.' },
       { name: 'api-patterns', description: 'Use this skill when working with the RunZero MCP tools — available tools, authentication via Bearer token, Export API, pagination, rate limiting, error handling, and best practices.' }
     ],
+    agents: [],
     commands: [
       { name: '/asset-search', description: 'Search for assets in RunZero by criteria' },
       { name: '/scan-network', description: 'Initiate a network discovery scan in RunZero' },
@@ -1069,6 +1170,10 @@ export const plugins: Plugin[] = [
       { name: 'products', description: 'Use this skill when searching for products in the Salesbuildr catalog, looking up pricing, or browsing by category.' },
       { name: 'quotes', description: 'Use this skill when creating, searching, or viewing quotes in Salesbuildr.' },
       { name: 'api-patterns', description: 'Use this skill when making API calls to Salesbuildr.' }
+    ],
+    agents: [
+      { name: 'margin-analyzer', description: 'Use this agent when an MSP sales manager or finance lead needs to analyze quote margin health across recent quotes in Salesbuildr.' },
+      { name: 'quote-builder', description: 'Use this agent when an MSP sales team member needs to build, review, or standardize quotes in Salesbuildr.' }
     ],
     commands: [
       { name: '/create-contact', description: 'Create a new contact in Salesbuildr' },
@@ -1115,6 +1220,10 @@ export const plugins: Plugin[] = [
       { name: 'vulnerabilities', description: 'Use this skill when working with SentinelOne XSPM vulnerabilities - tracking CVEs, reviewing EPSS scores, assessing exploit maturity, managing vulnerability status, prioritizing patches, and generating vulnerability reports across MSP client environments.' },
       { name: 'api-patterns', description: 'Use this skill when working with the SentinelOne Purple MCP tools - available tools, connection setup, uvx-based installation, Service User token authentication, transport modes, dual API architecture (GraphQL and REST), rate limits, error handling, and best practices.' }
     ],
+    agents: [
+      { name: 'endpoint-hardening-auditor', description: 'Use this agent when an MSP needs to audit and harden SentinelOne endpoint configuration across client sites — not to investigate active threats, but to proactively identify gaps before attackers can exploit them.' },
+      { name: 'threat-hunter', description: 'Use this agent when an MSP needs to autonomously hunt for threats across client endpoints using SentinelOne.' }
+    ],
     commands: [
       { name: '/alert-triage', description: 'Triage new and unresolved SentinelOne alerts by severity' },
       { name: '/asset-inventory', description: 'Asset inventory summary by surface type across managed environments' },
@@ -1150,6 +1259,7 @@ export const plugins: Plugin[] = [
       { name: 'subscriptions', description: 'Use this skill when working with Sherweb subscriptions - viewing subscriptions, changing quantities, license management, subscription lifecycle, and quantity change workflows.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Sherweb API and MCP tools - OAuth 2.' }
     ],
+    agents: [],
     commands: [
       { name: '/billing-summary', description: 'View payable charges for a Sherweb billing period with pricing breakdown' },
       { name: '/change-quantity', description: 'Change subscription seat/license quantity for a Sherweb customer' },
@@ -1186,6 +1296,10 @@ export const plugins: Plugin[] = [
       { name: 'runbooks', description: 'Use this skill when working with SuperOps.' },
       { name: 'tickets', description: 'Use this skill when working with SuperOps.' },
       { name: 'api-patterns', description: 'Use this skill when working with the SuperOps.' }
+    ],
+    agents: [
+      { name: 'automation-opportunity-finder', description: 'Use this agent when an MSP operations lead, service manager, or technician wants to identify repetitive ticket patterns in SuperOps.' },
+      { name: 'msp-service-ops', description: 'Use this agent when an MSP technician, dispatcher, or manager needs a combined PSA and RMM operations review in SuperOps.' }
     ],
     commands: [
       { name: '/acknowledge-alert', description: 'Acknowledge an RMM alert to indicate investigation is underway' },
@@ -1227,6 +1341,10 @@ export const plugins: Plugin[] = [
       { name: 'invoices', description: 'Use this skill when working with Syncro MSP invoices - creating, managing, and tracking invoices and payments.' },
       { name: 'tickets', description: 'Use this skill when working with Syncro MSP tickets - creating, updating, searching, or managing service desk operations.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Syncro MSP API - authentication, pagination, rate limiting, and error handling.' }
+    ],
+    agents: [
+      { name: 'billing-auditor', description: 'Use this agent when an MSP owner, billing coordinator, or service manager needs a billing completeness and accuracy audit in Syncro — finding tickets that haven\'t been billed, identifying recurring billing discrepancies, checking invoice accuracy against contracts, and flagging draft invoices overdue for finalization.' },
+      { name: 'msp-service-ops', description: 'Use this agent when an MSP technician, dispatcher, or owner needs an integrated review of tickets, devices, and billing in Syncro.' }
     ],
     commands: [
       { name: '/add-ticket-comment', description: 'Add a comment to an existing Syncro ticket' },
