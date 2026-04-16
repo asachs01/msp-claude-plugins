@@ -148,6 +148,31 @@ const compatibilityBadges = {
     </tbody>
   </table>
 
+  {plugin.agents.length > 0 && (
+    <>
+      <h2>Agents</h2>
+
+      <p>This plugin provides {plugin.agents.length} agent{plugin.agents.length === 1 ? '' : 's'} for autonomous task execution:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Agent</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {plugin.agents.map(agent => (
+            <tr>
+              <td><code>{agent.name}</code></td>
+              <td>{agent.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  )}
+
   <h2>Commands</h2>
 
   <p>Available slash commands:</p>

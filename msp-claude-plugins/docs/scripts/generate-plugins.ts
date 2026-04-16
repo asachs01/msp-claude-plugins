@@ -175,11 +175,15 @@ function scanSkills(pluginDir: string): SkillEntry[] {
     const content = fs.readFileSync(skillMd, 'utf-8');
     let description = extractFrontmatterField(content, 'description');
 
-    // Truncate to first sentence for brevity
+    // Truncate to first sentence for brevity. Require the sentence-ending punctuation
+    // to be followed by whitespace + a capital letter (or end of string) so we don't
+    // cut inside abbreviations like "OAuth 2.0", "vs.", "i.e.", etc.
     if (description.length > 120) {
-      const firstSentence = description.match(/^[^.!?]+[.!?]/);
+      const firstSentence = description.match(/^.+?[.!?](?=\s+[A-Z]|\s*$)/);
       if (firstSentence) {
         description = firstSentence[0];
+      } else {
+        description = description.slice(0, 150).replace(/\s+\S*$/, '') + '...';
       }
     }
 
@@ -194,6 +198,43 @@ function scanSkills(pluginDir: string): SkillEntry[] {
   });
 
   return skills;
+}
+
+// ── Agent scanner ──────────────────────────────────────────────────────
+interface AgentEntry {
+  name: string;
+  description: string;
+}
+
+function scanAgents(pluginDir: string): AgentEntry[] {
+  const agentsDir = path.join(pluginDir, 'agents');
+  if (!fs.existsSync(agentsDir)) return [];
+
+  const files = fs.readdirSync(agentsDir).filter(f => f.endsWith('.md'));
+  const agents: AgentEntry[] = [];
+
+  for (const file of files) {
+    const content = fs.readFileSync(path.join(agentsDir, file), 'utf-8');
+    const name = extractFrontmatterField(content, 'name') || file.replace(/\.md$/, '');
+    let description = extractFrontmatterField(content, 'description');
+
+    // Truncate to first sentence for brevity. Require the sentence-ending punctuation
+    // to be followed by whitespace + a capital letter (or end of string) so we don't
+    // cut inside abbreviations like "OAuth 2.0", "vs.", "i.e.", etc.
+    if (description.length > 120) {
+      const firstSentence = description.match(/^.+?[.!?](?=\s+[A-Z]|\s*$)/);
+      if (firstSentence) {
+        description = firstSentence[0];
+      } else {
+        description = description.slice(0, 150).replace(/\s+\S*$/, '') + '...';
+      }
+    }
+
+    agents.push({ name, description: description || `${humanize(file.replace(/\.md$/, ''))} agent` });
+  }
+
+  agents.sort((a, b) => a.name.localeCompare(b.name));
+  return agents;
 }
 
 // ── Command scanner ────────────────────────────────────────────────────
@@ -362,8 +403,9 @@ function main(): void {
       pluginJson = JSON.parse(fs.readFileSync(pluginJsonPath, 'utf-8'));
     }
 
-    // Scan skills and commands
+    // Scan skills, agents, and commands
     const skills = scanSkills(pluginDir);
+    const agents = scanAgents(pluginDir);
     const commands = scanCommands(pluginDir);
     const apiInfo = scanApiInfo(pluginDir);
 
@@ -383,6 +425,11 @@ function main(): void {
     // Format skills array
     const skillsStr = skills.length > 0
       ? `[\n${skills.map(s => `      { name: '${s.name}', description: ${quote(s.description)} }`).join(',\n')}\n    ]`
+      : '[]';
+
+    // Format agents array
+    const agentsStr = agents.length > 0
+      ? `[\n${agents.map(a => `      { name: '${a.name}', description: ${quote(a.description)} }`).join(',\n')}\n    ]`
       : '[]';
 
     // Format commands array
@@ -412,6 +459,7 @@ function main(): void {
     maturity: '${maturity}',
     features: ${featuresStr},
     skills: ${skillsStr},
+    agents: ${agentsStr},
     commands: ${commandsStr},
     apiInfo: ${apiInfoStr},
     path: '${escapeQuotes(pluginPath)}',
@@ -435,6 +483,7 @@ export interface Plugin {
   maturity: 'production' | 'beta' | 'alpha';
   features: string[];
   skills: Skill[];
+  agents: Agent[];
   commands: Command[];
   apiInfo: ApiInfo;
   path: string;
@@ -447,6 +496,11 @@ export interface Plugin {
 }
 
 export interface Skill {
+  name: string;
+  description: string;
+}
+
+export interface Agent {
   name: string;
   description: string;
 }
