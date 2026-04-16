@@ -6,6 +6,7 @@ import PluginCard from '@/components/PluginCard.astro';
 import InstallCommand from '@/components/InstallCommand.astro';
 import FAQSchema from '@/components/schema/FAQSchema.astro';
 import OrganizationSchema from '@/components/schema/OrganizationSchema.astro';
+import PricingCard from '@/components/PricingCard.astro';
 import { plugins } from '@/data/plugins';
 import { prompts } from '@/data/prompts';
 
@@ -264,6 +265,66 @@ const features = [
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Plans & Pricing Section -->
+  <section class="py-20 bg-neutral-50 dark:bg-neutral-900/50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Plans &amp; Pricing</h2>
+        <p class="text-[var(--muted)] max-w-2xl mx-auto">
+          Start free and scale as your team grows. All plans include the full MCP integration suite.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <PricingCard
+          plan="Free"
+          price="Free"
+          description="Get started with no commitment."
+          features={[
+            "Up to 3 connected vendors",
+            "1 user",
+            "Community support",
+          ]}
+          cta="Get started free"
+          ctaHref="/getting-started"
+        />
+
+        <PricingCard
+          plan="Pro"
+          price="$79/mo per org"
+          description="Everything your team needs to move fast."
+          features={[
+            "Unlimited vendors",
+            "Up to 10 users",
+            "Email support",
+            "Vendor credential management",
+          ]}
+          cta="Start free trial"
+          ctaHref="https://gateway.wyre.technology/auth/signup"
+          highlighted={true}
+        />
+
+        <PricingCard
+          plan="Enterprise"
+          price="Contact us"
+          description="For MSPs that need the full package."
+          features={[
+            "Unlimited everything",
+            "SSO / SAML",
+            "SLA + dedicated support",
+            "Custom vendor integrations",
+          ]}
+          cta="Talk to sales"
+          ctaHref="mailto:sales@wyre.technology"
+        />
+      </div>
+
+      <p class="text-center text-sm text-[var(--muted)] mt-8">
+        Need a custom plan? <a href="mailto:sales@wyre.technology" class="text-accent hover:underline">Get in touch.</a>
+      </p>
     </div>
   </section>
 

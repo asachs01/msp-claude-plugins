@@ -1,0 +1,60 @@
+---
+interface Props {
+  plan: string;
+  price: string;
+  description: string;
+  features: string[];
+  cta: string;
+  ctaHref: string;
+  highlighted?: boolean;
+}
+
+const { plan, price, description, features, cta, ctaHref, highlighted = false } = Astro.props;
+---
+
+<div class:list={[
+  'card flex flex-col',
+  highlighted
+    ? 'border-accent dark:border-accent/60 bg-white dark:bg-neutral-900 ring-2 ring-accent/30 shadow-lg'
+    : 'border-[var(--border)]'
+]}>
+  {highlighted && (
+    <div class="flex items-center gap-2 mb-4">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent border border-accent/30">
+        Recommended
+      </span>
+    </div>
+  )}
+
+  <div class="mb-4">
+    <h3 class="text-xl font-bold mb-1">{plan}</h3>
+    <p class="text-3xl font-bold text-[var(--text)] mb-2">{price}</p>
+    <p class="text-[var(--muted)] text-sm">{description}</p>
+  </div>
+
+  <ul class="space-y-3 mb-8 flex-1">
+    {features.map(feature => (
+      <li class="flex items-start gap-2 text-sm">
+        <svg
+          class:list={['w-5 h-5 mt-0.5 shrink-0', highlighted ? 'text-accent' : 'text-green-500']}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>{feature}</span>
+      </li>
+    ))}
+  </ul>
+
+  <a
+    href={ctaHref}
+    class:list={[
+      'btn w-full text-center',
+      highlighted ? 'btn-primary' : 'btn-secondary'
+    ]}
+  >
+    {cta}
+  </a>
+</div>
