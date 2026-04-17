@@ -3,30 +3,39 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import PricingCard from '@/components/PricingCard.astro';
+import PricingMatrix from '@/components/PricingMatrix.astro';
 
 const faqs = [
   {
-    question: "What counts as a vendor connection?",
-    answer: "Each PSA, RMM, or business tool you connect through the gateway (e.g. ConnectWise, NinjaOne, HaloPSA) is one connection."
+    question: "What's a credit?",
+    answer: "One credit = one successful tool call to a connected vendor (e.g. fetching a ticket from ConnectWise, looking up a device in IT Glue). Browsing tools or failed calls don't count."
+  },
+  {
+    question: "What's the difference between personal and org connections?",
+    answer: "Personal connections use your individual API credentials and are only usable by you. Org/shared connections are set up once by an admin and available to everyone on the team."
   },
   {
     question: "Can I change plans later?",
-    answer: "Yes. Upgrade or downgrade at any time; changes take effect at the next billing cycle."
+    answer: "Yes. Upgrade or downgrade any time; changes take effect at the next billing cycle."
   },
   {
-    question: "What happens if I exceed my user limit?",
-    answer: "You'll be prompted to upgrade to the next tier. We won't cut off access mid-cycle."
+    question: "What happens when I run out of credits?",
+    answer: "You can purchase credit blocks ($10 per 1,000 credits, no expiry) or upgrade to the next tier."
   },
   {
     question: "Is there an annual discount?",
-    answer: "Coming soon. Sign up for early access to lock in launch pricing."
+    answer: "Coming soon. Sign up to lock in launch pricing."
+  },
+  {
+    question: "What counts as a user?",
+    answer: "Anyone who has joined your organization and can make MCP calls through the gateway."
   }
 ];
 ---
 
 <BaseLayout
   title="Pricing — MSP Claude Plugins Gateway"
-  description="Simple, transparent pricing for the WYRE MCP Gateway. Free for individuals, Pro for growing MSP teams, Enterprise for full-scale deployments."
+  description="Simple, transparent pricing for the WYRE MCP Gateway. Free for individuals, Pro for growing MSP teams, Business for full-scale deployments."
 >
   <Header />
 
@@ -50,11 +59,12 @@ const faqs = [
           description="Get started with no commitment."
           features={[
             "1 user",
-            "3 vendor connections",
+            "3 personal vendor connections",
+            "500 credits/month",
             "Community support",
           ]}
           cta="Get started free"
-          ctaHref="/getting-started"
+          ctaHref="https://mcp.wyretechnology.com/auth/signup"
         />
 
         <PricingCard
@@ -63,25 +73,29 @@ const faqs = [
           description="For growing MSP teams, up to 3 users."
           features={[
             "Up to 3 users",
-            "Unlimited connections",
+            "3 personal connections per user",
+            "5 shared org connections",
+            "2,000 credits/seat/month",
+            "Team roles & invites",
             "Email support",
-            "Team credential management",
           ]}
           cta="Start free trial"
-          ctaHref="https://gateway.wyre.technology/auth/signup"
+          ctaHref="https://mcp.wyretechnology.com/auth/signup"
           highlighted={true}
         />
 
         <PricingCard
           plan="Business"
           price="$99/user/mo"
-          description="For MSP teams of 5–15 users (minimum 5)."
+          description="For MSP teams of 5+ users."
           features={[
-            "5–15 users",
-            "Everything in Pro",
-            "Org-level shared credentials",
+            "5+ users",
+            "Unlimited personal connections",
+            "Unlimited shared org connections",
+            "4,000 credits/seat/month (pooled)",
             "Audit log & log shipping",
-            "Tool allowlists",
+            "Tool allowlists & service clients",
+            "SSO (coming soon)",
             "Dedicated support",
           ]}
           cta="Talk to sales"
@@ -95,8 +109,23 @@ const faqs = [
     </div>
   </section>
 
+  <!-- Full comparison matrix -->
+  <section class="py-16 bg-neutral-50 dark:bg-neutral-900/50">
+    <div class="container">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold mb-4">Full Feature Comparison</h2>
+        <p class="text-[var(--muted)] max-w-2xl mx-auto">
+          Everything across every tier, side by side.
+        </p>
+      </div>
+      <div class="max-w-5xl mx-auto">
+        <PricingMatrix />
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
-  <section class="py-20 bg-neutral-50 dark:bg-neutral-900/50">
+  <section class="py-20">
     <div class="container">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
@@ -127,7 +156,7 @@ const faqs = [
   </section>
 
   <!-- CTA -->
-  <section class="py-20">
+  <section class="py-20 bg-neutral-50 dark:bg-neutral-900/50">
     <div class="container">
       <div class="card max-w-3xl mx-auto text-center p-12">
         <h2 class="text-2xl font-bold mb-4">Ready to Connect Your MSP Stack?</h2>
@@ -135,7 +164,7 @@ const faqs = [
           Spin up the gateway in minutes — no infrastructure required.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href="https://gateway.wyre.technology/auth/signup" class="btn btn-primary">Start free trial</a>
+          <a href="https://mcp.wyretechnology.com/auth/signup" class="btn btn-primary">Start free trial</a>
           <a href="/getting-started" class="btn btn-secondary">Read the docs</a>
         </div>
       </div>
