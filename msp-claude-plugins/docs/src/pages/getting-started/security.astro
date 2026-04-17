@@ -1,0 +1,134 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+---
+<DocsLayout title="Security Architecture" description="How the WYRE MCP Gateway protects your credentials, isolates your data, and defends against prompt injection.">
+  <h1>Security Architecture</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    The WYRE MCP Gateway handles your vendor credentials and routes AI requests across your MSP stack. Here's exactly how we protect them.
+  </p>
+
+  <h2>Credential Protection</h2>
+
+  <h3>Encryption at Rest</h3>
+  <p>All vendor credentials stored by the gateway are encrypted at rest using industry-standard authenticated encryption. Each record is encrypted with a unique derived key and includes tamper detection — if ciphertext is modified, decryption fails rather than returning corrupted data.</p>
+
+  <h3>Per-Organization Key Isolation</h3>
+  <p>Encryption keys are derived on a per-scope basis. Your organization's credentials are encrypted with a key that is unique to your organization. There is no shared key pool, and credentials encrypted for one organization <strong>cannot be decrypted by another</strong> — isolation is cryptographic, not just access-control-based.</p>
+
+  <aside class="not-prose bg-[var(--sl-color-bg-inline-code)] border-l-4 border-[var(--sl-color-accent)] p-4 rounded-r my-4">
+    <p class="m-0"><strong>Key point:</strong> Even in the event of a database breach, credentials remain encrypted with per-org derived keys. There is no single master decryption capability that exposes all tenants.</p>
+  </aside>
+
+  <h3>Credential Scoping</h3>
+  <p>The gateway supports multiple credential tiers to match how MSPs actually work:</p>
+
+  <table>
+    <thead>
+      <tr><th>Tier</th><th>Scope</th><th>Use Case</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Personal</td><td>Individual user</td><td>Technician's own API keys</td></tr>
+      <tr><td>Organization</td><td>Entire org</td><td>Connect once, team-wide access</td></tr>
+      <tr><td>Team</td><td>Team within org</td><td>Department-scoped credentials</td></tr>
+      <tr><td>Service Client</td><td>Machine identity</td><td>Automated agents and integrations</td></tr>
+    </tbody>
+  </table>
+
+  <p>Each tier has independent encryption key derivation and database-level uniqueness constraints preventing cross-scope credential access.</p>
+
+  <h2>Authentication</h2>
+
+  <ul>
+    <li><strong>OAuth 2.1 with PKCE</strong> — users authenticate through a managed identity provider. The gateway never sees, handles, or stores passwords.</li>
+    <li><strong>Session integrity</strong> — sessions use signed, httpOnly cookies. PKCE state is stored server-side to prevent interception.</li>
+    <li><strong>Vendor auth independence</strong> — each vendor connection authenticates through the vendor's own API mechanism. The gateway stores these credentials encrypted and injects them into outbound requests at call time only.</li>
+    <li><strong>Service client auth</strong> — machine-to-machine clients authenticate via client credentials flow with hashed secrets.</li>
+  </ul>
+
+  <h2>Data Flow</h2>
+
+  <h3>Pass-Through Architecture</h3>
+  <p>The gateway operates as a <strong>pass-through proxy</strong>. Vendor API responses are streamed directly to the requesting AI session. The gateway does not persist, index, cache, or log the content of vendor responses.</p>
+
+  <pre style="background: var(--sl-color-bg-inline-code, #1e1e2e); color: var(--sl-color-text, #cdd6f4); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.6;">
+Your AI ──▶ WYRE Gateway ──▶ Vendor API (Autotask, Datto, etc.)
+               │                    │
+               │  Credentials       │  Credentials injected
+               │  encrypted at      │  per-request from
+               │  rest              │  encrypted store
+               │                    │
+               ◀────────────────────┘
+          Response streamed back
+          (inspected for injection, not stored)</pre>
+
+  <h3>What Is Logged</h3>
+
+  <table>
+    <thead>
+      <tr><th>Logged (metadata)</th><th>Not Logged (content)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Timestamps, user IDs, org IDs</td><td>Vendor API response bodies</td></tr>
+      <tr><td>Vendor slug, tool name called</td><td>Ticket details, device data, passwords</td></tr>
+      <tr><td>Auth events (login, token refresh)</td><td>Credential values</td></tr>
+      <tr><td>Injection detection events</td><td>Customer PII from vendor systems</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Prompt Injection Defense</h2>
+
+  <p>When AI agents interact with external APIs, there's a risk that vendor responses could contain text designed to manipulate the AI's behavior. The gateway includes two layers of defense:</p>
+
+  <h3>Response Inspection</h3>
+  <p>Every tool result returned by a vendor is scanned for known injection patterns before it reaches the AI. Detected content is automatically replaced with a safe placeholder and the event is logged for audit. The AI never sees the original malicious content.</p>
+
+  <h3>Tool Description Sanitization</h3>
+  <p>Tool definitions from vendor MCP servers are sanitized when they are first cached by the gateway. Control characters are stripped, descriptions are length-limited, and injection patterns in tool metadata are neutralized before they can influence AI behavior.</p>
+
+  <aside class="not-prose bg-[var(--sl-color-bg-inline-code)] border-l-4 border-[var(--sl-color-accent)] p-4 rounded-r my-4">
+    <p class="m-0"><strong>Defense in depth:</strong> Both the data plane (tool results) and the control plane (tool definitions) are inspected. This prevents attacks from compromised vendor responses <em>and</em> from poisoned tool metadata.</p>
+  </aside>
+
+  <h2>Multi-Tenancy</h2>
+
+  <p>The gateway is multi-tenant by design. Isolation between organizations is enforced at multiple layers:</p>
+
+  <ul>
+    <li><strong>Cryptographic credential isolation</strong> — per-org key derivation ensures one tenant's credentials cannot be decrypted by another, even with direct database access.</li>
+    <li><strong>Database-level constraints</strong> — uniqueness constraints prevent credential cross-referencing between scopes.</li>
+    <li><strong>Session scoping</strong> — authenticated sessions are bound to specific user identities; organization context is resolved per-request.</li>
+    <li><strong>Request-level credential injection</strong> — vendor credentials are resolved and injected per-request based on the authenticated caller's scope. There is no shared credential context between concurrent requests from different organizations.</li>
+  </ul>
+
+  <h2>Network Security</h2>
+
+  <ul>
+    <li><strong>Vendor communication</strong> — vendor API requests are made over encrypted channels (TLS 1.2+). Internal vendor containers communicate within an isolated network environment.</li>
+    <li><strong>Egress control</strong> — outbound traffic originates from a known, fixed IP range, making it straightforward for vendors that require IP allowlisting.</li>
+    <li><strong>No inbound access to vendor containers</strong> — internal vendor services are not exposed to the public internet. Only the gateway's authenticated API surface is internet-facing.</li>
+  </ul>
+
+  <h2>Access Controls &amp; Audit</h2>
+
+  <ul>
+    <li><strong>Role-based access</strong> — organizations support owner, admin, and member roles with scoped permissions.</li>
+    <li><strong>Credential lifecycle logging</strong> — store, retrieve, and delete events are logged with scope and actor information.</li>
+    <li><strong>OAuth event logging</strong> — login, token exchange, refresh, and session events are captured.</li>
+    <li><strong>Rate limiting</strong> — request throttling and registration limits prevent brute-force and abuse scenarios.</li>
+  </ul>
+
+  <h2>What We Don't Do</h2>
+
+  <ul>
+    <li>We don't store vendor API responses or your customer data.</li>
+    <li>We don't log the content of tool calls — only metadata.</li>
+    <li>We don't share credentials between organizations.</li>
+    <li>We don't have a backdoor to view all credentials — decryption requires the scope-specific derived key.</li>
+    <li>We don't handle user passwords — authentication is delegated to a managed identity provider.</li>
+  </ul>
+
+  <h2>Questions?</h2>
+
+  <p>If you have specific security questions not covered here, reach out at <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a>. We're happy to discuss architecture details, provide additional documentation, or arrange a security review call.</p>
+</DocsLayout>
