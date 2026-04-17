@@ -281,11 +281,11 @@ const features = [
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         <PricingCard
           plan="Free"
-          price="Free"
+          price="$0"
           description="Get started with no commitment."
           features={[
-            "Up to 3 connected vendors",
             "1 user",
+            "3 vendor connections",
             "Community support",
           ]}
           cta="Get started free"
@@ -294,13 +294,13 @@ const features = [
 
         <PricingCard
           plan="Pro"
-          price="$79/mo per org"
-          description="Everything your team needs to move fast."
+          price="$49/user/mo"
+          description="For growing MSP teams, up to 3 users."
           features={[
-            "Unlimited vendors",
-            "Up to 10 users",
+            "Up to 3 users",
+            "Unlimited connections",
             "Email support",
-            "Vendor credential management",
+            "Team credential management",
           ]}
           cta="Start free trial"
           ctaHref="https://gateway.wyre.technology/auth/signup"
@@ -308,14 +308,16 @@ const features = [
         />
 
         <PricingCard
-          plan="Enterprise"
-          price="Contact us"
-          description="For MSPs that need the full package."
+          plan="Business"
+          price="$99/user/mo"
+          description="For MSP teams of 5–15 users (minimum 5)."
           features={[
-            "Unlimited everything",
-            "SSO / SAML",
-            "SLA + dedicated support",
-            "Custom vendor integrations",
+            "5–15 users",
+            "Everything in Pro",
+            "Org-level shared credentials",
+            "Audit log & log shipping",
+            "Tool allowlists",
+            "Dedicated support",
           ]}
           cta="Talk to sales"
           ctaHref="mailto:sales@wyre.technology"

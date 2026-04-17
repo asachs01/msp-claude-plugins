@@ -6,20 +6,20 @@ import PricingCard from '@/components/PricingCard.astro';
 
 const faqs = [
   {
+    question: "What counts as a vendor connection?",
+    answer: "Each PSA, RMM, or business tool you connect through the gateway (e.g. ConnectWise, NinjaOne, HaloPSA) is one connection."
+  },
+  {
     question: "Can I change plans later?",
-    answer: "Yes. You can upgrade or downgrade your plan at any time from your account settings. Upgrades take effect immediately; downgrades apply at the next billing cycle."
+    answer: "Yes. Upgrade or downgrade at any time; changes take effect at the next billing cycle."
   },
   {
-    question: "What counts as a 'connected vendor'?",
-    answer: "A connected vendor is any MSP platform (e.g. Autotask, ConnectWise, Datto RMM) for which you have stored API credentials in the gateway. Vendors you haven't configured credentials for don't count toward your limit."
+    question: "What happens if I exceed my user limit?",
+    answer: "You'll be prompted to upgrade to the next tier. We won't cut off access mid-cycle."
   },
   {
-    question: "Is there a free trial on the Pro plan?",
-    answer: "Yes — Pro comes with a 14-day free trial, no credit card required. At the end of the trial you can subscribe or drop back to the Free tier."
-  },
-  {
-    question: "How does Enterprise pricing work?",
-    answer: "Enterprise is scoped to your organisation's needs — number of users, vendors, SLA tier, and any custom integrations you require. Contact sales@wyre.technology and we'll put together a proposal within one business day."
+    question: "Is there an annual discount?",
+    answer: "Coming soon. Sign up for early access to lock in launch pricing."
   }
 ];
 ---
@@ -46,11 +46,11 @@ const faqs = [
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         <PricingCard
           plan="Free"
-          price="Free"
+          price="$0"
           description="Get started with no commitment."
           features={[
-            "Up to 3 connected vendors",
             "1 user",
+            "3 vendor connections",
             "Community support",
           ]}
           cta="Get started free"
@@ -59,13 +59,13 @@ const faqs = [
 
         <PricingCard
           plan="Pro"
-          price="$79/mo per org"
-          description="Everything your team needs to move fast."
+          price="$49/user/mo"
+          description="For growing MSP teams, up to 3 users."
           features={[
-            "Unlimited vendors",
-            "Up to 10 users",
+            "Up to 3 users",
+            "Unlimited connections",
             "Email support",
-            "Vendor credential management",
+            "Team credential management",
           ]}
           cta="Start free trial"
           ctaHref="https://gateway.wyre.technology/auth/signup"
@@ -73,14 +73,16 @@ const faqs = [
         />
 
         <PricingCard
-          plan="Enterprise"
-          price="Contact us"
-          description="For MSPs that need the full package."
+          plan="Business"
+          price="$99/user/mo"
+          description="For MSP teams of 5–15 users (minimum 5)."
           features={[
-            "Unlimited everything",
-            "SSO / SAML",
-            "SLA + dedicated support",
-            "Custom vendor integrations",
+            "5–15 users",
+            "Everything in Pro",
+            "Org-level shared credentials",
+            "Audit log & log shipping",
+            "Tool allowlists",
+            "Dedicated support",
           ]}
           cta="Talk to sales"
           ctaHref="mailto:sales@wyre.technology"
