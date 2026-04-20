@@ -1366,6 +1366,44 @@ export const plugins: Plugin[] = [
     },
     path: 'syncro/syncro-msp',
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'inforcer',
+    name: 'Inforcer',
+    vendor: 'Inforcer',
+    description: 'M365 security policy management for baselines, policy deployment, drift detection, and compliance reporting across tenants.',
+    category: 'security',
+    maturity: 'alpha',
+    features: [
+      'Tenant Management',
+      'Baseline Deployment',
+      'Policy Management',
+      'Drift Detection',
+      'Compliance Reporting'
+    ],
+    skills: [
+      { name: 'api-patterns', description: 'API authentication, base URL, endpoints, and error handling' },
+      { name: 'tenants', description: 'Tenant listing, tags, grouping, and onboarding status' },
+      { name: 'baselines', description: 'Baseline creation, deployment, and CIS/NIST/ISO alignment' },
+      { name: 'policies', description: 'Entra ID, Intune, Defender, Exchange policy deployment' },
+      { name: 'drift-detection', description: 'Policy drift monitoring, alerts, and automated remediation' },
+      { name: 'reporting', description: 'Compliance reports, Secure Score tracking, and Copilot readiness' }
+    ],
+    commands: [
+      { name: '/inforcer-tenant-overview', description: 'List all managed tenants with compliance status' },
+      { name: '/inforcer-baseline-compare', description: 'Compare tenant config against a baseline' },
+      { name: '/inforcer-drift-check', description: 'Check for policy drift across tenant groups' },
+      { name: '/inforcer-compliance-report', description: 'Generate compliance report for a tenant or group' },
+      { name: '/inforcer-secure-score', description: 'Review Microsoft Secure Score trends' }
+    ],
+    apiInfo: {
+      baseUrl: 'https://api.inforcer.com',
+      auth: 'API Key',
+      rateLimit: 'Standard rate limits',
+      docsUrl: 'https://docs.inforcer.com/'
+    },
+    path: 'inforcer/inforcer',
+    compatibility: { claudeCode: true, claudeDesktop: 'coming-soon', validated: false }
   }
 ];
 

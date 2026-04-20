@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "inforcer": {
+      "url": "${INFORCER_BASE_URL}",
+      "note": "Inforcer API. Requires API key from Inforcer Portal > Settings > API Access."
+    }
+  }
+}
