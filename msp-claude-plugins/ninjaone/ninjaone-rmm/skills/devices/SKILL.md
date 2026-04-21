@@ -1,9 +1,6 @@
 ---
-name: "NinjaOne Devices"
-description: >
-  Use this skill when working with NinjaOne devices - listing, searching, managing
-  services, viewing inventory, scheduling maintenance, and monitoring device health.
-  Covers Windows, Mac, and Linux endpoints managed by NinjaRMM agents.
+name: "ninjaone-devices"
+description: "Use this skill when working with NinjaOne devices - listing, searching, managing services, viewing inventory, scheduling maintenance, and monitoring device health. Covers Windows, Mac, and Linux endpoints managed by NinjaRMM agents."
 when_to_use: "When listing, searching, managing services, viewing inventory, scheduling maintenance, and monitoring device health"
 triggers:
   - ninjaone device
@@ -18,19 +15,9 @@ triggers:
 
 # NinjaOne Device Management
 
-## Overview
+Manage NinjaRMM-enrolled endpoints: query details, control Windows services, schedule maintenance, and reboot devices safely.
 
-Devices in NinjaOne represent endpoints with installed RMM agents. Each device belongs to an organization and can have policies, custom fields, and maintenance windows configured.
-
-## API Base URLs
-
-| Region | Base URL |
-|--------|----------|
-| US | `https://app.ninjarmm.com` |
-| EU | `https://eu.ninjarmm.com` |
-| Oceania | `https://oc.ninjarmm.com` |
-
-## Device Endpoints
+## Core API Operations
 
 ### Get Device Details
 
@@ -39,190 +26,125 @@ GET /api/v2/device/{id}
 Authorization: Bearer {token}
 ```
 
-Returns comprehensive device information including:
-- System info (hostname, OS, IP addresses)
-- Hardware specs (CPU, RAM, storage)
-- Agent status and version
-- Applied policies
-- Custom field values
+Response (key fields):
+
+```json
+{
+  "id": 42, "systemName": "WS-ACCT-017",
+  "offline": false, "lastContact": "2025-04-10T14:32:00Z",
+  "os": { "name": "Windows 11 Pro" },
+  "nodeRoleId": 1, "organizationId": 5, "policyId": 12
+}
+```
 
 ### Update Device
 
 ```http
 PATCH /api/v2/device/{id}
+Authorization: Bearer {token}
 Content-Type: application/json
 ```
 
 ```json
-{
-  "displayName": "Updated Display Name",
-  "nodeRoleId": 2,
-  "policyId": 123,
-  "userData": {
-    "customField1": "value1"
-  }
-}
+{ "displayName": "WS-ACCT-017-Renamed", "nodeRoleId": 2, "policyId": 45 }
 ```
 
-### Reboot Device
-
-```http
-POST /api/v2/device/{id}/reboot/{mode}
-```
-
-Modes:
-- `NORMAL` - Graceful reboot with user notification
-- `FORCED` - Immediate reboot without warning
-
-### Get Device Alerts
+### Get Device Alerts / Activities
 
 ```http
 GET /api/v2/device/{id}/alerts
-```
-
-Returns active alerts and conditions for the device.
-
-### Get Device Activities
-
-```http
 GET /api/v2/device/{id}/activities
+Authorization: Bearer {token}
 ```
 
-Returns recent activity log entries.
-
-## Windows Services Management
-
-### List Windows Services
+## Windows Services
 
 ```http
-GET /api/v2/device/{id}/windows-services
-```
-
-Returns all Windows services on the device.
-
-### Control Windows Service
-
-```http
-POST /api/v2/device/{id}/windows-service/{serviceId}/control
+GET  /api/v2/device/{id}/windows-services                          # list all
+POST /api/v2/device/{id}/windows-service/{serviceId}/control       # control
+Authorization: Bearer {token}
 Content-Type: application/json
 ```
 
+Control body — actions: `START`, `STOP`, `RESTART`:
+
 ```json
-{
-  "action": "START"
-}
+{ "action": "RESTART" }
 ```
 
-Actions: `START`, `STOP`, `RESTART`
-
-## Hardware Inventory
-
-### Get Disks
-
-```http
-GET /api/v2/device/{id}/disks
-```
-
-### Get Volumes
-
-```http
-GET /api/v2/device/{id}/volumes
-```
-
-### Get Processors
-
-```http
-GET /api/v2/device/{id}/processors
-```
-
-### Get Installed Software
-
-```http
-GET /api/v2/device/{id}/software
-```
+If the service does not exist, the API returns 404. Verify `serviceId` by listing services first.
 
 ## Maintenance Windows
 
-### Schedule Maintenance
-
 ```http
-PUT /api/v2/device/{id}/maintenance
+PUT    /api/v2/device/{id}/maintenance    # schedule
+DELETE /api/v2/device/{id}/maintenance    # cancel
+Authorization: Bearer {token}
 Content-Type: application/json
 ```
 
 ```json
-{
-  "start": "2024-02-15T02:00:00Z",
-  "end": "2024-02-15T06:00:00Z"
-}
+{ "start": "2025-04-16T02:00:00Z", "end": "2025-04-16T06:00:00Z" }
 ```
 
-### Cancel Maintenance
+## Reboot Device
 
 ```http
-DELETE /api/v2/device/{id}/maintenance
+POST /api/v2/device/{id}/reboot/{mode}
+Authorization: Bearer {token}
 ```
 
-## Device Roles
+Modes: `NORMAL` (graceful, notifies user) | `FORCED` (immediate, no warning).
 
-| Role ID | Name | Description |
-|---------|------|-------------|
-| 1 | Windows Workstation | Standard Windows endpoint |
-| 2 | Windows Server | Windows Server OS |
-| 3 | Mac | macOS device |
-| 4 | Linux Workstation | Linux desktop |
-| 5 | Linux Server | Linux server |
+> **Destructive operation** — always validate before rebooting. See safe-reboot workflow below.
 
-## Device Approval
+## Workflows
 
-For new devices pending approval:
+### Safe Reboot with Validation
 
-```http
-POST /api/v2/devices/approval/{mode}
-Content-Type: application/json
+```text
+1. GET /api/v2/device/{id}           → assert "offline": false
+2. GET /api/v2/device/{id}/alerts    → review severity; abort if critical
+3. POST /api/v2/device/{id}/reboot/NORMAL
+4. Poll GET /api/v2/device/{id} every 30s (up to 10 min) → wait for "offline": false
+5. If still offline after 10 min → GET /api/v2/device/{id}/alerts for new alerts; escalate
 ```
 
-Modes: `APPROVE`, `REJECT`
+**Error recovery**: If step 1 shows `"offline": true`, do not reboot. Check `lastContact` and alerts to diagnose.
 
-```json
-{
-  "devices": [123, 456, 789]
-}
+### Restart a Windows Service
+
+```text
+1. GET /api/v2/device/{id}/windows-services → find target service, note serviceId
+2. If state is "STOPPED", use "START"; otherwise use "RESTART"
+3. POST /api/v2/device/{id}/windows-service/{serviceId}/control  Body: { "action": "RESTART" }
+4. GET /api/v2/device/{id}/windows-services → confirm state is "RUNNING"
 ```
 
-## Common Workflows
-
-### Find Offline Devices
-
-1. List all devices
-2. Filter by `offline: true` status
-3. Check last contact time
-4. Review device alerts
+**Error recovery**: 404 means wrong `serviceId` — re-list and match by `serviceName` (case-sensitive). 409 means device offline — check device status first.
 
 ### Check Server Health
 
-1. Get device details
-2. Review disk space via volumes endpoint
-3. Check service status
-4. Review active alerts
+```text
+1. GET /api/v2/device/{id}                  → confirm online, note OS and role
+2. GET /api/v2/device/{id}/volumes          → flag volumes with < 10% free space
+3. GET /api/v2/device/{id}/alerts           → triage by severity
+4. GET /api/v2/device/{id}/windows-services → verify critical services are RUNNING
+```
 
-### Schedule Patch Window
+## Best Practices
 
-1. Identify target devices
-2. Schedule maintenance window
-3. Configure reboot policy
-4. Monitor patch results
+1. **Check `offline` before issuing commands** — control requests to offline devices return 409.
+2. **Default to `NORMAL` reboot** — `FORCED` skips user notification and risks data loss.
+3. **Poll after destructive operations** — confirm device/service status at 30s intervals before proceeding.
+4. **Scope maintenance windows tightly** — minimize alert suppression gaps.
 
-## Error Handling
+## Reference
 
-| Code | Description | Resolution |
-|------|-------------|------------|
-| 404 | Device not found | Verify device ID |
-| 403 | Access denied | Check permissions for organization |
-| 409 | Conflict | Device may be offline or unreachable |
+See [REFERENCE.md](./REFERENCE.md) for device roles, hardware inventory endpoints, device approval, regional API base URLs, and error codes.
 
 ## Related Skills
 
-- [Organizations](../organizations/SKILL.md) - Organization management
-- [Alerts](../alerts/SKILL.md) - Alert monitoring
-- [API Patterns](../api-patterns/SKILL.md) - Authentication
+- [Organizations](../organizations/SKILL.md) — Organization management
+- [Alerts](../alerts/SKILL.md) — Alert monitoring
+- [API Patterns](../api-patterns/SKILL.md) — Authentication and request patterns
