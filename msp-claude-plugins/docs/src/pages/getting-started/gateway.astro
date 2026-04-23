@@ -4,17 +4,24 @@ import InstallCommand from '@/components/InstallCommand.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 
-const claudeCodeUnified = `// .mcp.json (in your project root)
+const claudeCodeAddUser = `claude mcp add --scope user --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp`;
+
+const claudeCodeAddProject = `claude mcp add --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp`;
+
+const claudeCodeMcpJson = `// .mcp.json (in your project root) — manual alternative
 {
   "mcpServers": {
-    "mcp-gateway": { "url": "https://mcp.wyretechnology.com/v1/mcp" }
+    "msp-mcp-gateway": {
+      "type": "http",
+      "url": "https://mcp.wyretechnology.com/v1/mcp"
+    }
   }
 }`;
 
 const claudeDesktopUnified = `// claude_desktop_config.json
 {
   "mcpServers": {
-    "mcp-gateway": {
+    "msp-mcp-gateway": {
       "command": "npx",
       "args": ["-y", "mcp-remote", "https://mcp.wyretechnology.com/v1/mcp"]
     }
@@ -93,22 +100,55 @@ const claudeDesktopPerVendor = `// claude_desktop_config.json — per-vendor (le
   </table>
 
   <h2>Claude Code (CLI)</h2>
-  <p>Claude Code supports remote MCP servers natively. Add a <code>.mcp.json</code> to your project root:</p>
-  <pre><code class="language-json" set:text={claudeCodeUnified} /></pre>
-  <p class="text-sm text-[var(--muted)] mt-2">
-    On first use, Claude Code will open a browser for OAuth authentication. After that, all connected vendors are available automatically.
+  <p>
+    One command adds the gateway to Claude Code. Run this in your terminal — no config files to edit:
   </p>
+
+  <h3>Add for all projects (recommended)</h3>
+  <p>Use <code>--scope user</code> to make the gateway available in every Claude Code session on this machine:</p>
+  <pre><code class="language-bash" set:text={claudeCodeAddUser} /></pre>
+
+  <h3>Add for the current project only</h3>
+  <p>Omit <code>--scope</code> to scope the gateway to the current project (writes to <code>.mcp.json</code> in the project root):</p>
+  <pre><code class="language-bash" set:text={claudeCodeAddProject} /></pre>
+
+  <p class="text-sm text-[var(--muted)] mt-2">
+    On first use, Claude Code will open a browser for OAuth authentication. After signing in, connect your
+    vendor credentials at <a href="https://mcp.wyretechnology.com" target="_blank" rel="noopener noreferrer">mcp.wyretechnology.com</a> —
+    all connected vendors are then available automatically.
+  </p>
+
+  <h3>Verify the install</h3>
+  <pre><code class="language-bash">claude mcp list</code></pre>
+  <p class="text-sm text-[var(--muted)] mt-2">
+    You should see <code>msp-mcp-gateway</code> in the list. To remove it later, run
+    <code>claude mcp remove msp-mcp-gateway</code>.
+  </p>
+
+  <details class="mt-4">
+    <summary class="cursor-pointer font-medium text-[var(--muted)] hover:text-[var(--text)]">Manual <code>.mcp.json</code> alternative</summary>
+    <div class="mt-4">
+      <p>If you prefer to manage config by hand, add this to <code>.mcp.json</code> in your project root:</p>
+      <pre><code class="language-json" set:text={claudeCodeMcpJson} /></pre>
+    </div>
+  </details>
 
   <h2>Claude Desktop</h2>
 
-  <p>
-    Claude Desktop setup has two parts: <strong>installing the plugin</strong> (skills, commands, and
-    domain knowledge) and <strong>adding the MCP server</strong> (the API connection to the gateway).
-  </p>
+  <div class="card my-4">
+    <p class="!mt-0">
+      <strong>Claude Desktop setup has two parts.</strong> Do both — each one is required.
+    </p>
+    <ol class="!mb-0">
+      <li><strong>Install the plugin</strong> via the Cowork marketplace — provides skills, slash commands, and MSP domain knowledge</li>
+      <li><strong>Add the MCP gateway server</strong> — the live API connection that lets Claude read and write in your MSP tools</li>
+    </ol>
+  </div>
 
-  <h3>Step 1: Install the Plugin via Cowork</h3>
+  <h3>Part 1: Install the Plugin via the Cowork Marketplace</h3>
   <p>
-    Install the MSP Claude Plugins through the Cowork plugin marketplace:
+    The plugin gives Claude Desktop the MSP skills and slash commands (e.g. <code>/search-tickets</code>,
+    <code>/create-ticket</code>). Add it from the Cowork marketplace UI:
   </p>
   <ol>
     <li>Click the <strong>Cowork</strong> icon in the bottom-left of Claude Desktop</li>
@@ -118,41 +158,39 @@ const claudeDesktopPerVendor = `// claude_desktop_config.json — per-vendor (le
     <li>Click <strong>Personal</strong></li>
     <li>Click the <strong>+</strong> button</li>
     <li>Click <strong>Add marketplace from Github</strong></li>
-    <li>Enter the repo owner/URL:</li>
+    <li>Enter the repo owner/URL:
+      <div class="not-prose my-3">
+        <InstallCommand command="wyre-technology/msp-claude-plugins" size="sm" />
+      </div>
+    </li>
+    <li>Click <strong>Sync</strong> — all plugin skills and commands are now installed</li>
   </ol>
-  <div class="not-prose my-4">
-    <InstallCommand command="wyre-technology/msp-claude-plugins" size="sm" />
-  </div>
-  <ol start="9">
-    <li>Click <strong>Sync</strong></li>
+
+  <h3>Part 2: Add the MCP Gateway Server</h3>
+  <p>Pick one of the two options below — you only need to do this once.</p>
+
+  <h4>Option A: Connectors UI (easiest — no CLI, no config files)</h4>
+  <p>
+    If you're on Claude Pro, Team, or Enterprise, add the gateway directly from Claude Desktop's
+    built-in Connectors UI:
+  </p>
+  <ol>
+    <li>Open Claude Desktop → <strong>Settings</strong> → <strong>Connectors</strong></li>
+    <li>Click <strong>Add Connector</strong> (or <strong>Add custom connector</strong>)</li>
+    <li>Name it <code>MSP Gateway</code> (or anything you like)</li>
+    <li>Remote MCP server URL: <code>https://mcp.wyretechnology.com/v1/mcp</code></li>
+    <li>Click <strong>Add</strong>, then complete the OAuth login in the browser that opens</li>
   </ol>
-  <p>
-    This installs all plugin skills, commands, and MSP domain knowledge into Claude Desktop.
-  </p>
-
-  <h3>Step 2: Add the MCP Gateway Server</h3>
-
-  <h4>Quick Install (Recommended)</h4>
-  <p>
-    Run one command to automatically configure Claude Desktop. The installer preserves your existing config,
-    creates a backup, and only appends the gateway entry.
-  </p>
-
-  <p><strong>macOS / Linux:</strong></p>
-  <pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/wyre-gateway/install.sh | bash</code></pre>
-
-  <p class="mt-4"><strong>Windows (PowerShell):</strong></p>
-  <pre><code class="language-powershell">irm https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/msp-claude-plugins/wyre-gateway/install.ps1 | iex</code></pre>
-
   <p class="text-sm text-[var(--muted)] mt-2">
-    The installer also detects Claude Code CLI and configures it automatically. A backup of your
-    existing <code>claude_desktop_config.json</code> is saved to <code>.bak</code> before any changes.
+    After OAuth completes, connect your vendor credentials at
+    <a href="https://mcp.wyretechnology.com" target="_blank" rel="noopener noreferrer">mcp.wyretechnology.com</a>.
+    All connected vendors become available immediately.
   </p>
 
-  <h4>Manual Configuration</h4>
+  <h4 class="mt-8">Option B: Manual Configuration</h4>
   <p>
-    Alternatively, add a single entry to your <code>claude_desktop_config.json</code> that connects to all vendors at once.
-    Claude Desktop uses stdio-based transports, so the remote gateway requires the
+    Add a single entry to your <code>claude_desktop_config.json</code> that connects to all vendors at once.
+    Older Claude Desktop builds use stdio-based transports, so the remote gateway requires the
     <a href="https://www.npmjs.com/package/mcp-remote" target="_blank" rel="noopener noreferrer"><code>mcp-remote</code></a>
     bridge:
   </p>
@@ -178,7 +216,7 @@ const claudeDesktopPerVendor = `// claude_desktop_config.json — per-vendor (le
     If the file doesn't exist yet, create it with the JSON content above. Restart Claude Desktop after editing.
   </p>
 
-  <h3>Claude.ai (Web) — Connectors UI</h3>
+  <h2>Claude.ai (Web)</h2>
   <p>
     Claude Pro, Team, and Enterprise users can connect the gateway directly from
     <a href="https://claude.ai">claude.ai</a> — no config files or CLI needed:
@@ -187,14 +225,12 @@ const claudeDesktopPerVendor = `// claude_desktop_config.json — per-vendor (le
     <li>Click <strong>Customize</strong> in the left sidebar</li>
     <li>Click <strong>Connectors</strong></li>
     <li>Click the <strong>+</strong> button, then <strong>Add custom connector</strong></li>
-    <li>Enter a name (e.g. <code>MCP Gateway</code>)</li>
+    <li>Enter a name (e.g. <code>MSP Gateway</code>)</li>
     <li>Enter the Remote MCP server URL: <code>https://mcp.wyretechnology.com/v1/mcp</code></li>
-    <li>Click <strong>Add</strong></li>
-    <li>Complete the OAuth login flow when prompted</li>
+    <li>Click <strong>Add</strong>, then complete the OAuth login flow when prompted</li>
   </ol>
   <p class="text-sm text-[var(--muted)] mt-2">
     After setup, all your connected vendors are available immediately in any conversation.
-    The same flow also works in <strong>Claude Desktop</strong> via Settings → Connectors → Add Connector.
   </p>
 
   <h2 id="per-vendor-legacy">Per-Vendor Endpoints (Legacy)</h2>
