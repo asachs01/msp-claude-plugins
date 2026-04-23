@@ -13,24 +13,51 @@ const baseUrl = import.meta.env.BASE_URL;
     plugins and skills are delivered automatically through it.
   </p>
 
-  <h2>Option 1: MCP Gateway (Recommended)</h2>
+  <h2>Option 1: Claude Code CLI — One Command (Recommended)</h2>
 
   <p>
-    If you set up the <a href={`${baseUrl}getting-started/gateway/`}>MCP Gateway</a>, you are
-    already done. The gateway provides all vendor tools (tickets, devices, alerts, etc.) through
-    a single connection &mdash; there is nothing extra to install. Skills and commands from the
-    plugin catalog are included automatically.
+    If you use Claude Code, a single command wires up the hosted gateway for all projects on this machine:
   </p>
 
+  <pre><code class="language-bash">claude mcp add --scope user --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp</code></pre>
+
   <p>
-    See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway setup guide</a> for Claude Code,
-    Claude Desktop, and Claude.ai configuration instructions.
+    Drop <code>--scope user</code> to scope the gateway to the current project only. On first tool call,
+    Claude Code will open a browser for OAuth; then connect your vendor credentials at
+    <a href="https://mcp.wyretechnology.com" target="_blank" rel="noopener noreferrer">mcp.wyretechnology.com</a>.
   </p>
 
-  <h2>Option 2: Claude.ai Connectors (No CLI Needed)</h2>
+  <p class="text-sm text-[var(--muted)] mt-2">
+    See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway setup guide</a> for verification,
+    removal, and manual <code>.mcp.json</code> alternatives.
+  </p>
+
+  <h2>Option 2: Claude Desktop — Two-Step Setup</h2>
 
   <p>
-    Claude Pro, Team, and Enterprise users can add plugins directly from
+    Claude Desktop setup has two parts. Both are required:
+  </p>
+  <ol>
+    <li>
+      <strong>Install the plugin via the Cowork marketplace</strong> — provides skills and slash commands
+      (e.g. <code>/search-tickets</code>, <code>/create-ticket</code>). Use the marketplace source
+      <code>wyre-technology/msp-claude-plugins</code>.
+    </li>
+    <li>
+      <strong>Add the MCP gateway server</strong> — easiest via Settings &rarr; Connectors &rarr;
+      Add custom connector, with URL <code>https://mcp.wyretechnology.com/v1/mcp</code>.
+    </li>
+  </ol>
+
+  <p>
+    Full click-through instructions are in the
+    <a href={`${baseUrl}getting-started/gateway/#claude-desktop`}>Claude Desktop section of the Gateway setup guide</a>.
+  </p>
+
+  <h2>Option 3: Claude.ai (Web) — No CLI Needed</h2>
+
+  <p>
+    Claude Pro, Team, and Enterprise users can add the gateway directly from
     <a href="https://claude.ai">claude.ai</a> without any command-line tools:
   </p>
 
@@ -40,16 +67,14 @@ const baseUrl = import.meta.env.BASE_URL;
     <li>Click the <strong>+</strong> button, then <strong>Add custom connector</strong></li>
     <li>Enter a name (e.g. <code>MSP Gateway</code>)</li>
     <li>Enter the Remote MCP server URL: <code>https://mcp.wyretechnology.com/v1/mcp</code></li>
-    <li>Click <strong>Add</strong></li>
-    <li>Complete the OAuth login flow when prompted</li>
+    <li>Click <strong>Add</strong>, then complete the OAuth login flow when prompted</li>
   </ol>
 
   <p class="text-sm text-[var(--muted)] mt-2">
     After setup, all your connected vendors are available immediately in any conversation.
-    The same flow works in <strong>Claude Desktop</strong> via Settings &rarr; Connectors &rarr; Add Connector.
   </p>
 
-  <h2>Option 3: Plugin Marketplace (Skills &amp; Commands Only)</h2>
+  <h2>Option 4: Plugin Marketplace (Skills &amp; Commands Only)</h2>
 
   <p>
     If you want the plugin skills and slash commands <em>without</em> the gateway
@@ -114,7 +139,7 @@ const baseUrl = import.meta.env.BASE_URL;
     </tbody>
   </table>
 
-  <h2>Option 4: Manual Installation (Advanced)</h2>
+  <h2>Option 5: Manual Installation (Advanced)</h2>
 
   <p>
     For developers who want to contribute or modify plugins, you can install manually:
@@ -133,7 +158,10 @@ claude plugin add .</code></pre>
 
   <p>After installation, verify the plugins are active:</p>
 
-  <pre><code class="language-bash"># List installed plugins
+  <pre><code class="language-bash"># List connected MCP servers (Claude Code)
+claude mcp list
+
+# List installed plugins
 /plugins
 
 # Check a specific skill is available

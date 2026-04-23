@@ -28,44 +28,69 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <h2>Quick Install</h2>
 
-  <p>The fastest way to get started is with the marketplace command:</p>
+  <p>
+    The fastest path is the hosted MCP Gateway. In Claude Code, one command wires up every
+    supported vendor:
+  </p>
 
-  <div class="not-prose my-6">
+  <pre><code class="language-bash">claude mcp add --scope user --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp</code></pre>
+
+  <p>
+    On Claude Desktop or Claude.ai, use the Connectors UI with URL
+    <code>https://mcp.wyretechnology.com/v1/mcp</code> — see the
+    <a href={`${baseUrl}getting-started/gateway/`}>Gateway setup guide</a> for step-by-step
+    instructions on each surface.
+  </p>
+
+  <p class="text-sm text-[var(--muted)] mt-2">
+    Prefer to skip the gateway and install plugins (skills and commands) directly?
+    Run the marketplace command:
+  </p>
+
+  <div class="not-prose my-4">
     <InstallCommand />
   </div>
 
-  <p>This installs all 9 plugins at once. After installation, restart Claude Code to activate.</p>
-
   <h2>What&apos;s Included</h2>
 
-  <p>The plugin collection includes support for:</p>
+  <p>
+    The plugin collection covers 30+ MSP platforms across PSA, RMM, documentation,
+    security, productivity, and accounting. Selected examples:
+  </p>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 not-prose my-6">
     <div class="card">
-      <h3 class="font-semibold mb-2">Kaseya</h3>
+      <h3 class="font-semibold mb-2">PSA &amp; RMM</h3>
       <ul class="text-sm text-[var(--muted)] space-y-1">
-        <li>Autotask PSA</li>
-        <li>Datto RMM</li>
-        <li>IT Glue</li>
+        <li>Autotask PSA, Datto RMM</li>
+        <li>ConnectWise PSA &amp; Automate</li>
+        <li>HaloPSA, Syncro, Atera</li>
+        <li>SuperOps.ai, NinjaOne</li>
       </ul>
     </div>
     <div class="card">
-      <h3 class="font-semibold mb-2">ConnectWise</h3>
+      <h3 class="font-semibold mb-2">Documentation &amp; Security</h3>
       <ul class="text-sm text-[var(--muted)] space-y-1">
-        <li>ConnectWise PSA</li>
-        <li>ConnectWise Automate</li>
+        <li>IT Glue, Hudu, Liongard</li>
+        <li>SentinelOne, Huntress</li>
+        <li>Blumira, RocketCyber</li>
+        <li>KnowBe4, SpamTitan</li>
       </ul>
     </div>
     <div class="card">
-      <h3 class="font-semibold mb-2">Others</h3>
+      <h3 class="font-semibold mb-2">Productivity &amp; Billing</h3>
       <ul class="text-sm text-[var(--muted)] space-y-1">
-        <li>Syncro MSP</li>
-        <li>Atera</li>
-        <li>SuperOps.ai</li>
-        <li>HaloPSA</li>
+        <li>Microsoft 365</li>
+        <li>Pax8, Sherweb</li>
+        <li>QuickBooks, Xero</li>
+        <li>PandaDoc, Salesbuildr</li>
       </ul>
     </div>
   </div>
+
+  <p class="text-sm text-[var(--muted)] mt-2">
+    See the full list on the <a href={`${baseUrl}plugins/`}>Plugins page</a>.
+  </p>
 
   <h2>Next Steps</h2>
 
