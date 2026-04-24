@@ -1,0 +1,130 @@
+---
+// Full feature comparison matrix for the pricing page
+---
+
+<div class="overflow-x-auto rounded-xl border border-[var(--border)]">
+  <table class="w-full text-sm border-collapse min-w-[600px]">
+    <thead>
+      <tr class="border-b border-[var(--border)]">
+        <th class="text-left py-4 px-6 font-semibold text-[var(--text)] w-2/5 bg-white dark:bg-neutral-900"></th>
+        <th class="text-center py-4 px-6 font-semibold text-[var(--text)] bg-white dark:bg-neutral-900">Free</th>
+        <th class="text-center py-4 px-6 font-semibold text-[var(--text)] bg-neutral-800/50 relative">
+          <span class="text-accent">Pro</span>
+          <span class="absolute top-2 right-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-accent/10 text-accent border border-accent/30">Popular</span>
+        </th>
+        <th class="text-center py-4 px-6 font-semibold text-[var(--text)] bg-white dark:bg-neutral-900">Business</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- Section: Usage limits -->
+      <tr class="border-b border-[var(--border)]">
+        <td colspan="4" class="py-3 px-6 text-xs font-semibold uppercase tracking-wider text-neutral-400 bg-neutral-50 dark:bg-neutral-900/70">
+          Usage Limits
+        </td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Users</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">1</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)] bg-neutral-800/50">Up to 3</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">5+</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Personal connections</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">3</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)] bg-neutral-800/50">3 / user</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">Unlimited</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Org / shared connections</td>
+        <td class="py-3 px-6 text-center text-neutral-400">—</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)] bg-neutral-800/50">5</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">Unlimited</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Credits / month</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">500</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)] bg-neutral-800/50">2,000 / seat</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">4,000 / seat pooled</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Rate limit</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">100 req / hr</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)] bg-neutral-800/50">1,000 req / hr</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">1,000 req / hr</td>
+      </tr>
+
+      <!-- Section: Team features -->
+      <tr class="border-b border-[var(--border)]">
+        <td colspan="4" class="py-3 px-6 text-xs font-semibold uppercase tracking-wider text-neutral-400 bg-neutral-50 dark:bg-neutral-900/70">
+          Team Features
+        </td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Team RBAC (roles)</td>
+        <td class="py-3 px-6 text-center text-neutral-400">—</td>
+        <td class="py-3 px-6 text-center text-accent bg-neutral-800/50">✓</td>
+        <td class="py-3 px-6 text-center text-accent">✓</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Invite members</td>
+        <td class="py-3 px-6 text-center text-neutral-400">—</td>
+        <td class="py-3 px-6 text-center text-accent bg-neutral-800/50">✓</td>
+        <td class="py-3 px-6 text-center text-accent">✓</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Shared org credentials</td>
+        <td class="py-3 px-6 text-center text-neutral-400">—</td>
+        <td class="py-3 px-6 text-center text-accent bg-neutral-800/50">✓</td>
+        <td class="py-3 px-6 text-center text-accent">✓</td>
+      </tr>
+
+      <!-- Section: Advanced -->
+      <tr class="border-b border-[var(--border)]">
+        <td colspan="4" class="py-3 px-6 text-xs font-semibold uppercase tracking-wider text-neutral-400 bg-neutral-50 dark:bg-neutral-900/70">
+          Advanced
+        </td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Audit log</td>
+        <td class="py-3 px-6 text-center text-neutral-400">—</td>
+        <td class="py-3 px-6 text-center text-neutral-400 bg-neutral-800/50">—</td>
+        <td class="py-3 px-6 text-center text-accent">✓</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Log shipping</td>
+        <td class="py-3 px-6 text-center text-neutral-400">—</td>
+        <td class="py-3 px-6 text-center text-neutral-400 bg-neutral-800/50">—</td>
+        <td class="py-3 px-6 text-center text-accent">✓</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Tool allowlists</td>
+        <td class="py-3 px-6 text-center text-neutral-400">—</td>
+        <td class="py-3 px-6 text-center text-accent bg-neutral-800/50">✓</td>
+        <td class="py-3 px-6 text-center text-accent">✓</td>
+      </tr>
+      <tr class="border-b border-[var(--border)] hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Service clients (AI agents)</td>
+        <td class="py-3 px-6 text-center text-neutral-400">—</td>
+        <td class="py-3 px-6 text-center text-neutral-400 bg-neutral-800/50">—</td>
+        <td class="py-3 px-6 text-center text-accent">✓</td>
+      </tr>
+
+      <!-- Section: Support -->
+      <tr class="border-b border-[var(--border)]">
+        <td colspan="4" class="py-3 px-6 text-xs font-semibold uppercase tracking-wider text-neutral-400 bg-neutral-50 dark:bg-neutral-900/70">
+          Support
+        </td>
+      </tr>
+      <tr class="hover:bg-neutral-50 dark:hover:bg-neutral-800/30">
+        <td class="py-3 px-6 text-[var(--text)]">Support tier</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">Community</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)] bg-neutral-800/50">Email</td>
+        <td class="py-3 px-6 text-center text-[var(--muted)]">Dedicated</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<p class="text-xs text-neutral-400 mt-3 text-center">1 credit = 1 successful vendor tool call.</p>
