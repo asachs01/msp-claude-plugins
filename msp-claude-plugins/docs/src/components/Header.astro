@@ -6,13 +6,15 @@ const baseUrl = import.meta.env.BASE_URL;
 const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyre.ai';
 const currentPath = Astro.url.pathname;
 
+// Marketing-style top nav. Skills / Commands / MCP Servers / Getting-Started
+// detail pages are still reachable from the Docs entry and the sidebar on
+// any docs page, but they shouldn't crowd out the primary product tabs.
 const navLinks = [
   { href: `${baseUrl}`, label: 'Home' },
-  { href: `${baseUrl}getting-started/`, label: 'Getting Started' },
   { href: `${baseUrl}plugins/`, label: 'Plugins' },
-  { href: `${baseUrl}skills/`, label: 'Skills' },
-  { href: `${baseUrl}commands/`, label: 'Commands' },
   { href: `${baseUrl}pricing/`, label: 'Pricing' },
+  { href: `${baseUrl}getting-started/`, label: 'Docs' },
+  { href: 'mailto:hello@wyre.ai', label: 'Contact' },
 ];
 
 const sidebarSections = [
