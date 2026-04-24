@@ -8,7 +8,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <p class="lead text-lg text-[var(--muted)] mb-8">
     Common issues and fixes for the MCP Gateway. If your issue isn't listed here,
-    check the <a href="https://mcp.wyretechnology.com/health/vendors" target="_blank" rel="noopener noreferrer">vendor health dashboard</a>
+    check the <a href="https://mcp.wyre.ai/health/vendors" target="_blank" rel="noopener noreferrer">vendor health dashboard</a>
     for upstream outages.
   </p>
 
@@ -26,8 +26,8 @@ const baseUrl = import.meta.env.BASE_URL;
   <h3>Fix</h3>
   <ol>
     <li>Wait 1–2 minutes and try again (deployments typically complete within 60 seconds)</li>
-    <li>Check <a href="https://mcp.wyretechnology.com/health" target="_blank" rel="noopener noreferrer"><code>/health</code></a> — if it returns <code>{`{"status":"ok"}`}</code>, the gateway is running</li>
-    <li>Check <a href="https://mcp.wyretechnology.com/health/vendors" target="_blank" rel="noopener noreferrer"><code>/health/vendors</code></a> to see if a specific vendor is down</li>
+    <li>Check <a href="https://mcp.wyre.ai/health" target="_blank" rel="noopener noreferrer"><code>/health</code></a> — if it returns <code>{`{"status":"ok"}`}</code>, the gateway is running</li>
+    <li>Check <a href="https://mcp.wyre.ai/health/vendors" target="_blank" rel="noopener noreferrer"><code>/health/vendors</code></a> to see if a specific vendor is down</li>
     <li>If the issue persists, restart Claude Desktop and try again</li>
   </ol>
 
@@ -49,7 +49,7 @@ const baseUrl = import.meta.env.BASE_URL;
   <ol>
     <li>
       <strong>Use the unified endpoint</strong> — replace all per-vendor <code>mcp-remote</code> entries with a single entry pointing
-      to <code>https://mcp.wyretechnology.com/v1/mcp</code>. This means one OAuth flow instead of many.
+      to <code>https://mcp.wyre.ai/v1/mcp</code>. This means one OAuth flow instead of many.
       See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway setup guide</a>.
     </li>
     <li>If using per-vendor endpoints, add them one at a time — connect one vendor, restart Claude Desktop, then add the next</li>
@@ -81,7 +81,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <h2 id="vendor-down">Vendor shows DOWN on /health/vendors</h2>
   <p>
-    The <a href="https://mcp.wyretechnology.com/health/vendors" target="_blank" rel="noopener noreferrer"><code>/health/vendors</code></a>
+    The <a href="https://mcp.wyre.ai/health/vendors" target="_blank" rel="noopener noreferrer"><code>/health/vendors</code></a>
     endpoint monitors all vendor MCP containers. If a vendor shows <code>"status": "down"</code>,
     the underlying vendor container is unreachable.
   </p>
@@ -105,7 +105,7 @@ const baseUrl = import.meta.env.BASE_URL;
     If you've added credentials for a vendor but its tools don't show up in Claude:
   </p>
   <ol>
-    <li>Verify your credentials are saved at <a href="https://mcp.wyretechnology.com" target="_blank" rel="noopener noreferrer">mcp.wyretechnology.com</a> — log in and check the credentials page</li>
+    <li>Verify your credentials are saved at <a href="https://mcp.wyre.ai" target="_blank" rel="noopener noreferrer">mcp.wyre.ai</a> — log in and check the credentials page</li>
     <li>Restart Claude Desktop or re-establish the MCP connection in Claude Code (<code>/mcp</code>)</li>
     <li>The unified endpoint only lists tools for vendors where you have valid credentials — if credentials are expired or invalid, that vendor is silently skipped</li>
     <li>If using org/team credentials, ensure you have the correct role and the vendor's tools are in your team's allowlist</li>

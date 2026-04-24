@@ -369,6 +369,7 @@ export const plugins: Plugin[] = [
     features: [
       'Company Management',
       'Contact Management',
+      'Product Catalog',
       'Project Management',
       'Ticket Management',
       'Time Entry Tracking'
@@ -376,12 +377,14 @@ export const plugins: Plugin[] = [
     skills: [
       { name: 'companies', description: 'Use this skill when working with ConnectWise PSA companies - creating, updating, searching, or managing company/account records.' },
       { name: 'contacts', description: 'Use this skill when working with ConnectWise PSA contacts - creating, updating, searching, or managing contact records.' },
+      { name: 'product-catalog', description: 'Use this skill when working with the ConnectWise PSA product catalog — searching, creating, or updating catalog items (SKUs), managing categories, subcategories, manufacturers, or using catalog items on quotes, opportunities, agreements, and tickets.' },
       { name: 'projects', description: 'Use this skill when working with ConnectWise PSA projects - creating, updating, managing project phases, templates, and resource allocation.' },
       { name: 'tickets', description: 'Use this skill when working with ConnectWise PSA tickets - creating, updating, searching, or managing service desk operations.' },
       { name: 'time-entries', description: 'Use this skill when working with ConnectWise PSA time entries - creating, updating, searching, or managing time tracking.' },
       { name: 'api-patterns', description: 'Use this skill when working with the ConnectWise PSA REST API - authentication using public/private keys and clientId, pagination with page/pageSize, conditions query syntax, rate limiting (60/min), and error handling.' }
     ],
     agents: [
+      { name: 'procurement-specialist', description: 'Use this agent when an MSP procurement lead, sales engineer, service manager, or owner needs to work against the ConnectWise Manage product catalog and the procurement/quoting workflows it feeds.' },
       { name: 'project-tracker', description: 'Use this agent when an MSP project manager, service manager, or operations lead needs a review of all open projects in ConnectWise Manage — checking milestone deadlines, budget vs. actuals, overdue phases, and projects at risk of scope creep or delivery failure.' },
       { name: 'service-desk-ops', description: 'Use this agent when an MSP dispatcher, service manager, or team lead needs to review the current state of the ConnectWise Manage service desk.' }
     ],
@@ -597,7 +600,7 @@ export const plugins: Plugin[] = [
       { name: 'agents', description: 'Use this skill when managing Huntress endpoint agents — listing agents, filtering by organization or platform, checking agent health and status, and investigating specific agent details.' },
       { name: 'billing', description: 'Use this skill when generating Huntress billing and summary reports — listing available reports, retrieving billing details, and creating client-facing summaries for MSP invoicing.' },
       { name: 'escalations', description: 'Use this skill when working with Huntress escalations — listing, reviewing, and resolving escalations from the Huntress SOC team.' },
-      { name: 'incidents', description: 'Use this skill when working with Huntress incidents — listing, triaging, investigating, resolving incidents, and managing remediations including bulk approve and reject workflows.' },
+      { name: 'incidents', description: 'Use this skill when working with Huntress incidents - querying incidents by organization and status, reviewing SOC-recommended remediation details, approving or rejecting remediations individually or in bulk, checking remediation execution status, and resolving incidents after all remediations are processed.' },
       { name: 'organizations', description: 'Use this skill when managing Huntress organizations — creating, listing, updating, deleting organizations, and managing client org structure for MSP multi-tenancy.' },
       { name: 'signals', description: 'Use this skill when working with Huntress security signals — monitoring, listing, filtering, and investigating signals across managed endpoints.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Huntress MCP tools — available tools, authentication via HTTP Basic Auth, API structure, pagination with page tokens, rate limiting (60 req/min), error handling, and best practices.' }
@@ -1084,7 +1087,7 @@ export const plugins: Plugin[] = [
       'Workflows'
     ],
     skills: [
-      { name: 'alerts', description: 'Use this skill when working with Rootly alerts -- alert routing, escalation policies, integration with monitoring tools (Datadog, PagerDuty, etc.' },
+      { name: 'alerts', description: 'Use this skill when working with Rootly alerts -- alert routing, escalation policies, integration with monitoring tools (Datadog, PagerDuty, etc.), alert-to-incident creation, and managing alert rules.' },
       { name: 'incidents', description: 'Use this skill when working with Rootly incidents - creating, searching, triaging, updating, and resolving incidents.' },
       { name: 'oncall', description: 'Use this skill when working with Rootly on-call management - viewing shift metrics, generating handoff summaries, reviewing shift incidents, detecting on-call health risk, and understanding schedule coverage.' },
       { name: 'postmortems', description: 'Use this skill when working with Rootly postmortems -- creating retrospectives, managing action items, applying templates, and conducting blameless reviews after incidents are resolved.' },
@@ -1290,16 +1293,16 @@ export const plugins: Plugin[] = [
       'Ticket Management'
     ],
     skills: [
-      { name: 'alerts', description: 'Use this skill when working with SuperOps.' },
-      { name: 'assets', description: 'Use this skill when working with SuperOps.' },
-      { name: 'clients', description: 'Use this skill when working with SuperOps.' },
-      { name: 'runbooks', description: 'Use this skill when working with SuperOps.' },
-      { name: 'tickets', description: 'Use this skill when working with SuperOps.' },
-      { name: 'api-patterns', description: 'Use this skill when working with the SuperOps.' }
+      { name: 'alerts', description: 'Use this skill when working with SuperOps.ai alerts - listing, filtering, acknowledging, and resolving alerts from monitored assets.' },
+      { name: 'assets', description: 'Use this skill when working with SuperOps.ai assets - querying inventory, viewing asset details, running scripts, monitoring patches, and managing client/site associations.' },
+      { name: 'clients', description: 'Use this skill when working with SuperOps.ai clients - creating, updating, searching, and managing client accounts.' },
+      { name: 'runbooks', description: 'Use this skill when working with SuperOps.ai runbooks and scripts - listing, executing, monitoring, and managing automated scripts on assets.' },
+      { name: 'tickets', description: 'Use this skill when working with SuperOps.ai tickets - creating, updating, searching, or managing service desk operations.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the SuperOps.ai GraphQL API - authentication, query building, mutations, pagination, rate limiting, and error handling.' }
     ],
     agents: [
-      { name: 'automation-opportunity-finder', description: 'Use this agent when an MSP operations lead, service manager, or technician wants to identify repetitive ticket patterns in SuperOps.' },
-      { name: 'msp-service-ops', description: 'Use this agent when an MSP technician, dispatcher, or manager needs a combined PSA and RMM operations review in SuperOps.' }
+      { name: 'automation-opportunity-finder', description: 'Use this agent when an MSP operations lead, service manager, or technician wants to identify repetitive ticket patterns in SuperOps.ai that should be automated — not live operations management, but a retrospective analysis of ticket history to find recurring issues with the same client, same category, and same resolution, calculate the manual time cost, and recommend runbooks or automation scripts to eliminate the pattern.' },
+      { name: 'msp-service-ops', description: 'Use this agent when an MSP technician, dispatcher, or manager needs a combined PSA and RMM operations review in SuperOps.ai.' }
     ],
     commands: [
       { name: '/acknowledge-alert', description: 'Acknowledge an RMM alert to indicate investigation is underway' },
