@@ -14,7 +14,7 @@ const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyretechnology.co
 
 const pluginCount = plugins.length;
 const skillCount = plugins.flatMap(p => p.skills).length;
-const platformCount = pluginCount;
+const agentCount = plugins.flatMap(p => p.agents).length;
 const vendorNames = plugins.map(p => p.name).join(', ');
 
 // Short, punchy prompt examples for the typewriter — demonstrating real value
@@ -105,7 +105,7 @@ const features = [
       <!-- Animated stat counters -->
       <p class="text-lg font-semibold max-w-2xl mx-auto mb-4">
         <span class="counter" data-target={pluginCount}>{pluginCount}</span> plugins &middot;
-        <span class="counter" data-target={platformCount}>{platformCount}</span> MSP platforms &middot;
+        <span class="counter" data-target={agentCount} data-suffix="+">{agentCount}+</span> subagents &middot;
         <span class="counter" data-target={skillCount} data-suffix="+">{skillCount}+</span> specialized skills
       </p>
 
