@@ -3,7 +3,7 @@ import { plugins } from '@/data/plugins';
 import { mcpServers } from '@/data/mcp-servers';
 
 const baseUrl = import.meta.env.BASE_URL;
-const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyretechnology.com';
+const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyre.ai';
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
@@ -135,7 +135,7 @@ function isExactActive(href?: string): boolean {
           </svg>
         </a>
 
-        <a href={`${gatewayUrl}/auth/login`} class="hidden sm:inline-flex items-center px-4 py-1.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors">
+        <a href={`${gatewayUrl}/auth/choose`} class="hidden sm:inline-flex items-center px-4 py-1.5 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors">
           Sign in
         </a>
       </div>

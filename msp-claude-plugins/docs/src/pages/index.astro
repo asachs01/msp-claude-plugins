@@ -11,7 +11,7 @@ import { plugins } from '@/data/plugins';
 import { prompts } from '@/data/prompts';
 
 const baseUrl = import.meta.env.BASE_URL;
-const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyretechnology.com';
+const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyre.ai';
 
 const pluginCount = plugins.length;
 const skillCount = plugins.flatMap(p => p.skills).length;
@@ -53,7 +53,7 @@ const faqs = [
   },
   {
     question: "How does the hosted gateway work?",
-    answer: "The hosted gateway at mcp.wyretechnology.com acts as a secure proxy between Claude Desktop and your MSP platforms. You authenticate via OAuth 2.1 with PKCE, store your vendor API credentials (encrypted with per-user isolation), and Claude connects through a single MCP endpoint. No local servers, no Docker, no maintenance required."
+    answer: "The hosted gateway at mcp.wyre.ai acts as a secure proxy between Claude Desktop and your MSP platforms. You authenticate via OAuth 2.1 with PKCE, store your vendor API credentials (encrypted with per-user isolation), and Claude connects through a single MCP endpoint. No local servers, no Docker, no maintenance required."
   },
   {
     question: "Is my data secure with the gateway?",
@@ -127,7 +127,7 @@ const features = [
           <p class="text-[var(--muted)] text-sm mb-4">
             Connect your MSP tools to Claude Desktop in minutes. No servers to manage — just add your API credentials and go.
           </p>
-          <a href={`${gatewayUrl}/auth/signup`} class="btn btn-primary w-full text-center">Get Started Free</a>
+          <a href={`${gatewayUrl}/auth/choose`} class="btn btn-primary w-full text-center">Get Started Free</a>
         </div>
 
         <!-- Self-host path -->
@@ -227,7 +227,7 @@ const features = [
             </li>
           </ul>
           <div class="flex flex-wrap gap-3">
-            <a href={`${gatewayUrl}/auth/signup`} class="btn btn-primary text-sm">Get Started Free</a>
+            <a href={`${gatewayUrl}/auth/choose`} class="btn btn-primary text-sm">Get Started Free</a>
             <a href={`${baseUrl}getting-started/gateway/`} class="btn btn-secondary text-sm">Learn More</a>
           </div>
         </div>
@@ -290,7 +290,7 @@ const features = [
             "Community support",
           ]}
           cta="Get started free"
-          ctaHref="https://mcp.wyretechnology.com/auth/signup"
+          ctaHref="https://mcp.wyre.ai/auth/choose"
         />
 
         <PricingCard
@@ -306,7 +306,7 @@ const features = [
             "Email support",
           ]}
           cta="Start free trial"
-          ctaHref="https://mcp.wyretechnology.com/auth/signup"
+          ctaHref="https://mcp.wyre.ai/auth/choose"
           highlighted={true}
         />
 
@@ -365,7 +365,7 @@ const features = [
         </p>
 
         <div class="flex flex-wrap justify-center gap-4 mb-6">
-          <a href={`${gatewayUrl}/auth/signup`} class="btn btn-primary">Use the Gateway</a>
+          <a href={`${gatewayUrl}/auth/choose`} class="btn btn-primary">Use the Gateway</a>
           <a href={`${baseUrl}getting-started/`} class="btn btn-secondary">Self-Host Guide</a>
         </div>
 
