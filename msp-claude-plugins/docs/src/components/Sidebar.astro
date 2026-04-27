@@ -47,14 +47,50 @@ const sidebarItems: SidebarItem[] = [
     label: 'Getting Started',
     children: [
       { label: 'Introduction', href: `${baseUrl}getting-started/` },
-      { label: 'Installation', href: `${baseUrl}getting-started/installation/` },
       { label: 'Quick Start', href: `${baseUrl}getting-started/quick-start/` },
-      { label: 'Architecture', href: `${baseUrl}getting-started/architecture/` },
-      { label: 'Deployment', href: `${baseUrl}getting-started/deployment/` },
-      { label: 'Gateway', href: `${baseUrl}getting-started/gateway/` },
-      { label: 'Authentication', href: `${baseUrl}getting-started/authentication/` },
-      { label: 'Teams', href: `${baseUrl}getting-started/teams/` },
-      { label: 'Troubleshooting', href: `${baseUrl}getting-started/troubleshooting/` },
+      { label: 'Installation', href: `${baseUrl}getting-started/installation/` },
+    ]
+  },
+  {
+    label: 'Gateway',
+    children: [
+      {
+        label: 'Concepts',
+        children: [
+          { label: 'Overview', href: `${baseUrl}getting-started/gateway/` },
+          { label: 'Architecture', href: `${baseUrl}getting-started/architecture/` },
+          { label: 'Security Model', href: `${baseUrl}getting-started/security/` },
+        ],
+      },
+      {
+        label: 'Setup',
+        children: [
+          { label: 'Deployment', href: `${baseUrl}getting-started/deployment/` },
+          { label: 'Authentication', href: `${baseUrl}getting-started/authentication/` },
+        ],
+      },
+      {
+        label: 'Operations',
+        children: [
+          { label: 'Teams & Access', href: `${baseUrl}getting-started/teams/` },
+          { label: 'Logging & Audit (coming soon)', href: '#' },
+        ],
+      },
+      {
+        label: 'Clients',
+        children: [
+          { label: 'Claude Code (coming soon)', href: '#' },
+          { label: 'Copilot', href: `${baseUrl}getting-started/copilot/` },
+          { label: 'Custom Integrations (coming soon)', href: '#' },
+        ],
+      },
+      {
+        label: 'Reference',
+        children: [
+          { label: 'Configuration (coming soon)', href: '#' },
+          { label: 'Troubleshooting', href: `${baseUrl}getting-started/troubleshooting/` },
+        ],
+      },
     ]
   },
   {
@@ -71,43 +107,19 @@ const sidebarItems: SidebarItem[] = [
             href: `${baseUrl}plugins/${p.id}/`
           }))
         }];
-      })
-    ]
-  },
-  {
-    label: 'MCP Servers',
-    children: [
-      { label: 'Overview', href: `${baseUrl}mcp-servers/` },
-      ...mcpCategoryOrder.flatMap(cat => {
-        const items = getMcpServersByCategory(cat);
-        if (items.length === 0) return [];
-        return [{
-          label: mcpCategoryLabels[cat],
-          children: items.map(s => ({
-            label: s.name,
-            href: `${baseUrl}mcp-servers/${s.id}/`
-          }))
-        }];
-      })
-    ]
-  },
-  {
-    label: 'Reference',
-    children: [
+      }),
       {
-        label: 'Prompt Bank',
+        label: 'Components',
         children: [
+          { label: 'All Agents (coming soon)', href: '#' },
+          { label: 'All Skills', href: `${baseUrl}skills/` },
+          { label: 'All Commands', href: `${baseUrl}commands/` },
+          { label: 'All MCP Servers', href: `${baseUrl}mcp-servers/` },
           { label: 'All Prompts', href: `${baseUrl}prompts/` },
-          ...roleOrder.map(role => ({
-            label: roleLabels[role],
-            href: `${baseUrl}prompts/#${role}`,
-          })),
         ],
       },
-      { label: 'Skills', href: `${baseUrl}skills/` },
-      { label: 'Commands', href: `${baseUrl}commands/` },
     ]
-  }
+  },
 ];
 
 function isActive(href?: string): boolean {
