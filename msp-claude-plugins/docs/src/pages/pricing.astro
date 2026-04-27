@@ -35,7 +35,7 @@ const faqs = [
 
 <BaseLayout
   title="Pricing — MSP Claude Plugins Gateway"
-  description="Simple, transparent pricing for the WYRE MCP Gateway. Free for individuals, Pro for growing MSP teams, Business for full-scale deployments."
+  description="Simple, transparent pricing for the WYRE MCP Gateway. Pro for growing MSP teams, Business for full-scale deployments, Enterprise for custom contracts."
 >
   <Header />
 
@@ -44,7 +44,7 @@ const faqs = [
     <div class="container text-center">
       <h1 class="text-4xl lg:text-5xl font-bold mb-4 tracking-tight">Plans &amp; Pricing</h1>
       <p class="text-xl text-[var(--muted)] max-w-2xl mx-auto">
-        Start free and scale as your team grows. All plans include the full MCP integration suite.
+        Pick the tier that fits your team. All plans include the full MCP integration suite.
       </p>
     </div>
   </section>
@@ -53,20 +53,6 @@ const faqs = [
   <section class="py-16">
     <div class="container">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <PricingCard
-          plan="Free"
-          price="$0"
-          description="Get started with no commitment."
-          features={[
-            "1 user",
-            "3 personal vendor connections",
-            "500 credits/month",
-            "Community support",
-          ]}
-          cta="Get started free"
-          ctaHref="https://mcp.wyre.ai/auth/choose"
-        />
-
         <PricingCard
           plan="Pro"
           price="$49/user/mo"
@@ -80,7 +66,7 @@ const faqs = [
             "Tool allowlists",
             "Email support",
           ]}
-          cta="Start free trial"
+          cta="Get started"
           ctaHref="https://mcp.wyre.ai/auth/choose"
           highlighted={true}
         />
@@ -97,6 +83,23 @@ const faqs = [
             "Audit log & log shipping",
             "Tool allowlists & service clients",
             "Dedicated support",
+          ]}
+          cta="Get started"
+          ctaHref="https://mcp.wyre.ai/auth/choose"
+        />
+
+        <PricingCard
+          plan="Enterprise"
+          price="Custom"
+          description="For large MSP organizations and custom deployments."
+          features={[
+            "Everything in Business",
+            "SSO / SAML",
+            "SCIM provisioning",
+            "Custom credit packages",
+            "Uptime SLA",
+            "Dedicated onboarding & CSM",
+            "Custom contract terms",
           ]}
           cta="Talk to sales"
           ctaHref="mailto:sales@wyre.ai"
@@ -164,7 +167,7 @@ const faqs = [
           Spin up the gateway in minutes — no infrastructure required.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href="https://mcp.wyre.ai/auth/choose" class="btn btn-primary">Start free trial</a>
+          <a href="https://mcp.wyre.ai/auth/choose" class="btn btn-primary">Get started</a>
           <a href="/getting-started" class="btn btn-secondary">Read the docs</a>
         </div>
       </div>
