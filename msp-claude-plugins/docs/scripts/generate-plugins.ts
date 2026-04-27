@@ -60,6 +60,7 @@ function deriveVendor(sourcePath: string): string {
     huntress: 'Huntress',
     abnormal: 'Abnormal',
     blumira: 'Blumira',
+    cipp: 'CIPP',
     avanan: 'Avanan',
     proofpoint: 'Proofpoint',
     knowbe4: 'KnowBe4',
@@ -122,6 +123,7 @@ function deriveDisplayName(pluginJsonName: string | undefined, marketplaceName: 
     'betterstack': 'BetterStack',
     'm365': 'Microsoft 365',
     'rootly': 'Rootly',
+    'cipp': 'CIPP',
   };
 
   return nameMap[marketplaceName] ?? humanize(marketplaceName);
