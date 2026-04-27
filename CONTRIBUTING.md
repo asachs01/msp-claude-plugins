@@ -9,6 +9,7 @@ Thank you for your interest in contributing to MSP Claude Plugins! This guide co
 - [Development Environment Setup](#development-environment-setup)
 - [Skill Development Guide](#skill-development-guide)
 - [Command Development Guide](#command-development-guide)
+- [Agent Development Guide](#agent-development-guide)
 - [MCP Server Integration Guide](#mcp-server-integration-guide)
 - [Testing Requirements](#testing-requirements)
 - [Style Guide](#style-guide)
@@ -316,6 +317,90 @@ Details...
 3. **Provide sensible defaults** - Optional args should have good defaults
 4. **Show progress** - Include output examples showing success/failure
 5. **Handle errors gracefully** - Document common errors and fixes
+
+---
+
+## Agent Development Guide
+
+Agents are persona-driven workflows for higher-level tasks that span multiple skills. Where a skill teaches Claude *how a tool works*, an agent teaches Claude *how an MSP role uses a set of tools to get something done* — incident triage, security posture review, client onboarding validation, user offboarding.
+
+Use a skill when the unit is a tool or category. Use an agent when the unit is a recurring MSP workflow with judgment calls, sequencing rules, and decision trees.
+
+### Agent File Location
+
+```
+vendor/product/agents/agent-name.md
+```
+
+One agent per file. Two to four agents per plugin is typical — more than that usually means some should be skills or commands instead.
+
+### Agent Template Structure
+
+```markdown
+---
+name: agent-name
+description: Use this agent when [MSP role] needs to [outcome]. Trigger for [scenarios]. Examples - "[example prompt 1]", "[example prompt 2]"
+tools: ["Bash", "Read", "Write", "Glob", "Grep"]
+model: inherit
+---
+
+You are an expert [role] for MSP environments using [vendor/platform]. Your role is [one-sentence purpose]. [2-3 sentences on when this work matters and what makes it different from generic vendor usage.]
+
+[2-4 paragraphs walking through how the agent reasons: what it pulls first, what
+signals matter most, how it sequences actions, what it reports out. This is
+prose — not a step list. Reference the actual MCP tool names when describing
+specific actions.]
+
+## Capabilities
+
+- [What this agent can do, one bullet per capability]
+
+## Approach
+
+[5-10 lines of operational prose: defaults, thresholds, escalation triggers,
+authorization tiers, edge cases. This is where MSP practice lives — the
+difference between a generic agent and one that reflects how *your* MSP runs
+the workflow.]
+```
+
+### The Approach Section — and Why It Ships With a Baseline
+
+Every agent ends with an **Approach** section that encodes the operator's lived practice: default forwarding windows, escalation thresholds, two-person rules, finding-vs-noise filters, traversal order on portfolio sweeps. This is what separates an agent that's actually useful from one that gives generic SOC playbook prose.
+
+The plugins in this repo ship with a **baseline Approach** authored from common MSP norms — it's defensible out of the box but **not your practice**. When you adopt a plugin into a working MSP environment, treat the baseline Approach as a starting point and edit it to match how your team actually operates.
+
+**Common places to customize:**
+
+- **Forwarding/retention windows** (30 / 60 / 90 / indefinite — different MSPs land in different places)
+- **Mailbox conversion defaults** (always shared? archive after N days? size-based?)
+- **Authorization tiers** (when does the ticket alone authorize action vs. require explicit written confirmation?)
+- **Two-person rule scope** (admins only? heavy delegates? litigation hold?)
+- **Escalation triggers** (which findings warrant same-day client contact vs. monthly review?)
+- **Traversal order on sweeps** (newest tenants first? highest-revenue? most-at-risk?)
+
+Use the [CIPP plugin](msp-claude-plugins/cipp/cipp/agents/) as the reference: both `security-posture-reviewer` and `user-offboarding-runner` ship with substantive baseline Approach prose covering each of the above. Read those, then adapt to your MSP. The skills and `Capabilities` lists rarely need editing across MSPs; the **Approach** is where local practice lives.
+
+### Agent Best Practices
+
+1. **One persona per agent** — don't combine "incident responder" and "compliance auditor" into one file
+2. **Reference real MCP tool names** in the body so Claude knows what to call (e.g., `cipp_list_users`, `huntress_incidents_list`)
+3. **Capabilities lists describe outcomes, not API calls** — write what the agent *does*, not what it *runs*
+4. **Approach is prose, not a checklist** — the agent reasons from this; nested numbered procedures belong in commands
+5. **Examples in the description matter** — Claude uses them to decide when to invoke the agent; include 3–4 concrete prompts
+6. **Frontmatter `tools` should be minimal** — most agents only need `Bash, Read, Write, Glob, Grep`; add others only when justified
+7. **Document escalation paths** — when does the agent stop and require human decision? when does it call out a manual step that's outside MCP scope?
+
+### Agent Quality Checklist
+
+Before submitting:
+
+- [ ] Description leads with the MSP role (technician, dispatcher, security lead, etc.)
+- [ ] Description includes 3–4 example prompts a user might type
+- [ ] Body prose references at least 3 specific MCP tool names from the plugin
+- [ ] Capabilities list has 5–10 bullets, outcome-focused
+- [ ] Approach section is filled in (not a TODO) and addresses defaults, escalation, edge cases
+- [ ] Approach prose covers at least one explicit "when to stop and ask" scenario
+- [ ] No hard-coded tenant IDs, client names, or environment-specific paths
 
 ---
 
