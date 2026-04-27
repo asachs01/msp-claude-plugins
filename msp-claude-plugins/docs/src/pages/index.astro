@@ -127,7 +127,7 @@ const features = [
           <p class="text-[var(--muted)] text-sm mb-4">
             Connect your MSP tools to Claude Desktop in minutes. No servers to manage — just add your API credentials and go.
           </p>
-          <a href={`${gatewayUrl}/auth/choose`} class="btn btn-primary w-full text-center">Get Started Free</a>
+          <a href={`${gatewayUrl}/auth/choose`} class="btn btn-primary w-full text-center">Get Started</a>
         </div>
 
         <!-- Self-host path -->
@@ -227,7 +227,7 @@ const features = [
             </li>
           </ul>
           <div class="flex flex-wrap gap-3">
-            <a href={`${gatewayUrl}/auth/choose`} class="btn btn-primary text-sm">Get Started Free</a>
+            <a href={`${gatewayUrl}/auth/choose`} class="btn btn-primary text-sm">Get Started</a>
             <a href={`${baseUrl}getting-started/gateway/`} class="btn btn-secondary text-sm">Learn More</a>
           </div>
         </div>
@@ -274,25 +274,11 @@ const features = [
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold mb-4">Plans &amp; Pricing</h2>
         <p class="text-[var(--muted)] max-w-2xl mx-auto">
-          Start free and scale as your team grows. All plans include the full MCP integration suite.
+          Pick the tier that fits your team. All plans include the full MCP integration suite.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <PricingCard
-          plan="Free"
-          price="$0"
-          description="Get started with no commitment."
-          features={[
-            "1 user",
-            "3 personal vendor connections",
-            "500 credits/month",
-            "Community support",
-          ]}
-          cta="Get started free"
-          ctaHref="https://mcp.wyre.ai/auth/choose"
-        />
-
         <PricingCard
           plan="Pro"
           price="$49/user/mo"
@@ -305,7 +291,7 @@ const features = [
             "Team roles & invites",
             "Email support",
           ]}
-          cta="Start free trial"
+          cta="Get started"
           ctaHref="https://mcp.wyre.ai/auth/choose"
           highlighted={true}
         />
@@ -323,8 +309,25 @@ const features = [
             "Tool allowlists & service clients",
             "Dedicated support",
           ]}
+          cta="Get started"
+          ctaHref="https://mcp.wyre.ai/auth/choose"
+        />
+
+        <PricingCard
+          plan="Enterprise"
+          price="Custom"
+          description="For large MSP organizations and custom deployments."
+          features={[
+            "Everything in Business",
+            "SSO / SAML",
+            "SCIM provisioning",
+            "Custom credit packages",
+            "Uptime SLA",
+            "Dedicated onboarding & CSM",
+            "Custom contract terms",
+          ]}
           cta="Talk to sales"
-          ctaHref="mailto:sales@wyre.technology"
+          ctaHref="mailto:sales@wyre.ai"
         />
       </div>
 
