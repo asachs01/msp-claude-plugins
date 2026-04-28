@@ -8,7 +8,7 @@
 
 Then restart Claude Code. That's it.
 
-**Documentation:** [mcp.wyretechnology.com](https://mcp.wyretechnology.com)
+**Documentation:** [mcp.wyre.ai](https://mcp.wyre.ai)
 
 ---
 
@@ -100,12 +100,12 @@ Plus shared skills for MSP terminology, ticket triage, cross-vendor incident cor
 
 ### Hosted Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect your MSP tools to Claude with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 33 vendors available immediately.
+Use the [MCP Gateway](https://mcp.wyre.ai) to connect your MSP tools to Claude with zero infrastructure. OAuth 2.1 + PKCE authentication, encrypted credential storage, and all 33 vendors available immediately.
 
 **Claude Code (CLI):**
 
 ```bash
-claude mcp add --transport http msp-mcp-gateway https://mcp.wyretechnology.com/v1/mcp
+claude mcp add --transport http msp-mcp-gateway https://mcp.wyre.ai/v1/mcp
 ```
 
 **Claude Desktop (macOS / Linux):**
@@ -122,13 +122,13 @@ irm https://raw.githubusercontent.com/wyre-technology/msp-claude-plugins/main/ms
 
 The installer scripts preserve your existing config, create a backup, and only append the gateway entry.
 
-[Get Started Free](https://mcp.wyretechnology.com/waitlist)
+[Get Started Free](https://mcp.wyre.ai/waitlist)
 
 ### Self-Hosted
 
 Run MCP servers yourself for full control. Each server is available as an npm package, Docker image, or MCPB bundle for Claude Desktop.
 
-See the [Getting Started guide](https://mcp.wyretechnology.com/getting-started/) for installation instructions.
+See the [Getting Started guide](https://mcp.wyre.ai/getting-started/) for installation instructions.
 
 ---
 

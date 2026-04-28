@@ -32,7 +32,7 @@ export RUNZERO_API_TOKEN="your-account-api-token"
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `RUNZERO_API_TOKEN` | Yes | | Account API Token from Account > API Keys |
-| `RUNZERO_MCP_URL` | No | `https://mcp.wyretechnology.com/v1/runzero/mcp` | MCP server URL — override to use a self-hosted gateway |
+| `RUNZERO_MCP_URL` | No | `https://mcp.wyre.ai/v1/runzero/mcp` | MCP server URL — override to use a self-hosted gateway |
 
 ## Self-Hosted Gateway
 
@@ -57,11 +57,11 @@ RUNZERO_MCP_URL=https://your-gateway-domain/v1/runzero/mcp
 
 ### Via MCP Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect — paste your API token and you're done.
+Use the [MCP Gateway](https://mcp.wyre.ai) to connect — paste your API token and you're done.
 
 ### Self-Hosted (Docker)
 
-Run the RunZero MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyretechnology.com) for setup instructions.
+Run the RunZero MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyre.ai) for setup instructions.
 
 ### Claude Code CLI
 
@@ -160,7 +160,7 @@ RunZero enforces API rate limits:
 ### Connection Issues
 
 If the MCP server fails to connect:
-1. Verify network connectivity to `https://mcp.wyretechnology.com`
+1. Verify network connectivity to `https://mcp.wyre.ai`
 2. Check that your API token is valid
 3. Ensure the MCP Gateway service is running
 
