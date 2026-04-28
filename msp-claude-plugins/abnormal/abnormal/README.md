@@ -31,11 +31,11 @@ To obtain an API token:
 
 ### Via MCP Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect — paste your API token and you're done.
+Use the [MCP Gateway](https://mcp.wyre.ai) to connect — paste your API token and you're done.
 
 ### Self-Hosted (Docker)
 
-Run the Abnormal Security MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyretechnology.com) for setup instructions.
+Run the Abnormal Security MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyre.ai) for setup instructions.
 
 ### Claude Code CLI
 

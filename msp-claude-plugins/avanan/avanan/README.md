@@ -37,11 +37,11 @@ export AVANAN_REGION="us"  # us, eu, or ap
 
 ### Via MCP Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect — paste your Client ID and Secret and select your region. The gateway handles token exchange and refresh automatically.
+Use the [MCP Gateway](https://mcp.wyre.ai) to connect — paste your Client ID and Secret and select your region. The gateway handles token exchange and refresh automatically.
 
 ### Self-Hosted (Docker)
 
-Run the Avanan MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyretechnology.com) for setup instructions.
+Run the Avanan MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyre.ai) for setup instructions.
 
 ### Claude Code CLI
 

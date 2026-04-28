@@ -34,7 +34,7 @@ export DOMOTZ_REGION="us-east-1"
 |----------|----------|---------|-------------|
 | `DOMOTZ_API_KEY` | Yes | | API key from User Menu > API Keys |
 | `DOMOTZ_REGION` | No | `us-east-1` | API region (`us-east-1` or `eu-central-1`) |
-| `DOMOTZ_MCP_URL` | No | `https://mcp.wyretechnology.com/v1/domotz/mcp` | MCP server URL -- override to use a self-hosted gateway |
+| `DOMOTZ_MCP_URL` | No | `https://mcp.wyre.ai/v1/domotz/mcp` | MCP server URL -- override to use a self-hosted gateway |
 
 ## Self-Hosted Gateway
 
@@ -59,11 +59,11 @@ DOMOTZ_MCP_URL=https://your-gateway-domain/v1/domotz/mcp
 
 ### Via MCP Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect -- paste your API key and select your region, and you're done.
+Use the [MCP Gateway](https://mcp.wyre.ai) to connect -- paste your API key and select your region, and you're done.
 
 ### Self-Hosted (Docker)
 
-Run the Domotz MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyretechnology.com) for setup instructions.
+Run the Domotz MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyre.ai) for setup instructions.
 
 ### Claude Code CLI
 
@@ -170,7 +170,7 @@ Domotz enforces API rate limits:
 ### Connection Issues
 
 If the MCP server fails to connect:
-1. Verify network connectivity to `https://mcp.wyretechnology.com`
+1. Verify network connectivity to `https://mcp.wyre.ai`
 2. Check that your API credentials are valid
 3. Ensure the MCP Gateway service is running
 
