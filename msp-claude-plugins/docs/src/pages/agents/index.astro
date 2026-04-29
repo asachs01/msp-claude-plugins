@@ -1,0 +1,131 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import { plugins } from '@/data/plugins';
+
+const baseUrl = import.meta.env.BASE_URL;
+
+const matchAgent = (name: string, patterns: (string | RegExp)[]) =>
+  patterns.some(p => typeof p === 'string' ? name.includes(p) : p.test(name));
+
+const agentCategories = [
+  {
+    name: 'Auditing & Compliance',
+    slug: 'auditing-compliance',
+    description: 'Agents that audit configurations, identities, devices, and surface compliance gaps.',
+    patterns: ['auditor', 'compliance-reporter', 'hardening']
+  },
+  {
+    name: 'Health & Monitoring',
+    slug: 'health-monitoring',
+    description: 'Agents that watch backups, automation, uptime, and overall customer health.',
+    patterns: ['health', 'uptime', 'monitor']
+  },
+  {
+    name: 'Incident & Service Desk',
+    slug: 'incident-service-desk',
+    description: 'Agents that triage alerts, drive incidents, and run service desk operations.',
+    patterns: ['incident', 'soc-alert', 'service-desk', 'change-detective']
+  },
+  {
+    name: 'Client Lifecycle',
+    slug: 'client-lifecycle',
+    description: 'Agents that handle onboarding, contracts, and renewal tracking.',
+    patterns: ['onboarding', 'contract', 'renewal']
+  },
+  {
+    name: 'Financial Operations',
+    slug: 'financial-operations',
+    description: 'Agents focused on billing, licensing, margins, and procurement.',
+    patterns: ['billing', 'license', 'margin', 'procurement']
+  },
+  {
+    name: 'Documentation & Insights',
+    slug: 'documentation-insights',
+    description: 'Agents that link assets to documentation and surface optimization opportunities.',
+    patterns: ['documentation-linker', 'opportunity']
+  }
+].map(cat => ({
+  ...cat,
+  agents: plugins.flatMap(p =>
+    p.agents
+      .filter(a => matchAgent(a.name, cat.patterns))
+      .map(a => ({ ...a, plugin: p }))
+  )
+}));
+
+const allAgents = plugins.flatMap(p =>
+  p.agents.map(a => ({ ...a, plugin: p }))
+);
+---
+
+<DocsLayout title="Agents Reference">
+  <h1>Agents Reference</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Agents are specialized subagents that perform multi-step MSP workflows
+    autonomously. There are {allAgents.length} agents across all plugins.
+  </p>
+
+  <h2>What are Agents?</h2>
+
+  <p>
+    Agents combine skills, commands, and domain knowledge to execute
+    higher-level tasks — auditing a tenant, reconciling billing, triaging an
+    alert — without you walking Claude through every step. Each agent is scoped
+    to a clear role and a focused set of tools.
+  </p>
+
+  <pre><code class="language-text">/agent identity-auditor "Audit Acme Corp's M365 tenant"</code></pre>
+
+  <h2>Agents by Category</h2>
+
+  {agentCategories.filter(cat => cat.agents.length > 0).map(category => (
+    <div class="mb-8">
+      <h3 id={category.slug}>{category.name}</h3>
+      <p class="text-[var(--muted)]">{category.description}</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Agent</th>
+            <th>Plugin</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {category.agents.map(agent => (
+            <tr>
+              <td><code>{agent.name}</code></td>
+              <td><a href={`${baseUrl}plugins/${agent.plugin.id}/`}>{agent.plugin.name}</a></td>
+              <td>{agent.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ))}
+
+  <h2>All Agents by Plugin</h2>
+
+  {plugins.filter(p => p.agents.length > 0).map(plugin => (
+    <div class="mb-8">
+      <h3><a href={`${baseUrl}plugins/${plugin.id}/`}>{plugin.name}</a></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Agent</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {plugin.agents.map(agent => (
+            <tr>
+              <td><code>{agent.name}</code></td>
+              <td>{agent.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ))}
+</DocsLayout>
