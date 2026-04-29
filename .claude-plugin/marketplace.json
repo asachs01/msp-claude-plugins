@@ -150,6 +150,54 @@
       "version": "1.0.0",
       "category": "accounting",
       "tags": ["quickbooks", "accounting", "invoices", "expenses", "msp"]
+    },
+    {
+      "name": "kaseya-vsa",
+      "source": "./msp-claude-plugins/kaseya/kaseya-vsa",
+      "description": "Kaseya VSA - endpoint monitoring, patch management, agent procedures, remote control (scaffolding)",
+      "version": "0.1.0",
+      "category": "rmm",
+      "tags": ["kaseya", "vsa", "rmm", "patch-management", "msp", "scaffolding"]
+    },
+    {
+      "name": "datto-bcdr",
+      "source": "./msp-claude-plugins/kaseya/datto-bcdr",
+      "description": "Datto BCDR (SIRIS / Alto) - backup status, screenshot verification, recovery points (scaffolding)",
+      "version": "0.1.0",
+      "category": "bcdr",
+      "tags": ["kaseya", "datto", "bcdr", "backup", "siris", "alto", "msp", "scaffolding"]
+    },
+    {
+      "name": "kaseya-bms",
+      "source": "./msp-claude-plugins/kaseya/kaseya-bms",
+      "description": "Kaseya BMS PSA - tickets, accounts, contracts, time entries, billing (scaffolding)",
+      "version": "0.1.0",
+      "category": "psa",
+      "tags": ["kaseya", "bms", "psa", "tickets", "msp", "scaffolding"]
+    },
+    {
+      "name": "datto-saas-protection",
+      "source": "./msp-claude-plugins/kaseya/datto-saas-protection",
+      "description": "Datto SaaS Protection (Backupify) - M365 / Google Workspace cloud-to-cloud backup (scaffolding)",
+      "version": "0.1.0",
+      "category": "bcdr",
+      "tags": ["kaseya", "datto", "backupify", "saas-backup", "m365", "msp", "scaffolding"]
+    },
+    {
+      "name": "unitrends",
+      "source": "./msp-claude-plugins/kaseya/unitrends",
+      "description": "Unitrends - appliances, backup jobs, recovery points, replication, alerts (scaffolding)",
+      "version": "0.1.0",
+      "category": "bcdr",
+      "tags": ["kaseya", "unitrends", "backup", "bcdr", "msp", "scaffolding"]
+    },
+    {
+      "name": "spanning",
+      "source": "./msp-claude-plugins/kaseya/spanning",
+      "description": "Spanning Cloud Backup - SaaS backup for M365 / Google Workspace / Salesforce (scaffolding)",
+      "version": "0.1.0",
+      "category": "bcdr",
+      "tags": ["kaseya", "spanning", "saas-backup", "m365", "salesforce", "msp", "scaffolding"]
     }
   ]
 }

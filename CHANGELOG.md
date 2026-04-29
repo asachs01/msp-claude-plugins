@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+#### Kaseya Portfolio Expansion — 6 New Plugin Scaffolds (`kaseya/`)
+- **kaseya-vsa** (`kaseya/kaseya-vsa/`) — RMM. API patterns skill covers two-step token auth, Kaseya One SSO bridging, OData pagination, response envelope semantics
+- **datto-bcdr** (`kaseya/datto-bcdr/`) — Backup/DR. API patterns skill covers HMAC-SHA256 request signing, screenshot verification retrieval, recovery point queries
+- **kaseya-bms** (`kaseya/kaseya-bms/`) — PSA. API patterns skill covers tenant subdomain routing, API token vs Kaseya One JWT, ticket workflow gotchas
+- **datto-saas-protection** (`kaseya/datto-saas-protection/`) — SaaS backup (M365 / Google Workspace). API patterns skill covers region selection (US/EU), seat hierarchy, async restore polling
+- **unitrends** (`kaseya/unitrends/`) — Backup. API patterns skill covers session-token login, appliance/asset hierarchy, MSP Console drift, self-signed cert handling
+- **spanning** (`kaseya/spanning/`) — SaaS backup (M365 / GWS / Salesforce). API patterns skill covers per-platform URL bases, admin-email + token auth, Salesforce object ID quirks
+- All plugins are version `0.1.0` and tagged `scaffolding` — content is reference documentation; matching MCP servers (`*-mcp`) and SDKs (`node-*`) are in development
+- Registered in `.claude-plugin/marketplace.json` under categories `rmm`, `psa`, and `bcdr` (new category for backup/disaster-recovery products)
+
 ### Changed
 
 #### Pax8 Plugin (`pax8/pax8/`)
