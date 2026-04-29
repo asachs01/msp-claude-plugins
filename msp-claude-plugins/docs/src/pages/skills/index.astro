@@ -8,6 +8,7 @@ const baseUrl = import.meta.env.BASE_URL;
 const skillCategories = [
   {
     name: 'Ticket Management',
+    slug: 'ticket-management',
     description: 'Skills for creating, searching, and managing service tickets.',
     skills: plugins.flatMap(p =>
       p.skills
@@ -17,6 +18,7 @@ const skillCategories = [
   },
   {
     name: 'Customer/Client Management',
+    slug: 'customer-management',
     description: 'Skills for managing customers, companies, contacts, and organizations.',
     skills: plugins.flatMap(p =>
       p.skills
@@ -26,6 +28,7 @@ const skillCategories = [
   },
   {
     name: 'Asset & Device Management',
+    slug: 'asset-device-management',
     description: 'Skills for managing devices, computers, configurations, and assets.',
     skills: plugins.flatMap(p =>
       p.skills
@@ -35,6 +38,7 @@ const skillCategories = [
   },
   {
     name: 'Monitoring & Alerts',
+    slug: 'monitoring-alerts',
     description: 'Skills for alert handling, monitoring, and device status.',
     skills: plugins.flatMap(p =>
       p.skills
@@ -44,6 +48,7 @@ const skillCategories = [
   },
   {
     name: 'Automation & Scripts',
+    slug: 'automation-scripts',
     description: 'Skills for running scripts, jobs, and automation workflows.',
     skills: plugins.flatMap(p =>
       p.skills
@@ -53,6 +58,7 @@ const skillCategories = [
   },
   {
     name: 'API Patterns',
+    slug: 'api-patterns',
     description: 'Skills covering authentication, pagination, rate limiting, and error handling.',
     skills: plugins.flatMap(p =>
       p.skills
@@ -95,7 +101,7 @@ What ticket statuses are available?</code></pre>
 
   {skillCategories.filter(cat => cat.skills.length > 0).map(category => (
     <div class="mb-8">
-      <h3>{category.name}</h3>
+      <h3 id={category.slug}>{category.name}</h3>
       <p class="text-[var(--muted)]">{category.description}</p>
 
       <table>

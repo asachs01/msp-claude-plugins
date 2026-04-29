@@ -42,6 +42,33 @@ const mcpCategoryLabels: Record<string, string> = {
 
 const mcpCategoryOrder = ['psa', 'rmm', 'documentation', 'security', 'accounting', 'network', 'sales'] as const;
 
+const skillCategories = [
+  { label: 'Ticket Management', slug: 'ticket-management' },
+  { label: 'Customer/Client Management', slug: 'customer-management' },
+  { label: 'Asset & Device Management', slug: 'asset-device-management' },
+  { label: 'Monitoring & Alerts', slug: 'monitoring-alerts' },
+  { label: 'Automation & Scripts', slug: 'automation-scripts' },
+  { label: 'API Patterns', slug: 'api-patterns' },
+];
+
+const agentCategories = [
+  { label: 'Auditing & Compliance', slug: 'auditing-compliance' },
+  { label: 'Health & Monitoring', slug: 'health-monitoring' },
+  { label: 'Incident & Service Desk', slug: 'incident-service-desk' },
+  { label: 'Client Lifecycle', slug: 'client-lifecycle' },
+  { label: 'Financial Operations', slug: 'financial-operations' },
+  { label: 'Documentation & Insights', slug: 'documentation-insights' },
+];
+
+const commandCategories = [
+  { label: 'Ticket Commands', slug: 'ticket-commands' },
+  { label: 'Asset & Device Commands', slug: 'asset-device-commands' },
+  { label: 'Automation Commands', slug: 'automation-commands' },
+  { label: 'Alert Commands', slug: 'alert-commands' },
+  { label: 'Documentation Commands', slug: 'documentation-commands' },
+  { label: 'Other Commands', slug: 'other-commands' },
+];
+
 const sidebarItems: SidebarItem[] = [
   {
     label: 'Getting Started',
@@ -104,8 +131,27 @@ const sidebarItems: SidebarItem[] = [
           })),
         ],
       },
-      { label: 'Skills', href: `${baseUrl}skills/` },
-      { label: 'Commands', href: `${baseUrl}commands/` },
+      {
+        label: 'Skills',
+        children: [
+          { label: 'Overview', href: `${baseUrl}skills/` },
+          ...skillCategories.map(c => ({ label: c.label, href: `${baseUrl}skills/#${c.slug}` })),
+        ],
+      },
+      {
+        label: 'Agents',
+        children: [
+          { label: 'Overview', href: `${baseUrl}agents/` },
+          ...agentCategories.map(c => ({ label: c.label, href: `${baseUrl}agents/#${c.slug}` })),
+        ],
+      },
+      {
+        label: 'Commands',
+        children: [
+          { label: 'Overview', href: `${baseUrl}commands/` },
+          ...commandCategories.map(c => ({ label: c.label, href: `${baseUrl}commands/#${c.slug}` })),
+        ],
+      },
     ]
   }
 ];

@@ -8,6 +8,7 @@ const baseUrl = import.meta.env.BASE_URL;
 const commandCategories = [
   {
     name: 'Ticket Commands',
+    slug: 'ticket-commands',
     description: 'Commands for creating and searching service tickets.',
     commands: plugins.flatMap(p =>
       p.commands
@@ -17,6 +18,7 @@ const commandCategories = [
   },
   {
     name: 'Asset & Device Commands',
+    slug: 'asset-device-commands',
     description: 'Commands for looking up assets, devices, and running automation.',
     commands: plugins.flatMap(p =>
       p.commands
@@ -33,6 +35,7 @@ const commandCategories = [
   },
   {
     name: 'Automation Commands',
+    slug: 'automation-commands',
     description: 'Commands for running scripts, jobs, and automation tasks.',
     commands: plugins.flatMap(p =>
       p.commands
@@ -46,6 +49,7 @@ const commandCategories = [
   },
   {
     name: 'Alert Commands',
+    slug: 'alert-commands',
     description: 'Commands for managing and resolving alerts.',
     commands: plugins.flatMap(p =>
       p.commands
@@ -55,6 +59,7 @@ const commandCategories = [
   },
   {
     name: 'Documentation Commands',
+    slug: 'documentation-commands',
     description: 'Commands for searching docs, passwords, and organizations.',
     commands: plugins.flatMap(p =>
       p.commands
@@ -69,6 +74,7 @@ const commandCategories = [
   },
   {
     name: 'Other Commands',
+    slug: 'other-commands',
     description: 'Time entries, projects, accounts, and other operations.',
     commands: plugins.flatMap(p =>
       p.commands
@@ -115,7 +121,7 @@ const allCommands = plugins.flatMap(p =>
 
   {commandCategories.filter(cat => cat.commands.length > 0).map(category => (
     <div class="mb-8">
-      <h3>{category.name}</h3>
+      <h3 id={category.slug}>{category.name}</h3>
       <p class="text-[var(--muted)]">{category.description}</p>
 
       <table>
