@@ -1,0 +1,11 @@
+{
+  "name": "kaseya-bms",
+  "version": "0.1.0",
+  "description": "Claude plugins for Kaseya BMS - tickets, accounts, contracts, time entries, billing (PSA)",
+  "author": {
+    "name": "MSP Claude Plugins Community"
+  },
+  "homepage": "https://github.com/wyre-technology/msp-claude-plugins",
+  "repository": "https://github.com/wyre-technology/msp-claude-plugins",
+  "license": "Apache-2.0"
+}
