@@ -40,11 +40,11 @@ export PROOFPOINT_REGION="us1"  # us1, us2, us3, us4, uk1, eu1
 
 ### Via MCP Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect — paste your service principal and secret and you're done.
+Use the [MCP Gateway](https://mcp.wyre.ai) to connect — paste your service principal and secret and you're done.
 
 ### Self-Hosted (Docker)
 
-Run the Proofpoint MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyretechnology.com) for setup instructions.
+Run the Proofpoint MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyre.ai) for setup instructions.
 
 ### Claude Code CLI
 

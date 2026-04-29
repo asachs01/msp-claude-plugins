@@ -33,11 +33,11 @@ To obtain credentials:
 
 ### Via MCP Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect — enter your API key and Company ID.
+Use the [MCP Gateway](https://mcp.wyre.ai) to connect — enter your API key and Company ID.
 
 ### Self-Hosted (Docker)
 
-Run the Ironscales MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyretechnology.com) for setup instructions.
+Run the Ironscales MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyre.ai) for setup instructions.
 
 ### Claude Code CLI
 

@@ -172,6 +172,28 @@ function isExactActive(href?: string): boolean {
     
     <!-- Navigation sections -->
     <nav class="p-4">
+      <!-- Primary marketing nav (mirrors desktop top nav) -->
+      <div class="mb-6">
+        <ul class="space-y-1">
+          {navLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class={isActive(link.href) ? 'sidebar-link-active sidebar-link' : 'sidebar-link'}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a
+          href={`${gatewayUrl}/auth/choose`}
+          class="mt-4 inline-flex w-full items-center justify-center px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors"
+        >
+          Sign in
+        </a>
+      </div>
+
       {sidebarSections.map(section => (
         <div class="mb-6">
           <h3 class="font-semibold text-sm uppercase tracking-wider text-[var(--muted)] mb-2 px-3">

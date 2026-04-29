@@ -42,46 +42,55 @@ const mcpCategoryLabels: Record<string, string> = {
 
 const mcpCategoryOrder = ['psa', 'rmm', 'documentation', 'security', 'accounting', 'network', 'sales'] as const;
 
-const skillCategories = [
-  { label: 'Ticket Management', slug: 'ticket-management' },
-  { label: 'Customer/Client Management', slug: 'customer-management' },
-  { label: 'Asset & Device Management', slug: 'asset-device-management' },
-  { label: 'Monitoring & Alerts', slug: 'monitoring-alerts' },
-  { label: 'Automation & Scripts', slug: 'automation-scripts' },
-  { label: 'API Patterns', slug: 'api-patterns' },
-];
-
-const agentCategories = [
-  { label: 'Auditing & Compliance', slug: 'auditing-compliance' },
-  { label: 'Health & Monitoring', slug: 'health-monitoring' },
-  { label: 'Incident & Service Desk', slug: 'incident-service-desk' },
-  { label: 'Client Lifecycle', slug: 'client-lifecycle' },
-  { label: 'Financial Operations', slug: 'financial-operations' },
-  { label: 'Documentation & Insights', slug: 'documentation-insights' },
-];
-
-const commandCategories = [
-  { label: 'Ticket Commands', slug: 'ticket-commands' },
-  { label: 'Asset & Device Commands', slug: 'asset-device-commands' },
-  { label: 'Automation Commands', slug: 'automation-commands' },
-  { label: 'Alert Commands', slug: 'alert-commands' },
-  { label: 'Documentation Commands', slug: 'documentation-commands' },
-  { label: 'Other Commands', slug: 'other-commands' },
-];
-
 const sidebarItems: SidebarItem[] = [
   {
     label: 'Getting Started',
     children: [
       { label: 'Introduction', href: `${baseUrl}getting-started/` },
-      { label: 'Installation', href: `${baseUrl}getting-started/installation/` },
       { label: 'Quick Start', href: `${baseUrl}getting-started/quick-start/` },
-      { label: 'Architecture', href: `${baseUrl}getting-started/architecture/` },
-      { label: 'Deployment', href: `${baseUrl}getting-started/deployment/` },
-      { label: 'Gateway', href: `${baseUrl}getting-started/gateway/` },
-      { label: 'Authentication', href: `${baseUrl}getting-started/authentication/` },
-      { label: 'Teams', href: `${baseUrl}getting-started/teams/` },
-      { label: 'Troubleshooting', href: `${baseUrl}getting-started/troubleshooting/` },
+      { label: 'Installation', href: `${baseUrl}getting-started/installation/` },
+    ]
+  },
+  {
+    label: 'Gateway',
+    children: [
+      {
+        label: 'Concepts',
+        children: [
+          { label: 'Overview', href: `${baseUrl}getting-started/gateway/` },
+          { label: 'Architecture', href: `${baseUrl}getting-started/architecture/` },
+          { label: 'Security Model', href: `${baseUrl}getting-started/security/` },
+        ],
+      },
+      {
+        label: 'Setup',
+        children: [
+          { label: 'Deployment', href: `${baseUrl}getting-started/deployment/` },
+          { label: 'Authentication', href: `${baseUrl}getting-started/authentication/` },
+        ],
+      },
+      {
+        label: 'Operations',
+        children: [
+          { label: 'Teams & Access', href: `${baseUrl}getting-started/teams/` },
+          { label: 'Logging & Audit (coming soon)', href: '#' },
+        ],
+      },
+      {
+        label: 'Clients',
+        children: [
+          { label: 'Claude Code (coming soon)', href: '#' },
+          { label: 'Copilot', href: `${baseUrl}getting-started/copilot/` },
+          { label: 'Custom Integrations (coming soon)', href: '#' },
+        ],
+      },
+      {
+        label: 'Reference',
+        children: [
+          { label: 'Configuration (coming soon)', href: '#' },
+          { label: 'Troubleshooting', href: `${baseUrl}getting-started/troubleshooting/` },
+        ],
+      },
     ]
   },
   {
@@ -98,62 +107,19 @@ const sidebarItems: SidebarItem[] = [
             href: `${baseUrl}plugins/${p.id}/`
           }))
         }];
-      })
-    ]
-  },
-  {
-    label: 'MCP Servers',
-    children: [
-      { label: 'Overview', href: `${baseUrl}mcp-servers/` },
-      ...mcpCategoryOrder.flatMap(cat => {
-        const items = getMcpServersByCategory(cat);
-        if (items.length === 0) return [];
-        return [{
-          label: mcpCategoryLabels[cat],
-          children: items.map(s => ({
-            label: s.name,
-            href: `${baseUrl}mcp-servers/${s.id}/`
-          }))
-        }];
-      })
-    ]
-  },
-  {
-    label: 'Reference',
-    children: [
+      }),
       {
-        label: 'Prompt Bank',
+        label: 'Components',
         children: [
+          { label: 'All Agents', href: `${baseUrl}agents/` },
+          { label: 'All Skills', href: `${baseUrl}skills/` },
+          { label: 'All Commands', href: `${baseUrl}commands/` },
+          { label: 'All MCP Servers', href: `${baseUrl}mcp-servers/` },
           { label: 'All Prompts', href: `${baseUrl}prompts/` },
-          ...roleOrder.map(role => ({
-            label: roleLabels[role],
-            href: `${baseUrl}prompts/#${role}`,
-          })),
-        ],
-      },
-      {
-        label: 'Skills',
-        children: [
-          { label: 'Overview', href: `${baseUrl}skills/` },
-          ...skillCategories.map(c => ({ label: c.label, href: `${baseUrl}skills/#${c.slug}` })),
-        ],
-      },
-      {
-        label: 'Agents',
-        children: [
-          { label: 'Overview', href: `${baseUrl}agents/` },
-          ...agentCategories.map(c => ({ label: c.label, href: `${baseUrl}agents/#${c.slug}` })),
-        ],
-      },
-      {
-        label: 'Commands',
-        children: [
-          { label: 'Overview', href: `${baseUrl}commands/` },
-          ...commandCategories.map(c => ({ label: c.label, href: `${baseUrl}commands/#${c.slug}` })),
         ],
       },
     ]
-  }
+  },
 ];
 
 function isActive(href?: string): boolean {

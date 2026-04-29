@@ -16,19 +16,24 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <p>
     Every user on the gateway belongs to an <strong>organization</strong> (team). Organizations
-    have a <strong>plan</strong> (Community or Pro) that determines available features:
+    are on a <strong>plan</strong> (Pro, Business, or Enterprise) that determines available features:
   </p>
 
   <table>
-    <thead><tr><th>Feature</th><th>Free</th><th>Pro</th></tr></thead>
+    <thead><tr><th>Feature</th><th>Pro</th><th>Business</th><th>Enterprise</th></tr></thead>
     <tbody>
-      <tr><td>Personal vendor connections</td><td>3 max</td><td>Unlimited</td></tr>
-      <tr><td>Team (shared) credentials</td><td>&mdash;</td><td>Unlimited</td></tr>
-      <tr><td>Team members</td><td>&mdash;</td><td>Unlimited</td></tr>
-      <tr><td>Invite links</td><td>&mdash;</td><td>Yes</td></tr>
-      <tr><td>Audit logging</td><td>&mdash;</td><td>Yes</td></tr>
+      <tr><td>Users</td><td>Up to 3</td><td>5+</td><td>Custom</td></tr>
+      <tr><td>Personal vendor connections</td><td>3 / user</td><td>Unlimited</td><td>Unlimited</td></tr>
+      <tr><td>Team (shared) credentials</td><td>5</td><td>Unlimited</td><td>Unlimited</td></tr>
+      <tr><td>Invite links</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>Audit logging</td><td>&mdash;</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>SSO / SAML</td><td>&mdash;</td><td>&mdash;</td><td>Yes</td></tr>
     </tbody>
   </table>
+
+  <p>
+    See <a href={`${baseUrl}pricing/`}>Pricing</a> for full plan comparisons.
+  </p>
 
   <h2>Getting Started</h2>
 
@@ -52,7 +57,7 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <p>
     Teams created with a valid invite code are automatically upgraded to the <strong>Pro</strong> plan.
-    Without a code, your team starts on the Free plan. You can upgrade later from Settings.
+    Without a code, you can choose a plan from Settings &rarr; Billing.
   </p>
 
   <img src={`${baseUrl}images/gateway/settings-dashboard.png`} alt="Settings dashboard showing team section, personal connections, and team connections" style="border-radius:8px;border:1px solid #2a2a2a;margin:24px 0;" />

@@ -33,11 +33,11 @@ export SPAMTITAN_BASE_URL="https://your-spamtitan-instance.com"  # for self-host
 
 ### Via MCP Gateway (Recommended)
 
-Use the [MCP Gateway](https://mcp.wyretechnology.com) to connect — paste your API key and you're done.
+Use the [MCP Gateway](https://mcp.wyre.ai) to connect — paste your API key and you're done.
 
 ### Self-Hosted (Docker)
 
-Run the SpamTitan MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyretechnology.com) for setup instructions.
+Run the SpamTitan MCP server via Docker with the MCP Gateway self-hosted option. See the [MCP Gateway documentation](https://mcp.wyre.ai) for setup instructions.
 
 ### Claude Code CLI
 
@@ -109,7 +109,7 @@ If you see "401 Unauthorized":
 ### Connection Issues
 
 If the MCP server fails to connect:
-1. Verify network connectivity to `https://mcp.wyretechnology.com`
+1. Verify network connectivity to `https://mcp.wyre.ai`
 2. Check that your API credentials are valid
 3. Ensure the MCP Gateway service is running
 
