@@ -450,6 +450,20 @@
         "tickets",
         "msp"
       ]
+    },
+    {
+      "name": "threatlocker",
+      "source": "./msp-claude-plugins/threatlocker/threatlocker",
+      "description": "ThreatLocker - zero-trust application allowlisting, approval triage, audit log investigation, computer inventory",
+      "version": "1.0.0",
+      "category": "security",
+      "tags": [
+        "threatlocker",
+        "security",
+        "msp",
+        "zero-trust",
+        "application-control"
+      ]
     }
   ]
 }
