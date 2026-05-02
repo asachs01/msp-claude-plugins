@@ -29,8 +29,8 @@ Reference: <https://saasprotection.datto.com/help/M365/Content/Other_Administrat
 Base URLs (per region):
 
 ```
-https://api.dattobackup.com/api/v1            (US)
-https://api.eu.dattobackup.com/api/v1         (EU)
+https://api.datto.com/api/v1            (US)
+https://api.eu.datto.com/api/v1         (EU)
 ```
 
 The MCP server takes a `region` credential field (`us` or `eu`); never hard-code.
