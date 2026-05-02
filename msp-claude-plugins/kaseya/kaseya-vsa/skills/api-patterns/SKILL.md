@@ -39,12 +39,23 @@ For Kaseya One SSO tenants, skip the password-hash dance and exchange a Kaseya O
 
 ### Auth header construction (legacy/local users)
 
+The full Authorization string is **six** comma-separated fields. Both the
+"covered" hashes (raw + nonce, re-hashed) and the raw hashes must be sent —
+omitting `rpass2`/`rpass1` silently 401s every login. Source:
+<https://help.vsa9.kaseya.com/help/Content/Modules/rest-api/37334.htm>
+
 ```
-RawSHA256Hash       = SHA-256(password + username)
-DoubleHash          = SHA-256(RawSHA256Hash + RandomString)
-RawSHA1Hash         = SHA-1(password + username)
-DoubleHash1         = SHA-1(RawSHA1Hash + RandomString)
-Authorization: Basic user=<username>,pass2=<DoubleHash>,pass1=<DoubleHash1>,rand2=<RandomString>
+RawSHA256           = SHA-256(password + username)
+RawSHA1             = SHA-1(password + username)
+CoveredSHA256       = SHA-256(RawSHA256 + RandomString)
+CoveredSHA1         = SHA-1(RawSHA1 + RandomString)
+
+Authorization: Basic user=<username>,
+                     pass2=<CoveredSHA256>,
+                     pass1=<CoveredSHA1>,
+                     rpass2=<RawSHA256>,
+                     rpass1=<RawSHA1>,
+                     rand2=<RandomString>
 ```
 
 Capture the returned `Token` field, then send `Authorization: Bearer <Token>` on every subsequent call.
