@@ -35,12 +35,15 @@ The MCP server takes a `platform` credential field (`m365` | `gws` | `salesforce
 
 ## Authentication
 
-Spanning uses admin email + API token, sent as basic-style headers:
+Spanning uses **HTTP Basic auth** per the public OpenAPI spec
+(<http://o365-docs.spanningbackup.com/swagger/json>):
 
 ```
-X-Spanning-Admin: admin@example.com
-X-Spanning-Authorization: Bearer <api_token>
+Authorization: Basic base64(<admin_email>:<api_token>)
 ```
+
+The admin email and API token are pair-bound — both must match the
+pair on file in the Spanning admin console or the API returns 401.
 
 Token issuance:
 
