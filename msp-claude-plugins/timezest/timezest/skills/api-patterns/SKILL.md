@@ -28,11 +28,16 @@ when the customer picks a slot.
 
 ## Connection & Authentication
 
-TimeZest uses Bearer token authentication:
+TimeZest uses an API token passed via header.
 
 | Header | Value |
 |--------|-------|
-| `Authorization` | `Bearer <token>` |
+| `X-Timezest-Api-Token` | The raw TimeZest API token |
+
+The gateway maps the environment variable `TIMEZEST_API_TOKEN` onto
+the `X-Timezest-Api-Token` header automatically. Internally, the
+TimeZest MCP server forwards this to TimeZest as a `Bearer` token — you
+do not need to add the `Bearer ` prefix yourself.
 
 ```bash
 export TIMEZEST_API_TOKEN="your-timezest-token"

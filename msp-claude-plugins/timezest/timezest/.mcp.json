@@ -4,7 +4,7 @@
       "type": "http",
       "url": "https://mcp.wyretechnology.com/v1/timezest/mcp",
       "headers": {
-        "Authorization": "Bearer ${TIMEZEST_API_TOKEN}"
+        "X-Timezest-Api-Token": "${TIMEZEST_API_TOKEN}"
       }
     }
   }

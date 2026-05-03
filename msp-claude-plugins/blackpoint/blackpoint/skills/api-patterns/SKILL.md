@@ -28,15 +28,24 @@ vulnerabilities are produced against those assets.
 
 ## Connection & Authentication
 
-CompassOne uses a Bearer token issued from the partner portal:
+Blackpoint uses an API token passed via header. CompassOne issues the
+token in the partner portal.
 
 | Header | Value |
 |--------|-------|
-| `Authorization` | `Bearer <token>` |
+| `X-Blackpoint-Api-Token` | The raw CompassOne token |
+
+The gateway maps the environment variable `BLACKPOINT_API_TOKEN` onto
+the `X-Blackpoint-Api-Token` header automatically. Internally, the
+Blackpoint MCP server forwards this to CompassOne as a `Bearer` token —
+you do not need to add the `Bearer ` prefix yourself.
 
 ```bash
-export BLACKPOINT_API_TOKEN="your-compassone-bearer-token"
+export BLACKPOINT_API_TOKEN="your-compassone-token"
 ```
+
+Optional: `BLACKPOINT_BASE_URL` overrides the CompassOne base URL for
+regional or partner-specific deployments.
 
 ## Hierarchy
 
