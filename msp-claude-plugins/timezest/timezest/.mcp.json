@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "timezest": {
+      "type": "http",
+      "url": "https://mcp.wyretechnology.com/v1/timezest/mcp",
+      "headers": {
+        "Authorization": "Bearer ${TIMEZEST_API_TOKEN}"
+      }
+    }
+  }
+}

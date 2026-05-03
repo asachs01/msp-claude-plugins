@@ -1,0 +1,11 @@
+{
+  "name": "blackpoint",
+  "version": "1.0.0",
+  "description": "Blackpoint Cyber / CompassOne MDR - tenant, asset, detection, and vulnerability data for MSP incident response",
+  "author": {
+    "name": "WYRE Technology"
+  },
+  "homepage": "https://github.com/wyre-technology/msp-claude-plugins",
+  "repository": "https://github.com/wyre-technology/msp-claude-plugins",
+  "license": "Apache-2.0"
+}

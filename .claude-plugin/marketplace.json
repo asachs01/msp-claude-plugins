@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "msp-claude-plugins",
   "description": "Community-driven Claude Code plugins for Managed Service Providers. Integrates with PSA, RMM, and documentation tools.",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "owner": {
     "name": "Aaron Sachs"
   },
@@ -448,6 +448,60 @@
         "psa",
         "rmm",
         "tickets",
+        "msp"
+      ]
+    },
+    {
+      "name": "blackpoint",
+      "source": "./msp-claude-plugins/blackpoint/blackpoint",
+      "description": "Blackpoint Cyber / CompassOne MDR - tenants, assets, detections, vulnerabilities (dark web, external, scans)",
+      "version": "1.0.0",
+      "category": "security",
+      "tags": [
+        "blackpoint",
+        "compassone",
+        "security",
+        "mdr",
+        "msp"
+      ]
+    },
+    {
+      "name": "crewhu",
+      "source": "./msp-claude-plugins/crewhu/crewhu",
+      "description": "Crewhu - CSAT/NPS surveys, employee recognition, badges, prize redemptions for MSPs",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "crewhu",
+        "csat",
+        "engagement",
+        "msp"
+      ]
+    },
+    {
+      "name": "immybot",
+      "source": "./msp-claude-plugins/immybot/immybot",
+      "description": "ImmyBot - desired-state Windows software deployment, maintenance sessions, scripts (Entra ID OAuth)",
+      "version": "1.0.0",
+      "category": "rmm",
+      "tags": [
+        "immybot",
+        "rmm",
+        "deployment",
+        "windows",
+        "msp"
+      ]
+    },
+    {
+      "name": "timezest",
+      "source": "./msp-claude-plugins/timezest/timezest",
+      "description": "TimeZest - tech scheduling against ConnectWise / Autotask / Halo PSA tickets",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "timezest",
+        "scheduling",
+        "psa",
         "msp"
       ]
     },
