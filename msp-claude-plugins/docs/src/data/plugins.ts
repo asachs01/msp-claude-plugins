@@ -1369,6 +1369,157 @@ export const plugins: Plugin[] = [
     },
     path: 'syncro/syncro-msp',
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'blackpoint',
+    name: 'Blackpoint',
+    vendor: 'Blackpoint',
+    description: 'Blackpoint Cyber / CompassOne MDR - tenants, assets, detections, vulnerabilities (dark web, external, scans)',
+    category: 'security',
+    maturity: 'alpha',
+    features: [
+      'Incident Response'
+    ],
+    skills: [
+      { name: 'incident-response', description: 'Use this skill when investigating a Blackpoint Cyber detection — drilling from a tenant to its assets, walking the detection list, pulling vulnerability and dark-web context, and assembling an incident timeline.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the Blackpoint Cyber (CompassOne) MCP tools — Bearer token authentication, the partner-tenant-asset hierarchy, navigation tools, and the read-only tool surface across tenants, assets, detections, and vulnerabilities.' }
+    ],
+    agents: [],
+    commands: [
+      { name: '/search-detections', description: 'List recent Blackpoint Cyber detections for a tenant' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'blackpoint/blackpoint',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'crewhu',
+    name: 'Crewhu',
+    vendor: 'Crewhu',
+    description: 'Crewhu - CSAT/NPS surveys, employee recognition, badges, prize redemptions for MSPs',
+    category: 'productivity',
+    maturity: 'alpha',
+    features: [
+      'Surveys'
+    ],
+    skills: [
+      { name: 'surveys', description: 'Use this skill when working with Crewhu CSAT/NPS surveys — listing recent responses, drilling into a specific survey, isolating detractors and promoters for follow-up, and rolling responses up by user.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the Crewhu MCP tools — token-based authentication via the `X-Crewhu-Api-Token` header, the navigation pattern (`crewhu_navigate`, `crewhu_back`, `crewhu_status`), read-heavy tool surface, and error handling.' }
+    ],
+    agents: [],
+    commands: [
+      { name: '/search-surveys', description: 'Search recent Crewhu surveys, surfacing detractors and promoters' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'crewhu/crewhu',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'immybot',
+    name: 'Immybot',
+    vendor: 'Immybot',
+    description: 'ImmyBot - desired-state Windows software deployment, maintenance sessions, scripts (Entra ID OAuth)',
+    category: 'rmm',
+    maturity: 'alpha',
+    features: [
+      'Software Deployment'
+    ],
+    skills: [
+      { name: 'software-deployment', description: 'Use this skill when configuring desired-state software deployments in ImmyBot — picking the software, scoping the deployment to a tenant or computer, kicking off a maintenance session to reconcile, and checking compliance afterwards.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the ImmyBot MCP tools — Entra ID OAuth 2.0 client-credentials authentication (4 fields), the two-step desired-state deployment model, destructive operations that need explicit confirmation, and the task/session polling cadence.' }
+    ],
+    agents: [],
+    commands: [
+      { name: '/search-software', description: 'Search the ImmyBot software catalog (per-tenant + global)' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'immybot/immybot',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'timezest',
+    name: 'Timezest',
+    vendor: 'Timezest',
+    description: 'TimeZest - tech scheduling against ConnectWise / Autotask / Halo PSA tickets',
+    category: 'productivity',
+    maturity: 'alpha',
+    features: [
+      'Scheduling'
+    ],
+    skills: [
+      { name: 'scheduling', description: 'Use this skill to book a technician against a ConnectWise / Autotask / Halo PSA ticket via TimeZest — resolving the right agent and appointment type, creating a scheduling request, polling its status, and canceling when needed.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the TimeZest MCP tools — Bearer token authentication, the navigation pattern, scheduling-request payloads that carry PSA associated_entities (ConnectWise / Autotask / Halo ticket IDs), and the polling-only update model (no webhooks).' }
+    ],
+    agents: [],
+    commands: [
+      { name: '/search-scheduling', description: 'List recent TimeZest scheduling requests, grouped by state' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'timezest/timezest',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'threatlocker',
+    name: 'Threatlocker',
+    vendor: 'Threatlocker',
+    description: 'ThreatLocker - zero-trust application allowlisting, approval triage, audit log investigation, computer inventory',
+    category: 'security',
+    maturity: 'production',
+    features: [
+      'Approval Requests',
+      'Audit Log',
+      'Computer Groups',
+      'Computer Management',
+      'Organization Management'
+    ],
+    skills: [
+      { name: 'approval-requests', description: 'Use this skill when triaging ThreatLocker application approval requests — the heart of day-to-day ThreatLocker operations.' },
+      { name: 'audit-log', description: 'Use this skill when investigating events in the ThreatLocker Action Log (the API name is "audit") — building incident timelines, tracing a file\'s history across endpoints, identifying repeated denials, and correlating policy bypasses or audit-only matches with user/computer context.' },
+      { name: 'computer-groups', description: 'Use this skill when working with ThreatLocker computer groups — the policy-scoping boundary that determines which allow/deny rules apply to which endpoints.' },
+      { name: 'computers', description: 'Use this skill when working with ThreatLocker-protected endpoints — fleet inventory, identifying offline agents, drilling into a single computer\'s check-in history, and correlating computers across organizations and groups.' },
+      { name: 'organizations', description: 'Use this skill when working with the ThreatLocker MSP multi-tenant model — enumerating child organizations, retrieving per-org auth keys, and identifying valid move targets when relocating computers between tenants.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the ThreatLocker MCP tools — raw-key authentication (NO Bearer prefix), multi-tenant routing via organizationId header, POST-heavy "GetByParameters" endpoints, pagination shape, and child-organization fan-out patterns.' }
+    ],
+    agents: [
+      { name: 'approval-triage-analyst', description: 'Use this agent when reviewing the ThreatLocker pending approval queue, classifying application requests as high-confidence vs needs-review, recommending approve/deny decisions with documented reasoning, and escalating suspicious patterns.' },
+      { name: 'fleet-health-auditor', description: 'Use this agent when producing ThreatLocker fleet inventory and hygiene reports — computer inventory by OS or group, offline-agent identification with check-in age tiering, computer-group hygiene analysis (orphans, oversized groups, OS-mismatched assignments), and multi-tenant pivots across child organizations.' },
+      { name: 'threat-investigator', description: 'Use this agent when investigating a ThreatLocker security event — reconstructing a timeline around a host/user/file, tracing a file\'s history across the fleet, identifying repeated denials, and surfacing policy bypasses or audit-only matches that warrant new policy rules.' }
+    ],
+    commands: [
+      { name: '/approval-triage', description: 'Triage pending ThreatLocker approval requests with approve/deny recommendations' },
+      { name: '/audit-investigation', description: 'Build a timeline of ThreatLocker audit events around a security incident' },
+      { name: '/computer-inventory', description: 'Generate a ThreatLocker computer inventory report' },
+      { name: '/offline-agents', description: 'Find ThreatLocker agents that have not checked in recently' },
+      { name: '/tenant-overview', description: 'Multi-tenant ThreatLocker overview across child organizations' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'threatlocker/threatlocker',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   }
 ];
 
