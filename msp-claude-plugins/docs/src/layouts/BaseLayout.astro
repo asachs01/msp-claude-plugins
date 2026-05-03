@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import SEOHead from '@/components/SEOHead.astro';
+import { plugins } from '@/data/plugins';
 
 interface Props {
   title: string;
@@ -11,9 +12,24 @@ interface Props {
   twitterCard?: string;
 }
 
+// Data-driven counts so meta stats track reality on every regenerate.
+const pluginCount = plugins.length;
+const skillCount = plugins.flatMap((p) => p.skills).length;
+const subagentCount = plugins.flatMap((p) => p.agents).length;
+const commandCount = plugins.flatMap((p) => p.commands).length;
+const defaultDescription =
+  `Connect ${pluginCount} MSP platforms to Claude via MCP — ${skillCount} skills, ` +
+  `${subagentCount} subagents, ${commandCount} commands across PSA, RMM, security, ` +
+  `documentation, and billing. Hosted gateway or self-host. Free & open source.`;
+
+// Keywords derived from registered plugin names + the canonical category set.
+const vendorKeywords = plugins.map((p) => p.name).join(', ');
+const keywords =
+  `MSP, Claude, AI, MCP, Model Context Protocol, PSA, RMM, plugins, managed service provider, ${vendorKeywords}`;
+
 const {
   title,
-  description = 'Connect Autotask, ConnectWise, Datto RMM, IT Glue, NinjaOne & 20+ MSP platforms to Claude via MCP. Hosted gateway or self-host. Free & open source.',
+  description = defaultDescription,
   canonicalURL,
   ogImage,
   ogType,
@@ -27,7 +43,7 @@ const baseUrl = import.meta.env.BASE_URL;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="keywords" content="MSP, Claude, AI, MCP, Model Context Protocol, Autotask, ConnectWise, Datto RMM, IT Glue, NinjaOne, HaloPSA, Syncro, Atera, SuperOps, PSA, RMM, plugins, managed service provider" />
+    <meta name="keywords" content={keywords} />
     <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

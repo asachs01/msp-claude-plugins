@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # Pagefind
 public/pagefind/
+
+# Cached fonts for OG image generator
+scripts/.cache/

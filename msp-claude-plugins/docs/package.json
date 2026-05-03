@@ -3,8 +3,8 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "generate": "tsx scripts/generate-plugins.ts",
-    "prebuild": "tsx scripts/generate-plugins.ts",
+    "generate": "tsx scripts/generate-plugins.ts && tsx scripts/generate-og-image.ts",
+    "prebuild": "tsx scripts/generate-plugins.ts && tsx scripts/generate-og-image.ts",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -22,6 +22,9 @@
     "tailwindcss": "^3.4.0"
   },
   "devDependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "satori": "^0.26.0",
+    "sharp": "^0.34.5",
     "tsx": "^4.0.0"
   }
 }
