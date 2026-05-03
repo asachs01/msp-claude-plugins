@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "crewhu": {
+      "type": "http",
+      "url": "https://mcp.wyretechnology.com/v1/crewhu/mcp",
+      "headers": {
+        "X-Crewhu-Api-Token": "${X_CREWHU_APITOKEN}"
+      }
+    }
+  }
+}
