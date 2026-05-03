@@ -15,6 +15,7 @@ const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyre.ai';
 
 const pluginCount = plugins.length;
 const skillCount = plugins.flatMap(p => p.skills).length;
+const subagentCount = plugins.flatMap(p => p.agents).length;
 const platformCount = pluginCount;
 const vendorNames = plugins.map(p => p.name).join(', ');
 
@@ -107,7 +108,8 @@ const features = [
       <p class="text-lg font-semibold max-w-2xl mx-auto mb-4">
         <span class="counter" data-target={pluginCount}>{pluginCount}</span> plugins &middot;
         <span class="counter" data-target={platformCount}>{platformCount}</span> MSP platforms &middot;
-        <span class="counter" data-target={skillCount} data-suffix="+">{skillCount}+</span> specialized skills
+        <span class="counter" data-target={skillCount} data-suffix="+">{skillCount}+</span> specialized skills &middot;
+        <span class="counter" data-target={subagentCount}>{subagentCount}</span> subagents
       </p>
 
       <!-- Typewriter prompt examples -->
