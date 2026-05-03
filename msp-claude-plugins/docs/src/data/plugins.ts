@@ -5,7 +5,7 @@ export interface Plugin {
   name: string;
   vendor: string;
   description: string;
-  category: 'accounting' | 'crm' | 'documentation' | 'email-security' | 'incident-management' | 'marketplace' | 'monitoring' | 'network' | 'productivity' | 'psa' | 'rmm' | 'sales' | 'security';
+  category: 'accounting' | 'bcdr' | 'crm' | 'documentation' | 'email-security' | 'incident-management' | 'marketplace' | 'monitoring' | 'network' | 'productivity' | 'psa' | 'rmm' | 'sales' | 'security';
   maturity: 'production' | 'beta' | 'alpha';
   features: string[];
   skills: Skill[];
@@ -66,7 +66,10 @@ export const plugins: Plugin[] = [
       { name: 'vendors', description: 'Use this skill when working with Abnormal Security VendorBase vendor risk assessment - vendor risk scores, compromised vendor detection, vendor domain analysis, and supply chain email threat monitoring.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Abnormal Security REST API - Bearer token authentication, base URLs, rate limiting, pagination, OData filtering, error handling, and common API patterns.' }
     ],
-    agents: [],
+    agents: [
+      { name: 'email-threat-analyst', description: 'Use this agent when investigating email threats detected by Abnormal Security, analyzing attack chains, assessing user exposure, or managing remediation across client tenants.' },
+      { name: 'threat-report-generator', description: 'Use this agent when generating periodic threat landscape reports from Abnormal Security data across the MSP client portfolio — not for live threat investigation, but for summarizing attack trends, most targeted organizations, most common attack types, BEC attempt volumes, and remediation effectiveness over time.' }
+    ],
     commands: [
       { name: '/account-audit', description: 'Audit for account takeover indicators and suspicious sign-ins in Abnormal Security' },
       { name: '/case-review', description: 'Review and triage abuse mailbox cases in Abnormal Security' },
@@ -304,7 +307,10 @@ export const plugins: Plugin[] = [
       { name: 'threats', description: 'Use this skill when working with Checkpoint Harmony Email threat detection and analysis - phishing, malware, BEC, account takeover, IOC extraction, threat timelines, and severity assessment.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Checkpoint Harmony Email API - OAuth2 client credentials authentication, base URLs, rate limiting, pagination, error handling, and common API patterns.' }
     ],
-    agents: [],
+    agents: [
+      { name: 'cloud-email-defender', description: 'Use this agent when investigating quarantined threats, managing email security events, auditing Avanan tenant configuration, or performing cross-tenant threat sweeps in Check Point Avanan (Harmony Email & Collaboration).' },
+      { name: 'tenant-policy-auditor', description: 'Use this agent when an MSP needs to audit email security policy completeness and correctness across Avanan (Check Point Harmony Email & Collaboration) managed tenants — verifying anti-phishing coverage, attachment sandboxing, impersonation protection, DLP rules, and exception hygiene.' }
+    ],
     commands: [
       { name: '/check-threat', description: 'Get detailed threat analysis including IOCs and timeline from Checkpoint Harmony Email' },
       { name: '/manage-policy', description: 'View or toggle email security policies in Checkpoint Harmony Email' },
@@ -690,7 +696,10 @@ export const plugins: Plugin[] = [
       { name: 'users', description: 'Use this skill when working with KnowBe4 users and groups - user lifecycle management, group creation and membership, risk scores, risk score history, user event tracking, and user status management.' },
       { name: 'api-patterns', description: 'Use this skill when working with the KnowBe4 REST API - Bearer token authentication, multi-region base URLs, pagination, rate limiting, error handling, and common request patterns.' }
     ],
-    agents: [],
+    agents: [
+      { name: 'security-awareness-analyst', description: 'Use this agent when analyzing phishing simulation results, identifying high-risk users, tracking training completion, recommending targeted security awareness programs, or responding to user-reported phishing through KnowBe4 PhishER for MSP clients.' },
+      { name: 'training-enforcer', description: 'Use this agent when tracking and enforcing security awareness training completion in KnowBe4 — identifying users who have missed deadlines, finding repeat phishing simulation clickers who represent high-risk users, drafting re-training campaigns, or generating compliance completion reports for clients.' }
+    ],
     commands: [
       { name: '/campaign-summary', description: 'Get summary of recent phishing and training campaigns from KnowBe4' },
       { name: '/group-report', description: 'Get security awareness metrics for a KnowBe4 group' },
@@ -975,7 +984,10 @@ export const plugins: Plugin[] = [
       { name: 'url-defense', description: 'Use this skill when working with Proofpoint URL Defense - URL rewriting, URL decoding, real-time URL analysis, click-time protection, and URL investigation.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Proofpoint API - authentication using HTTP Basic Auth with service principal and secret, base URLs, rate limits, pagination, error codes, and common integration patterns.' }
     ],
-    agents: [],
+    agents: [
+      { name: 'email-security-auditor', description: 'Use this agent when auditing email security posture across Proofpoint-protected organizations, investigating threats via TAP intelligence, tracing specific emails, analyzing Very Attacked Persons (VAPs), or generating per-org security reports for MSP clients.' },
+      { name: 'vap-reporter', description: 'Use this agent when analyzing Very Attacked Persons (VAPs) in Proofpoint — tracking executives and high-value targets who receive the most sophisticated or highest-volume attacks, surfacing patterns over time, and recommending enhanced protections for the highest-risk users across the MSP client portfolio.' }
+    ],
     commands: [
       { name: '/check-threats', description: 'View recent TAP threat events including blocked messages, delivered threats, and click activity' },
       { name: '/decode-url', description: 'Decode a Proofpoint URL Defense rewritten URL back to the original URL' },
@@ -1519,6 +1531,285 @@ export const plugins: Plugin[] = [
       docsUrl: ''
     },
     path: 'threatlocker/threatlocker',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'kaseya-vsa',
+    name: 'Kaseya Vsa',
+    vendor: 'Kaseya',
+    description: 'Kaseya VSA - endpoint monitoring, patch management, agent procedures, remote control (scaffolding)',
+    category: 'rmm',
+    maturity: 'alpha',
+    features: [],
+    skills: [
+      { name: 'api-patterns', description: 'Use this skill when working with the Kaseya VSA REST API.' }
+    ],
+    agents: [],
+    commands: [],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'kaseya/kaseya-vsa',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'datto-bcdr',
+    name: 'Datto Bcdr',
+    vendor: 'Kaseya',
+    description: 'Datto BCDR (SIRIS / Alto) - backup status, screenshot verification, recovery points (scaffolding)',
+    category: 'bcdr',
+    maturity: 'alpha',
+    features: [],
+    skills: [
+      { name: 'api-patterns', description: 'Use this skill when integrating with the Datto BCDR (Backup Portal) REST API.' }
+    ],
+    agents: [],
+    commands: [],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'kaseya/datto-bcdr',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'kaseya-bms',
+    name: 'Kaseya Bms',
+    vendor: 'Kaseya',
+    description: 'Kaseya BMS PSA - tickets, accounts, contracts, time entries, billing (scaffolding)',
+    category: 'psa',
+    maturity: 'alpha',
+    features: [],
+    skills: [
+      { name: 'api-patterns', description: 'Use this skill when integrating with the Kaseya BMS PSA REST API v2.' }
+    ],
+    agents: [],
+    commands: [],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'kaseya/kaseya-bms',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'datto-saas-protection',
+    name: 'Datto Saas Protection',
+    vendor: 'Kaseya',
+    description: 'Datto SaaS Protection (Backupify) - M365 / Google Workspace cloud-to-cloud backup (scaffolding)',
+    category: 'bcdr',
+    maturity: 'alpha',
+    features: [],
+    skills: [
+      { name: 'api-patterns', description: 'Use this skill when integrating with Datto SaaS Protection (formerly Backupify).' }
+    ],
+    agents: [],
+    commands: [],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'kaseya/datto-saas-protection',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'unitrends',
+    name: 'Unitrends',
+    vendor: 'Kaseya',
+    description: 'Unitrends - appliances, backup jobs, recovery points, replication, alerts (scaffolding)',
+    category: 'bcdr',
+    maturity: 'alpha',
+    features: [],
+    skills: [
+      { name: 'api-patterns', description: 'Use this skill when integrating with the Unitrends Backup REST API.' }
+    ],
+    agents: [],
+    commands: [],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'kaseya/unitrends',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'spanning',
+    name: 'Spanning',
+    vendor: 'Kaseya',
+    description: 'Spanning Cloud Backup - SaaS backup for M365 / Google Workspace / Salesforce (scaffolding)',
+    category: 'bcdr',
+    maturity: 'alpha',
+    features: [],
+    skills: [
+      { name: 'api-patterns', description: 'Use this skill when integrating with Spanning Cloud Backup.' }
+    ],
+    agents: [],
+    commands: [],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'kaseya/spanning',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'hubspot',
+    name: 'HubSpot CRM',
+    vendor: 'HubSpot',
+    description: 'HubSpot CRM - contacts, companies, deals, tickets, activities, and pipeline reporting (uses HubSpot\'s first-party MCP server)',
+    category: 'crm',
+    maturity: 'production',
+    features: [
+      'Activity Logging',
+      'Company Management',
+      'Contact Management',
+      'Deal & Pipeline Tracking',
+      'Ticket Management'
+    ],
+    skills: [
+      { name: 'activities', description: 'Use this skill when working with HubSpot activities - creating tasks, logging notes, managing associations between CRM objects, and tracking engagement history.' },
+      { name: 'companies', description: 'Use this skill when working with HubSpot companies - searching, creating, updating, and auditing company records in HubSpot CRM.' },
+      { name: 'contacts', description: 'Use this skill when working with HubSpot contacts - searching, creating, updating, and managing contact records in HubSpot CRM.' },
+      { name: 'deals', description: 'Use this skill when working with HubSpot deals - searching, creating, updating, and managing deal records and pipelines in HubSpot CRM.' },
+      { name: 'tickets', description: 'Use this skill when working with HubSpot tickets - creating, searching, updating, and managing support tickets in HubSpot CRM.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the HubSpot MCP tools - available tools, OAuth 2.0 + PKCE authentication, scopes, Streamable HTTP transport, rate limiting, error handling, and best practices.' }
+    ],
+    agents: [
+      { name: 'client-relationship-manager', description: 'Use this agent when an MSP account manager or vCIO needs to review account health across the client portfolio in HubSpot.' },
+      { name: 'pipeline-health-reporter', description: 'Use this agent when an MSP sales manager or leadership needs to analyze pipeline health, deal velocity, stage conversion rates, or forecast accuracy in HubSpot.' }
+    ],
+    commands: [
+      { name: '/create-deal', description: 'Create a new deal in HubSpot with company association' },
+      { name: '/log-activity', description: 'Log a note or create a task on a HubSpot contact, company, or deal' },
+      { name: '/lookup-company', description: 'Find a HubSpot company by name or domain and show associated contacts and deals' },
+      { name: '/pipeline-summary', description: 'Summarize the HubSpot deal pipeline - deals per stage, total value, and expected close dates' },
+      { name: '/search-contacts', description: 'Search HubSpot contacts by name, email, or company' },
+      { name: '/search-deals', description: 'Search HubSpot deals by name, stage, or company' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'hubspot/hubspot',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'spamtitan',
+    name: 'Spamtitan',
+    vendor: 'SpamTitan',
+    description: 'SpamTitan by TitanHQ - quarantine queue management, email flow stats, sender allowlist/blocklist for MSPs',
+    category: 'email-security',
+    maturity: 'beta',
+    features: [
+      'Lists',
+      'Quarantine'
+    ],
+    skills: [
+      { name: 'lists', description: 'Use this skill when managing SpamTitan sender allowlists and blocklists — adding trusted senders to prevent false positives, blocking unwanted senders and domains, and reviewing existing list entries.' },
+      { name: 'quarantine', description: 'Use this skill when managing the SpamTitan quarantine queue — listing held messages, releasing legitimate emails, deleting spam, reviewing email flow statistics, and performing bulk quarantine operations.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the SpamTitan MCP tools — available tools, authentication via API key header, API structure, pagination, rate limiting, error handling, and best practices.' }
+    ],
+    agents: [
+      { name: 'quarantine-release-reviewer', description: 'Use this agent when an MSP technician or client needs to systematically review the SpamTitan quarantine queue for false positives, release legitimate messages, identify patterns of legitimate mail being blocked, or generate a quarantine digest for client review.' },
+      { name: 'spam-filter-analyst', description: 'Use this agent when analyzing spam and phishing patterns in SpamTitan, managing the quarantine queue, tuning allowlist and blocklist rules, investigating held email, or generating email filtering statistics for MSP clients.' }
+    ],
+    commands: [
+      { name: '/manage-lists', description: 'Add or remove entries from SpamTitan sender allowlists and blocklists' },
+      { name: '/review-quarantine', description: 'Review the SpamTitan quarantine queue, show email statistics summary, and list recent held messages with release and delete actions' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'spamtitan/spamtitan',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'xero',
+    name: 'Xero',
+    vendor: 'Xero',
+    description: 'Xero accounting - contacts, invoices, payments, accounts, and financial reports',
+    category: 'accounting',
+    maturity: 'production',
+    features: [
+      'Account Hierarchy',
+      'Contact Management',
+      'Invoice Management',
+      'Payment Tracking',
+      'Financial Reporting'
+    ],
+    skills: [
+      { name: 'accounts', description: 'Use this skill when working with Xero chart of accounts - navigating account codes, creating accounts, understanding account types and classes, tax settings, and mapping MSP revenue and expense categories to the general ledger.' },
+      { name: 'contacts', description: 'Use this skill when working with Xero contacts (customers/suppliers) - creating, searching, updating, and managing client organizations.' },
+      { name: 'invoices', description: 'Use this skill when working with Xero invoices - creating, searching, updating, voiding, and managing sales invoices (ACCREC) and supplier bills (ACCPAY).' },
+      { name: 'payments', description: 'Use this skill when working with Xero payments - recording payments, tracking outstanding balances, payment allocation, overpayments, prepayments, and batch payment operations.' },
+      { name: 'reports', description: 'Use this skill when working with Xero financial reports - Profit and Loss, Balance Sheet, Aged Receivables, Aged Payables, Trial Balance, and other management reports.' },
+      { name: 'api-patterns', description: 'Use this skill when working with the Xero API - OAuth2 authentication, REST structure, filtering, pagination, rate limiting, error handling, and best practices.' }
+    ],
+    agents: [
+      { name: 'billing-reconciler', description: 'Use this agent when an MSP needs to reconcile billing in Xero — matching invoices to contracts, tracking outstanding receivables, identifying billing discrepancies, or reviewing cash flow.' },
+      { name: 'cash-flow-analyzer', description: 'Use this agent when an MSP needs to analyze cash flow position in Xero — tracking accounts receivable aging trends, forecasting upcoming payables vs. expected inflows, identifying months where collections may fall short of committed expenses, or producing a 90-day cash flow projection.' }
+    ],
+    commands: [
+      { name: '/create-invoice', description: 'Create a sales invoice for a managed services client in Xero' },
+      { name: '/payment-status', description: 'Check payment status and outstanding balances for a client in Xero' },
+      { name: '/reconciliation-summary', description: 'Verify all MSP clients have been billed for the current period and summarize reconciliation status' },
+      { name: '/search-contacts', description: 'Find a contact in Xero by name, email, or account number' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'xero/xero',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'wyre-gateway',
+    name: 'Wyre Gateway',
+    vendor: 'Wyre-gateway',
+    description: 'WYRE MSP Gateway client - cross-vendor orchestration agents (client-360, QBR prep, renewal-risk analysis, security-posture scoring, technician-performance coaching, incident war-room coordination, compliance evidence packaging, onboarding QA, gateway ops). Connects to mcp.wyre.ai.',
+    category: 'productivity',
+    maturity: 'alpha',
+    features: [],
+    skills: [],
+    agents: [
+      { name: 'client-360-briefer', description: 'Use this agent when an MSP technician, account manager, or vCIO needs a complete, synthesized briefing on a client before a call, meeting, or QBR.' },
+      { name: 'compliance-evidence-packager', description: 'Use this agent when a client needs compliance evidence gathered for a formal audit or assessment against a recognized framework.' },
+      { name: 'gateway-ops', description: 'Use this agent when an MSP administrator needs to review gateway activity, audit tool usage across the team, investigate suspicious access patterns, check permission configurations, or monitor for anomalies in how MSP tools are being accessed through the Wyre Gateway.' },
+      { name: 'incident-war-room-coordinator', description: 'Use this agent when a major incident (P1 or Critical severity) has been declared or is suspected, and the team needs immediate situational awareness across all affected systems and stakeholders.' },
+      { name: 'onboarding-completeness-checker', description: 'Use this agent when an MSP needs to validate that a newly onboarded client has been fully set up across all MSP tools and systems before transitioning to steady-state support.' },
+      { name: 'qbr-prep-agent', description: 'Use this agent when an MSP account manager or vCIO needs to prepare a complete Quarterly Business Review data package for a client.' },
+      { name: 'renewal-risk-analyzer', description: 'Use this agent when an MSP account manager, sales leader, or operations manager wants to identify clients at risk of not renewing before the renewal conversation happens.' },
+      { name: 'security-posture-scorer', description: 'Use this agent when an MSP needs a comprehensive, scored security health assessment for a specific client — acting as a vCISO-style health check by aggregating data across all connected security tools.' },
+      { name: 'technician-performance-coach', description: 'Use this agent when a service delivery manager or operations lead wants to understand technician performance trends and get actionable coaching recommendations grounded in data.' }
+    ],
+    commands: [],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'wyre-gateway',
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   }
 ];
