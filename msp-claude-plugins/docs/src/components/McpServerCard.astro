@@ -59,7 +59,7 @@ const totalTools = server.domains.reduce((sum, d) => sum + d.tools.length, 0);
     <span>{server.domains.length} domains · {totalTools} tools</span>
     <span class="inline-flex items-center gap-2">
       {server.mcpbAvailable && (
-        <a href={`${server.repoUrl}/releases`} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline" onclick="event.stopPropagation()">
+        <a href={`${server.repoUrl}/releases`} target="_blank" rel="noopener noreferrer" class="text-accent underline" onclick="event.stopPropagation()">
           MCPB
         </a>
       )}

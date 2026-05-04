@@ -49,7 +49,9 @@
   }
 
   .btn-primary {
-    @apply bg-accent text-white hover:bg-accent-hover;
+    /* Dark text on the cyan accent (#00C9DB) yields ~8:1 contrast and passes WCAG AA;
+       white text was 2.02:1 and failed. */
+    @apply bg-accent text-neutral-900 hover:bg-accent-hover;
   }
 
   .btn-secondary {
@@ -137,7 +139,7 @@
   }
 
   .prose a {
-    @apply text-accent hover:underline;
+    @apply text-accent underline;
   }
 
   .prose blockquote {
