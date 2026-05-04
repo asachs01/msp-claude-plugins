@@ -1783,6 +1783,73 @@ export const plugins: Plugin[] = [
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   },
   {
+    id: 'ironscales',
+    name: 'Ironscales',
+    vendor: 'Ironscales',
+    description: 'Claude plugins for IRONSCALES - AI-powered anti-phishing, incident triage, email classification, and crowdsourced threat intelligence',
+    category: 'email-security',
+    maturity: 'beta',
+    features: [
+      'Incident Management'
+    ],
+    skills: [
+      { name: 'incidents', description: 'Use this skill when working with Ironscales phishing incidents — listing and triaging incidents, classifying emails as phishing/spam/legitimate, taking remediation actions, managing sender allowlists, and viewing company statistics.' },
+      { name: 'api-patterns', description: 'Use this skill when working with Ironscales MCP tools — available tools, API key and company ID authentication, pagination, rate limiting, and error handling.' }
+    ],
+    agents: [
+      { name: 'crowdsourced-intel-harvester', description: 'Use this agent when harvesting and analyzing crowdsourced threat intelligence from IRONSCALES\' global network — identifying trending attack types, surfacing indicators seeing increased reports, comparing client threat profiles to industry peers, and generating intelligence briefings from the collective signal.' },
+      { name: 'phishing-responder', description: 'Use this agent when responding to user-reported phishing emails in IRONSCALES, triaging the incident queue, classifying emails, coordinating quarantine and remediation, or reviewing security statistics for MSP clients.' }
+    ],
+    commands: [
+      { name: '/classify-email', description: 'Classify a specific Ironscales incident email as phishing, spam, or legitimate' },
+      { name: '/triage-incidents', description: 'Triage open Ironscales phishing incidents — list by status, classify, and remediate' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'ironscales/ironscales',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'mimecast',
+    name: 'Mimecast',
+    vendor: 'Mimecast',
+    description: 'Claude plugins for Mimecast Email Security - message tracking, threat intelligence, queue management, and email security operations',
+    category: 'email-security',
+    maturity: 'beta',
+    features: [
+      'Message Tracking',
+      'Queue Management',
+      'Threat Intelligence'
+    ],
+    skills: [
+      { name: 'message-tracking', description: 'Use this skill when tracking or tracing Mimecast email messages — searching by sender/recipient/subject, retrieving message metadata, placing messages on hold, or releasing held messages.' },
+      { name: 'queue-management', description: 'Use this skill when checking Mimecast email delivery queue status — identifying stuck messages, delivery delays, and backlog conditions.' },
+      { name: 'threat-intelligence', description: 'Use this skill when investigating Mimecast threat activity — TTP logs for URL clicks, malicious attachment analysis, impersonation attempts, threat remediation incidents, and audit events.' },
+      { name: 'api-patterns', description: 'Use this skill when working with Mimecast MCP tools — available tools, OAuth 2.0 client credentials authentication, regional API endpoints, pagination, rate limiting, and error handling.' }
+    ],
+    agents: [
+      { name: 'email-continuity-checker', description: 'Use this agent when verifying Mimecast email continuity and archiving health — not for threat investigation, but for checking continuity mode status, verifying archiving is capturing expected mail volumes, auditing connector health, and confirming restore capability.' },
+      { name: 'email-threat-investigator', description: 'Use this agent when investigating email-borne threats, tracing suspicious messages, analyzing TTP click and attachment logs, auditing Mimecast security posture, or managing held email queues for MSP clients on the Mimecast platform.' }
+    ],
+    commands: [
+      { name: '/check-queue', description: 'Check Mimecast email delivery queue status and identify stuck or deferred messages' },
+      { name: '/review-threats', description: 'Review Mimecast TTP threat logs for URL clicks, malicious attachments, and impersonation attempts' },
+      { name: '/trace-message', description: 'Trace an email through Mimecast by sender, recipient, subject, or date range' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'mimecast/mimecast',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
     id: 'wyre-gateway',
     name: 'Wyre Gateway',
     vendor: 'Wyre-gateway',
