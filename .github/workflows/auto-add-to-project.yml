@@ -15,7 +15,7 @@ jobs:
       projects: write
     steps:
       - name: Add to project
-        uses: actions/add-to-project@v1
+        uses: actions/add-to-project@244f685bbc3b7adfa8466e08b698b5577571133e  # v1.0.2
         with:
           project-url: https://github.com/orgs/wyre-technology/projects/1
           github-token: ${{ secrets.GATEWAY_DISPATCH_TOKEN }}
