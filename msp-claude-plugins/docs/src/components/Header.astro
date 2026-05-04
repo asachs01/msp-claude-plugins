@@ -106,6 +106,7 @@ function isExactActive(href?: string): boolean {
 
         <button
           id="search-button"
+          aria-label="Search documentation"
           class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--border)] text-[var(--muted)] hover:text-[var(--text)] hover:border-[var(--text)] transition-colors"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +117,7 @@ function isExactActive(href?: string): boolean {
           <kbd class="hidden sm:inline text-xs bg-[var(--border)] px-1.5 py-0.5 rounded">Ctrl K</kbd>
         </button>
 
-        <button data-theme-toggle class="p-2 rounded-lg hover:bg-[var(--border)] transition-colors">
+        <button data-theme-toggle aria-label="Toggle dark mode" class="p-2 rounded-lg hover:bg-[var(--border)] transition-colors">
           <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="5"/>
             <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -130,6 +131,7 @@ function isExactActive(href?: string): boolean {
           href="https://github.com/wyre-technology/msp-claude-plugins"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="View on GitHub"
           class="p-2 rounded-lg hover:bg-[var(--border)] transition-colors"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
