@@ -1,4 +1,4 @@
-name: Auto-add to Project Board
+name: Auto-add to project
 
 on:
   issues:
@@ -7,15 +7,6 @@ on:
     types: [opened]
 
 jobs:
-  add-to-project:
-    runs-on: ubuntu-latest
-    permissions:
-      issues: read
-      pull-requests: read
-      projects: write
-    steps:
-      - name: Add to project
-        uses: actions/add-to-project@v1
-        with:
-          project-url: https://github.com/orgs/wyre-technology/projects/1
-          github-token: ${{ secrets.GATEWAY_DISPATCH_TOKEN }}
+  call:
+    uses: wyre-technology/.github/.github/workflows/auto-add-to-project.yml@main
+    secrets: inherit
