@@ -83,7 +83,7 @@ const totalTools = server.domains.reduce((sum, d) => sum + d.tools.length, 0);
       <p class="text-sm font-medium mb-1">🔗 Companion Plugin</p>
       <p class="text-sm text-[var(--muted)]">
         Pair this MCP server with the{' '}
-        <a href={`${baseUrl}plugins/${companionPlugin.id}/`} class="text-accent hover:underline font-medium">
+        <a href={`${baseUrl}plugins/${companionPlugin.id}/`} class="text-accent underline font-medium">
           {companionPlugin.name} plugin
         </a>{' '}
         for skills, commands, and API knowledge alongside direct API access.

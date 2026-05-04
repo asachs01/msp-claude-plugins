@@ -95,6 +95,7 @@ const features = [
   <OrganizationSchema />
   <Header />
 
+  <main id="main">
   <!-- Hero Section -->
   <section class="py-20 lg:py-32 bg-gradient-to-b from-cyan-50 to-transparent dark:from-cyan-950/20">
     <div class="container text-center">
@@ -125,7 +126,7 @@ const features = [
             <svg class="w-5 h-5 text-green-600 dark:text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             <span class="text-xs font-semibold uppercase tracking-wider text-green-600 dark:text-green-500">Recommended</span>
           </div>
-          <h3 class="text-xl font-bold mb-2">Use the Hosted Gateway</h3>
+          <h2 class="text-xl font-bold mb-2">Use the Hosted Gateway</h2>
           <p class="text-[var(--muted)] text-sm mb-4">
             Connect your MSP tools to Claude Desktop in minutes. No servers to manage — just add your API credentials and go.
           </p>
@@ -138,7 +139,7 @@ const features = [
             <svg class="w-5 h-5 text-[var(--muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             <span class="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">Self-Host</span>
           </div>
-          <h3 class="text-xl font-bold mb-2">Run Your Own MCP Servers</h3>
+          <h2 class="text-xl font-bold mb-2">Run Your Own MCP Servers</h2>
           <p class="text-[var(--muted)] text-sm mb-4">
             Full control with local MCP servers. Install the plugin collection and configure each integration yourself.
           </p>
@@ -230,7 +231,7 @@ const features = [
           </ul>
           <div class="flex flex-wrap gap-3">
             <a href={`${gatewayUrl}/auth/choose`} class="btn btn-primary text-sm">Get Started</a>
-            <a href={`${baseUrl}getting-started/gateway/`} class="btn btn-secondary text-sm">Learn More</a>
+            <a href={`${baseUrl}getting-started/gateway/`} class="btn btn-secondary text-sm">Learn more about the gateway</a>
           </div>
         </div>
 
@@ -334,7 +335,7 @@ const features = [
       </div>
 
       <p class="text-center text-sm text-[var(--muted)] mt-8">
-        Need a custom plan? <a href="mailto:sales@wyre.ai" class="text-accent hover:underline">Get in touch.</a>
+        Need a custom plan? <a href="mailto:sales@wyre.ai" class="text-accent underline">Get in touch.</a>
       </p>
     </div>
   </section>
@@ -379,13 +380,14 @@ const features = [
         </div>
 
         <p class="text-sm text-[var(--muted)]">
-          Or <a href={`${baseUrl}getting-started/installation/`} class="text-accent hover:underline">
+          Or <a href={`${baseUrl}getting-started/installation/`} class="text-accent underline">
             install individual plugins
           </a> if you only need one.
         </p>
       </div>
     </div>
   </section>
+  </main>
 
   <Footer />
 </BaseLayout>
