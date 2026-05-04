@@ -16,7 +16,7 @@ const gatewayUrl = import.meta.env.GATEWAY_URL || 'https://mcp.wyre.ai';
 const pluginCount = plugins.length;
 const skillCount = plugins.flatMap(p => p.skills).length;
 const subagentCount = plugins.flatMap(p => p.agents).length;
-const platformCount = pluginCount;
+const commandCount = plugins.flatMap(p => p.commands).length;
 const vendorNames = plugins.map(p => p.name).join(', ');
 
 // Short, punchy prompt examples for the typewriter — demonstrating real value
@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     question: "What PSA and RMM tools are supported?",
-    answer: `Currently supported platforms include ${vendorNames}. All ${pluginCount} have MCP server integrations.`
+    answer: `Currently supported platforms include ${vendorNames}. Each plugin ships skills, commands, and a self-hostable MCP server. Most are also available as hosted integrations on the WYRE Gateway — see each plugin's page for status.`
   },
   {
     question: "Are MSP Claude Plugins free?",
@@ -107,9 +107,9 @@ const features = [
       <!-- Animated stat counters -->
       <p class="text-lg font-semibold max-w-2xl mx-auto mb-4">
         <span class="counter" data-target={pluginCount}>{pluginCount}</span> plugins &middot;
-        <span class="counter" data-target={platformCount}>{platformCount}</span> MSP platforms &middot;
-        <span class="counter" data-target={skillCount} data-suffix="+">{skillCount}+</span> specialized skills &middot;
-        <span class="counter" data-target={subagentCount}>{subagentCount}</span> subagents
+        <span class="counter" data-target={skillCount}>{skillCount}</span> specialized skills &middot;
+        <span class="counter" data-target={subagentCount}>{subagentCount}</span> subagents &middot;
+        <span class="counter" data-target={commandCount}>{commandCount}</span> commands
       </p>
 
       <!-- Typewriter prompt examples -->
