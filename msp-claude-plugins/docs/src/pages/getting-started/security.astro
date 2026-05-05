@@ -52,7 +52,7 @@ import DocsLayout from '@/layouts/DocsLayout.astro';
   <p>The gateway operates as a <strong>pass-through proxy</strong>. Vendor API responses are streamed directly to the requesting AI session. The gateway does not persist, index, cache, or log the content of vendor responses.</p>
 
   <pre style="background: var(--sl-color-bg-inline-code, #1e1e2e); color: var(--sl-color-text, #cdd6f4); padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.6;">
-Your AI ──▶ WYRE Gateway ──▶ Vendor API (Autotask, Datto, etc.)
+Your AI ──▶ WYRE MCP Gateway ──▶ Vendor API (Autotask, Datto, etc.)
                │                    │
                │  Credentials       │  Credentials injected
                │  encrypted at      │  per-request from
