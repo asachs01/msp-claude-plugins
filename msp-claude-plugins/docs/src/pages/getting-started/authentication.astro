@@ -6,11 +6,11 @@ const baseUrl = import.meta.env.BASE_URL;
 
 <DocsLayout
   title="Authentication"
-  description="Sign in to MCP Gateway with Microsoft Entra ID or Auth0"
+  description="Sign in to WYRE MCP Gateway with Microsoft Entra ID or Auth0"
 >
   <h1>Authentication</h1>
   <p class="text-lg text-[var(--muted)] mb-8">
-    MCP Gateway supports Microsoft Entra ID (Azure AD) and Auth0 for user authentication.
+    WYRE MCP Gateway supports Microsoft Entra ID (Azure AD) and Auth0 for user authentication.
     Most MSPs use Microsoft — here's how to get set up.
   </p>
 
@@ -41,14 +41,14 @@ const baseUrl = import.meta.env.BASE_URL;
   <h3 id="admin-consent">For Azure AD Admins (Tenant Onboarding)</h3>
   <p>
     Before users from your organization can sign in, an Azure AD administrator needs to grant
-    a one-time <strong>admin consent</strong>. This authorizes the MCP Gateway app registration
+    a one-time <strong>admin consent</strong>. This authorizes the WYRE MCP Gateway app registration
     in your tenant so your users can authenticate.
   </p>
 
   <div class="bg-[var(--card)] border border-[var(--border)] rounded-lg p-6 my-6">
     <h4 class="mt-0 mb-3 text-base font-semibold">What admin consent does</h4>
     <ul class="mb-0">
-      <li>Allows users in your tenant to sign in to MCP Gateway with their Microsoft accounts</li>
+      <li>Allows users in your tenant to sign in to WYRE MCP Gateway with their Microsoft accounts</li>
       <li>Grants <code>openid</code>, <code>profile</code>, and <code>email</code> scopes only — we read your name and email, nothing else</li>
       <li>Does <strong>not</strong> grant access to your Microsoft 365 data, mailboxes, or files</li>
       <li>Can be revoked at any time from your Entra ID portal under <strong>Enterprise Applications</strong></li>
@@ -70,7 +70,7 @@ const baseUrl = import.meta.env.BASE_URL;
       and click <strong>Accept</strong>.
     </li>
     <li>
-      You'll be redirected back to MCP Gateway with a confirmation. Your tenant is now onboarded.
+      You'll be redirected back to WYRE MCP Gateway with a confirmation. Your tenant is now onboarded.
     </li>
     <li>
       Share the gateway URL with your team — they can now sign in with their Microsoft accounts.
@@ -87,12 +87,12 @@ const baseUrl = import.meta.env.BASE_URL;
 
   <h3>Revoking Access</h3>
   <p>
-    To revoke MCP Gateway's access to your tenant:
+    To revoke WYRE MCP Gateway's access to your tenant:
   </p>
   <ol>
     <li>Sign in to the <a href="https://entra.microsoft.com" target="_blank" rel="noopener">Microsoft Entra admin center</a></li>
     <li>Navigate to <strong>Enterprise Applications</strong></li>
-    <li>Find "MCP Gateway" in the list</li>
+    <li>Find "WYRE MCP Gateway" in the list</li>
     <li>Click <strong>Properties</strong> → <strong>Delete</strong></li>
   </ol>
 
