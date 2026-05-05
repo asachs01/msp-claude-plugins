@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Gateway URL drift: flipped `blackpoint`, `crewhu`, `immybot`, `timezest`, `threatlocker` plugin READMEs and `.mcp.json` files from `mcp.wyretechnology.com` to canonical `mcp.wyre.ai` (closes #73)
+
 ### Added
 
 - Checkpoint Avanan plugin (email-security): 5 skills + 5 commands for quarantine, threats, policies, incidents, API patterns
