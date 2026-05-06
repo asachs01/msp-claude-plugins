@@ -16,7 +16,7 @@ Claude Code plugin for [Crewhu](https://crewhu.com) - CSAT/NPS surveys, recognit
 /plugin install crewhu
 ```
 
-The plugin connects through the [WYRE MCP Gateway](https://mcp.wyretechnology.com) at `https://mcp.wyretechnology.com/v1/crewhu/mcp`.
+The plugin connects through the [WYRE MCP Gateway](https://mcp.wyre.ai) at `https://mcp.wyre.ai/v1/crewhu/mcp`.
 
 ## Configuration
 
