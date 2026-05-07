@@ -12,15 +12,18 @@ A collection of Claude Code plugins for MSP vendors — skills, commands, and MC
 msp-claude-plugins/
 ├── <vendor>/
 │   └── <product>/
-│       ├── plugin.json          # Plugin manifest
+│       ├── .claude-plugin/
+│       │   └── plugin.json      # Plugin manifest
 │       ├── skills/
 │       │   └── <skill-name>/
 │       │       ├── SKILL.md     # The skill itself (loaded by Claude Code)
 │       │       └── REFERENCE.md # Optional: full param/field reference
+│       ├── agents/
+│       │   └── <agent-name>.md  # Persona-driven workflow agents
 │       └── commands/
 │           └── <command>.md     # Slash command definitions
 ├── _standards/                  # Quality standards — read before writing skills
-├── _templates/                  # Templates for skills, commands, plugins
+├── _templates/                  # Templates for skills, agents, commands, plugins
 ├── shared/                      # Vendor-agnostic skills
 └── CONTRIBUTING.md              # Contribution guidelines
 ```
@@ -63,6 +66,38 @@ Point to REFERENCE.md if the tables are long.
 - Keep SKILL.md under ~150 lines; move verbose tables to REFERENCE.md
 - Include concrete JSON examples, not just param lists
 - Include error recovery steps in the workflow
+
+## Writing Agents
+
+Agents are persona-driven workflows that span multiple skills — incident triage, security posture review, user offboarding. Where a skill teaches Claude how a tool works, an agent teaches Claude how an MSP role uses a set of tools to get something done.
+
+**Agent file structure:**
+
+```markdown
+---
+name: agent-name
+description: Use this agent when [MSP role] needs to [outcome]. Trigger for [scenarios]. Examples - "[prompt 1]", "[prompt 2]"
+tools: ["Bash", "Read", "Write", "Glob", "Grep"]
+model: inherit
+---
+
+You are an expert [role] for MSP environments using [vendor]. [Persona prose, 2-4 paragraphs.]
+
+## Capabilities
+- [Outcomes the agent produces]
+
+## Approach
+[5-10 lines of operational prose: defaults, thresholds, escalation triggers, edge cases.]
+```
+
+**The Approach section ships with a baseline.** Every agent in this repo includes substantive Approach prose authored from common MSP norms. It's defensible out of the box but **it is not the consuming MSP's practice**. When adopting a plugin into a working environment, treat the Approach as a starting point and edit it to match how the team actually operates: forwarding windows, mailbox conversion defaults, authorization tiers, two-person rules, escalation triggers, traversal order on portfolio sweeps. The [CIPP plugin agents](msp-claude-plugins/cipp/cipp/agents/) are the reference example.
+
+**Key rules:**
+- One persona per agent file
+- Reference real MCP tool names in the body so Claude knows what to call
+- Include 3–4 concrete example prompts in the description
+- Document at least one explicit "stop and ask the human" scenario in Approach
+- See [CONTRIBUTING.md](CONTRIBUTING.md#agent-development-guide) for the full guide and quality checklist
 
 ## What Not to Do
 

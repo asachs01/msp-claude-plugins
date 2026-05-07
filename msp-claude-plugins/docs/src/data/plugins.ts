@@ -328,6 +328,54 @@ export const plugins: Plugin[] = [
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   },
   {
+    id: 'cipp',
+    name: 'CIPP',
+    vendor: 'CIPP',
+    description: 'CIPP (CyberDrain Improved Partner Portal) - Microsoft 365 multi-tenant management for MSPs: tenants, users, mailboxes, conditional access, standards, BPA, licensing, GDAP, and alerts',
+    category: 'security',
+    maturity: 'production',
+    features: [
+      'Alert Handling',
+      'Groups',
+      'Licenses',
+      'Mailbox & Email',
+      'Ops',
+      'Security Posture',
+      'Standards',
+      'Tenants',
+      'User Management'
+    ],
+    skills: [
+      { name: 'alerts', description: 'Use this skill when working with CIPP alerts and audit logs — reviewing the queued alert backlog across tenants, investigating sign-in or admin activity in audit logs, correlating alerts with tenants.' },
+      { name: 'groups', description: 'Use this skill when listing or creating M365 groups in CIPP — security groups, distribution lists, M365 groups, mail-enabled security groups.' },
+      { name: 'licenses', description: 'Use this skill when working with M365 license assignments and CSP license inventory through CIPP — listing license usage per tenant, identifying unused licenses, surfacing license SKUs available for assignment, and reviewing CSP-level license commitments.' },
+      { name: 'mailboxes', description: 'Use this skill when working with Exchange Online mailboxes through CIPP — listing mailboxes, auditing mailbox permissions, configuring out-of-office auto-replies, and setting email forwarding.' },
+      { name: 'ops', description: 'Use this skill when working with CIPP operational tooling — GDAP role and invite management, scheduled tasks, server health checks, version reporting, and CIPP application logs.' },
+      { name: 'security', description: 'Use this skill when reviewing M365 conditional access policies and named locations through CIPP — auditing CA coverage, finding policies that exclude critical apps, listing trusted IP ranges, identifying tenants without baseline conditional access.' },
+      { name: 'standards', description: 'Use this skill when working with CIPP Standards, Best Practice Analyser (BPA), and domain health checks — listing configured standards per tenant, triggering on-demand compliance checks, retrieving BPA results, checking SPF/DKIM/DMARC.' },
+      { name: 'tenants', description: 'Use this skill when working with CIPP tenants — listing managed M365 tenants, checking tenant details, identifying tenant ID/domain, and scoping operations to a specific tenant.' },
+      { name: 'users', description: 'Use this skill when working with CIPP-managed M365 users — creating accounts, editing properties, disabling, resetting passwords, resetting MFA, revoking sessions, full offboarding, BEC investigation, MFA status reporting, and listing user devices/groups.' }
+    ],
+    agents: [
+      { name: 'security-posture-reviewer', description: 'Use this agent when an MSP security lead, vCISO, or service manager needs to sweep the M365 portfolio for security posture issues — Secure Score regressions, MFA enrollment gaps, conditional access drift, BPA failures, and broken domain authentication.' },
+      { name: 'user-offboarding-runner', description: 'Use this agent when an MSP technician, dispatcher, or HR-facing operator needs to run a complete M365 user offboarding through CIPP.' }
+    ],
+    commands: [
+      { name: '/offboard-user', description: 'Run the complete CIPP M365 offboarding workflow for a departing user — capture audit state, revoke access, handle mailbox, reclaim licenses' },
+      { name: '/secure-score-report', description: 'Generate a portfolio-wide M365 security posture report — Secure Score equivalents, MFA enrollment, conditional access coverage, and domain authentication across all managed tenants' },
+      { name: '/standards-drift', description: 'Find tenants that have drifted from the MSP\'s configured CIPP standards baseline — missing standards, standards in Report-only mode, recent compliance failures' },
+      { name: '/tenant-health', description: 'Quick health snapshot for a single tenant — BPA failures, conditional access enforcement, MFA gaps, domain authentication, standards compliance' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'cipp/cipp',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
     id: 'connectwise-automate',
     name: 'ConnectWise Automate',
     vendor: 'ConnectWise',
