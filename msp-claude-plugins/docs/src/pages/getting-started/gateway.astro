@@ -258,6 +258,16 @@ const claudeDesktopPerVendor = `// claude_desktop_config.json — per-vendor (le
     <li><strong>No credential exposure</strong> — vendor API keys never leave the gateway; injected as HTTP headers on the internal network</li>
   </ul>
 
+  <h2>If something goes wrong</h2>
+  <p>
+    Common issues — missing tools after adding a vendor, "Failed to update tool access" when saving
+    allowlists, OAuth failures — are documented in the
+    <a href={`${baseUrl}getting-started/troubleshooting/`}>Troubleshooting guide</a>. If you'd rather
+    have Claude diagnose the issue, install the
+    <a href={`${baseUrl}getting-started/troubleshooting/#triage-with-claude`}><code>wyre-gateway-troubleshooting</code> skill</a>
+    from the shared-skills plugin.
+  </p>
+
   <h2>Local Alternative</h2>
   <p>
     If you prefer to keep credentials on your own machine, you can run individual MCP servers
