@@ -13,6 +13,7 @@ const DOCS_DIR = path.resolve(import.meta.dirname, '..');
 const REPO_ROOT = path.resolve(DOCS_DIR, '..', '..');
 const MARKETPLACE_PATH = path.join(REPO_ROOT, '.claude-plugin', 'marketplace.json');
 const OUTPUT_PATH = path.join(DOCS_DIR, 'src', 'data', 'plugins.ts');
+const OUTPUT_PATH_SHARED = path.join(DOCS_DIR, 'src', 'data', 'sharedSkills.ts');
 
 // ── Category mapping ───────────────────────────────────────────────────
 const VALID_CATEGORIES = new Set([
@@ -391,9 +392,27 @@ function main(): void {
   const pluginEntries: string[] = [];
   const allCategories = new Set<string>();
 
+  let sharedSkillsEmitted = 0;
+
   for (const entry of marketplace.plugins) {
-    // Skip shared-skills
-    if (entry.name === 'shared-skills') continue;
+    // shared-skills is rendered as cross-cutting content, not a vendor plugin.
+    // Emit it to a separate sharedSkills.ts so /skills can surface it without
+    // forcing a `Plugin`-shaped entry into plugins.ts.
+    if (entry.name === 'shared-skills') {
+      const sharedDir = path.join(REPO_ROOT, 'msp-claude-plugins', derivePath(entry.source));
+      const sharedSkills = scanSkills(sharedDir);
+      const sharedJsonPath = path.join(sharedDir, '.claude-plugin', 'plugin.json');
+      const sharedJson: { description?: string; version?: string } | null = fs.existsSync(sharedJsonPath)
+        ? JSON.parse(fs.readFileSync(sharedJsonPath, 'utf-8'))
+        : null;
+      writeSharedSkills(sharedSkills, {
+        description: sharedJson?.description || entry.description,
+        version: sharedJson?.version,
+        installSlug: entry.name,
+      });
+      sharedSkillsEmitted = sharedSkills.length;
+      continue;
+    }
 
     const pluginRelPath = derivePath(entry.source);
     const pluginDir = path.join(REPO_ROOT, 'msp-claude-plugins', pluginRelPath);
@@ -539,6 +558,48 @@ export function getPluginsByVendor(vendor: string): Plugin[] {
   fs.writeFileSync(OUTPUT_PATH, output, 'utf-8');
   console.log(`Generated ${OUTPUT_PATH} with ${pluginEntries.length} plugins`);
   console.log(`Categories: ${Array.from(allCategories).sort().join(', ')}`);
+  if (sharedSkillsEmitted > 0) {
+    console.log(`Generated ${OUTPUT_PATH_SHARED} with ${sharedSkillsEmitted} shared skills`);
+  }
+}
+
+interface SharedSkillsMeta {
+  description: string;
+  version?: string;
+  installSlug: string;
+}
+
+function writeSharedSkills(skills: SkillEntry[], meta: SharedSkillsMeta): void {
+  const skillsArr = skills
+    .map(s => `  { name: '${escapeQuotes(s.name)}', description: ${quote(s.description)} }`)
+    .join(',\n');
+
+  const output = `// Auto-generated — do not edit manually. Run \`npm run generate\` to update.
+
+export interface SharedSkill {
+  name: string;
+  description: string;
+}
+
+/**
+ * Cross-cutting skills that are not tied to a single vendor. Distributed
+ * via the \`${meta.installSlug}\` marketplace entry; install with:
+ *
+ *   /plugin marketplace add wyre-technology/msp-claude-plugins
+ *   /plugin install ${meta.installSlug}
+ */
+export const sharedSkills: SharedSkill[] = [
+${skillsArr}
+];
+
+export const sharedSkillsMeta = {
+  installSlug: '${escapeQuotes(meta.installSlug)}',
+  description: ${quote(meta.description)},
+  version: ${meta.version ? `'${escapeQuotes(meta.version)}'` : 'undefined'},
+};
+`;
+
+  fs.writeFileSync(OUTPUT_PATH_SHARED, output, 'utf-8');
 }
 
 function escapeQuotes(s: string): string {
