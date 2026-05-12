@@ -1292,6 +1292,519 @@ export const mcpServers: McpServer[] = [
     dockerAvailable: true,
     mcpbAvailable: false,
   },
+  {
+    id: 'abnormal',
+    name: 'Abnormal Security MCP',
+    npmPackage: '@wyre-technology/abnormal-mcp',
+    description: 'MCP server for Abnormal Security — AI-powered email threat detection, message analysis, abuse mailbox triage, and security case investigation.',
+    category: 'security',
+    repoUrl: 'https://github.com/wyre-technology/abnormal-mcp',
+    companionPluginId: 'abnormal-security',
+    envVars: [
+      { name: 'ABNORMAL_API_TOKEN', required: true, description: 'Abnormal Security API token (generate in the Abnormal portal under Settings → API)' }
+    ],
+    domains: [
+      {
+        name: 'Threats',
+        description: 'Detected threat cases with full details and AI analysis.',
+        tools: [
+          { name: 'abnormal_threats_list', description: 'List detected threat cases (paginated)' },
+          { name: 'abnormal_threats_get', description: 'Get full details of a specific threat by ID' }
+        ]
+      },
+      {
+        name: 'Messages',
+        description: 'Per-threat message inspection: headers, URLs, attachments, AI analysis.',
+        tools: [
+          { name: 'abnormal_messages_list', description: 'List messages within a threat case' },
+          { name: 'abnormal_messages_get', description: 'Get detailed message analysis (headers, URLs, attachments, AI analysis)' }
+        ]
+      },
+      {
+        name: 'Remediation',
+        description: 'Trigger or check remediation actions for messages.',
+        tools: [
+          { name: 'abnormal_remediation_manage', description: 'Trigger or check remediation actions for a message' }
+        ]
+      },
+      {
+        name: 'Abuse',
+        description: 'User-reported phishing via the Abuse Mailbox.',
+        tools: [
+          { name: 'abnormal_abuse_list', description: 'List phishing emails reported via the Abuse Mailbox' }
+        ]
+      },
+      {
+        name: 'Cases',
+        description: 'Active security investigation cases.',
+        tools: [
+          { name: 'abnormal_cases_list', description: 'List active security investigation cases' },
+          { name: 'abnormal_cases_get', description: 'Get details of a specific case' }
+        ]
+      }
+    ],
+    architecture: 'Decision-tree MCP server — start with abnormal_navigate to select a domain, then call domain-specific tools.',
+    installCommand: 'npx @wyre-technology/abnormal-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
+  {
+    id: 'afkbot',
+    name: 'AFKBot MCP',
+    npmPackage: '@wyre-technology/afkbot-mcp',
+    description: 'MCP server for AFKBot PTO management — file time-off requests and query PTO history from any MCP client.',
+    category: 'psa',
+    repoUrl: 'https://github.com/wyre-technology/afkbot-mcp',
+    envVars: [
+      { name: 'AZURE_TENANT_ID', required: true, description: 'Azure AD tenant ID for AFKBot Easy Auth' },
+      { name: 'AZURE_CLIENT_ID', required: true, description: 'MCP server app registration client ID' },
+      { name: 'AZURE_CLIENT_SECRET', required: true, description: 'MCP server app registration client secret' },
+      { name: 'AFKBOT_API_URL', required: false, description: 'AFKBot API URL (defaults to production)' },
+      { name: 'AFKBOT_APP_CLIENT_ID', required: false, description: 'AFKBot Easy Auth client ID (defaults to production)' }
+    ],
+    domains: [
+      {
+        name: 'PTO Requests',
+        description: 'File and query time-off requests.',
+        tools: [
+          { name: 'create_pto_request', description: 'File a new PTO request (full-day or partial-day) for an employee' },
+          { name: 'list_pto_requests', description: 'List PTO requests with optional status / employee / limit filters' }
+        ]
+      }
+    ],
+    architecture: 'Single TypeScript MCP server using Azure AD client-credentials flow to authenticate against AFKBot Easy Auth.',
+    installCommand: 'npx @wyre-technology/afkbot-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
+  {
+    id: 'avanan',
+    name: 'Avanan MCP',
+    npmPackage: '@wyre-technology/avanan-mcp',
+    description: 'MCP server for Check Point Avanan (Harmony Email & Collaboration) — email security events, anti-phishing actions, exception management, and threat search.',
+    category: 'security',
+    repoUrl: 'https://github.com/wyre-technology/avanan-mcp',
+    companionPluginId: 'checkpoint-avanan',
+    envVars: [
+      { name: 'CHECKPOINT_CLIENT_ID', required: true, description: 'Check Point Infinity Portal API key (Client ID)' },
+      { name: 'CHECKPOINT_CLIENT_SECRET', required: true, description: 'Check Point Infinity Portal API secret' },
+      { name: 'CHECKPOINT_REGION', required: true, description: 'Check Point region (e.g., us, eu, ap)' }
+    ],
+    domains: [
+      {
+        name: 'Events',
+        description: 'Email security events — phishing, malware, BEC, DLP detections.',
+        tools: [
+          { name: 'List events', description: 'List Avanan security events with filters' },
+          { name: 'Get event', description: 'Get details for a specific event' }
+        ]
+      },
+      {
+        name: 'Actions',
+        description: 'Take action on detected threats — quarantine, release, restore.',
+        tools: [
+          { name: 'Quarantine message', description: 'Quarantine an email message' },
+          { name: 'Release message', description: 'Release a quarantined message' }
+        ]
+      },
+      {
+        name: 'Exceptions',
+        description: 'Manage allowlist / blocklist exception rules.',
+        tools: [
+          { name: 'List exceptions', description: 'List exception rules' },
+          { name: 'Create exception', description: 'Create a new exception rule' }
+        ]
+      },
+      {
+        name: 'Search',
+        description: 'Search messages and events across the tenant.',
+        tools: [
+          { name: 'Search messages', description: 'Search messages by sender, subject, recipient, time range' }
+        ]
+      }
+    ],
+    architecture: 'Single TypeScript MCP server with flat tool exposure, authenticating via Check Point Infinity Portal OAuth client credentials.',
+    installCommand: 'npx @wyre-technology/avanan-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
+  {
+    id: 'ironscales',
+    name: 'Ironscales MCP',
+    npmPackage: '@wyre-technology/ironscales-mcp',
+    description: 'MCP server for Ironscales — phishing incident management, email classification, allowlist management, and automated remediation.',
+    category: 'security',
+    repoUrl: 'https://github.com/wyre-technology/ironscales-mcp',
+    companionPluginId: 'ironscales',
+    envVars: [
+      { name: 'IRONSCALES_API_KEY', required: true, description: 'Ironscales API key (generate in the Ironscales partner portal)' },
+      { name: 'IRONSCALES_COMPANY_ID', required: true, description: 'Ironscales company / tenant identifier' }
+    ],
+    domains: [
+      {
+        name: 'Incidents',
+        description: 'Phishing incident lifecycle — list, classify, resolve.',
+        tools: [
+          { name: 'ironscales_incidents_list', description: 'List incidents with filters' },
+          { name: 'ironscales_incidents_get', description: 'Get incident details' },
+          { name: 'ironscales_incidents_classify', description: 'Classify an incident (phishing / safe / spam)' }
+        ]
+      },
+      {
+        name: 'Allowlist',
+        description: 'Manage sender / domain allowlist entries.',
+        tools: [
+          { name: 'ironscales_allowlist_list', description: 'List allowlist entries' },
+          { name: 'ironscales_allowlist_add', description: 'Add a sender or domain to the allowlist' },
+          { name: 'ironscales_allowlist_remove', description: 'Remove an allowlist entry' }
+        ]
+      },
+      {
+        name: 'Email',
+        description: 'Per-email metadata and analysis.',
+        tools: [
+          { name: 'ironscales_email_get', description: 'Get email metadata and analysis' }
+        ]
+      },
+      {
+        name: 'Remediation',
+        description: 'Mailbox-wide remediation actions.',
+        tools: [
+          { name: 'ironscales_remediation_apply', description: 'Apply remediation action across affected mailboxes' }
+        ]
+      },
+      {
+        name: 'Stats',
+        description: 'Tenant-level phishing statistics and reporting.',
+        tools: [
+          { name: 'ironscales_stats_summary', description: 'Get tenant-level phishing statistics summary' }
+        ]
+      }
+    ],
+    architecture: 'Decision-tree MCP server with per-domain handlers and Streamable HTTP transport for hosted deployments.',
+    installCommand: 'npx @wyre-technology/ironscales-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
+  {
+    id: 'knowbe4',
+    name: 'KnowBe4 MCP',
+    npmPackage: '@wyre-technology/knowbe4-mcp',
+    description: 'MCP server for KnowBe4 — security awareness training enrollment, phishing simulation results, user risk scoring, and group management.',
+    category: 'security',
+    repoUrl: 'https://github.com/wyre-technology/knowbe4-mcp',
+    companionPluginId: 'knowbe4',
+    envVars: [
+      { name: 'KNOWBE4_API_KEY', required: true, description: 'KnowBe4 API key (generate under Account Settings → API)' },
+      { name: 'KNOWBE4_REGION', required: false, description: 'KnowBe4 region: us | eu | ca | uk | de (defaults to us)' },
+      { name: 'KNOWBE4_BASE_URL', required: false, description: 'Explicit base URL override (alternative to region)' }
+    ],
+    domains: [
+      {
+        name: 'Account',
+        description: 'Tenant account metadata and subscription info.',
+        tools: [
+          { name: 'knowbe4_account_get', description: 'Get account / subscription details' }
+        ]
+      },
+      {
+        name: 'Users',
+        description: 'Manage trainees and user risk scores.',
+        tools: [
+          { name: 'knowbe4_users_list', description: 'List users with filters' },
+          { name: 'knowbe4_users_get', description: 'Get user details + risk score' }
+        ]
+      },
+      {
+        name: 'Groups',
+        description: 'User group membership for training enrollment.',
+        tools: [
+          { name: 'knowbe4_groups_list', description: 'List groups' },
+          { name: 'knowbe4_groups_get', description: 'Get group details and members' }
+        ]
+      },
+      {
+        name: 'Training',
+        description: 'Training campaign enrollment and progress.',
+        tools: [
+          { name: 'knowbe4_training_campaigns_list', description: 'List training campaigns' },
+          { name: 'knowbe4_training_enrollments_list', description: 'List enrollments for a campaign' }
+        ]
+      },
+      {
+        name: 'Phishing',
+        description: 'Phishing simulation campaigns and per-user results.',
+        tools: [
+          { name: 'knowbe4_phishing_campaigns_list', description: 'List phishing simulation campaigns' },
+          { name: 'knowbe4_phishing_results_list', description: 'List per-user phishing simulation results' }
+        ]
+      },
+      {
+        name: 'Reporting',
+        description: 'Aggregate reporting on training + phishing performance.',
+        tools: [
+          { name: 'knowbe4_reporting_summary', description: 'Get tenant-level training + phishing summary' }
+        ]
+      }
+    ],
+    architecture: 'Decision-tree MCP server with per-domain handlers, supporting multiple KnowBe4 regions (US/EU/CA/UK/DE).',
+    installCommand: 'npx @wyre-technology/knowbe4-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
+  {
+    id: 'mimecast',
+    name: 'Mimecast MCP',
+    npmPackage: '@wyre-technology/mimecast-mcp',
+    description: 'MCP server for Mimecast Email Security — message tracking, threat intelligence search, and held-message queue management.',
+    category: 'security',
+    repoUrl: 'https://github.com/wyre-technology/mimecast-mcp',
+    companionPluginId: 'mimecast',
+    envVars: [
+      { name: 'MIMECAST_CLIENT_ID', required: true, description: 'Mimecast API 2.0 client ID' },
+      { name: 'MIMECAST_CLIENT_SECRET', required: true, description: 'Mimecast API 2.0 client secret' },
+      { name: 'MIMECAST_REGION', required: true, description: 'Mimecast region: us | eu | de | za | au | jer | offshore' }
+    ],
+    domains: [
+      {
+        name: 'Messages',
+        description: 'Search and trace email messages flowing through Mimecast.',
+        tools: [
+          { name: 'mimecast_messages_search', description: 'Search messages by sender / recipient / subject / time range' },
+          { name: 'mimecast_messages_trace', description: 'Trace a specific message through the Mimecast pipeline' }
+        ]
+      },
+      {
+        name: 'Threats',
+        description: 'Threat intelligence and URL / attachment detections.',
+        tools: [
+          { name: 'mimecast_threats_list', description: 'List detected threats with filters' },
+          { name: 'mimecast_threats_get', description: 'Get full threat record by ID' }
+        ]
+      },
+      {
+        name: 'Queue',
+        description: 'Held / quarantined message queue management.',
+        tools: [
+          { name: 'mimecast_queue_list', description: 'List held / quarantined messages' },
+          { name: 'mimecast_queue_release', description: 'Release a held message to its recipient' },
+          { name: 'mimecast_queue_reject', description: 'Reject a held message' }
+        ]
+      }
+    ],
+    architecture: 'Single TypeScript MCP server using Mimecast API 2.0 OAuth client credentials, supporting all Mimecast cloud regions.',
+    installCommand: 'npx @wyre-technology/mimecast-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
+  {
+    id: 'proofpoint',
+    name: 'Proofpoint MCP',
+    npmPackage: '@wyre-technology/proofpoint-mcp',
+    description: 'MCP server for Proofpoint Email Protection — TAP (Targeted Attack Protection), threat intelligence, URL Defense, DLP, forensics, and quarantine management.',
+    category: 'security',
+    repoUrl: 'https://github.com/wyre-technology/proofpoint-mcp',
+    companionPluginId: 'proofpoint',
+    envVars: [
+      { name: 'PROOFPOINT_SERVICE_PRINCIPAL', required: true, description: 'Proofpoint TAP service principal' },
+      { name: 'PROOFPOINT_SERVICE_SECRET', required: true, description: 'Proofpoint TAP service secret' },
+      { name: 'PROOFPOINT_BASE_URL', required: false, description: 'Explicit base URL override (defaults to TAP production endpoint)' }
+    ],
+    domains: [
+      {
+        name: 'TAP (Targeted Attack Protection)',
+        description: 'Targeted attack campaigns and threat actor tracking.',
+        tools: [
+          { name: 'proofpoint_tap_campaigns_list', description: 'List TAP campaigns' },
+          { name: 'proofpoint_tap_threats_list', description: 'List TAP threats' }
+        ]
+      },
+      {
+        name: 'Threat Intel',
+        description: 'Threat intelligence enrichment for indicators (URLs, hashes, IPs).',
+        tools: [
+          { name: 'proofpoint_threat_intel_lookup', description: 'Look up a threat indicator (URL / hash / IP)' }
+        ]
+      },
+      {
+        name: 'URL Defense',
+        description: 'URL Defense rewrites and click-tracking.',
+        tools: [
+          { name: 'proofpoint_url_defense_decode', description: 'Decode a URL Defense rewritten link' }
+        ]
+      },
+      {
+        name: 'Events',
+        description: 'Email security events stream.',
+        tools: [
+          { name: 'proofpoint_events_list', description: 'List recent email security events' }
+        ]
+      },
+      {
+        name: 'People',
+        description: 'Very Attacked Persons (VAPs) and per-user risk.',
+        tools: [
+          { name: 'proofpoint_people_vap_list', description: 'List Very Attacked Persons (VAPs)' }
+        ]
+      },
+      {
+        name: 'Forensics',
+        description: 'Per-threat forensic detail.',
+        tools: [
+          { name: 'proofpoint_forensics_get', description: 'Get forensic details for a threat' }
+        ]
+      },
+      {
+        name: 'Quarantine',
+        description: 'Held / quarantined message inspection and release.',
+        tools: [
+          { name: 'proofpoint_quarantine_list', description: 'List quarantined messages' },
+          { name: 'proofpoint_quarantine_release', description: 'Release a quarantined message' }
+        ]
+      },
+      {
+        name: 'DLP',
+        description: 'Data loss prevention incidents.',
+        tools: [
+          { name: 'proofpoint_dlp_incidents_list', description: 'List DLP incidents' }
+        ]
+      },
+      {
+        name: 'Policy',
+        description: 'Email security policy inspection.',
+        tools: [
+          { name: 'proofpoint_policy_list', description: 'List configured email security policies' }
+        ]
+      },
+      {
+        name: 'Smart Search',
+        description: 'Smart search across the email security corpus.',
+        tools: [
+          { name: 'proofpoint_smart_search_query', description: 'Run a smart search query' }
+        ]
+      },
+      {
+        name: 'Reports',
+        description: 'Aggregate security reports.',
+        tools: [
+          { name: 'proofpoint_reports_summary', description: 'Get summary report' }
+        ]
+      }
+    ],
+    architecture: 'Single TypeScript MCP server with comprehensive flat tool exposure across TAP, threat intel, URL Defense, DLP, forensics, and policy domains.',
+    installCommand: 'npx @wyre-technology/proofpoint-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
+  {
+    id: 'rootly',
+    name: 'Rootly MCP',
+    npmPackage: '@wyre-technology/rootly-mcp',
+    description: 'MCP server for Rootly incident management — incidents, alerts, on-call schedules, teams, and severity management.',
+    category: 'security',
+    repoUrl: 'https://github.com/wyre-technology/rootly-mcp',
+    companionPluginId: 'rootly',
+    envVars: [
+      { name: 'ROOTLY_API_KEY', required: true, description: 'Rootly API key (generate in Rootly under Settings → API Keys)' }
+    ],
+    domains: [
+      {
+        name: 'Incidents',
+        description: 'Incident lifecycle — list, get, create, update, resolve.',
+        tools: [
+          { name: 'rootly_incidents_list', description: 'List incidents with optional status/severity filters' },
+          { name: 'rootly_incidents_get', description: 'Get a single incident by ID' },
+          { name: 'rootly_incidents_create', description: 'Create a new incident' },
+          { name: 'rootly_incidents_update', description: 'Update title, summary, status, or severity' },
+          { name: 'rootly_incidents_resolve', description: 'Resolve an incident' }
+        ]
+      },
+      {
+        name: 'Alerts',
+        description: 'Alert lifecycle — list, acknowledge, resolve, create, update.',
+        tools: [
+          { name: 'rootly_alerts_list', description: 'List alerts with optional status filter' },
+          { name: 'rootly_alerts_acknowledge', description: 'Acknowledge an alert' },
+          { name: 'rootly_alerts_resolve', description: 'Resolve an alert' },
+          { name: 'rootly_alerts_create', description: 'Create a new alert' },
+          { name: 'rootly_alerts_update', description: 'Update alert status or summary' }
+        ]
+      },
+      {
+        name: 'Schedules',
+        description: 'On-call schedule visibility.',
+        tools: [
+          { name: 'rootly_schedules_list', description: 'List on-call schedules' },
+          { name: 'rootly_schedules_get', description: 'Get a single on-call schedule' }
+        ]
+      },
+      {
+        name: 'Org',
+        description: 'Org-level lookups: teams, severities, current user.',
+        tools: [
+          { name: 'rootly_org_list_teams', description: 'List teams' },
+          { name: 'rootly_org_list_severities', description: 'List severity levels' },
+          { name: 'rootly_org_current_user', description: 'Get current authenticated user' }
+        ]
+      }
+    ],
+    architecture: 'Decision-tree MCP server — start with rootly_navigate to select a domain, then call domain-specific tools.',
+    installCommand: 'npx @wyre-technology/rootly-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
+  {
+    id: 'sherweb',
+    name: 'Sherweb MCP',
+    npmPackage: '@wyre-technology/sherweb-mcp',
+    description: 'MCP server for Sherweb Partner API — distributor billing, service provider customers, subscriptions, and payable charges.',
+    category: 'sales',
+    repoUrl: 'https://github.com/wyre-technology/sherweb-mcp',
+    companionPluginId: 'sherweb',
+    envVars: [
+      { name: 'SHERWEB_CLIENT_ID', required: true, description: 'Sherweb Partner API client ID' },
+      { name: 'SHERWEB_CLIENT_SECRET', required: true, description: 'Sherweb Partner API client secret' },
+      { name: 'SHERWEB_SUBSCRIPTION_KEY', required: true, description: 'Sherweb subscription key (per Partner API tenant)' }
+    ],
+    domains: [
+      {
+        name: 'Customers',
+        description: 'Manage end-customer organizations under your Sherweb partner account.',
+        tools: [
+          { name: 'sherweb_customers_list', description: 'List end-customers' },
+          { name: 'sherweb_customers_get', description: 'Get customer details' }
+        ]
+      },
+      {
+        name: 'Subscriptions',
+        description: 'Subscription inventory and lifecycle.',
+        tools: [
+          { name: 'sherweb_subscriptions_list', description: 'List subscriptions across customers' },
+          { name: 'sherweb_subscriptions_get', description: 'Get a single subscription' }
+        ]
+      },
+      {
+        name: 'Catalog',
+        description: 'Available product catalog from Sherweb.',
+        tools: [
+          { name: 'sherweb_catalog_list', description: 'List catalog products' },
+          { name: 'sherweb_catalog_get', description: 'Get product details' }
+        ]
+      },
+      {
+        name: 'Billing',
+        description: 'Payable charges and billing items.',
+        tools: [
+          { name: 'sherweb_billing_payables_list', description: 'List payable charges' },
+          { name: 'sherweb_billing_payables_get', description: 'Get a single payable charge' }
+        ]
+      }
+    ],
+    architecture: 'Single TypeScript MCP server with per-domain handlers, authenticating via Sherweb Partner API OAuth (client credentials + subscription key).',
+    installCommand: 'npx @wyre-technology/sherweb-mcp',
+    dockerAvailable: true,
+    mcpbAvailable: true,
+  },
 ];
 
 export function getMcpServerById(id: string): McpServer | undefined {
