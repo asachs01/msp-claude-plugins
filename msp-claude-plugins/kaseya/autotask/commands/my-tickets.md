@@ -6,7 +6,7 @@ arguments:
     description: Filter by status (e.g., "Open", "In Progress", "Waiting Customer")
     required: false
   - name: priority
-    description: Filter by priority (1=Critical, 2=High, 3=Medium, 4=Low)
+    description: Filter by priority (4=Critical, 3=High, 2=Medium, 1=Low). Note - lower numbers = lower urgency in Autotask.
     required: false
   - name: queue
     description: Filter by queue name
@@ -80,13 +80,13 @@ List all tickets currently assigned to you with filtering and sorting options fo
 ### High Priority Tickets
 
 ```
-/my-tickets --priority 2
+/my-tickets --priority 3
 ```
 
 ### Critical Priority (Urgent)
 
 ```
-/my-tickets --priority 1
+/my-tickets --priority 4
 ```
 
 ### Sorted by Due Date
@@ -219,10 +219,10 @@ Available statuses:
 Error: Invalid priority: 5
 
 Valid priorities:
-- 1 (Critical)
-- 2 (High)
-- 3 (Medium)
-- 4 (Low)
+- 4 (Critical)
+- 3 (High)
+- 2 (Medium)
+- 1 (Low)
 ```
 
 ### Invalid Sort Field
