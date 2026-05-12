@@ -15,7 +15,7 @@ arguments:
     description: Queue name or ID (defaults to Service Desk)
     required: false
   - name: priority
-    description: Priority level 1-4 (1=Critical, 4=Low, default 3)
+    description: Priority level 1-4 (4=Critical, 3=High, 2=Medium, 1=Low; default 2=Medium). Note - lower numbers = lower urgency in Autotask.
     required: false
   - name: contact
     description: Contact name or email
@@ -79,7 +79,7 @@ Create a new service ticket in Autotask PSA with specified details.
 | title | string | Yes | - | Brief summary (max 255 chars) |
 | description | string | No | - | Detailed issue description |
 | queue | string/int | No | Service Desk | Target queue |
-| priority | int | No | 3 (Medium) | 1=Critical to 4=Low |
+| priority | int | No | 2 (Medium) | 4=Critical, 3=High, 2=Medium, 1=Low |
 | contact | string | No | - | Contact name or email |
 
 ## Examples
@@ -93,13 +93,13 @@ Create a new service ticket in Autotask PSA with specified details.
 ### With Full Details
 
 ```
-/create-ticket "Acme Corp" "Email not working" --description "Multiple users unable to send/receive since 9am" --priority 2 --contact "john.smith@acme.com" --queue "Service Desk"
+/create-ticket "Acme Corp" "Email not working" --description "Multiple users unable to send/receive since 9am" --priority 3 --contact "john.smith@acme.com" --queue "Service Desk"
 ```
 
 ### Using Company ID
 
 ```
-/create-ticket 12345 "Server offline" --priority 1
+/create-ticket 12345 "Server offline" --priority 4
 ```
 
 ## Output
@@ -110,7 +110,7 @@ Create a new service ticket in Autotask PSA with specified details.
 Ticket Number: T20240215.0042
 Ticket ID: 54321
 Company: Acme Corporation
-Priority: High (2)
+Priority: High (3)
 Queue: Service Desk
 Contract: Managed Services Agreement (Active)
 

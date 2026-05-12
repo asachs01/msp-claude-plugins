@@ -9,7 +9,7 @@ arguments:
     description: New status (e.g., "In Progress", "Waiting Customer", "Complete")
     required: false
   - name: priority
-    description: Priority level 1-4 (1=Critical, 2=High, 3=Medium, 4=Low)
+    description: Priority level 1-4 (4=Critical, 3=High, 2=Medium, 1=Low). Note - lower numbers = lower urgency in Autotask.
     required: false
   - name: queue
     description: Queue name to move ticket to
@@ -79,7 +79,7 @@ Update fields on an existing Autotask ticket including status, priority, queue, 
 ### Change Priority and Status
 
 ```
-/update-ticket 12345 --status "In Progress" --priority 2
+/update-ticket 12345 --status "In Progress" --priority 3
 ```
 
 ### Move to Different Queue
@@ -110,11 +110,11 @@ Company: Acme Corporation
 
 Changes Applied:
   Status: New -> In Progress
-  Priority: Medium (3) -> High (2)
+  Priority: Medium (2) -> High (3)
 
 Current State:
   Status: In Progress
-  Priority: High (2)
+  Priority: High (3)
   Queue: Service Desk
   Assignee: John Technician
   Due Date: 2026-02-10 17:00
@@ -153,10 +153,10 @@ Available statuses:
 Error: Invalid priority: 5
 
 Valid priorities:
-- 1 (Critical)
-- 2 (High)
-- 3 (Medium)
-- 4 (Low)
+- 4 (Critical)
+- 3 (High)
+- 2 (Medium)
+- 1 (Low)
 ```
 
 ### Permission Denied
