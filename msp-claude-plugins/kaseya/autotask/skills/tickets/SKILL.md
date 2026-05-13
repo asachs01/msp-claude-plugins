@@ -23,6 +23,11 @@ triggers:
   - sla calculation
   - ticket metrics
   - ticket kpi
+  - ticket history
+  - ticket audit trail
+  - status transition
+  - who changed
+  - when did ticket
 ---
 
 # Autotask Ticket Management
@@ -351,6 +356,30 @@ Args: {
 ```
 Tool: autotask_get_ticket_details
 Args: { "ticketId": 54321 }
+```
+
+### Get Ticket History (Audit Trail)
+
+Use this to answer **status transition** and **change attribution** questions — e.g. "when did this ticket move from In Progress to Waiting Customer?", "who changed the priority?", "how long did it sit in NEW before someone picked it up?". Each row is one audited field change on the ticket.
+
+```
+Tool: autotask_search_ticket_history
+Args: { "ticketId": 54321, "pageSize": 100 }
+```
+
+**Required:** `ticketId` (Autotask does not support unscoped history queries — there is no way to ask "show me every status transition across all tickets" without enumerating ticket IDs and looping). `pageSize` defaults to 50, max 500.
+
+Returns an array of history entries. Field set is picklist-dependent; common fields include `id`, `ticketID`, `resourceID` (who made the change), `dateChanged`, and field-specific before/after columns. For status transitions, look for changes where the audited field is `status` and compare the before/after picklist IDs against the status codes table above.
+
+**Workflow for "find tickets that went from status X to status Y":**
+1. `autotask_search_tickets` with the relevant filters (company, date range, current status) to get candidate ticket IDs.
+2. For each candidate, call `autotask_search_ticket_history` and look for a status-field change where old=X and new=Y.
+3. This is a fan-out pattern. On large tenants, scope the initial search tightly (by company, date, or assigned resource) before looping.
+
+To fetch a single history entry by its ID:
+```
+Tool: autotask_get_ticket_history
+Args: { "historyId": 987654 }
 ```
 
 ### Add a Ticket Note
