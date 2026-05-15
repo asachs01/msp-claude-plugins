@@ -1,0 +1,73 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+<DocsLayout title="Payment method & invoices" description="How to update your card and download invoices for the WYRE MCP Gateway.">
+  <h1>Payment method & invoices</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Payments are handled by Stripe. Card details, invoices, and receipts all live in the Stripe
+    customer portal we link to from your dashboard.
+  </p>
+
+  <h2>Update your card</h2>
+  <ol>
+    <li>Sign in at <a href="https://mcp.wyre.ai">mcp.wyre.ai</a>.</li>
+    <li>Open <strong>Settings → Billing</strong>.</li>
+    <li>Click <strong>Manage in Stripe</strong> — that opens the Stripe customer portal.</li>
+    <li>Add or replace your card. New cards apply to your next charge automatically.</li>
+  </ol>
+  <p>
+    If a payment recently failed, updating the card here will also retry the open invoice within a
+    few minutes.
+  </p>
+
+  <h2>Download invoices and receipts</h2>
+  <p>
+    Every successful charge produces a Stripe-hosted invoice with a PDF and a receipt. You can grab
+    them two ways:
+  </p>
+  <ul>
+    <li>
+      <strong>From the Stripe customer portal</strong> (above) — every invoice you've ever been issued
+      is there, with PDF downloads.
+    </li>
+    <li>
+      <strong>From the email Stripe sends</strong> after each successful payment — the "View invoice"
+      link is the same Stripe-hosted invoice URL (it looks like
+      <code>https://invoice.stripe.com/i/&hellip;</code>) and never expires.
+    </li>
+  </ul>
+
+  <h3>Need the invoice addressed to a different name or VAT/tax ID?</h3>
+  <p>
+    You can edit your billing name, address, and tax ID directly in the Stripe customer portal under
+    "Billing information." Changes apply to future invoices. For a corrected past invoice, email
+    <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a> and we'll re-issue it.
+  </p>
+
+  <h2>What if my card was declined?</h2>
+  <p>
+    Stripe automatically retries failed cards a few times over the following week. While that's
+    happening:
+  </p>
+  <ul>
+    <li>Your plan stays active — you won't be cut off mid-day for a temporary decline.</li>
+    <li>You'll get an email with a link to retry the invoice with a new card.</li>
+    <li>You can also retry from <strong>Settings → Billing → Manage in Stripe</strong>.</li>
+  </ul>
+  <p>
+    If retries fail for the whole grace period, the subscription cancels and your org drops to the
+    Free tier. Re-subscribing picks up right where you left off.
+  </p>
+
+  <hr class="my-8" />
+
+  <p class="text-sm text-[var(--muted)]">
+    Can't find an invoice or something doesn't add up? Email
+    <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a>. See also
+    <a href={`${baseUrl}getting-started/billing/double-charge/`}>"I think I was double-charged"</a>
+    and <a href={`${baseUrl}getting-started/billing/refunds/`}>refund policy</a>.
+  </p>
+</DocsLayout>

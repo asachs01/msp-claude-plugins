@@ -1,0 +1,30 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+<DocsLayout title="Billing & plans" description="Help with billing, plan changes, refunds, payment methods, and invoices for the WYRE MCP Gateway.">
+  <h1>Billing & plans</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Everything you need to manage your WYRE MCP Gateway subscription — changing plans, updating
+    your card, downloading invoices, and getting help if something looks wrong on a charge.
+  </p>
+
+  <h2>In this section</h2>
+  <ul>
+    <li><a href={`${baseUrl}getting-started/billing/plans/`}>Plan comparison</a> — what Free, Pro, and Business each include.</li>
+    <li><a href={`${baseUrl}getting-started/billing/plan-changes/`}>Plan changes & upgrades</a> — how upgrades, downgrades, and proration work.</li>
+    <li><a href={`${baseUrl}getting-started/billing/payment-and-invoices/`}>Payment method & invoices</a> — update your card and download receipts.</li>
+    <li><a href={`${baseUrl}getting-started/billing/refunds/`}>Refund policy</a> — when we refund and what to expect.</li>
+    <li><a href={`${baseUrl}getting-started/billing/double-charge/`}>"I think I was double-charged"</a> — what to check and how to get it fixed quickly.</li>
+  </ul>
+
+  <h2>Need a human?</h2>
+  <p>
+    Anything billing-related, email <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a>.
+    Include your account email and the org name and we'll have an answer the same day in most cases.
+    Sales questions (custom plans, Enterprise, annual contracts) go to
+    <a href="mailto:sales@wyre.ai">sales@wyre.ai</a>.
+  </p>
+</DocsLayout>

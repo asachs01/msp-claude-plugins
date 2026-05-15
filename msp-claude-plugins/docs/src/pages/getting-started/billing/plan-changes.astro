@@ -1,0 +1,86 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+<DocsLayout title="Plan changes & upgrades" description="How upgrades, downgrades, and proration work on the WYRE MCP Gateway.">
+  <h1>Plan changes & upgrades</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Change plans any time from the billing page in your dashboard. Here's exactly what to expect on
+    your card, your features, and your next invoice.
+  </p>
+
+  <h2>How to change your plan</h2>
+  <ol>
+    <li>Sign in at <a href="https://mcp.wyre.ai">mcp.wyre.ai</a>.</li>
+    <li>Open <strong>Settings → Billing</strong>.</li>
+    <li>Pick the tier you want and confirm.</li>
+  </ol>
+  <p>
+    The new tier is live the moment Stripe confirms the charge — usually within a few seconds. Your
+    limits (seats, connections, credits) update right away.
+  </p>
+
+  <h2>Upgrades</h2>
+  <p>
+    When you upgrade (Free → Pro, or Pro → Business), we modify your existing subscription in place.
+    A few things follow from that:
+  </p>
+  <ul>
+    <li>You get a single, prorated charge today for the difference between the old plan and the new plan, covering the rest of your current billing period.</li>
+    <li>Your billing date doesn't change.</li>
+    <li>Your new features, seat count, and credit allowance unlock immediately.</li>
+    <li>You stay on the same Stripe customer and the same subscription — no duplicate invoices, no second account to manage.</li>
+  </ul>
+
+  <h3>Worked example</h3>
+  <p>
+    You're on Pro ($49/user/mo) with one seat, and you're 10 days into a 30-day billing cycle. You
+    upgrade to Business ($99/user/mo). Roughly:
+  </p>
+  <ul>
+    <li>Pro had ~20 days of unused time left (~$32.67 of credit).</li>
+    <li>Business for those same 20 days costs ~$66.</li>
+    <li>You're charged the difference, ~$33.33, today.</li>
+    <li>On your normal billing date, you get a full Business invoice as usual.</li>
+  </ul>
+  <p class="text-sm text-[var(--muted)]">
+    Stripe handles the proration math; the exact number on your invoice may differ by a few cents.
+  </p>
+
+  <h2>Downgrades</h2>
+  <p>
+    Downgrades (Business → Pro, Pro → Free) take effect at the end of your current billing period.
+    You keep your current tier's features and limits through the period you've already paid for, then
+    drop to the new tier on the next renewal. You're never charged the new tier's price retroactively.
+  </p>
+  <p>
+    Heads up: if your team is over the limits of the new tier (e.g. 5 users dropping to Pro's 3-user
+    cap), excess seats stop being billed but the extra users will lose access on the renewal date.
+    Let us know before you downgrade if you want help handling this gracefully.
+  </p>
+
+  <h2>Cancellations</h2>
+  <p>
+    Cancelling drops you to the Free tier at the end of the current billing period. Your data and
+    connections stay; only the paid features turn off. You can re-subscribe any time and pick up
+    where you left off.
+  </p>
+
+  <h2>Seat changes mid-cycle</h2>
+  <p>
+    Adding or removing a user mid-cycle prorates against the rest of the period. Adding a seat
+    charges the prorated amount immediately. Removing a seat credits the unused portion toward your
+    next invoice.
+  </p>
+
+  <hr class="my-8" />
+
+  <p class="text-sm text-[var(--muted)]">
+    Need help with a change you've already started?
+    Email <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a> with your org
+    name. See also <a href={`${baseUrl}getting-started/billing/double-charge/`}>"I think I was
+    double-charged"</a> if something looks off after an upgrade.
+  </p>
+</DocsLayout>

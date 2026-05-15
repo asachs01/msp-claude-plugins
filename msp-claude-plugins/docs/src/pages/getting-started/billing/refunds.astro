@@ -1,0 +1,73 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+<DocsLayout title="Refund policy" description="When WYRE refunds charges on the MCP Gateway and what to expect.">
+  <h1>Refund policy</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Short version: if we billed you for something you didn't actually get, we refund. If you used the
+    service and changed your mind later, we'll usually cancel future renewals instead. Either way,
+    we'd rather you reach out than stew on it — email
+    <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a> and we'll sort it.
+  </p>
+
+  <h2>When we refund</h2>
+  <ul>
+    <li>
+      <strong>You were billed for something we didn't deliver.</strong> For example, an upgrade that
+      didn't actually apply your new tier's features. Refunded in full or prorated against the unused
+      time, whichever fits.
+    </li>
+    <li>
+      <strong>You cancelled and were billed for the period after.</strong> If a cancellation didn't
+      register on our side and you were charged for the next cycle, we refund the prorated unused
+      portion.
+    </li>
+    <li>
+      <strong>You changed your mind within 7 days of subscribing.</strong> Full refund of the most
+      recent charge, no questions.
+    </li>
+  </ul>
+
+  <h2>When we don't refund</h2>
+  <ul>
+    <li>
+      <strong>You used the service for months and want a refund for past billing periods.</strong>
+      We'll cancel future renewals immediately so you aren't billed again, but we don't refund usage
+      that already happened.
+    </li>
+    <li>
+      <strong>Credit blocks that have been partially consumed.</strong> Unused credit blocks
+      themselves don't expire — they roll forward — so you keep what you've already bought.
+    </li>
+  </ul>
+
+  <p>
+    Edge cases exist and we use judgement. If your situation isn't covered above, just ask.
+  </p>
+
+  <h2>How refunds get to you</h2>
+  <p>
+    Refunds go back to the original card via Stripe. Once we issue the refund, expect it on your
+    statement in <strong>5–10 business days</strong> depending on your bank — some are faster, a few
+    are slower. We'll send you a confirmation email the moment it's issued.
+  </p>
+
+  <h2>How to request one</h2>
+  <p>
+    Email <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a> with:
+  </p>
+  <ul>
+    <li>The account email and org name.</li>
+    <li>The invoice or charge in question (the Stripe receipt link or the date and amount).</li>
+    <li>A sentence on what went wrong.</li>
+  </ul>
+  <p>
+    Most refunds are handled the same day. If the situation needs investigation — for example, a
+    suspected double-charge — see the
+    <a href={`${baseUrl}getting-started/billing/double-charge/`}>"I think I was double-charged"</a>
+    page for what to send so we can move faster.
+  </p>
+</DocsLayout>
