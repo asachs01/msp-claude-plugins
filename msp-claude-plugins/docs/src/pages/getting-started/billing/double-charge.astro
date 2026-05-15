@@ -1,0 +1,95 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+<DocsLayout title="I think I was double-charged" description="Self-diagnosis and escalation steps if your WYRE MCP Gateway billing looks wrong.">
+  <h1>"I think I was double-charged"</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    Sorry — billing surprises are the worst. This page walks through what to check, what's usually
+    going on, and exactly what to send us so we can fix it fast.
+  </p>
+
+  <h2>First, a quick gut check</h2>
+  <p>
+    A few situations look like a double-charge but aren't:
+  </p>
+  <ul>
+    <li>
+      <strong>A pending hold plus a settled charge.</strong> Some banks show an authorization and the
+      final charge as two line items for a day or two before they merge. The actual amount taken is
+      the larger of the two, not the sum.
+    </li>
+    <li>
+      <strong>An upgrade proration.</strong> If you upgraded mid-cycle, you'll see a small prorated
+      charge today <em>and</em> your normal renewal on your usual billing date. Both are expected.
+      See <a href={`${baseUrl}getting-started/billing/plan-changes/`}>plan changes & upgrades</a>.
+    </li>
+    <li>
+      <strong>A retried failed payment.</strong> If your card briefly declined, Stripe retries.
+      You'll see the failed attempt and then the successful one — only the successful one actually
+      took money.
+    </li>
+  </ul>
+  <p>
+    If your situation looks like one of those, you're good. If not, keep going.
+  </p>
+
+  <h2>Check your invoices</h2>
+  <ol>
+    <li>Sign in at <a href="https://mcp.wyre.ai">mcp.wyre.ai</a>.</li>
+    <li>Open <strong>Settings → Billing → Manage in Stripe</strong>.</li>
+    <li>Scroll to "Invoice history" and look for two paid invoices close together in time.</li>
+  </ol>
+  <p>
+    If you see two paid invoices and your plan/features didn't actually change to match what you paid
+    for, something went wrong on our end. Skip to "What to send us."
+  </p>
+
+  <h2>Compare against your plan</h2>
+  <p>
+    Open <strong>Settings → Billing</strong> in the dashboard. Your current plan is shown at the top.
+    Sanity check:
+  </p>
+  <ul>
+    <li>Is the plan name what you expected (Pro vs Business)?</li>
+    <li>Do the seat count and connection limits match the
+      <a href={`${baseUrl}getting-started/billing/plans/`}>tier you paid for</a>?</li>
+    <li>If you upgraded recently — say, Pro to Business — and you're still seeing Pro limits, that's
+      a real bug, not your imagination. We want to know.</li>
+  </ul>
+
+  <h2>What to send us</h2>
+  <p>
+    Email <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a> with:
+  </p>
+  <ul>
+    <li><strong>Your account email and org name.</strong></li>
+    <li>
+      <strong>The two charges you're worried about</strong> — invoice numbers from the Stripe portal
+      (they look like <code>INV-1234</code>), or the date and amount of each charge from your card
+      statement.
+    </li>
+    <li>
+      <strong>What plan you think you should be on</strong> versus what the dashboard is showing.
+    </li>
+    <li>
+      <strong>What you were trying to do</strong> when it happened (upgrade, add a seat, etc.) and
+      roughly when.
+    </li>
+  </ul>
+  <p>
+    With that, we can usually have an answer within the same business day. If it turns out we did
+    bill you twice — or charged you for an upgrade that didn't deliver — we'll issue a refund for the
+    unused portion immediately. See <a href={`${baseUrl}getting-started/billing/refunds/`}>refund
+    policy</a> for the details, including timing.
+  </p>
+
+  <h2>The short version</h2>
+  <p>
+    If it looks wrong, it might be wrong, and that's on us — not you. We'd rather investigate a
+    false alarm than leave a real bug sitting on your card. Just send us the two invoice numbers and
+    we'll take it from there.
+  </p>
+</DocsLayout>

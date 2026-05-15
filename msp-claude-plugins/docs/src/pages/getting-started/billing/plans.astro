@@ -1,0 +1,118 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+<DocsLayout title="Plan comparison" description="What's included in Free, Pro, and Business plans on the WYRE MCP Gateway.">
+  <h1>Plan comparison</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    A quick reference for what each tier includes. For the full side-by-side and current pricing,
+    see the <a href={`${baseUrl}pricing/`}>pricing page</a>.
+  </p>
+
+  <h2>At a glance</h2>
+
+  <div class="overflow-x-auto">
+    <table>
+      <thead>
+        <tr>
+          <th>What you get</th>
+          <th>Free</th>
+          <th>Pro</th>
+          <th>Business</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Users</td>
+          <td>1</td>
+          <td>Up to 3</td>
+          <td>5+</td>
+        </tr>
+        <tr>
+          <td>Personal vendor connections</td>
+          <td>3</td>
+          <td>3 per user</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td>Shared / org connections</td>
+          <td>—</td>
+          <td>5</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td>Credits per month</td>
+          <td>500</td>
+          <td>1,500 per seat</td>
+          <td>4,000 per seat (pooled)</td>
+        </tr>
+        <tr>
+          <td>Team roles & invites</td>
+          <td>—</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>Tool allowlists</td>
+          <td>—</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>Audit log & log shipping</td>
+          <td>—</td>
+          <td>—</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>Service accounts (headless API clients)</td>
+          <td>—</td>
+          <td>—</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>Support</td>
+          <td>Community</td>
+          <td>Email</td>
+          <td>Dedicated</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="text-sm text-[var(--muted)] mt-2">
+    1 credit = 1 successful tool call to a connected vendor. Failed calls and tool browsing don't count.
+  </p>
+
+  <h2>What's a "connection"?</h2>
+  <p>
+    A connection is one set of API credentials for one vendor — for example, your Autotask API user
+    or your HaloPSA token. Connecting Autotask + ConnectWise + HaloPSA = three connections.
+  </p>
+  <ul>
+    <li><strong>Personal</strong> connections use credentials you set up, and only you can call them.</li>
+    <li><strong>Shared / org</strong> connections are set up once by an admin and available to everyone on the team.</li>
+  </ul>
+
+  <h2>What happens if I hit my credit limit?</h2>
+  <p>
+    Tool calls return a friendly "credit limit reached" error until the next monthly reset, or until
+    you either purchase a credit block ($10 per 1,000 credits, no expiry) or move up a tier. Browsing
+    tools, reading docs, and managing connections always remain free.
+  </p>
+
+  <h2>Need something custom?</h2>
+  <p>
+    Larger teams, SSO/SAML, SCIM, custom credit packages, or contract terms are part of Enterprise.
+    Email <a href="mailto:sales@wyre.ai">sales@wyre.ai</a> and we'll put together a plan.
+  </p>
+
+  <hr class="my-8" />
+
+  <p class="text-sm text-[var(--muted)]">
+    Questions about your specific account? Email
+    <a href="mailto:support@wyretechnology.com">support@wyretechnology.com</a>.
+  </p>
+</DocsLayout>
