@@ -26,7 +26,7 @@ The plugin connects through the [WYRE MCP Gateway](https://mcp.wyre.ai) at `http
 
 ## Skills
 
-- `api-patterns` - Auth, navigation, pagination, error handling
+- `api-patterns` - Auth, pagination, error handling
 - `surveys` - Primary CSAT/NPS analysis skill (detractors, promoters, trends)
 
 ## Commands
@@ -35,10 +35,7 @@ The plugin connects through the [WYRE MCP Gateway](https://mcp.wyre.ai) at `http
 
 ## Tools
 
-Provided by the Crewhu MCP server through the WYRE MCP Gateway:
-
-### Navigation
-- `crewhu_navigate`, `crewhu_back`, `crewhu_status`
+Provided by the Crewhu MCP server through the WYRE MCP Gateway. All 18 tools are listed directly — no navigation gating.
 
 ### Surveys
 - `crewhu_surveys_list`, `crewhu_surveys_get`, `crewhu_surveys_search`
