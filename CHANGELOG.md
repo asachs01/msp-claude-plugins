@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Subagent coverage for four previously thin plugins, bringing them to parity with the strongest sibling plugins. All content grounded in the real MCP server tool surface:
+  - `timezest`: +3 subagents (scheduling-dispatcher, psa-integration-specialist, booking-pipeline-auditor), +4 skills, +4 commands → 6 skills / 3 agents / 5 commands (v1.1.0)
+  - `immybot`: +3 subagents (software-deployment-orchestrator, endpoint-remediation-specialist, compliance-auditor), +4 skills, +5 commands → 6 skills / 3 agents / 6 commands (v1.1.0)
+  - `blackpoint`: +3 subagents (detection-investigator, alert-response-coordinator, exposure-analyst), +3 skills, +4 commands → 5 skills / 3 agents / 5 commands (v1.1.0)
+  - `sherweb`: +3 subagents (subscription-provisioner, billing-reconciler, customer-account-auditor) → 4 skills / 3 agents / 4 commands (v0.3.0)
+
 ### Fixed
 
 - Gateway URL drift: flipped `blackpoint`, `crewhu`, `immybot`, `timezest`, `threatlocker` plugin READMEs and `.mcp.json` files from `mcp.wyretechnology.com` to canonical `mcp.wyre.ai` (closes #73)

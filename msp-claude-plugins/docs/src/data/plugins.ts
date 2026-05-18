@@ -1322,7 +1322,11 @@ export const plugins: Plugin[] = [
       { name: 'subscriptions', description: 'Use this skill when working with Sherweb subscriptions - viewing subscriptions, changing quantities, license management, subscription lifecycle, and quantity change workflows.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Sherweb API and MCP tools - OAuth 2.0 client credentials authentication, token management, API endpoints, subscription key header, rate limits, error codes, scopes, Accept-Language support, and best practices.' }
     ],
-    agents: [],
+    agents: [
+      { name: 'billing-reconciler', description: 'Use this agent when an MSP needs to reconcile Sherweb distributor billing — reviewing payable charges for a billing period, drilling into individual charge details, separating Setup/Recurring/Usage charge types, verifying that billed quantities match active subscriptions, and calculating MSP margin between Sherweb cost and customer price.' },
+      { name: 'customer-account-auditor', description: 'Use this agent when an MSP needs a portfolio-wide health audit of its Sherweb customer accounts — enumerating all customers, checking accounts-receivable standing, correlating each customer\'s subscription footprint, and flagging accounts that are at financial or provisioning risk.' },
+      { name: 'subscription-provisioner', description: 'Use this agent when an MSP needs to provision, right-size, or audit Sherweb customer subscriptions — listing a customer\'s active subscriptions, looking up catalog products before ordering, planning seat-quantity changes, and walking quantity adjustments through Sherweb\'s confirmation flow.' }
+    ],
     commands: [
       { name: '/billing-summary', description: 'View payable charges for a Sherweb billing period with pricing breakdown' },
       { name: '/change-quantity', description: 'Change subscription seat/license quantity for a Sherweb customer' },
@@ -1436,17 +1440,31 @@ export const plugins: Plugin[] = [
     vendor: 'Blackpoint',
     description: 'Blackpoint Cyber / CompassOne MDR - tenants, assets, detections, vulnerabilities (dark web, external, scans)',
     category: 'security',
-    maturity: 'alpha',
+    maturity: 'production',
     features: [
-      'Incident Response'
+      'Asset Inventory',
+      'Incident Response',
+      'Multi Tenant Operations',
+      'Vulnerability Management'
     ],
     skills: [
+      { name: 'asset-inventory', description: 'Use this skill when working with Blackpoint Cyber (CompassOne) asset data — listing assets by class for a tenant, searching across classes, pulling asset detail, and walking parent/child/sibling relationships to build a blast-radius or topology view.' },
       { name: 'incident-response', description: 'Use this skill when investigating a Blackpoint Cyber detection — drilling from a tenant to its assets, walking the detection list, pulling vulnerability and dark-web context, and assembling an incident timeline.' },
+      { name: 'multi-tenant-operations', description: 'Use this skill when operating Blackpoint Cyber (CompassOne) at the MSP partner level — enumerating customer tenants, sweeping detections and vulnerabilities across all of them, spotting volume anomalies, and building per-tenant scorecards.' },
+      { name: 'vulnerability-management', description: 'Use this skill when analyzing Blackpoint Cyber (CompassOne) exposure data — host vulnerability findings filtered by CVE and exploitability, vulnerability scan history, dark-web credential and data leaks, and external internet-facing exposures.' },
       { name: 'api-patterns', description: 'Use this skill when working with the Blackpoint Cyber (CompassOne) MCP tools — Bearer token authentication, the partner-tenant-asset hierarchy, navigation tools, and the read-only tool surface across tenants, assets, detections, and vulnerabilities.' }
     ],
-    agents: [],
+    agents: [
+      { name: 'alert-response-coordinator', description: 'Use this agent when triaging the Blackpoint Cyber / CompassOne detection queue across one or many tenants — ranking open detections by severity and tenant impact, deciding what needs immediate escalation to the Blackpoint SOC versus routine follow-up, and producing a prioritized response plan.' },
+      { name: 'detection-investigator', description: 'Use this agent when investigating a Blackpoint Cyber / CompassOne MDR detection — reconstructing what fired, drilling from tenant to affected asset, mapping the asset\'s relationships to estimate blast radius, and cross-referencing vulnerabilities and dark-web exposure for context.' },
+      { name: 'exposure-analyst', description: 'Use this agent when assessing a tenant\'s attack-surface and exposure posture in Blackpoint Cyber / CompassOne — rolling up vulnerability findings, internet-facing external exposures, dark-web credential leaks, and scan coverage into a prioritized remediation view for QBRs, security reviews, or risk reporting.' }
+    ],
     commands: [
-      { name: '/search-detections', description: 'List recent Blackpoint Cyber detections for a tenant' }
+      { name: '/investigate-detection', description: 'Investigate a single Blackpoint Cyber / CompassOne detection end-to-end' },
+      { name: '/partner-overview', description: 'Portfolio-level Blackpoint Cyber / CompassOne rollup of detections and exposure across all tenants' },
+      { name: '/search-detections', description: 'List recent Blackpoint Cyber detections for a tenant' },
+      { name: '/tenant-exposure', description: 'Build a prioritized exposure report for a Blackpoint Cyber / CompassOne tenant' },
+      { name: '/triage-detections', description: 'Sweep and prioritize the open Blackpoint Cyber / CompassOne detection queue across tenants' }
     ],
     apiInfo: {
       baseUrl: '',
@@ -1469,7 +1487,7 @@ export const plugins: Plugin[] = [
     ],
     skills: [
       { name: 'surveys', description: 'Use this skill when working with Crewhu CSAT/NPS surveys — listing recent responses, drilling into a specific survey, isolating detractors and promoters for follow-up, and rolling responses up by user.' },
-      { name: 'api-patterns', description: 'Use this skill when working with the Crewhu MCP tools — token-based authentication via the `X-Crewhu-Api-Token` header, the navigation pattern (`crewhu_navigate`, `crewhu_back`, `crewhu_status`), read-heavy tool surface, and error handling.' }
+      { name: 'api-patterns', description: 'Use this skill when working with the Crewhu MCP tools — token-based authentication via the `X-Crewhu-Api-Token` header, read-heavy tool surface, pagination, and error handling.' }
     ],
     agents: [],
     commands: [
@@ -1490,16 +1508,33 @@ export const plugins: Plugin[] = [
     vendor: 'Immybot',
     description: 'ImmyBot - desired-state Windows software deployment, maintenance sessions, scripts (Entra ID OAuth)',
     category: 'rmm',
-    maturity: 'alpha',
+    maturity: 'production',
     features: [
-      'Software Deployment'
+      'Endpoint Management',
+      'Maintenance Sessions',
+      'Script Execution',
+      'Software Deployment',
+      'Tenant Compliance'
     ],
     skills: [
+      { name: 'endpoint-management', description: 'Use this skill when working with ImmyBot computers/endpoints — listing and filtering the managed fleet, searching by name or serial, inspecting installed-software inventory, reviewing which deployments target a device, creating new computer records, and forcing an agent check-in.' },
+      { name: 'maintenance-sessions', description: 'Use this skill when working with ImmyBot maintenance sessions — the reconciliation engine that brings endpoints into their desired state.' },
+      { name: 'script-execution', description: 'Use this skill when working with ImmyBot\'s PowerShell script library — searching scripts by name or category, validating script syntax, executing a script in SYSTEM context on a target computer, and reviewing execution history and results.' },
       { name: 'software-deployment', description: 'Use this skill when configuring desired-state software deployments in ImmyBot — picking the software, scoping the deployment to a tenant or computer, kicking off a maintenance session to reconcile, and checking compliance afterwards.' },
+      { name: 'tenant-compliance', description: 'Use this skill when working with ImmyBot tenants and fleet-wide reporting — listing and searching client organizations, pulling per-tenant compliance dashboards and software-inventory rollups, and auditing background task queues (running, queued, failed) to produce client-facing or operational status reports.' },
       { name: 'api-patterns', description: 'Use this skill when working with the ImmyBot MCP tools — Entra ID OAuth 2.0 client-credentials authentication (4 fields), the two-step desired-state deployment model, destructive operations that need explicit confirmation, and the task/session polling cadence.' }
     ],
-    agents: [],
+    agents: [
+      { name: 'compliance-auditor', description: 'Use this agent when an MSP needs a software-compliance audit across their ImmyBot-managed tenant portfolio — per-tenant compliance scorecards, failing-deployment analysis, software-inventory rollups, and task-queue health for QBR or operational reporting.' },
+      { name: 'endpoint-remediation-specialist', description: 'Use this agent when an MSP needs to diagnose and remediate a problem on ImmyBot-managed endpoints — investigating failed maintenance sessions and tasks, running remediation scripts, and re-reconciling affected computers.' },
+      { name: 'software-deployment-orchestrator', description: 'Use this agent when an MSP needs to plan and execute a software rollout through ImmyBot — staging desired-state deployments, piloting, triggering maintenance sessions, and confirming compliance.' }
+    ],
     commands: [
+      { name: '/compliance-report', description: 'Generate an ImmyBot software-compliance scorecard for a tenant or the whole fleet' },
+      { name: '/deploy-software', description: 'Stage and reconcile an ImmyBot desired-state software deployment to a tenant or computer' },
+      { name: '/list-computers', description: 'List and filter ImmyBot-managed computers, optionally scoped to a tenant' },
+      { name: '/maintenance-status', description: 'Show ImmyBot maintenance session status — active sessions, or detail and logs for a specific session' },
+      { name: '/run-script', description: 'Find and execute an ImmyBot PowerShell script on a target computer (destructive, SYSTEM context)' },
       { name: '/search-software', description: 'Search the ImmyBot software catalog (per-tenant + global)' }
     ],
     apiInfo: {
@@ -1517,17 +1552,33 @@ export const plugins: Plugin[] = [
     vendor: 'Timezest',
     description: 'TimeZest - tech scheduling against ConnectWise / Autotask / Halo PSA tickets',
     category: 'productivity',
-    maturity: 'alpha',
+    maturity: 'production',
     features: [
+      'Agents And Teams',
+      'Appointment Types',
+      'Psa Integration',
+      'Resources',
       'Scheduling'
     ],
     skills: [
+      { name: 'agents-and-teams', description: 'Use this skill to resolve the right bookable resource in TimeZest before creating a scheduling request — listing agents (individual technicians) and teams (round-robin / shared availability pools), fetching detail for a named resource, and deciding when to book an agent versus a team.' },
+      { name: 'appointment-types', description: 'Use this skill to pick the correct TimeZest appointment type for a scheduling request — listing the appointment types configured for the tenant, reading each type\'s duration, and matching the type to the work described on a ConnectWise / Autotask / Halo ticket.' },
+      { name: 'psa-integration', description: 'Use this skill to wire a TimeZest scheduling request into a PSA — building correct associatedEntities entries for ConnectWise, Autotask, or Halo tickets, choosing between the pod and generate_url trigger modes, and diagnosing bookings that completed but never updated the PSA ticket.' },
+      { name: 'resources', description: 'Use this skill to query TimeZest\'s combined resource pool — the unified list of agents and teams available for scheduling — when you want a survey of everything bookable before drilling into a specific agent or team, or when the dispatcher has not named a resource.' },
       { name: 'scheduling', description: 'Use this skill to book a technician against a ConnectWise / Autotask / Halo PSA ticket via TimeZest — resolving the right agent and appointment type, creating a scheduling request, polling its status, and canceling when needed.' },
       { name: 'api-patterns', description: 'Use this skill when working with the TimeZest MCP tools — Bearer token authentication, the navigation pattern, scheduling-request payloads that carry PSA associated_entities (ConnectWise / Autotask / Halo ticket IDs), and the polling-only update model (no webhooks).' }
     ],
-    agents: [],
+    agents: [
+      { name: 'booking-pipeline-auditor', description: 'Use this agent when reporting on the TimeZest scheduling pipeline — grouping requests by lifecycle state, finding stale requests waiting on customers, measuring booking conversion, and producing a dispatch-queue view across agents and teams.' },
+      { name: 'psa-integration-specialist', description: 'Use this agent when working with the link between TimeZest and a PSA — building correct associatedEntities payloads for ConnectWise / Autotask / Halo, auditing scheduling requests for missing or wrong PSA associations, reconciling TimeZest bookings against PSA tickets, and choosing pod vs generate_url trigger modes.' },
+      { name: 'scheduling-dispatcher', description: 'Use this agent when booking a technician against a PSA ticket through TimeZest — resolving the right agent or team, picking the correct appointment type, creating the scheduling request with the PSA association, and confirming the customer booking link was issued.' }
+    ],
     commands: [
-      { name: '/search-scheduling', description: 'List recent TimeZest scheduling requests, grouped by state' }
+      { name: '/book-tech', description: 'Book a TimeZest scheduling request for a technician against a PSA ticket' },
+      { name: '/resource-roster', description: 'List TimeZest bookable resources — agents, teams, and appointment types' },
+      { name: '/scheduling-pipeline', description: 'Produce a TimeZest scheduling pipeline report grouped by lifecycle state and resource' },
+      { name: '/search-scheduling', description: 'List recent TimeZest scheduling requests, grouped by state' },
+      { name: '/stale-requests', description: 'Find stale TimeZest scheduling requests still waiting on a customer to book' }
     ],
     apiInfo: {
       baseUrl: '',

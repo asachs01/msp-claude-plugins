@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "msp-claude-plugins",
   "description": "Community-driven Claude Code plugins for Managed Service Providers. Integrates with PSA, RMM, and documentation tools.",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "owner": {
     "name": "Aaron Sachs"
   },
@@ -541,7 +541,14 @@
       "description": "Kaseya VSA - endpoint monitoring, patch management, agent procedures, remote control (scaffolding)",
       "version": "0.1.0",
       "category": "rmm",
-      "tags": ["kaseya", "vsa", "rmm", "patch-management", "msp", "scaffolding"]
+      "tags": [
+        "kaseya",
+        "vsa",
+        "rmm",
+        "patch-management",
+        "msp",
+        "scaffolding"
+      ]
     },
     {
       "name": "datto-bcdr",
@@ -549,7 +556,16 @@
       "description": "Datto BCDR (SIRIS / Alto) - backup status, screenshot verification, recovery points (scaffolding)",
       "version": "0.1.0",
       "category": "bcdr",
-      "tags": ["kaseya", "datto", "bcdr", "backup", "siris", "alto", "msp", "scaffolding"]
+      "tags": [
+        "kaseya",
+        "datto",
+        "bcdr",
+        "backup",
+        "siris",
+        "alto",
+        "msp",
+        "scaffolding"
+      ]
     },
     {
       "name": "kaseya-bms",
@@ -557,7 +573,14 @@
       "description": "Kaseya BMS PSA - tickets, accounts, contracts, time entries, billing (scaffolding)",
       "version": "0.1.0",
       "category": "psa",
-      "tags": ["kaseya", "bms", "psa", "tickets", "msp", "scaffolding"]
+      "tags": [
+        "kaseya",
+        "bms",
+        "psa",
+        "tickets",
+        "msp",
+        "scaffolding"
+      ]
     },
     {
       "name": "datto-saas-protection",
@@ -565,7 +588,15 @@
       "description": "Datto SaaS Protection (Backupify) - M365 / Google Workspace cloud-to-cloud backup (scaffolding)",
       "version": "0.1.0",
       "category": "bcdr",
-      "tags": ["kaseya", "datto", "backupify", "saas-backup", "m365", "msp", "scaffolding"]
+      "tags": [
+        "kaseya",
+        "datto",
+        "backupify",
+        "saas-backup",
+        "m365",
+        "msp",
+        "scaffolding"
+      ]
     },
     {
       "name": "unitrends",
@@ -573,7 +604,14 @@
       "description": "Unitrends - appliances, backup jobs, recovery points, replication, alerts (scaffolding)",
       "version": "0.1.0",
       "category": "bcdr",
-      "tags": ["kaseya", "unitrends", "backup", "bcdr", "msp", "scaffolding"]
+      "tags": [
+        "kaseya",
+        "unitrends",
+        "backup",
+        "bcdr",
+        "msp",
+        "scaffolding"
+      ]
     },
     {
       "name": "spanning",
@@ -581,7 +619,15 @@
       "description": "Spanning Cloud Backup - SaaS backup for M365 / Google Workspace / Salesforce (scaffolding)",
       "version": "0.1.0",
       "category": "bcdr",
-      "tags": ["kaseya", "spanning", "saas-backup", "m365", "salesforce", "msp", "scaffolding"]
+      "tags": [
+        "kaseya",
+        "spanning",
+        "saas-backup",
+        "m365",
+        "salesforce",
+        "msp",
+        "scaffolding"
+      ]
     },
     {
       "name": "hubspot",
