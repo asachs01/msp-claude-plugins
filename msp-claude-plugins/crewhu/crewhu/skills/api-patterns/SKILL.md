@@ -1,17 +1,15 @@
 ---
 name: "Crewhu API Patterns"
-when_to_use: "When working with Crewhu authentication headers, pagination, navigation tools, or error handling for the Crewhu MCP server"
+when_to_use: "When working with Crewhu authentication headers, pagination, or error handling for the Crewhu MCP server"
 description: >
   Use this skill when working with the Crewhu MCP tools — token-based
-  authentication via the `X-Crewhu-Api-Token` header, the
-  navigation pattern (`crewhu_navigate`, `crewhu_back`, `crewhu_status`),
-  read-heavy tool surface, and error handling.
+  authentication via the `X-Crewhu-Api-Token` header, read-heavy tool
+  surface, pagination, and error handling.
 triggers:
   - crewhu api
   - crewhu authentication
   - crewhu pagination
   - crewhu mcp
-  - crewhu navigate
   - crewhu token
 ---
 
@@ -38,25 +36,19 @@ The gateway maps the environment variable `X_CREWHU_APITOKEN` onto the
 export X_CREWHU_APITOKEN="your-crewhu-api-token"
 ```
 
-## Navigation Tools
+## Tool Surface
 
-Crewhu provides three navigation/meta tools that complement the
-functional surface:
+All 18 tools are exposed flat via `tools/list` — there is no
+navigation gating. Tool names follow `crewhu_<domain>_<action>`
+across four domains:
 
-| Tool | Purpose |
-|------|---------|
-| `crewhu_navigate` | Discover available tool domains (surveys, users, badges, prizes) |
-| `crewhu_back` | Pop back to the prior navigation context |
-| `crewhu_status` | Health/status check for the Crewhu connection |
+- **surveys** (5): list, get, search, detractors, promoters
+- **users** (3): list, get, search
+- **badges** (5): list, get, history_list, user_recognition, update_contest
+- **prizes** (5): list, get, history_list, user_redemptions, pending_redemptions
 
-When you do not yet know which tool to call, start with
-`crewhu_navigate` to enumerate the available domains.
-
-## Functional Tool Surface
-
-Tools follow the `crewhu_<domain>_<action>` pattern. The four
-functional domains are surveys, users, badges, and prizes — see the
-domain skills for detail.
+Only `crewhu_badges_update_contest` performs writes; everything else
+is read-only.
 
 ## Pagination
 
