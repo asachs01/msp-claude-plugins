@@ -1,0 +1,58 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+---
+<DocsLayout title="Advanced Workflows" description="End-to-end automations built on the WYRE MCP Gateway — scheduled agents that combine multiple vendor tools into a single repeatable workflow.">
+  <h1>Advanced Workflows</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    The gateway's real power shows up when you stop calling tools one at a time and
+    start composing them. An <strong>advanced workflow</strong> is an agent that strings
+    several gateway tools together into a repeatable, often scheduled, end-to-end task —
+    triage a queue, reconcile billing, summarise alerts — with no servers to run and no
+    code to deploy.
+  </p>
+
+  <h2 id="what-makes-a-workflow">What makes a workflow</h2>
+  <p>
+    Every workflow in this section shares the same shape:
+  </p>
+  <ul>
+    <li><strong>A trigger</strong> — usually a Claude-managed scheduled routine running on a cron, occasionally an on-demand run.</li>
+    <li><strong>Gateway tools</strong> — the workflow reads and writes through MCP connectors; the gateway holds the credentials and does the vendor I/O.</li>
+    <li><strong>A prompt</strong> — the agent's logic lives entirely in a well-written prompt. That prompt <em>is</em> the workflow.</li>
+    <li><strong>A notification</strong> — the result is surfaced to a human, typically in Slack or back onto the source record.</li>
+  </ul>
+  <p>
+    Nothing here requires a hosted service. If you can connect the gateway and write a
+    clear prompt, you can build these.
+
+  </p>
+
+  <h2 id="workflows">Workflows</h2>
+  <p>
+    Each guide is self-contained — prerequisites, a copy-paste build prompt, the resulting
+    routine prompt, and the platform gotchas that will otherwise cost you an afternoon.
+  </p>
+  <ul>
+    <li>
+      <a href={`${baseUrl}advanced-workflows/autotask-ticket-triage/`}>Autotask Ticket Triage Agent</a>
+      &mdash; a scheduled agent that classifies new Autotask tickets by priority, advances
+      them to <em>In Progress</em>, and posts a summary to Slack.
+    </li>
+  </ul>
+  <p class="text-sm text-[var(--muted)]">
+    More workflows will be added here. Have one you'd like documented?
+    <a href="https://github.com/wyre-technology/msp-claude-plugins/issues" target="_blank" rel="noopener noreferrer">Open an issue</a>.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="before-you-start">Before you start</h2>
+  <p>
+    Workflows assume you already have a working gateway connection. If you don't, start
+    with the <a href={`${baseUrl}getting-started/quick-start/`}>Quick Start</a> and the
+    <a href={`${baseUrl}getting-started/gateway/`}>Gateway overview</a>, then come back here.
+  </p>
+</DocsLayout>

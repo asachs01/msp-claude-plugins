@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Docs: new **Advanced Workflows** section in the gateway docs, with its first guide — the Autotask Ticket Triage Agent (a Claude-managed scheduled agent that classifies new Autotask tickets by priority, advances them to In Progress, and notifies Slack)
 - Subagent coverage for four previously thin plugins, bringing them to parity with the strongest sibling plugins. All content grounded in the real MCP server tool surface:
   - `timezest`: +3 subagents (scheduling-dispatcher, psa-integration-specialist, booking-pipeline-auditor), +4 skills, +4 commands → 6 skills / 3 agents / 5 commands (v1.1.0)
   - `immybot`: +3 subagents (software-deployment-orchestrator, endpoint-remediation-specialist, compliance-auditor), +4 skills, +5 commands → 6 skills / 3 agents / 6 commands (v1.1.0)
