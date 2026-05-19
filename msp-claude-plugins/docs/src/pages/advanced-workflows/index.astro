@@ -66,6 +66,12 @@ const baseUrl = import.meta.env.BASE_URL;
       &mdash; a weekly scheduled agent that surfaces the week's Liongard configuration-change
       detections, groups them by system, and posts a drift digest to Slack as a canvas.
     </li>
+    <li>
+      <a href={`${baseUrl}advanced-workflows/billing-reconciler/`}>Billing Reconciler</a>
+      &mdash; a weekly, strictly read-only scheduled agent that reviews QuickBooks Online
+      for overdue invoices and billing anomalies, and posts a reconciliation report to
+      Slack as a canvas.
+    </li>
   </ul>
   <p class="text-sm text-[var(--muted)]">
     More workflows will be added here. Have one you'd like documented?

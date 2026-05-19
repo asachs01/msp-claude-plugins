@@ -1,0 +1,251 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+
+// Prompts kept as consts so literal braces / angle brackets render verbatim
+// (.astro treats { } as expressions — a const string sidesteps all escaping).
+const buildPrompt = `Build me a scheduled Billing Reconciler agent. Do all of this end to end:
+
+1. Confirm the WYRE MCP Gateway works and QuickBooks Online is reachable: call
+   qbo_status and check it reports credentials configured. QuickBooks here is a
+   single company file (WYRE's own books) — there is no per-tenant loop.
+2. Inspect the live invoice data so the routine is scoped sensibly. The
+   qbo_invoices_list payload is heavy — each invoice carries its full Line[]
+   array, billing/shipping addresses and tax detail (~2 KB per row). An
+   unbounded sweep drowns a routine run. Plan to request a bounded window:
+   status "Unpaid", a startDate ~120 days back, and maxResults 50, paging only
+   if a full page comes back.
+3. Confirm a Slack connector is connected. Note the destination channel name
+   and ID (#sw-dev, C0931CKJ75X). If Slack does not show in the /schedule
+   connector list, read its connector_uuid and url from an existing routine
+   that already uses Slack (RemoteTrigger list -> get -> mcp_connections).
+4. Create a Claude-managed scheduled routine named "Billing Reconciler":
+   - Schedule: weekly, cron "0 13 * * 1" (Monday 09:00 America/New_York =
+     13:00 UTC). Faster-than-hourly cadences are rejected.
+   - Attach TWO connectors, each with permitted_tools populated:
+       * WYRE MCP Gateway: qbo_status, qbo_invoices_list, qbo_invoices_get,
+         qbo_customers_list, qbo_reports_aged_receivables — READ tools only.
+         Do NOT list any qbo_*_create or qbo_*_update tool.
+       * Slack: slack_create_canvas, slack_send_message
+     An empty permitted_tools list = the routine runs with no tools.
+   - Routine prompt: every run, pull the bounded window of open invoices and
+     the aged-receivables report, flag overdue invoices and billing anomalies,
+     build a report, publish it as a Slack canvas, and post a one-line summary
+     linking the canvas. Use the exact routine prompt below.
+5. Confirm the API response echoes both connectors with the correct
+   permitted_tools (verify NO write tools are present) and the routine prompt
+   verbatim. Record the trig_... ID.`;
+
+const routinePrompt = `You are the Billing Reconciler for WYRE. You run weekly, READ-ONLY against QuickBooks Online (WYRE's single company file). You must NEVER create or modify any QuickBooks record — only read.
+
+Steps:
+1. Call qbo_status to confirm the QuickBooks connection is live. If it is not, post a short Slack message to #sw-dev saying the run was skipped because QuickBooks was unreachable, and stop.
+2. Call qbo_invoices_list with status "Unpaid", startDate set to 120 days before today, and maxResults 50 to pull a bounded window of recent open invoices. If 50 rows are returned, page with startPosition to capture the rest of the window. Each invoice row already carries DueDate, Balance, TotalAmt, CustomerRef (id and name), DocNumber, TxnDate and Line[]; you do not need qbo_invoices_get unless a row looks malformed and you need its line detail.
+3. Call qbo_reports_aged_receivables for the aging totals.
+4. Call qbo_customers_list if you need to resolve any customer name not already on an invoice.
+
+Flag two things:
+- OVERDUE: invoices whose DueDate is before today and whose Balance is greater than zero. Record customer name, invoice number (DocNumber), amount (Balance), and days late (today minus DueDate).
+- ANOMALIES: invoices that are zero-dollar (TotalAmt is 0), have no SalesItemLineDetail line items, or whose TotalAmt is materially out of line with that customer's other recent invoices in the window. Anything that looks wrong but cannot be confirmed from read-only data goes here for a human — never act on it.
+
+Build a report with an overdue section (customer, invoice #, amount, days late, sorted by days late descending) and an anomalies section (invoice #, customer, what looks wrong). Include totals: count and summed dollar amount of overdue invoices, and the aged-receivables grand total.
+
+Deliver:
+- Call slack_create_canvas titled "Billing Reconciliation - <today's date YYYY-MM-DD>" with the full report in Markdown.
+- Call slack_send_message to channel C0931CKJ75X (#sw-dev) with a one-line summary stating the total overdue amount and overdue invoice count, and a link to the canvas.
+
+This routine is strictly read-only: never call any qbo write or update tool. If the data is empty, say so plainly — do not fabricate invoices or amounts.`;
+---
+<DocsLayout title="Billing Reconciler" description="Build a Claude-managed scheduled agent that reviews QuickBooks Online every week for overdue invoices and billing anomalies, and posts a reconciliation report to Slack as a canvas — strictly read-only, no servers, no code.">
+  <h1>Billing Reconciler</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    A worked example of an <a href={`${baseUrl}advanced-workflows/`}>advanced workflow</a>:
+    a Claude-managed scheduled agent that, once a week, reads WYRE's QuickBooks Online
+    books, flags invoices that are past due or look anomalous, and publishes a
+    reconciliation report to Slack as a canvas with a one-line summary. It is strictly
+    <strong>read-only</strong> — it never writes to QuickBooks. No servers, no code, no
+    deployment — the agent is a saved prompt plus a schedule plus two MCP connectors,
+    running in Claude's cloud.
+  </p>
+
+  <h2 id="what-it-builds">What it builds</h2>
+  <p>
+    The finished workflow runs unattended on a weekly cron. Each run it pulls a bounded
+    window of open invoices and the aged-receivables report, reasons about which
+    invoices are overdue and which look wrong, and notifies your team — turning a
+    spreadsheet review into a single billing-reconciliation report with a Slack trail.
+    Anything that looks off but cannot be confirmed from read-only data is surfaced for
+    a human rather than acted on.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="prerequisites">Prerequisites</h2>
+  <p>Before building, your Claude account needs all of the following:</p>
+  <table>
+    <thead>
+      <tr><th>Requirement</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>WYRE MCP Gateway connector</strong></td>
+        <td>Connected in claude.ai (<code>https://mcp.wyre.ai/v1/mcp</code>). Provides the <code>qbo_*</code> tools. See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway overview</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>QuickBooks Online enabled in the gateway</strong></td>
+        <td>The gateway's QuickBooks Online connection must be able to <strong>read</strong> invoices, customers and reports. The routine uses only read tools — no write scope is required.</td>
+      </tr>
+      <tr>
+        <td><strong>Slack connector</strong></td>
+        <td>The first-party Slack connector connected in claude.ai (<code>https://mcp.slack.com/mcp</code>). Provides <code>slack_create_canvas</code> and <code>slack_send_message</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Scheduled routines access</strong></td>
+        <td>Created via the <code>/schedule</code> capability; managed at <a href="https://claude.ai/code/routines" target="_blank" rel="noopener noreferrer">claude.ai/code/routines</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>A destination Slack channel</strong></td>
+        <td>e.g. <code>#sw-dev</code> (ID <code>C0931CKJ75X</code>). The Slack connector must have access to it.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="my-8" />
+
+  <h2 id="gotchas">Known gotchas</h2>
+  <p>
+    These are the things that cost real time the first time through. Account for them
+    up front and the build genuinely takes minutes.
+  </p>
+  <ul>
+    <li>
+      <strong>This workflow is deliberately read-only — keep it that way.</strong> The
+      gateway's QuickBooks connector exposes <code>qbo_*_create</code> and
+      <code>qbo_*_update</code> tools, but the routine's <code>permitted_tools</code>
+      lists <em>none</em> of them — only <code>qbo_status</code>,
+      <code>qbo_invoices_list</code>, <code>qbo_invoices_get</code>,
+      <code>qbo_customers_list</code> and <code>qbo_reports_aged_receivables</code>.
+      That is the safety guarantee: even a misbehaving run cannot alter the books.
+      When you extend the routine, never add a write tool.
+    </li>
+    <li>
+      <strong>The <code>qbo_invoices_list</code> payload is heavy — request a bounded
+      window.</strong> Each invoice record carries its full <code>Line[]</code> array,
+      billing and shipping addresses and tax detail — roughly 2 KB per row. An unbounded
+      sweep of every invoice ever raised swamps a single routine run. The routine asks
+      for <code>status</code> <code>"Unpaid"</code>, a <code>startDate</code> about 120
+      days back, and <code>maxResults</code> 50, paging with <code>startPosition</code>
+      only if a full page comes back. That window is wide enough to catch every open
+      and overdue invoice while keeping the run small.
+    </li>
+    <li>
+      <strong>Flag overdue from the list payload — don't fan out per invoice.</strong>
+      Each <code>qbo_invoices_list</code> row already carries <code>DueDate</code>,
+      <code>Balance</code>, <code>TotalAmt</code>, <code>CustomerRef</code> (with name)
+      and <code>Line[]</code>. Overdue detection (<code>DueDate</code> before today and
+      <code>Balance</code> &gt; 0) and the anomaly scan both run off that row.
+      <code>qbo_invoices_get</code> is a fallback for the rare malformed row, not a
+      per-invoice loop.
+    </li>
+    <li>
+      <strong>Faster-than-hourly cadences are rejected.</strong> The scheduler will not
+      accept a cron more frequent than once an hour. A weekly cron
+      (<code>0 13 * * 1</code>) is well within that limit.
+    </li>
+    <li>
+      <strong><code>permitted_tools</code> must be populated per connector.</strong> A
+      routine with a connector attached but an empty <code>permitted_tools</code> list
+      runs with <em>no tools</em> and silently does nothing — no error, no output. List
+      the exact tool names the routine needs.
+    </li>
+    <li>
+      <strong>A routine reaches only its attached connectors.</strong> The routine
+      sandbox blocks arbitrary network egress, so notifications must go through the
+      Slack connector's tools, not an outbound webhook. Attach every connector the
+      workflow touches.
+    </li>
+  </ul>
+
+  <hr class="my-8" />
+
+  <h2 id="build-prompt">The one-shot build prompt</h2>
+  <p>
+    With the connectors above in place, paste this to Claude. It confirms the gateway,
+    creates the routine, and confirms its configuration from the API response.
+  </p>
+  <pre class="not-prose"><code>{buildPrompt}</code></pre>
+
+  <hr class="my-8" />
+
+  <h2 id="routine-prompt">The resulting routine prompt</h2>
+  <p>
+    This is the lean prompt the build process installs into the scheduled routine itself.
+    Substitute your own destination channel if it is not <code>#sw-dev</code>.
+  </p>
+  <pre class="not-prose"><code>{routinePrompt}</code></pre>
+
+  <hr class="my-8" />
+
+  <h2 id="how-it-works">How it works</h2>
+  <h3>A weekly cadence, by design</h3>
+  <p>
+    Billing drift is a slow-moving signal — invoices age past their due dates over days
+    and weeks, not minutes. The routine runs every Monday morning so the
+    reconciliation report is waiting before the week's collections work starts. A weekly
+    cron is also kind to the API: one read sweep per week, not one per hour.
+  </p>
+  <h3>Overdue and anomalies, flagged from read data</h3>
+  <p>
+    An invoice is <strong>overdue</strong> if its <code>DueDate</code> is before today
+    and its <code>Balance</code> is still greater than zero; the report records how many
+    days late and the outstanding amount. An <strong>anomaly</strong> is an invoice that
+    is zero-dollar, has no line items, or whose total is materially out of line with that
+    customer's other recent invoices. Anything that looks wrong but cannot be confirmed
+    from read-only data goes under anomalies for a human — the routine never acts on it.
+  </p>
+  <h3>It reads a bounded window, not the whole ledger</h3>
+  <p>
+    Each <code>qbo_invoices_list</code> record carries its full <code>Line[]</code>
+    array, addresses and tax detail. Listing every invoice ever raised floods a single
+    routine run with that detail and the run never reaches the report. So the routine
+    requests a bounded window — unpaid invoices from roughly the last 120 days, 50 rows
+    per page — which is wide enough to hold every open and overdue invoice while keeping
+    the run small. Widening the window is a one-line change to the <code>startDate</code>
+    in the routine prompt.
+  </p>
+  <h3>Read-only by construction</h3>
+  <p>
+    The routine's QuickBooks connector is attached with a <code>permitted_tools</code>
+    list containing only read tools. The <code>qbo_*_create</code> and
+    <code>qbo_*_update</code> tools are simply not reachable from inside the routine, so
+    there is no path — accidental or otherwise — by which a run could change WYRE's
+    books. The safety guarantee lives in the connector configuration, not in the prompt.
+  </p>
+  <h3>Delivery is a Slack canvas plus a summary</h3>
+  <p>
+    The full overdue-and-anomaly report can be long, so the routine publishes it as a
+    Slack canvas — a durable document teammates can scroll and reference — and posts only
+    a one-line summary to the channel linking it. The channel stays readable; the detail
+    lives in the canvas. See <a href={`${baseUrl}advanced-workflows/delivery-adapters/`}>delivery adapters</a>
+    for other ways to surface a routine's output.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="extending">Extending it</h2>
+  <p>
+    The natural next step is to cross-check billing against delivered work: attach the
+    gateway's <code>autotask</code> connector and match invoices to PSA contracts and
+    tickets, so the report can also flag <em>unbilled</em> work — time and projects
+    delivered in Autotask with no corresponding QuickBooks invoice. That keeps the
+    read-only contract intact (Autotask tickets and contracts are read too) while
+    closing the loop from "what we billed" to "what we should have billed."
+  </p>
+  <p class="text-sm text-[var(--muted)]">
+    Questions or a workflow you'd like documented?
+    <a href="https://github.com/wyre-technology/msp-claude-plugins/issues" target="_blank" rel="noopener noreferrer">Open an issue</a>
+    in the <code>msp-claude-plugins</code> repository.
+  </p>
+</DocsLayout>
