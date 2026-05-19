@@ -1,6 +1,6 @@
 # Azure MCP Plugin
 
-Claude plugins for the **Azure MCP Server** — Microsoft's official MCP server (`mcr.microsoft.com/azure-sdk/azure-mcp`) for operating Azure resources in natural language.
+Claude plugins for the **Azure MCP Server** — Microsoft's official MCP server (`mcr.microsoft.com/azure-sdk/azure-mcp`) for observing Azure resources in natural language.
 
 This plugin orients Claude around the `azure-mcp` vendor as deployed in the **WYRE MCP Gateway**: a WYRE-built sidecar that runs the Azure MCP Server with per-tenant credential isolation. Each connecting MSP supplies its own Azure **service principal**, and the gateway scopes every request to that tenant.
 
