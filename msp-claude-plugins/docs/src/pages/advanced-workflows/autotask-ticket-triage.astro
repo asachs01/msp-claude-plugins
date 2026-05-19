@@ -1,0 +1,217 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+
+// Prompts kept as consts so literal braces / angle brackets render verbatim
+// (.astro treats { } as expressions — a const string sidesteps all escaping).
+const buildPrompt = `Build me a scheduled Autotask ticket-triage agent. Do all of this end to end:
+
+1. Confirm the WYRE MCP Gateway works: call autotask_test_connection.
+2. Discover this Autotask tenant's IDs ONCE now (do not bake list_* calls into
+   the routine): call autotask_list_ticket_statuses and
+   autotask_list_ticket_priorities. Record the "New" and "In Progress" status
+   IDs and the four priority IDs (Critical/High/Medium/Low).
+3. Slack: confirm a Slack connector is connected. Get its connector_uuid and
+   url - if it does not show in the /schedule connector list, read it from an
+   existing routine that already uses Slack (RemoteTrigger list -> get ->
+   mcp_connections). Note the destination channel name + ID.
+4. Create a Claude-managed scheduled routine named "Autotask Ticket Triage":
+   - Schedule: hourly (cron "0 * * * *"). Faster cadences are rejected.
+   - Attach TWO connectors, each with permitted_tools populated:
+       * WYRE MCP Gateway: autotask_search_tickets, autotask_get_ticket_details,
+         autotask_update_ticket
+       * Slack: slack_send_message
+     An empty permitted_tools list = the routine runs with no tools.
+   - Routine prompt: every run, find status-New tickets; for each, read details,
+     classify PRIORITY by the rubric below, call autotask_update_ticket once to
+     set priority AND move status to In Progress, then slack_send_message a
+     one-line summary to the channel. Do NOT call any list_* tools - the IDs
+     are baked in. On update failure, leave the ticket New and post a
+     "needs a human" message instead. Never skip silently.
+5. Create one test ticket at status New, trigger a manual run, and verify:
+   ticket moved to In Progress + reprioritised, one Slack message posted, and a
+   second run does not re-process it.
+
+Priority rubric:
+- Critical: server/site down, multiple users affected, or security incident.
+- High: a single user fully blocked from working.
+- Medium: service degraded but the user can still work.
+- Low: requests, questions, cosmetic issues.
+When torn between two priorities, pick the lower-severity one.`;
+
+const routinePrompt = `You are the Autotask ticket triage agent. You run once per hour. Keep it lean.
+
+Use ONLY: autotask_search_tickets, autotask_get_ticket_details,
+autotask_update_ticket, slack_send_message. Do NOT call any autotask list_*
+tools - all IDs are below.
+
+1. autotask_search_tickets with status = <New status ID>. If none, stop, post nothing.
+2. For EACH New ticket, one at a time:
+   a. autotask_get_ticket_details - read title, description, companyID, ticketNumber.
+   b. Classify PRIORITY: Critical (server/site down, multi-user, security);
+      High (one user fully blocked); Medium (degraded, still working);
+      Low (requests, questions, cosmetic). When torn, pick lower severity.
+   c. autotask_update_ticket once: set priority AND set status to In Progress
+      in the same call. The status change is the idempotency guard.
+   d. slack_send_message to the channel: a one-line triage summary. No @-mentions.
+3. If autotask_update_ticket fails, leave the ticket New and slack_send_message
+   a "needs a human" message instead. Never skip silently.`;
+---
+<DocsLayout title="Autotask Ticket Triage Agent" description="Build a Claude-managed scheduled agent that classifies new Autotask tickets by priority, advances them to In Progress, and posts a summary to Slack — no servers, no code.">
+  <h1>Autotask Ticket Triage Agent</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    A worked example of an <a href={`${baseUrl}advanced-workflows/`}>advanced workflow</a>:
+    a Claude-managed scheduled agent that, every hour, finds new Autotask support tickets,
+    classifies each by priority, writes the priority back, moves the ticket to
+    <em>In Progress</em>, and posts a one-line summary to a Slack channel. No servers,
+    no code, no deployment — the agent is a saved prompt plus a schedule plus two MCP
+    connectors, running in Claude's cloud.
+  </p>
+
+  <h2 id="what-it-builds">What it builds</h2>
+  <p>
+    The finished workflow runs unattended on an hourly cron. Each run it pulls
+    untriaged tickets, reasons about severity from the ticket content, updates the
+    record in Autotask, and notifies your team — turning a queue of raw "New" tickets
+    into a prioritised, in-progress queue with a Slack trail.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="prerequisites">Prerequisites</h2>
+  <p>Before building, your Claude account needs all of the following:</p>
+  <table>
+    <thead>
+      <tr><th>Requirement</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>WYRE MCP Gateway connector</strong></td>
+        <td>Connected in claude.ai (<code>https://mcp.wyre.ai/v1/mcp</code>). Provides the <code>autotask_*</code> tools. See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway overview</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>Autotask enabled in the gateway</strong></td>
+        <td>The gateway's Autotask API user must be able to <strong>read and update</strong> tickets — priority and status.</td>
+      </tr>
+      <tr>
+        <td><strong>Slack connector</strong></td>
+        <td>The first-party Slack connector connected in claude.ai (<code>https://mcp.slack.com/mcp</code>). Provides <code>slack_send_message</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Scheduled routines access</strong></td>
+        <td>Created via the <code>/schedule</code> capability; managed at <a href="https://claude.ai/code/routines" target="_blank" rel="noopener noreferrer">claude.ai/code/routines</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>A destination Slack channel</strong></td>
+        <td>e.g. <code>#support-triage</code>, plus its channel ID. The Slack connector must have access to it.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="my-8" />
+
+  <h2 id="gotchas">Known gotchas</h2>
+  <p>
+    These are the things that cost real time the first time through. Account for them
+    up front and the build genuinely takes minutes.
+  </p>
+  <ul>
+    <li>
+      <strong>One-hour minimum cadence.</strong> Claude-managed routines reject any cron
+      faster than hourly — <code>*/5 * * * *</code> fails outright. Real-time triage
+      needs a separate webhook-triggered service and is out of scope for a routine.
+    </li>
+    <li>
+      <strong><code>permitted_tools</code> must be populated per connector.</strong> A
+      routine with a connector attached but an empty <code>permitted_tools</code> list
+      runs with <em>no tools</em> and silently does nothing — no error, no output. List
+      the exact tool names the routine needs.
+    </li>
+    <li>
+      <strong>The Slack connector is attachable, but won't appear in the
+      <code>/schedule</code> connector list.</strong> Don't conclude Slack is
+      unsupported. Read its <code>connector_uuid</code> and <code>url</code> from an
+      existing routine that already uses Slack (<code>RemoteTrigger</code> list → get →
+      <code>mcp_connections</code>).
+    </li>
+    <li>
+      <strong>Don't make the routine call <code>list_*</code> discovery tools every
+      run.</strong> Enumerating queues or categories is slow enough to hit the 60-second
+      tool timeout and stall the run. Discover the tenant's status and priority IDs
+      <em>once</em> at build time and bake them into the routine prompt.
+    </li>
+    <li>
+      <strong>Autotask IDs are tenant-specific.</strong> Status, priority, and queue IDs
+      differ per Autotask instance — discover them, never assume. Priority IDs are
+      typically <em>not</em> ordered by severity, so map by name.
+    </li>
+    <li>
+      <strong>Routine tool calls prompt for permission.</strong> Each new tool a routine
+      touches surfaces an approval. Pre-allow them in your client's permission settings
+      (an <code>mcp__&lt;server&gt;</code> rule allows every tool on that server) or click
+      "Always allow" as they appear.
+    </li>
+  </ul>
+
+  <hr class="my-8" />
+
+  <h2 id="build-prompt">The one-shot build prompt</h2>
+  <p>
+    With the connectors above in place, paste this to Claude. It discovers your tenant's
+    IDs, creates the routine, and verifies it end to end.
+  </p>
+  <pre class="not-prose"><code>{buildPrompt}</code></pre>
+
+  <hr class="my-8" />
+
+  <h2 id="routine-prompt">The resulting routine prompt</h2>
+  <p>
+    This is the lean prompt the build process installs into the scheduled routine itself.
+    Substitute your tenant's discovered status and priority IDs.
+  </p>
+  <pre class="not-prose"><code>{routinePrompt}</code></pre>
+
+  <hr class="my-8" />
+
+  <h2 id="how-it-works">How it works</h2>
+  <h3>Idempotency is structural</h3>
+  <p>
+    The agent only ever picks up tickets in the <em>New</em> status, and triaging a
+    ticket moves it to <em>In Progress</em>. That single status transition is both the
+    workflow signal and the "already handled" marker — the next run simply won't see
+    the ticket again. No database, no timestamp window, no dedupe logic.
+  </p>
+  <h3>The failure mode is a human, not a mistake</h3>
+  <p>
+    If the agent can't classify a ticket confidently, or an update call fails, it
+    leaves the ticket in <em>New</em> and posts a "needs a human" message to Slack
+    instead. A ticket is never silently skipped and never mis-prioritised without a
+    person being told.
+  </p>
+  <h3>Everything goes through MCP</h3>
+  <p>
+    A routine reliably reaches only the MCP connectors attached to it. That includes
+    notifications — use the Slack connector's <code>slack_send_message</code> tool, not
+    an outbound webhook. The routine sandbox blocks arbitrary network egress, so a
+    <code>curl</code> to a webhook URL will fail; a connector tool call will not.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="extending">Extending it</h2>
+  <p>
+    The example classifies <strong>priority</strong> and leaves queue and category
+    untouched, deliberately — enumerating those per run is what triggers the slow
+    <code>list_*</code> calls. To add queue or category routing, bake the queue and
+    category lists into the routine prompt the same way the status and priority IDs
+    are baked in. The same shape extends to other PSAs and to entirely different
+    queues — the gateway exposes the tools; the workflow is just the prompt.
+  </p>
+  <p class="text-sm text-[var(--muted)]">
+    Questions or a workflow you'd like documented?
+    <a href="https://github.com/wyre-technology/msp-claude-plugins/issues" target="_blank" rel="noopener noreferrer">Open an issue</a>
+    in the <code>msp-claude-plugins</code> repository.
+  </p>
+</DocsLayout>
