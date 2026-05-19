@@ -1,0 +1,268 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+
+// Prompts kept as consts so literal braces / angle brackets render verbatim
+// (.astro treats { } as expressions — a const string sidesteps all escaping).
+const buildPrompt = `Build me a scheduled M365 License Auditor agent. Do all of this end to end:
+
+1. Confirm the WYRE MCP Gateway works and CIPP is reachable: call
+   cipp_list_tenants and check it returns your managed Microsoft 365 tenants.
+2. Pick the tenants this audit should cover. cipp_list_licenses returns one
+   record per license SKU, and each record carries large AssignedUsers and
+   ServicePlans arrays - sweeping every tenant in one routine run is heavy.
+   If you manage more than ~15 tenants, choose a fixed set of about six and
+   record each tenant's tenantFilter (domain or ID). These get baked into the
+   routine prompt. With a modest tenant count you may keep it portfolio-wide.
+3. Confirm a Slack connector is connected. Note the destination channel name
+   and ID (e.g. #sw-dev). If Slack does not show in the /schedule connector
+   list, read its connector_uuid and url from an existing routine that already
+   uses Slack (RemoteTrigger list -> get -> mcp_connections).
+4. Create a Claude-managed scheduled routine named "M365 License Auditor":
+   - Schedule: monthly, cron "0 13 1 * *" (1st of the month, 09:00
+     America/New_York = 13:00 UTC). Faster-than-hourly cadences are rejected.
+   - Attach TWO connectors, each with permitted_tools populated:
+       * WYRE MCP Gateway: cipp_list_licenses
+       * Slack: slack_create_canvas, slack_send_message
+     An empty permitted_tools list = the routine runs with no tools.
+   - Routine prompt: every run, read license data for each baked-in tenant,
+     flag SKUs where purchased seats exceed assigned seats, estimate the
+     monthly waste with a stated assumed per-seat cost, build a report grouped
+     by tenant with a portfolio total, publish it as a Slack canvas, and post
+     a one-line summary linking the canvas. Use the exact routine prompt below,
+     with your own tenant filters.
+5. Trigger a manual run and verify: a canvas titled "M365 License Audit -
+   <month year>" was created, a one-line summary landed in the destination
+   channel, and the report content matches the live tenants (spot-check one).`;
+
+const routinePrompt = `You are the M365 License Auditor. You run monthly. Keep it lean.
+
+Use ONLY: cipp_list_licenses, slack_create_canvas, slack_send_message.
+Do NOT call cipp_list_tenants - the tenants are listed below.
+
+Tenants to audit (tenantFilter - name):
+- <tenant-id-1> - <tenant name 1>
+- <tenant-id-2> - <tenant name 2>
+- ... about six tenants total ...
+
+1. For each tenant above, call cipp_list_licenses with that tenantFilter. Each
+   record is one license SKU and carries: License/skuPartNumber (SKU name),
+   CountUsed (assigned seats), TotalLicenses (purchased seats), and
+   CountAvailable/availableUnits (unassigned seats). Ignore the large
+   AssignedUsers and ServicePlans arrays on each record - they are not needed.
+2. For each tenant, flag every SKU where TotalLicenses exceeds CountUsed. The
+   unassigned count for that SKU is TotalLicenses minus CountUsed (= wasted
+   seats). Skip SKUs that are fully assigned.
+3. Estimate monthly waste. Assume a typical per-seat cost of USD 20/month as a
+   blended rate across SKUs - STATE this assumption explicitly in the report;
+   do not look up or invent exact per-SKU pricing. Per-tenant waste = total
+   unassigned seats x USD 20. Portfolio waste = sum across tenants.
+4. Build a report grouped by tenant: tenant name, and for each flagged SKU the
+   SKU name, assigned seats, purchased seats, and unassigned count; then the
+   tenant's total unassigned seats and estimated monthly waste. End with a
+   portfolio total: total unassigned seats and total estimated monthly waste.
+   Include the line 'Estimate assumes a blended USD 20/seat/month; actual
+   per-SKU pricing varies.'
+5. slack_create_canvas titled "M365 License Audit - <current month and year>"
+   with the full grouped report. Then slack_send_message to #sw-dev
+   (channel ID C0931CKJ75X): a one-line summary ('M365 license audit: ~$N/mo
+   estimated waste across 6 tenants - see canvas') linking the canvas.
+6. If a tenant cannot be read, list it in a "could not check" section instead
+   of skipping it silently.`;
+---
+<DocsLayout title="M365 License Auditor" description="Build a Claude-managed scheduled agent that checks a set of Microsoft 365 tenants every month, flags unassigned licenses via CIPP, estimates the monthly waste, and posts a grouped report to Slack as a canvas — no servers, no code.">
+  <h1>M365 License Auditor</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    A worked example of an <a href={`${baseUrl}advanced-workflows/`}>advanced workflow</a>:
+    a Claude-managed scheduled agent that, once a month, reads the Microsoft 365 license
+    data for a fixed set of tenants through CIPP, flags every SKU with more seats
+    purchased than assigned, estimates the wasted spend, and publishes a tenant-by-tenant
+    report to Slack as a canvas with a one-line summary. No servers, no code, no
+    deployment — the agent is a saved prompt plus a schedule plus two MCP connectors,
+    running in Claude's cloud.
+  </p>
+
+  <h2 id="what-it-builds">What it builds</h2>
+  <p>
+    The finished workflow runs unattended on a monthly cron. Each run it reads the
+    license SKUs for each configured tenant, reasons about which ones have unassigned
+    seats, estimates the monthly waste at a stated blended per-seat cost, groups the
+    findings by tenant with a portfolio total, and notifies your team — turning scattered
+    license sprawl into a single waste report with a Slack trail.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="prerequisites">Prerequisites</h2>
+  <p>Before building, your Claude account needs all of the following:</p>
+  <table>
+    <thead>
+      <tr><th>Requirement</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>WYRE MCP Gateway connector</strong></td>
+        <td>Connected in claude.ai (<code>https://mcp.wyre.ai/v1/mcp</code>). Provides the <code>cipp_*</code> tools. See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway overview</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>CIPP enabled in the gateway</strong></td>
+        <td>The gateway's CIPP integration must be configured and able to <strong>read</strong> tenants and license data across your managed Microsoft 365 estate.</td>
+      </tr>
+      <tr>
+        <td><strong>Slack connector</strong></td>
+        <td>The first-party Slack connector connected in claude.ai (<code>https://mcp.slack.com/mcp</code>). Provides <code>slack_create_canvas</code> and <code>slack_send_message</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Scheduled routines access</strong></td>
+        <td>Created via the <code>/schedule</code> capability; managed at <a href="https://claude.ai/code/routines" target="_blank" rel="noopener noreferrer">claude.ai/code/routines</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>A destination Slack channel</strong></td>
+        <td>e.g. <code>#sw-dev</code>, plus its channel ID. The Slack connector must have access to it.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="my-8" />
+
+  <h2 id="gotchas">Known gotchas</h2>
+  <p>
+    These are the things that cost real time the first time through. Account for them
+    up front and the build genuinely takes minutes.
+  </p>
+  <ul>
+    <li>
+      <strong>CIPP is the license source — the Microsoft 365 connector cannot
+      enumerate licenses.</strong> The Microsoft 365 connector available to claude.ai
+      is search/read only — it surfaces mail, files, and calendar, but it cannot list
+      tenant license SKUs or seat counts. License auditing has to go through CIPP's
+      <code>cipp_list_licenses</code> on the gateway, which is why the routine attaches
+      the WYRE MCP Gateway connector rather than the Microsoft 365 one.
+    </li>
+    <li>
+      <strong>Scope the routine to a fixed set of tenants.</strong> WYRE's CIPP manages
+      33 Microsoft 365 tenants, and each <code>cipp_list_licenses</code> record carries
+      large <code>AssignedUsers</code> and <code>ServicePlans</code> arrays. Sweeping
+      every tenant in one routine run is heavy and risks the run drowning in payload
+      before it can finish — the same failure mode the Patch Drift Reporter hit. So this
+      routine is scoped to a fixed set of about six tenants whose combined license data
+      a run can comfortably hold, with their tenant filters baked into the prompt. With a
+      modest tenant count (under ~15) a single <code>cipp_list_tenants</code> call at the
+      top of the routine is acceptable instead.
+    </li>
+    <li>
+      <strong>Read seat counts from the list payload — ignore the heavy arrays.</strong>
+      Each <code>cipp_list_licenses</code> record already exposes <code>CountUsed</code>
+      (assigned), <code>TotalLicenses</code> (purchased), and <code>CountAvailable</code>
+      (unassigned). The <code>AssignedUsers</code> and <code>ServicePlans</code> arrays on
+      each record are not needed for the audit — the routine is told to ignore them.
+    </li>
+    <li>
+      <strong>The waste figure is an estimate with a stated assumption.</strong> The
+      routine does not look up exact per-SKU pricing — it applies one blended per-seat
+      cost (USD 20/month) and states that assumption in the report. Treat the dollar
+      figure as a directional signal, not an invoice.
+    </li>
+    <li>
+      <strong><code>permitted_tools</code> must be populated per connector.</strong> A
+      routine with a connector attached but an empty <code>permitted_tools</code> list
+      runs with <em>no tools</em> and silently does nothing — no error, no output. List
+      the exact tool names the routine needs.
+    </li>
+    <li>
+      <strong>Faster-than-hourly cadences are rejected.</strong> The routine scheduler
+      will not accept a cron more frequent than hourly. A monthly cron is well within
+      bounds — and the right cadence for license churn anyway.
+    </li>
+    <li>
+      <strong>A routine reaches only its attached connectors.</strong> The routine
+      sandbox blocks arbitrary network egress, so notifications must go through the
+      Slack connector's tools, not an outbound webhook. Attach every connector the
+      workflow touches.
+    </li>
+  </ul>
+
+  <hr class="my-8" />
+
+  <h2 id="build-prompt">The one-shot build prompt</h2>
+  <p>
+    With the connectors above in place, paste this to Claude. It confirms the gateway,
+    creates the routine, and verifies it end to end.
+  </p>
+  <pre class="not-prose"><code>{buildPrompt}</code></pre>
+
+  <hr class="my-8" />
+
+  <h2 id="routine-prompt">The resulting routine prompt</h2>
+  <p>
+    This is the lean prompt the build process installs into the scheduled routine itself.
+    Substitute your own tenant filters and destination channel.
+  </p>
+  <pre class="not-prose"><code>{routinePrompt}</code></pre>
+
+  <hr class="my-8" />
+
+  <h2 id="how-it-works">How it works</h2>
+  <h3>A monthly cadence, by design</h3>
+  <p>
+    License churn is slow — seats are added and removed over weeks as people join and
+    leave, not minute to minute. A monthly run on the 1st catches the previous month's
+    drift in time for the billing cycle, and a once-a-month sweep is kind to CIPP: one
+    pass per month, not one per hour.
+  </p>
+  <h3>Waste is unassigned seats times a stated per-seat cost</h3>
+  <p>
+    For each SKU the routine compares <code>TotalLicenses</code> (purchased) against
+    <code>CountUsed</code> (assigned); the difference is unassigned seats — licenses paid
+    for but not in use. It multiplies the unassigned total by one blended per-seat cost
+    (USD 20/month) to estimate monthly waste, and the report states that assumption
+    plainly: "Estimate assumes a blended USD 20/seat/month; actual per-SKU pricing
+    varies." The routine deliberately does not invent exact per-SKU prices — the goal is
+    a directional waste signal that is consistent month to month, not a precise invoice.
+  </p>
+  <h3>It covers a fixed set of tenants, not the whole portfolio</h3>
+  <p>
+    Each <code>cipp_list_licenses</code> record carries large <code>AssignedUsers</code>
+    and <code>ServicePlans</code> arrays. Across 33 managed tenants that payload swamps a
+    single routine run before it can finish. So the routine is scoped to a fixed set of
+    about six tenants whose combined license data a run can comfortably hold, with their
+    tenant filters baked into the prompt. A smaller portfolio could instead let the
+    routine call <code>cipp_list_tenants</code> once and loop everything.
+  </p>
+  <h3>Nothing is dropped silently</h3>
+  <p>
+    If a tenant's license data cannot be read — a CIPP refresh error, a lapsed delegated
+    admin relationship — the routine lists it in a "could not check" section rather than
+    omitting it. A tenant missing from the report always means a real gap, never a silent
+    skip.
+  </p>
+  <h3>Delivery is a Slack canvas plus a summary</h3>
+  <p>
+    The full tenant-by-tenant report can be long, so the routine publishes it as a Slack
+    canvas — a durable document teammates can scroll and reference — and posts only a
+    one-line summary to the channel with the portfolio total estimated waste, linking the
+    canvas. The channel stays readable; the detail lives in the canvas. See
+    <a href={`${baseUrl}advanced-workflows/delivery-adapters/`}>delivery adapters</a>
+    for other ways to surface a routine's output.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="extending">Extending it</h2>
+  <p>
+    The natural next step is to cross-reference assigned seats against account state:
+    a license assigned to a <em>disabled</em> user is waste that the purchased-vs-assigned
+    comparison alone misses. Adding <code>cipp_list_users</code> to the routine lets it
+    flag licenses held by disabled accounts as recoverable on top of the unassigned-seat
+    count. The workflow is also pricing-aware on request — swap the single blended rate
+    for a small per-SKU price map baked into the prompt to tighten the waste estimate;
+    the report-building and Slack-delivery body of the routine is identical.
+  </p>
+  <p class="text-sm text-[var(--muted)]">
+    Questions or a workflow you'd like documented?
+    <a href="https://github.com/wyre-technology/msp-claude-plugins/issues" target="_blank" rel="noopener noreferrer">Open an issue</a>
+    in the <code>msp-claude-plugins</code> repository.
+  </p>
+</DocsLayout>
