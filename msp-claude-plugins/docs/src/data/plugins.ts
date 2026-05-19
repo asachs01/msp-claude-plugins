@@ -1977,6 +1977,70 @@ export const plugins: Plugin[] = [
     },
     path: 'wyre-gateway',
     compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'microsoft-graph',
+    name: 'Microsoft Graph',
+    vendor: 'Microsoft-graph',
+    description: 'Microsoft Graph Enterprise MCP - read-only natural-language queries over Microsoft Entra identity and directory data: users, groups, applications, devices, and admin reporting (public preview)',
+    category: 'productivity',
+    maturity: 'beta',
+    features: [
+      'Connection',
+      'Querying'
+    ],
+    skills: [
+      { name: 'connection', description: 'Use this skill when connecting the Microsoft Graph MCP Server for Enterprise to the Wyre MCP Gateway — registering the BYOC multi-tenant Entra app, supplying tenantId/clientId/clientSecret, and (the part everyone misses) granting per-tenant admin consent for the MCP.* delegated permissions out of band.' },
+      { name: 'querying', description: 'Use this skill when answering identity or directory questions against a client\'s Microsoft Entra tenant via the Microsoft Graph MCP Server for Enterprise.' }
+    ],
+    agents: [
+      { name: 'entra-reporting-analyst', description: 'Use this agent when an MSP technician, service-desk analyst, account manager, or vCISO needs to answer questions about a client\'s Microsoft Entra (Azure AD) identity and directory data — user and license counts, MFA registration gaps, guest inventory, inactive accounts, app inventory, directory roles, sign-in activity.' }
+    ],
+    commands: [
+      { name: '/entra-audit', description: 'Run a read-only Microsoft Entra identity hygiene audit via the Graph Enterprise MCP — inactive user accounts, admins without MFA registered, unassigned/wasted licenses, and a guest user inventory' },
+      { name: '/entra-report', description: 'Conversational Microsoft Entra directory reporting via the Graph Enterprise MCP — license usage, user and group counts, application inventory, and directory composition, formatted for client check-ins and QBRs' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'microsoft-graph/microsoft-graph',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
+  },
+  {
+    id: 'azure-mcp',
+    name: 'Azure Mcp',
+    vendor: 'Azure-mcp',
+    description: 'Azure MCP Server - read-only Azure observability, cost, and resource-health analysis in natural language: monitoring, pricing, quota, advisor, resource health, diagnostics',
+    category: 'monitoring',
+    maturity: 'beta',
+    features: [
+      'Connection',
+      'Cost And Capacity',
+      'Observability'
+    ],
+    skills: [
+      { name: 'connection', description: 'Use this skill when connecting the azure-mcp vendor through the WYRE MCP Gateway — registering an Azure service principal, supplying tenantId/clientId/clientSecret, and granting least-privilege Reader-tier RBAC.' },
+      { name: 'cost-and-capacity', description: 'Use this skill for Azure cost, pricing, capacity, and inventory work through the azure-mcp connector — retail pricing lookups, subscription quota and usage-limit checks, and listing/inspecting subscriptions and resource groups.' },
+      { name: 'observability', description: 'Use this skill for Azure observability, diagnostics, and resource-health work through the azure-mcp connector — pulling Azure Monitor metrics, running Log Analytics KQL queries, checking alert state, reading Resource Health status, triaging AppLens diagnostics, and reviewing Azure Advisor recommendations.' }
+    ],
+    agents: [
+      { name: 'azure-ops-analyst', description: 'Use this agent when an MSP engineer, service manager, or cloud lead needs a read-only Azure operations investigation — resource health triage, cost and Azure Advisor analysis, quota/capacity headroom checks, and observability-posture reporting across subscriptions.' }
+    ],
+    commands: [
+      { name: '/azure-cost', description: 'Azure cost and pricing analysis for a subscription — Advisor cost recommendations, retail pricing lookups, and quota-driven right-sizing signals, scoped to one subscription' },
+      { name: '/azure-diagnostics', description: 'Resource health and diagnostics triage for an Azure resource or subscription — Resource Health status, AppLens deep diagnostics, and Azure Monitor alert state' }
+    ],
+    apiInfo: {
+      baseUrl: '',
+      auth: '',
+      rateLimit: '',
+      docsUrl: ''
+    },
+    path: 'azure-mcp/azure-mcp',
+    compatibility: { claudeCode: true, claudeDesktop: true, validated: false }
   }
 ];
 
