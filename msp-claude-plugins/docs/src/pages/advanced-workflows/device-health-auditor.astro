@@ -1,0 +1,258 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+
+// Prompts kept as consts so literal braces / angle brackets render verbatim
+// (.astro treats { } as expressions — a const string sidesteps all escaping).
+const buildPrompt = `Build me a scheduled Device Health Auditor agent. Do all of this end to end:
+
+1. Confirm the WYRE MCP Gateway works and Datto RMM is reachable: call
+   datto_list_sites and check it returns your managed sites.
+2. Pick the sites this audit should cover. Datto's datto_list_devices payload
+   carries a large per-device "udf" block (300 custom fields, mostly null), so
+   sweeping a big fleet in one routine run is not viable - the run drowns in
+   that payload. Choose a fixed set of about six sites and record each site's
+   siteUid. These siteUids get baked into the routine prompt.
+3. Confirm a Slack connector is connected. Note the destination channel name
+   and ID (e.g. #sw-dev). If Slack does not show in the /schedule connector
+   list, read its connector_uuid and url from an existing routine that already
+   uses Slack (RemoteTrigger list -> get -> mcp_connections).
+4. Create a Claude-managed scheduled routine named "Device Health Auditor":
+   - Schedule: daily, cron "0 12 * * *" (07:00 America/New_York = 12:00 UTC
+     in winter, 08:00 in summer). Faster-than-hourly cadences are rejected.
+   - Attach TWO connectors, each with permitted_tools populated:
+       * WYRE MCP Gateway: datto_list_devices
+       * Slack: slack_create_canvas, slack_send_message
+     An empty permitted_tools list = the routine runs with no tools.
+   - Routine prompt: every run, list devices for each of the baked-in sites,
+     flag devices with an antivirus problem, a stale check-in, or a pending
+     reboot, build a report grouped by site, and notify Slack. Use the exact
+     routine prompt below, with your own siteUids.
+5. Trigger a manual run and verify: if the fleet has concerns a canvas titled
+   "Device Health - <date>" was created and a one-line summary landed in the
+   destination channel; if the fleet is clean a single "all clear" line landed
+   in the channel and nothing else.`;
+
+const routinePrompt = `You are the Device Health Auditor. You run once a day. Keep it lean.
+
+Use ONLY: datto_list_devices, slack_create_canvas, slack_send_message.
+Do NOT call datto_list_sites - the sites are listed below.
+
+Sites to check (siteUid - name):
+- <site-uid-1> - <site name 1>
+- <site-uid-2> - <site name 2>
+- ... about six sites total ...
+
+1. For each site above, call datto_list_devices with that siteUid and max 200.
+2. For each device, read these fields only - ignore the large udf block.
+   A device is a CONCERN if any of:
+   - AV problem: the antivirus object is missing, or antivirus.antivirusStatus
+     is not "RunningAndUpToDate".
+   - Stale check-in: lastSeen (epoch ms) is more than 14 days before today.
+   - Reboot pending: rebootRequired is true.
+   List every concern that applies to a device.
+3. Build a report grouped by site: site name, total devices, concern count,
+   and each concerning device's hostname with its concern(s).
+4. If there are NO concerns anywhere, slack_send_message to #sw-dev a single
+   line: "Device health: all clear across 6 sites." Post nothing else.
+5. If there ARE concerns, slack_create_canvas titled "Device Health -
+   <today's date>" with the full grouped report, then slack_send_message to
+   #sw-dev a one-line summary ("Device health: N devices with concerns across
+   6 sites - see canvas") linking the canvas.
+6. If a site cannot be read, list it in a "could not check" section instead of
+   skipping it silently.`;
+---
+<DocsLayout title="Device Health Auditor" description="Build a Claude-managed scheduled agent that checks a set of Datto RMM sites every day, flags devices with antivirus, check-in, or reboot problems, and posts a grouped report to Slack — no servers, no code.">
+  <h1>Device Health Auditor</h1>
+
+  <p class="lead text-lg text-[var(--muted)] mb-8">
+    A worked example of an <a href={`${baseUrl}advanced-workflows/`}>advanced workflow</a>:
+    a Claude-managed scheduled agent that, once a day, lists the devices at a fixed set
+    of Datto RMM sites, checks each device's health, flags everything with an antivirus
+    problem, a stale check-in, or a pending reboot, and notifies your team — quietly when
+    the fleet is clean, with a Slack canvas when it is not. No servers, no code, no
+    deployment — the agent is a saved prompt plus a schedule plus two MCP connectors,
+    running in Claude's cloud.
+  </p>
+
+  <h2 id="what-it-builds">What it builds</h2>
+  <p>
+    The finished workflow runs unattended on a daily cron. Each run it lists the
+    devices at each of its configured sites, reasons about which ones are unhealthy,
+    groups the findings by site, and notifies your team — turning a scattered fleet
+    into a single device-health report with a Slack trail. When nothing is wrong it
+    posts one quiet "all clear" line and stops.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="prerequisites">Prerequisites</h2>
+  <p>Before building, your Claude account needs all of the following:</p>
+  <table>
+    <thead>
+      <tr><th>Requirement</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>WYRE MCP Gateway connector</strong></td>
+        <td>Connected in claude.ai (<code>https://mcp.wyre.ai/v1/mcp</code>). Provides the <code>datto_*</code> tools. See the <a href={`${baseUrl}getting-started/gateway/`}>Gateway overview</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>Datto RMM enabled in the gateway</strong></td>
+        <td>The gateway's Datto RMM API user must be able to <strong>read</strong> sites and devices.</td>
+      </tr>
+      <tr>
+        <td><strong>Slack connector</strong></td>
+        <td>The first-party Slack connector connected in claude.ai (<code>https://mcp.slack.com/mcp</code>). Provides <code>slack_create_canvas</code> and <code>slack_send_message</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Scheduled routines access</strong></td>
+        <td>Created via the <code>/schedule</code> capability; managed at <a href="https://claude.ai/code/routines" target="_blank" rel="noopener noreferrer">claude.ai/code/routines</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>A destination Slack channel</strong></td>
+        <td>e.g. <code>#sw-dev</code>, plus its channel ID. The Slack connector must have access to it.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="my-8" />
+
+  <h2 id="gotchas">Known gotchas</h2>
+  <p>
+    These are the things that cost real time the first time through. Account for them
+    up front and the build genuinely takes minutes.
+  </p>
+  <ul>
+    <li>
+      <strong>The <code>datto_list_devices</code> payload is heavy — scope the
+      routine to a fixed set of sites.</strong> Each device record carries a
+      <code>udf</code> block of 300 custom fields, almost all <code>null</code>. Across a
+      large fleet that bloat swamps a single routine run before it can finish — the run
+      produces no output. Until the gateway slims that payload, bake a fixed set of
+      roughly six site UIDs into the routine prompt rather than sweeping every site.
+    </li>
+    <li>
+      <strong>Read health fields from the list payload — don't call
+      <code>datto_get_device</code> per device.</strong> The
+      <code>datto_list_devices</code> record already contains <code>online</code>,
+      <code>lastSeen</code>, <code>rebootRequired</code> and an <code>antivirus</code>
+      object. One list call per site is all the routine needs; a per-device call across
+      the fleet risks the 60-second tool timeout.
+    </li>
+    <li>
+      <strong>Backup health is not on the gateway.</strong> Datto RMM exposes device
+      and patch data, but backup status lives in the separate Datto BCDR product, which
+      the gateway does not surface. This routine audits RMM device health only; a
+      backup monitor would need a different data source.
+    </li>
+    <li>
+      <strong><code>permitted_tools</code> must be populated per connector.</strong> A
+      routine with a connector attached but an empty <code>permitted_tools</code> list
+      runs with <em>no tools</em> and silently does nothing — no error, no output. List
+      the exact tool names the routine needs.
+    </li>
+    <li>
+      <strong>A routine reaches only its attached connectors.</strong> The routine
+      sandbox blocks arbitrary network egress, so notifications must go through the
+      Slack connector's tools, not an outbound webhook. Attach every connector the
+      workflow touches.
+    </li>
+  </ul>
+
+  <hr class="my-8" />
+
+  <h2 id="build-prompt">The one-shot build prompt</h2>
+  <p>
+    With the connectors above in place, paste this to Claude. It confirms the gateway,
+    creates the routine, and verifies it end to end.
+  </p>
+  <pre class="not-prose"><code>{buildPrompt}</code></pre>
+
+  <hr class="my-8" />
+
+  <h2 id="routine-prompt">The resulting routine prompt</h2>
+  <p>
+    This is the lean prompt the build process installs into the scheduled routine itself.
+    Substitute your own site UIDs and destination channel.
+  </p>
+  <pre class="not-prose"><code>{routinePrompt}</code></pre>
+
+  <hr class="my-8" />
+
+  <h2 id="how-it-works">How it works</h2>
+  <h3>A daily cadence, by design</h3>
+  <p>
+    Device health is a fast-moving signal — an antivirus engine can fall out of date, a
+    machine can drop off the network, or a pending reboot can pile up overnight. The
+    routine runs every morning so a fresh picture is waiting before the day's work
+    starts. Daily is the right cadence here: frequent enough to catch problems while
+    they still matter, still kind to the API at one sweep per day.
+  </p>
+  <h3>The green path stays quiet</h3>
+  <p>
+    When no device anywhere has a concern, the routine posts a single line — "Device
+    health: all clear across 6 sites." — and nothing else. No canvas, no noise. A clean
+    fleet should not produce a report a teammate has to open and scan to learn nothing
+    is wrong. The detailed canvas appears only when there is something to act on.
+  </p>
+  <h3>Three concern signals</h3>
+  <p>
+    A device is flagged as a concern if any of three things is true, and the report
+    lists every concern that applies:
+  </p>
+  <ul>
+    <li>
+      <strong>AV problem</strong> — the <code>antivirus</code> object is missing, or its
+      <code>antivirusStatus</code> is anything other than <code>RunningAndUpToDate</code>.
+      A device with no working, current antivirus is a security gap.
+    </li>
+    <li>
+      <strong>Stale check-in</strong> — <code>lastSeen</code> (an epoch-millisecond
+      timestamp) is more than 14 days before the run date. A machine that has not
+      checked in for two weeks is effectively unmanaged.
+    </li>
+    <li>
+      <strong>Reboot pending</strong> — <code>rebootRequired</code> is <code>true</code>.
+      Pending reboots block patches from finishing and leave the device in a half-applied
+      state.
+    </li>
+  </ul>
+  <h3>It covers a fixed set of sites, not the whole fleet</h3>
+  <p>
+    Each <code>datto_list_devices</code> record carries a 300-field <code>udf</code>
+    block that is almost entirely empty. Listing every device across a large fleet
+    floods a single routine run with that null data and the run never reaches the
+    report. So the routine is scoped to a fixed set of roughly six sites whose combined
+    device count a run can comfortably hold. Widening it to the whole fleet is a
+    gateway change — <code>datto_list_devices</code> needs to omit the <code>udf</code>
+    block — not a routine change.
+  </p>
+  <h3>Delivery is a Slack canvas plus a summary</h3>
+  <p>
+    The full site-by-site report can be long, so when there are concerns the routine
+    publishes it as a Slack canvas — a durable document teammates can scroll and
+    reference — and posts only a one-line summary to the channel linking it. The channel
+    stays readable; the detail lives in the canvas. See <a href={`${baseUrl}advanced-workflows/delivery-adapters/`}>delivery adapters</a>
+    for other ways to surface a routine's output.
+  </p>
+
+  <hr class="my-8" />
+
+  <h2 id="extending">Extending it</h2>
+  <p>
+    The natural next step is whole-fleet coverage: once the gateway's
+    <code>datto_list_devices</code> can return device records without the
+    <code>udf</code> block, the routine can drop the baked-in site list and call
+    <code>datto_list_sites</code> to sweep everything. From there, repeat offenders are
+    worth escalating — a device flagged on the same concern several days running could
+    open a PSA ticket through the gateway's <code>autotask</code> tools instead of just
+    appearing in the canvas again, turning a passive report into tracked remediation work.
+  </p>
+  <p class="text-sm text-[var(--muted)]">
+    Questions or a workflow you'd like documented?
+    <a href="https://github.com/wyre-technology/msp-claude-plugins/issues" target="_blank" rel="noopener noreferrer">Open an issue</a>
+    in the <code>msp-claude-plugins</code> repository.
+  </p>
+</DocsLayout>
