@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "auvik": {
+      "type": "http",
+      "url": "https://mcp.wyre.ai/v1/auvik/mcp",
+      "headers": {
+        "X-Auvik-Username": "${AUVIK_USERNAME}",
+        "X-Auvik-Api-Key": "${AUVIK_API_KEY}",
+        "X-Auvik-Region": "${AUVIK_REGION}"
+      }
+    }
+  }
+}

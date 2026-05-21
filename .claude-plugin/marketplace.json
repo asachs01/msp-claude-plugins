@@ -35,6 +35,20 @@
       ]
     },
     {
+      "name": "auvik",
+      "source": "./msp-claude-plugins/auvik/auvik",
+      "description": "Auvik - network monitoring, device inventory, alerts, configurations, capacity planning across tenants",
+      "version": "0.1.0",
+      "category": "network",
+      "tags": [
+        "auvik",
+        "network-monitoring",
+        "snmp",
+        "msp",
+        "rmm"
+      ]
+    },
+    {
       "name": "autotask",
       "source": "./msp-claude-plugins/kaseya/autotask",
       "description": "Kaseya Autotask PSA - tickets, CRM, projects, contracts, billing",
